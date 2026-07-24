@@ -1,0 +1,27 @@
+const jwt = require('jsonwebtoken')
+
+const verifyToken = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        return res.status(401).json({
+            success: false,
+            message: "Token tidak ditemukan"
+        })
+    }
+
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+        if (err) {
+            return res.status(403).json({
+                success: false,
+                message: "Token tidak valid"
+            })
+        }
+        req.user = decode
+
+        next();
+
+    })
+}
+module.exports = verifyToken

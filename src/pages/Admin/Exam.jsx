@@ -1,0 +1,418 @@
+import AdminNavbar from "../../components/AdminNavbar"
+import { CiFileOn } from "react-icons/ci"
+import { useEffect, useState, useCallback } from "react"
+import { exportExcel } from "../../utils/export/exportExcel"
+import { MdNotificationsNone } from "react-icons/md"
+import { RxHamburgerMenu } from "react-icons/rx"
+import UserMenuDropdwn from "../../components/UserMenuDropdown"
+
+const MONTHS = [
+  { value: "1", label: "Januari" },
+  { value: "2", label: "Februari" },
+  { value: "3", label: "Maret" },
+  { value: "4", label: "April" },
+  { value: "5", label: "Mei" },
+  { value: "6", label: "Juni" },
+  { value: "7", label: "Juli" },
+  { value: "8", label: "Agustus" },
+  { value: "9", label: "September" },
+  { value: "10", label: "Oktober" },
+  { value: "11", label: "November" },
+  { value: "12", label: "Desember" },
+];
+
+const CURRENT_YEAR = new Date().getFullYear();
+const YEARS = Array.from({ length: 5 }, (_, i) => CURRENT_YEAR - i);
+
+const Exam = () => {
+    const [page, setPage] = useState(1)
+    const rowsPerPage = 5
+    const [laporan, setLaporan] = useState([])
+    const [tab, setTab] = useState("produk")
+    const [periode, setPeriode] = useState("semua")
+    const [bulan, setBulan] = useState("1")
+    const [tahun, setTahun] = useState(CURRENT_YEAR);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    // Panggil API laporan dengan parameter filter
+    const getLaporan = useCallback(async (tabName, filterOverride) => {
+        const p = filterOverride?.periode ?? periode;
+        const b = filterOverride?.bulan ?? bulan;
+        const t = filterOverride?.tahun ?? tahun;
+
+        setTab(tabName);
+        let url = `http://localhost:3000/api/laporan/${tabName}`;
+
+        if (p === "bulanan") {
+            url += `?periode=bulanan&bulan=${b}&tahun=${t}`;
+        } else if (p === "tahunan") {
+            url += `?periode=tahunan&tahun=${t}`;
+        }
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data.success) {
+                setLaporan(data.data);
+                return data.data;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, [periode, bulan, tahun]);
+
+    // Fetch data saat komponen mount
+    useEffect(() => {
+        getLaporan(tab);
+    }, []);
+
+    // Auto reload saat periode, bulan, atau tahun berubah
+    useEffect(() => {
+        getLaporan(tab);
+        setPage(1);
+    }, [periode, bulan, tahun, tab]);
+
+    const totalPages = Math.max(1, Math.ceil(laporan.length / rowsPerPage));
+    const pageItems = laporan.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
+    useEffect(() => {
+        if (page > totalPages) setPage(totalPages);
+    }, [page, totalPages]);
+
+    // Handler periode berubah
+    const handlePeriodeChange = (e) => {
+        const newPeriode = e.target.value;
+        setPeriode(newPeriode);
+        // Reset ke default saat pilih "semua"
+        if (newPeriode === "semua") {
+            setBulan("1");
+            setTahun(CURRENT_YEAR);
+        }
+    };
+
+    // ── Export handlers ──
+
+    const handleExportSAllProduk = async () => {
+        const dataLaporan = await getLaporan("produk");
+        exportExcel({
+            data: dataLaporan,
+            fileName: "semua Data produk",
+            columns: [
+                { label: 'No', key: "id_motor" },
+                { label: "Kategori", key: "nama_kategori" },
+                { label: "Tipe", key: "nama_tipe" },
+                { label: "Warna", key: "nama_warna" },
+                { label: "Harga", key: "harga" },
+                { label: "Stok", key: "stok" },
+            ]
+        });
+    };
+
+    const handleExportAllPengajuan = async () => {
+        const dataLaporanPengajuan = await getLaporan("pengajuanKredit");
+        exportExcel({
+            data: dataLaporanPengajuan,
+            fileName: "semua data pengajuan",
+            columns: [
+                { label: 'No', key: "id_pengajuan" },
+                { label: "Nama", key: "nama" },
+                { label: "No Headphone", key: "no_hp" },
+                { label: "Alamat", key: "alamat" },
+                { label: "Pekerjaan", key: "pekerjaan" },
+                { label: "Pengajuan", key: "nama_motor" },
+                { label: "Tanggal", key: "tanggal_pengajuan" },
+                { label: "Status", key: "status" },
+            ]
+        });
+    };
+
+    const handleExportContact = async () => {
+        const dataLaporanContact = await getLaporan("contact");
+        exportExcel({
+            data: dataLaporanContact,
+            fileName: "semua Data contact",
+            columns: [
+                { label: 'No', key: "id_message" },
+                { label: "Nama", key: "nama" },
+                { label: "Email", key: "email" },
+                { label: "Pesan", key: "pesan" },
+                { label: "No Headphone", key: "no_hp" },
+            ]
+        });
+    };
+
+    const handleExportAllTestimoni = async () => {
+        const dataLaporanTestimoni = await getLaporan("testimoni");
+        exportExcel({
+            data: dataLaporanTestimoni,
+            fileName: "semua Data testimoni",
+            columns: [
+                { label: 'No', key: "id_testimoni" },
+                { label: "Nama", key: "nama" },
+                { label: "Pekerjaan", key: "pekerjaan" },
+                { label: "Isi Testimoni", key: "isi_testimoni" },
+                { label: "Rating", key: "rating" },
+            ]
+        });
+    };
+
+    // ── Render helpers ──
+
+    const renderFilterSelects = () => (
+        <div className="flex items-center gap-2 flex-wrap">
+            {/* Periode select */}
+            <select
+                value={periode}
+                onChange={handlePeriodeChange}
+                className="h-10 px-4 rounded-full bg-white border border-white/20 text-sm text-gray-700"
+            >
+                <option value="semua">Semua Data</option>
+                <option value="bulanan">Bulanan</option>
+                <option value="tahunan">Tahunan</option>
+            </select>
+
+            {/* Bulan select — muncul hanya jika Bulanan */}
+            {periode === "bulanan" && (
+                <select
+                    value={bulan}
+                    onChange={(e) => setBulan(e.target.value)}
+                    className="h-10 px-3 rounded-full bg-white border border-white/20 text-sm text-gray-700"
+                >
+                    {MONTHS.map((m) => (
+                        <option key={m.value} value={m.value}>{m.label}</option>
+                    ))}
+                </select>
+            )}
+
+            {/* Tahun select — muncul jika Bulanan atau Tahunan */}
+            {(periode === "bulanan" || periode === "tahunan") && (
+                <select
+                    value={tahun}
+                    onChange={(e) => setTahun(Number(e.target.value))}
+                    className="h-10 px-3 rounded-full bg-white border border-white/20 text-sm text-gray-700"
+                >
+                    {YEARS.map((y) => (
+                        <option key={y} value={y}>{y}</option>
+                    ))}
+                </select>
+            )}
+        </div>
+    );
+
+    const renderPagination = () => (
+        <div className="px-6 py-3 flex items-center justify-end gap-3">
+            <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                Prev</button>
+            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+            <button
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                Next
+            </button>
+        </div>
+    );
+
+    return (
+        <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
+            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+                <div className='flex items-center justify-between p-4'>
+                    <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
+                        <RxHamburgerMenu size={24} />
+                    </button>
+                    <div className='flex items-center gap-2 ml-auto'>
+                        <button
+                            onClick={() => setIsNotificationOpen(true)}
+                            className='relative inline-flex items-center justify-center bg-gray-200 w-10 h-10 rounded-full hover:bg-gray-300 transition'
+                        >
+                            <MdNotificationsNone size={24} />
+                            <span className='absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white font-bold'>10</span>
+                        </button>
+                        <UserMenuDropdwn />
+                    </div>
+                </div>
+                <main className="flex-1 px-4 pb-6 overflow-x-hidden">
+                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
+                        <div>
+                            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Laporan & Export</h1>
+                            <p className="text-sm text-gray-500 mt-1">Export data dan laporan.</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            <button className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-full text-white text-xs font-medium transition" onClick={() => getLaporan("produk")}>Laporan Produk</button>
+                            <button className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-full text-white text-xs font-medium transition" onClick={() => getLaporan("pengajuanKredit")}>Laporan Pengajuan</button>
+                            <button className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-full text-white text-xs font-medium transition" onClick={() => getLaporan("contact")}>Laporan Contact</button>
+                            <button className="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-full text-white text-xs font-medium transition" onClick={() => getLaporan("testimoni")}>Laporan Testimoni</button>
+                        </div>
+                    </div>
+
+                    <div className="mt-2">
+                        {/* ── Tab: Produk ── */}
+                        {tab === "produk" && (
+                            <div className="mt-0 overflow-hidden bg-white shadow-sm">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Daftar Laporan Produk</p>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        {renderFilterSelects()}
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white/10 text-white px-3 shadow-sm transition hover:bg-white/20">
+                                            <CiFileOn size={18} />
+                                            <span className="text-xs">Export</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="min-w-[600px] w-full">
+                                        <thead className="bg-white">
+                                            <tr>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nama Motor</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Kategori</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tipe</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Warna</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Harga</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Stok</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white">
+                                            {pageItems.map((item) => (
+                                                <tr key={item.id_motor} className="transition hover:bg-slate-50">
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama_kategori}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama_tipe}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.warna}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.harga}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.stok}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {renderPagination()}
+                            </div>
+                        )}
+
+                        {/* ── Tab: Pengajuan Kredit ── */}
+                        {tab === "pengajuanKredit" && (
+                            <div className="overflow-hidden bg-white shadow-sm">
+                                <div className="flex items-center justify-between bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Daftar Laporan Pengajuan</p>
+                                    <button onClick={handleExportAllPengajuan} className="inline-flex h-10 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:shadow-md focus:ring-2 focus:ring-indigo-200">
+                                        <CiFileOn size={18} />
+                                        <span className="text-xs">Export</span>
+                                    </button>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="min-w-[600px] w-full">
+                                        <thead className="bg-white">
+                                            <tr>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nama</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">No HP</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Alamat</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Pekerjaan</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Motor</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tanggal</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white">
+                                            {pageItems.map((item) => (
+                                                <tr key={item.id_pengajuan} className="transition hover:bg-slate-50">
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.no_hp}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.alamat}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.pekerjaan}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.tanggal_pengajuan}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.status}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {renderPagination()}
+                            </div>
+                        )}
+
+                        {/* ── Tab: Contact ── */}
+                        {tab === "contact" && (
+                            <div className="overflow-hidden bg-white shadow-sm">
+                                <div className="flex items-center justify-between bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Daftar Laporan Contact</p>
+                                    <button onClick={handleExportContact} className="inline-flex h-10 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:shadow-md focus:ring-2 focus:ring-indigo-200">
+                                        <CiFileOn size={18} />
+                                        <span className="text-xs">Export</span>
+                                    </button>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="min-w-[600px] w-full">
+                                        <thead className="bg-white">
+                                            <tr>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nama</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Email</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Subjek</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Pesan</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">No HP</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white">
+                                            {pageItems.map((item) => (
+                                                <tr key={item.id_message} className="transition hover:bg-slate-50">
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.email}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.subjek}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.pesan}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.no_hp}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {renderPagination()}
+                            </div>
+                        )}
+
+                        {/* ── Tab: Testimoni ── */}
+                        {tab === "testimoni" && (
+                            <div className="overflow-hidden bg-white shadow-sm">
+                                <div className="flex items-center justify-between bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Daftar Laporan Testimoni</p>
+                                    <button onClick={handleExportAllTestimoni} className="inline-flex h-10 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:shadow-md focus:ring-2 focus:ring-indigo-200">
+                                        <CiFileOn size={18} />
+                                        <span className="text-xs">Export</span>
+                                    </button>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="min-w-[600px] w-full">
+                                        <thead className="bg-white">
+                                            <tr>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nama</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Pekerjaan</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Isi Testimoni</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Rating</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white">
+                                            {pageItems.map((item) => (
+                                                <tr key={item.id_testimoni} className="transition hover:bg-slate-50">
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.pekerjaan}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.isi_testimoni}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.rating}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {renderPagination()}
+                            </div>
+                        )}
+                    </div>
+                </main>
+            </div>
+        </div>
+    )
+}
+
+export default Exam

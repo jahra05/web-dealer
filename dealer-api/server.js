@@ -55,6 +55,6 @@ app.get("/api/test", verifyToken, (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log("server berjalan")
-})
+app.listen(process.env.PORT || 3000, () => {
+    console.log("server berjalan");
+});

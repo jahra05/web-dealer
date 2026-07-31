@@ -19,6 +19,8 @@ const contactRoutes = require("./routes/contactRoutes")
 const spesifikasiRoutes = require("./routes/spesifikasiRoutes")
 const warnaRoutes = require("./routes/warnaRoutes")
 const laporanStatus = require("./routes/laporanRoutes")
+const user = require('./routes/userRoutes')
+const footer = require('./routes/footerRoutes')
 
 const app = express();
 
@@ -39,6 +41,8 @@ app.use("/api/contact", contactRoutes)
 app.use("/api/spesifikasi", spesifikasiRoutes)
 app.use("/api/warna", warnaRoutes)
 app.use("/api/laporan", laporanStatus)
+app.use("/api/user", user)
+app.use("/api/footer", footer)
 
 app.get("/", (req, res) => {
     res.send("API Dealer Motor")

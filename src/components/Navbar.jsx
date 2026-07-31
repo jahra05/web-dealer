@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LeadModal from './LeadModal';
 
@@ -8,7 +8,27 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [infoStore, setInfoStore] = useState([])
+  const [logo, setLogo] = useState(null)
 
+
+
+  const getDataStore = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/footer");
+
+      const data = await response.json();
+      console.log('data footer', data)
+
+      setInfoStore(data.data[0])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getDataStore()
+  }, [])
   const [formData, setFormData] = useState({
     nama: "",
     email: "",
@@ -16,6 +36,8 @@ const Navbar = () => {
     subjek: "",
     pesan: ""
   });
+
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -89,6 +111,7 @@ const Navbar = () => {
     { label: 'Testimonials', id: 'kontak' },
   ];
 
+
   return (
     <>
       {/* ── Navbar ── */}
@@ -99,14 +122,19 @@ const Navbar = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
 
-              <div className="bg-primary p-1 rounded">
-                <svg viewBox="0 0 24 24" className="w-8 h-8 text-white fill-current">
+              {/* <div className="bg-primary p-1 rounded"> */}
+              {/* <svg viewBox="0 0 24 24" className="w-8 h-8 text-white fill-current">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                </svg>
-              </div>
+                </svg> */}
+              <img className='w-14 h-14 rounded-full object-cover'
+                src={logo ? URL.createObjectURL(logo) : `http://localhost:3000/uploads/${infoStore.logo}`} />
+              {/* </div> */}
               <div>
-                <h1 className="text-xl font-black text-gray-900 leading-tight">Daya Motor</h1>
-                <p className="text-[10px] font-bold text-gray-500 tracking-wider">DEALER RESMI HONDA</p>
+                {/* <h1 className="text-xl font-black text-gray-900 leading-tight">Daya Motor</h1> */}
+                <h1 className="text-xl font-black text-gray-900 leading-tight">{infoStore.nama_dealer}</h1>
+
+                {/* <p className="text-[10px] font-bold text-gray-500 tracking-wider">{infoStore.deskripsi}</p> */}
+                <p className="text-[10px] font-bold text-gray-500 tracking-wider">Dealer unggulan</p>
               </div>
             </Link>
 

@@ -40,7 +40,7 @@ const Login = () => {
     };
     return (
         <>
-            <div className="flex w-screen min-h-screen bg-[url(https://i.pinimg.com/1200x/a9/d4/83/a9d483e20c3790119bde426b54226eaf.jpg)] bg-no-repeat bg-cover bg-center justify-end">
+            <div className="flex w-full min-h-screen bg-[url(https://i.pinimg.com/1200x/a9/d4/83/a9d483e20c3790119bde426b54226eaf.jpg)] bg-no-repeat bg-cover bg-center justify-end">
                 <div className="relative flex-1 h-screen " >
                     <div className="absolute inset-0 bg-black/45 backdrop-blur-sm "
                         style={{
@@ -49,7 +49,7 @@ const Login = () => {
                         }}></div>
 
 
-                    <div className="relative z-10 flex  flex-col px-2 py-8 justify-start ml-12 h-full" >
+                    <div className="relative z-10 flex  flex-col px-6 md:px-12  py-8 justify-start  h-full" >
 
                         <div className="flex items-center space-x-2 flex-shrink-0 mt-4">
                             <div className="bg-primary p-1 rounded">
@@ -65,7 +65,7 @@ const Login = () => {
 
 
 
-                        <form className="w-[400px] flex flex-col gap-8 mt-24 " onSubmit={handleSubmit}>
+                        <form className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 " onSubmit={handleSubmit}>
                             <div>
                                 <h2 className="text-4xl font-bold  text-white items-center">Admin Login</h2>
                                 <p className='text-gray-300'>Welcome back! Please login first</p>
@@ -103,13 +103,13 @@ const Login = () => {
                             </div>
                         </form>
 
-                        <div className="absolute top-1/2 -translate-y-1/2 right-20 max-w-lg text-white">
+                        <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-20 max-w-lg text-white">
                             <div className='w-20 h-1 bg-red-600 rounded-full mb-6' ></div>
                             <span className="text-red-500 uppercase tracking-[6px] font-semibold">
                                 Honda Dealer
                             </span>
 
-                            <h1 className="text-6xl font-extrabold mt-4 leading-tight">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mt-4 leading-tight">
                                 Ride With <br /> Confidence
                             </h1>
 
@@ -141,7 +141,7 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <div className='w-[400px] text-white/70 mb-8'>
+                        <div className='w-full ma-w-[400px] text-white/70 mb-8'>
                             <div className='mt-1'>
                                 <h3 className='text-lg font-semibold'>Honda Dealer Management System</h3>
                                 <p className="text-sm mt-2 leading-6 text-gray-300">

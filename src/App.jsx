@@ -9,15 +9,15 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import KelolaProduk from './pages/Admin/KelolaProduk';
 import PengajuanKredit from './pages/Admin/PengajuanKredit';
 import Exam from './pages/Admin/Exam';
-import ManajemenUser from './pages/Admin/ManajemenUser';
 import ProtectedRoute from './components/ProtectedRoute';
 import Testimoni from './pages/Admin/Testimoni';
 import FaqAdmin from './pages/Admin/FaqAdmin';
 import PageMessage from './pages/Admin/PageMessage';
 import SimulasiKredit from './pages/Admin/SimulasiKredit';
-import ColorMotor from './pages/Admin/ColorMotor';
 import Spesifikasi from './pages/Admin/Spesifikasi';
 import Setting from './pages/Admin/Setting';
+import ManajemenUser from './pages/Admin/ManajemenUser';
+import PageForgatPassword from './pages/Admin/PageForgatPassword';
 
 function App() {
   return (
@@ -30,15 +30,15 @@ function App() {
         <Route path="/admin/dashboard" element={<ProtectedRoute> <AdminDashboard /></ProtectedRoute>} />
         <Route path="/admin/kelolaProduk" element={<ProtectedRoute><KelolaProduk /></ProtectedRoute>} />
         <Route path="/admin/spesifikasi" element={<ProtectedRoute><Spesifikasi /></ProtectedRoute>} />
-        <Route path="/admin/colorMotor" element={<ProtectedRoute><ColorMotor /></ProtectedRoute>} />
         <Route path="/admin/pengajuanKredit" element={<ProtectedRoute> <PengajuanKredit /> </ProtectedRoute>} />
         <Route path="/admin/simulasiKredit" element={<ProtectedRoute> <SimulasiKredit /> </ProtectedRoute>} />
-        <Route path="/admin/manageUser" element={<ProtectedRoute><ManajemenUser /></ProtectedRoute>} />
         <Route path="/admin/pagemessage" element={<ProtectedRoute><PageMessage /></ProtectedRoute>} />
         <Route path="/admin/testimoni" element={<ProtectedRoute><Testimoni /></ProtectedRoute>} />
         <Route path="/admin/faq" element={<ProtectedRoute><FaqAdmin /></ProtectedRoute>} />
         <Route path="/admin/exam" element={<ProtectedRoute><Exam /></ProtectedRoute>} />
+        <Route path="/admin/manageUser" element={<ProtectedRoute><ManajemenUser /></ProtectedRoute>} />
         <Route path="/admin/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
+        <Route path="/admin/forgatPassword" element={<PageForgatPassword />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
       </Routes>
     </Router>

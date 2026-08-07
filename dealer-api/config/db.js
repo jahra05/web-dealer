@@ -15,6 +15,7 @@ db.connect((err) => {
         console.log(err);
     } else {
         console.log("Database berhasil terhubung");
+        console.log("database ", process.env.DB_NAME, )
     }
 });
 

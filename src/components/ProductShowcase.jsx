@@ -85,7 +85,7 @@ const ProductShowcase = () => {
   };
 
   return (
-    <section id="produk" className="bg-gray-50 py-20">
+    <section id="produk" className="bg-gray-50 py-20 rounded-[40px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
           <motion.div

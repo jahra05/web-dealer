@@ -37,14 +37,11 @@ export default function UserMenuDropdwn() {
         }
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [isOpen]);
+
     const menuSelect = [
         { label: 'Logout', icon: LuLogOut, onclick: () => { localStorage.clear(); navigate("/admin/login") } },
         { label: 'Setting', icon: CiSettings, onclick: () => navigate('/admin/setting') }
     ]
-
-
-
-
 
     return (
         <div ref={dropdownRef} className="relative">
@@ -66,7 +63,6 @@ export default function UserMenuDropdwn() {
                 <div className="px-4 py-3 border-b border-gray-100">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                            {/* <BiUser size={22} className="text-gray-500" /> */}
                             <img src={`http://localhost:3000/uploads/${user.foto}`} className="rounded-full h-10 w-10 object-cover" />
                         </div>
                         <div className="min-w-0">
@@ -84,7 +80,7 @@ export default function UserMenuDropdwn() {
                             <button key={item.label} onClick={item.onclick}
                                 className="flex items-center w-full gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
                             >
-                                <Icon size={20} F />
+                                <Icon size={20} />
                                 <span className="text-ms">{item.label}</span>
                             </button>
                         )

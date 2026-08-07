@@ -47,6 +47,7 @@ export default function SettingProfileAdmin() {
     };
 
     const update = async () => {
+
         try {
             const response = await fetch(`http://localhost:3000/api/user/${user.id_user}`, {
                 method: "PUT",
@@ -67,7 +68,10 @@ export default function SettingProfileAdmin() {
 
     const SavePassword = async () => {
         try {
+            console.log("Password baru:", passwordBaru);
+
             const response = await fetch(`http://localhost:3000/api/user/${user.id_user}/password`, {
+
                 method: 'PUT',
                 headers: {
                     "Content-Type": 'application/json'

@@ -7,6 +7,7 @@ import { FaMessage, FaStar } from "react-icons/fa6";
 import { FaArrowCircleLeft, FaCheckCircle } from 'react-icons/fa';
 import { IoSend } from 'react-icons/io5';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import { tr } from 'framer-motion/client';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -15,15 +16,27 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const [infoContact, setInfoContact] = useState([])
 
   // Simulation State
   const [dp, setDp] = useState(2000000);
   const [tenor, setTenor] = useState(36);
   const [monthlyInstallment, setMonthlyInstallment] = useState(0);
   const [spek, setSpek] = useState([])
-  // const [warna, setWarna] = useState([])
+  const [warna, setWarna] = useState([])
 
+  const getWhatapps = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/footer");
 
+      const data = await response.json();
+
+      setInfoContact(data.data[0])
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
 
     const getMotorDetail = async () => {
@@ -65,7 +78,7 @@ const ProductDetail = () => {
     try {
 
       const response = await fetch(
-        `http://localhost:3000/api/spesifikasi/${id}` 
+        `http://localhost:3000/api/spesifikasi/${id}`
       );
 
       const data = await response.json();
@@ -80,21 +93,22 @@ const ProductDetail = () => {
     }
   };
 
-  // const getWarna = async () => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3000/api/warna/${id}`)
-  //     const data = await response.json()
+  const getWarna = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/warna/${id}`)
+      const data = await response.json()
 
-  //     if (data.success) {
-  //       setWarna(data.data)
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+      if (data.success) {
+        setWarna(data.data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     getSpesifikasi()
-    // getWarna()
+    getWarna()
+    getWhatapps()
   }, [])
 
   useEffect(() => {
@@ -135,8 +149,12 @@ const ProductDetail = () => {
 
   // const activeColor = bike.warna[selectedColorIndex];
 
+  // const openWhatsApp = () => {
+  //   const message = `halo admin honda, saya tertarik dengan unit ${bike.nama_motor}`
+  //   window.open(`https://wa.me/${infoContact.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
+  // };
   const openWhatsApp = () => {
-    window.open(`https://wa.me/6281234567890?text=Halo%20Admin%20Honda,%20saya%20tertarik%20dengan%20unit%20${bike.name}%20${bike.type}%20warna%20${activeColor.name}`, '_blank');
+    window.open('https://wa.me/6287769084385?text=Halo%20Admin%20Honda,%20saya%20tertarik%20dengan%20unit%20Honda%20Beat', '_blank');
   };
 
   return (
@@ -166,48 +184,102 @@ const ProductDetail = () => {
 
             <h4 className="font-black text-gray-900 mb-6 uppercase tracking-wider text-sm">Spesifikasi Utama</h4>
             {spek.map((item) => (
-              <div key={item.id_speksifikasi} className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚡</div>
+              <div key={item.id_speksifikasi} className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Kapasitas mesin</p>
                   <p className="text-xs font-bold text-gray-900">{item.kapasitas_mesin}</p>
                 </div>
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⛽</div>
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚡</div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Kapasitas mesin</p>
+                  <p className="text-xs font-bold text-gray-900">{item.kapasitas_mesin}</p>
+                </div> */}
+
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">tenaga</p>
                   <p className="text-xs font-bold text-gray-900">{item.tenaga}</p>
                 </div>
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⛽</div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">tenaga</p>
+                  <p className="text-xs font-bold text-gray-900">{item.tenaga}</p>
+                </div> */}
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">🥤</div>
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Torsi</p>
                   <p className="text-xs font-bold text-gray-900">{item.torsi}</p>
+                </div> */}
+
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Torsi</p>
+                  <p className="text-xs font-bold text-gray-900">{item.torsi}</p>
                 </div>
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
+
+
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Transmisi</p>
                   <p className="text-xs font-bold text-gray-900">{item.transmisi}</p>
                 </div>
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Transmisi</p>
+                  <p className="text-xs font-bold text-gray-900">{item.transmisi}</p>
+                </div> */}
+
+
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">berat</p>
                   <p className="text-xs font-bold text-gray-900">{item.berat}</p>
                 </div>
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">berat</p>
+                  <p className="text-xs font-bold text-gray-900">{item.berat}</p>
+                </div> */}
+
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Tinggi jok</p>
                   <p className="text-xs font-bold text-gray-900">{item.tinggi_jok}</p>
                 </div>
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Tinggi jok</p>
+                  <p className="text-xs font-bold text-gray-900">{item.tinggi_jok}</p>
+                </div> */}
+
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">kkapasitas tangki</p>
+                  <p className="text-xs font-bold text-gray-900">{item.kapasitas_tengki}</p>
+                </div> */}
+
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">kkapasitas tangki</p>
                   <p className="text-xs font-bold text-gray-900">{item.kapasitas_tengki}</p>
                 </div>
 
-                <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
+                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Mesin</p>
                   <p className="text-xs font-bold text-gray-900">{item.mesin}</p>
                 </div>
+
+
+                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Mesin</p>
+                  <p className="text-xs font-bold text-gray-900">{item.mesin}</p>
+                </div> */}
+
               </div>
             ))}
           </div>
@@ -223,7 +295,7 @@ const ProductDetail = () => {
               </p>
 
               <div className="mb-10">
-                {/* <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-4">
                   {warna.map((item) => (
                     <div
                       key={item.id_warna}
@@ -236,11 +308,11 @@ const ProductDetail = () => {
                         }}
                       />
 
-                      <span>{item.nama_warna}</span>
+                      {/* <span>{item.nama_warna}</span> */}
                     </div>
                   ))}
 
-                </div> */}
+                </div>
               </div>
 
               <div className="flex flex-wrap gap-4">

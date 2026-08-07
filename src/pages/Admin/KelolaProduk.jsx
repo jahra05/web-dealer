@@ -1,15 +1,16 @@
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState, useMemo, useEffect, useRef } from "react"
 import { defaultEasing } from "framer-motion"
 import AdminNavbar from "../../components/AdminNavbar"
 import NavTop from "../../components/NavTop"
-import { BiExport, BiSearch } from "react-icons/bi"
+import { BiExport, BiSearch, BiUpArrow } from "react-icons/bi"
 import { PiPlus } from "react-icons/pi"
 import { CiFileOn } from "react-icons/ci"
-import { MdDelete, MdNotificationsNone } from "react-icons/md"
+import { MdDelete, MdMoreHoriz, MdNotificationsNone } from "react-icons/md"
 import { FaEdit, FaSearch } from "react-icons/fa"
 import { exportExcel } from "../../utils/export/exportExcel"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import { RxHamburgerMenu } from "react-icons/rx"
+import { data } from "react-router-dom"
 
 const KelolaProduk = () => {
     const [page, setPage] = useState(1)
@@ -17,17 +18,56 @@ const KelolaProduk = () => {
     const [products, setProducts] = useState([]);
     const token = localStorage.getItem("token")
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalColor, setIsModalColor] = useState(false)
     const [kategori, setKategori] = useState([])
     const [tipe, setTipe] = useState([])
-    // const [varian, setVarian] = useState([])
+
+    const [openDrapMenu, setOpenDrapMenu] = useState(false)
+    const [warna, setWarna] = useState([])
+    const [editWarna, setEditWarna] = useState({
+        id_warna: "",
+        id_motor: "",
+        nama_warna: "",
+        kode_warna: ""
+    })
+    const [selectKategori, setSelectKategori] = useState("")
     const [isEdit, setIsEdit] = useState(false)
     const [editId, setEditId] = useState(null)
     const [search, setSearch] = useState("")
-    const [selectKategori, setSelectKategori] = useState("")
+    const [selectWarna, setSelectWarna] = useState("")
     const [isNotificationOpen, setIsNotificationOpen] = useState(false)
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const [isSidebarOpen, setIsSidebarOpen] = useState(null)
+    const dropdownRef = useRef(null);
 
 
+
+    const handleEditWarna = (item) => {
+        setEditWarna({
+            id_warna: item.id_warna,
+            id_motor: item.id_motor,
+            nama_warna: item.nama_warna,
+            kode_warna: item.kode_warna
+        })
+    }
+
+    const handleOpenColor = (idMotor) => {
+        setEditWarna({
+            id_warna: "",
+            id_motor: idMotor,
+            nama_warna: "",
+            kode_warna: "#000000"
+        })
+    }
+
+    const saveColor = () => {
+
+        if (editWarna.id_warna) {
+            updateWarna();
+        } else {
+            createWarna();
+        }
+
+    }
 
     const openModal = () => setIsModalOpen(true)
 
@@ -42,7 +82,6 @@ const KelolaProduk = () => {
         nama_motor: "",
         id_kategori: "",
         id_tipe: "",
-
         harga: "",
         stok: "",
         tahun: "",
@@ -51,6 +90,8 @@ const KelolaProduk = () => {
     });
 
     const resetForm = () => {
+        setListWarna([])
+        setInputWarna({ nama_warna: "", kode_warna: "#000000" })
         setFormData({
             nama_motor: "",
             id_kategori: "",
@@ -61,6 +102,109 @@ const KelolaProduk = () => {
             deskripsi: "",
             gambar: null
         })
+    }
+
+    const deleteWarna = async (id) => {
+        const comfirmDelete = window.confirm("yakin ingin menghaspu warna ini ? ")
+
+        if (!comfirmDelete) return;
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/warna/${id}`, {
+                method: 'DELETE'
+            })
+            const data = await response.json()
+
+            if (data.success) {
+                alert(data.message)
+                getWarna()
+            } else {
+                alert(data.message)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const createWarna = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/api/warna", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id_motor: editWarna.id_motor,
+                    nama_warna: editWarna.nama_warna,
+                    kode_warna: editWarna.kode_warna,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert(data.message);
+                getWarna();
+
+                setEditWarna({
+                    ...editWarna,
+                    id_warna: "",
+                    nama_warna: "",
+                    kode_warna: "#000000",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const updateWarna = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:3000/api/warna/${editWarna.id_warna}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id_motor: editWarna.id_motor,
+                        nama_warna: editWarna.nama_warna,
+                        kode_warna: editWarna.kode_warna,
+                    }),
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert(data.message);
+                getWarna();
+
+                setEditWarna({
+                    id_warna: "",
+                    id_motor: editWarna.id_motor,
+                    nama_warna: "",
+                    kode_warna: "#000000",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getWarna = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/warna`)
+            const data = await response.json()
+            console.log(data.data)
+            if (data.success) {
+                setWarna(data.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const getTipe = async () => {
@@ -101,6 +245,22 @@ const KelolaProduk = () => {
         }
     }
 
+    const handleWarna = () => {
+        if (!inputWarna.nama_warna.trim()) {
+            alert("nama warna diisi");
+            return
+        }
+
+        setListWarna((prev) => [...prev, inputWarna])
+        setInputWarna({ nama_warna: "", kode_warna: "#00000" })
+    }
+
+    const handleHapusWarna = (i) => {
+        setListWarna((prev) => prev.filter((_, i) => i !== i))
+    }
+
+
+
     const handleChangeData = (e) => {
         const { name, value } = e.target;
 
@@ -134,7 +294,7 @@ const KelolaProduk = () => {
         getMotor()
         getKategori()
         getTipe()
-        // getVarian()
+        getWarna()
     }, [])
 
     const handleExport = () => {
@@ -171,8 +331,9 @@ const KelolaProduk = () => {
             item.nama_motor.toLowerCase().includes(search.toLocaleLowerCase())
 
         const cocoKategori = selectKategori === "" || item.id_kategori == selectKategori;
+        const cockWarna = selectWarna === "" || warna.some((w) => w.id_motor === item.id_motor && w.id_warna == selectWarna);
 
-        return cocokSearch && cocoKategori
+        return cocokSearch && cocoKategori && cockWarna
 
     })
     const totalPages = Math.max(1, Math.ceil(filteredProducts.length / rowsPerPage))
@@ -198,6 +359,9 @@ const KelolaProduk = () => {
         dataForm.append("deskripsi", formData.deskripsi);
         dataForm.append("gambar", formData.gambar);
 
+        const warnamotor = warna.filter((w) => w.id_motor === item.id_motor)
+
+
         console.log(formData)
         try {
             const response = await fetch("http://localhost:3000/api/motor", {
@@ -208,9 +372,20 @@ const KelolaProduk = () => {
                 body: dataForm
             })
             const data = await response.json()
+            console.log(data)
             if (data.success) {
+
+
+                await fetch("http://localhost:3000/api/warna", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify
+                })
                 alert("produk berhasil ditambahkan");
                 getMotor()
+                getWarna()
                 closeModal()
                 resetForm()
             } else {
@@ -288,10 +463,10 @@ const KelolaProduk = () => {
             console.log(error)
         }
     }
+
     const handleEdit = (item) => {
         setIsEdit(true);
         setEditId(item.id_motor)
-
         setFormData({
             nama_motor: item.nama_motor,
             id_kategori: item.id_kategori,
@@ -302,8 +477,25 @@ const KelolaProduk = () => {
             deskripsi: item.deskripsi,
             gambar: item.gambar
         })
+        setEditWarna({
+            id_motor: item.id_motor,
+            id_warna: "",
+            nama_warna: "",
+            kode_warna: "#000000",
+        });
         openModal()
     }
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setOpenDrapMenu(false);
+            }
+        };
+        if (openDrapMenu) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [openDrapMenu]);
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
@@ -320,13 +512,6 @@ const KelolaProduk = () => {
                     </div>
 
                     <div className='flex items-center gap-2 self-end sm:self-auto'>
-                        <button
-                            onClick={() => setIsNotificationOpen(true)}
-                            className='relative inline-block bg-gray-200 w-10 h-10 p-2 rounded-full hover:bg-gray-300 transition'
-                        >
-                            <MdNotificationsNone size={24} className='position' />
-                            <p className='absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white font-semibold'>10</p>
-                        </button>
                         <UserMenuDropdwn />
                     </div>
                 </div>
@@ -383,12 +568,13 @@ const KelolaProduk = () => {
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Gambar</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Nama Motor</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Tipe</th>
+                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Harga</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Stok</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white">
+                                <tbody className="bg-white ">
                                     {pageItems.map((item) => (
                                         <tr key={item.id_motor} className="transition hover:bg-slate-50">
                                             <td className="px-4 py-4 whitespace-nowrap">
@@ -402,18 +588,49 @@ const KelolaProduk = () => {
                                             </td>
                                             <td className="px-4 py-4 text-sm font-medium text-slate-900 whitespace-nowrap">{item.nama_motor}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.nama_tipe}</td>
+                                            <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap flex items-center gap-4">
+
+
+                                                {warna
+                                                    .filter((w) => w.id_motor === item.id_motor)
+                                                    .map((w) => (
+                                                        <div key={w.id_warna} className="flex items-center gap-3">
+                                                            <div
+                                                                className="w-8 h-8 rounded-full border"
+                                                                style={{ backgroundColor: w.kode_warna }}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                            </td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">Rp {Number(item.harga).toLocaleString("id-ID")}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.stok}</td>
                                             <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div className="flex items-center gap-2">
-                                                    <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <FaEdit size={16} />
+                                                <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
+                                            </td>
+
+                                            {openDrapMenu === item.id_motor && (
+                                                <div ref={dropdownRef} className="absolute right-32 mt-12 w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
+                                                    <button onClick={() => {
+                                                        setEditWarna({
+                                                            id_motor: item.id_motor,
+                                                            id_warna: "",
+                                                            nama_warna: "",
+                                                            kode_warna: "#000000",
+                                                        });
+
+                                                        setIsModalColor(true);
+                                                    }} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                        🎨 <span>Kelola Warna</span>
                                                     </button>
-                                                    <button onClick={() => handleDelet(item.id_motor)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <MdDelete size={16} />
+
+                                                    <button onClick={() => handleEdit(item)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                        ✏️ <span>Edit Produk</span>
+                                                    </button>
+                                                    <button onClick={() => handleDelet(item.id_motor)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                        🗑️ <span>Hapus</span>
                                                     </button>
                                                 </div>
-                                            </td>
+                                            )}
                                         </tr>
                                     ))}
                                 </tbody>
@@ -436,6 +653,78 @@ const KelolaProduk = () => {
                             </button>
                         </div>
                     </div>
+
+
+                    {isModalColor && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
+                            <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                                <div className="px-6 py-5 border-b border-gray-100">
+                                    <div className="flex items-start justify-between gap-4">
+                                        <div>
+                                            <h2 className="text-lg font-bold text-gray-900">Tambah Produk</h2>
+                                            <p className="mt-0.5 text-sm text-gray-500">Isi color motor untuk ditampilkan di katalog.</p>
+                                        </div>
+                                        <button type="button" onClick={() => setIsModalColor(false)} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">✕</button>
+                                    </div>
+                                </div>
+
+                                <div className="px-6 py-8 grid gap-4 md:grid-cols-2 border-b border-gray-100 ">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Nama Color</label>
+                                        <input
+                                            value={editWarna.nama_warna}
+                                            onChange={(e) =>
+                                                setEditWarna({
+                                                    ...editWarna,
+                                                    nama_warna: e.target.value
+                                                })
+                                            }
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                                        <input
+                                            type="color"
+                                            value={editWarna.kode_warna}
+                                            onChange={(e) =>
+                                                setEditWarna({
+                                                    ...editWarna,
+                                                    kode_warna: e.target.value
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="px-6 py-5 grid gap-1 md:grid-cols-1">
+                                    <label className="block text-sm font-medium text-gray-700">List Color</label>
+                                    <div className="md:col-span-1 ">
+                                        {warna.filter((item) => item.id_motor === editWarna.id_motor).map((item) => (
+                                            <div key={item.id_warna} className="flex  justify-between items-center">
+                                                <div className="flex gap-3">
+                                                    <div className="w-6 h-6 rounded-full" style={{ backgroundColor: item.kode_warna }} />
+                                                    <span>{item.nama_warna}</span>
+                                                </div>
+                                                <div>
+                                                    <button onClick={() => handleEditWarna(item)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 mr-2"><FaEdit size={14} className="text-black/30 hover:text-red-700" /></button>
+                                                    <button onClick={() => deleteWarna(item.id_warna)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 "><MdDelete size={14} className="text-black/30 hover:text-red-700" /></button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
+                                    <button type="button" onClick={() => setIsModalColor(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
+                                    <button type="button" onClick={() => editWarna.id_warna ? updateWarna() : createWarna()} className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700">
+                                        {editWarna.id_warna ? "Update" : "Tambah"}
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    )}
 
                     {isModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={closeModal}>

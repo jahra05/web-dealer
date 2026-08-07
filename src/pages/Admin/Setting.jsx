@@ -29,7 +29,6 @@ export default function Setting() {
     const navSetting = [
         { path: "profile_delear", label: "Profile Delear" },
         { path: "profile_admin", label: "Profile Admin" },
-        // { path: "website", label: 'website' }
     ]
 
     const NavActiv = ({ item, isActive, onClick }) => (
@@ -130,10 +129,6 @@ export default function Setting() {
 
                     </>
                 )}
-
-                {/* {tabNav === "website" && (
-                    <p>page profile website</p>
-                )} */}
             </div >
         </>
     )

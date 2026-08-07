@@ -4,10 +4,13 @@ import { IoMdStar } from 'react-icons/io';
 
 const Testimonials = () => {
   const [testimoni, setTestimoni] = useState([])
+
   const getTestimoni = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/testimoni");
+
       const data = await response.json();
+      console.log(data.data)
 
       if (data.success) {
         setTestimoni(data.data);
@@ -20,11 +23,11 @@ const Testimonials = () => {
     getTestimoni();
   }, []);
   return (
-    <section className="bg-gray-50 py-20">
+    <section className="bg-gray-50 py-20 rounded-[40px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-black text-gray-900 mb-12">Testimoni Pembeli</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimoni.map((item) => (
             <div key={item.id_testimoni} className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex text-yellow-400 mb-4">

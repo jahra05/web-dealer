@@ -15,7 +15,9 @@ exports.up = async function (knex) {
     // Foreign key
     table.foreign('id_kategori', 'fk_tipe_kategori')
       .references('id_kategori')
-      .inTable('kategori');
+      .inTable('kategori')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
   });
 };
 

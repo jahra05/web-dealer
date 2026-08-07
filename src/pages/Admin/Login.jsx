@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -18,12 +17,13 @@ const Login = () => {
                     "Content-Type": 'application/json',
                 },
                 body: JSON.stringify({
-                    username,
+                    email,
                     password,
                 }),
             });
 
             const data = await response.json();
+            console.log(data)
 
             if (data.success) {
                 localStorage.setItem("token", data.token);
@@ -65,7 +65,8 @@ const Login = () => {
 
 
 
-                        <form className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 " onSubmit={handleSubmit}>
+                        {/* <form className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 " onSubmit={handleSubmit}> */}
+                        <div className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 ">
                             <div>
                                 <h2 className="text-4xl font-bold  text-white items-center">Admin Login</h2>
                                 <p className='text-gray-300'>Welcome back! Please login first</p>
@@ -75,7 +76,7 @@ const Login = () => {
                                 <label className="block mb-2 text-sm font-medium text-white">username</label>
                                 <div className='border-b-white relative '>
                                     <FaUser className="absolute left-4 top-6 text-gray-300" />
-                                    <input type="username" placeholder='Enter Your Username' value={username} onChange={(e) => setUsername(e.target.value)}
+                                    <input type="email" placeholder='Enter Your Username' value={email} onChange={(e) => setEmail(e.target.value)}
                                         className="mt-2 w-full rounded-xl bg-white/10 border border-white/20 px-10 py-3 text-white placeholder-gray-300 
                                         focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/40" />
                                 </div>
@@ -90,18 +91,18 @@ const Login = () => {
                                         focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/40" />
                                 </div>
                             </div>
-                            <div className='flex justify-between '>
-                                <div className='flex items-center gap-2'>
-                                    <input type='checkbox' />
-                                    <span className='text-white text-sm'>Remember me </span>
-                                </div>
-                                <button className='text-red-400 text-sm hover:underline'>Forgot Password ? </button>
-                            </div>
-                            <button type="submit" className="w-full mt-2 py-3 rounded-xl bg-red-600 font-semibold text-white transition-all duration-300 
+                            <div>
+                                <button className='text-red-400 text-sm hover:underline' onClick={() => navigate("/admin/forgatPassword")}>Forgot Password ? </button>
+                                <button onClick={handleSubmit} type="submit" className="w-full mt-2 py-3 rounded-xl bg-red-600 font-semibold text-white transition-all duration-300 
                             hover:bg-red-700 hover:scale-[1.02] hover:shadow-xl active:scale-95" >Login</button>
+                            </div>
+
+
                             <div>
                             </div>
-                        </form>
+                        </div>
+                        {/* </form> */}
+
 
                         <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-20 max-w-lg text-white">
                             <div className='w-20 h-1 bg-red-600 rounded-full mb-6' ></div>

@@ -42,18 +42,11 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center space-x-2 mb-6">
-              {/* <div className="bg-primary p-1 rounded">
-                <svg viewBox="0 0 24 24" className="w-6 h-6 text-white fill-current">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                </svg>
-              </div> */}
               <img className='w-14 h-14 rounded-full object-cover'
                 src={logo ? URL.createObjectURL(logo) : `http://localhost:3000/uploads/${footer.logo}`} />
-              <h2 className="text-xl font-black tracking-tight uppercase">{footer.nama_dealer}</h2>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               {footer.deskripsi}
-              {/* Dealer resmi Honda terpercaya. Melayani penjualan unit baru, suku cadang asli, dan servis resmi dengan standar kualitas terbaik. */}
             </p>
             <div className="flex space-x-4">
               {infoSosmed.map((item) => {
@@ -101,11 +94,9 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <FaMapMarkerAlt size={18} className="text-primary shrink-0" />
                 <span>{footer.alamat}</span>
-                {/* <span>Jl. Raya Honda No. 123, Jakarta Selatan</span> */}
               </li>
               <li className="flex items-center space-x-3">
                 <MdPhone size={18} className="text-primary shrink-0" />
-                {/* <span>0812-3456-7890</span> */}
                 <span>{footer.no_hp}</span>
               </li>
               <li className="flex items-center space-x-3">
@@ -128,7 +119,6 @@ const Footer = () => {
                 <div>
                   <p className="text-white font-bold">Senin - Jumat</p>
                   <p>{footer.jam_senin_jumat}</p>
-                  {/* <p>08:00 - 17:00 WIB</p> */}
                 </div>
               </li>
               <li className="flex items-start space-x-3">
@@ -136,7 +126,6 @@ const Footer = () => {
                 <div>
                   <p className="text-white font-bold">Sabtu - Minggu</p>
                   <p>{footer.jam_sabtu}</p>
-                  {/* <p>09:00 - 15:00 WIB</p> */}
                 </div>
               </li>
             </ul>
@@ -144,7 +133,6 @@ const Footer = () => {
         </div>
         <div className="rounded-2xl overflow-hidden border border-gray-800 shadow-lg">
           <iframe
-            // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126906.96349544464!2d106.7724285741699!3d-6.284411135451996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f2197678ad3d%3A0x103632997864c015!2sSouth%20Jakarta%2C%20South%20Jakarta%20City%2C%20Jakarta!5e0!3m2!1sen!2sid!4v1718615000000!5m2!1sen!2sid"
             src={footer.google_maps}
             width="100%"
             height="150"

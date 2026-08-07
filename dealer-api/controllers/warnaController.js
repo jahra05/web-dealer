@@ -58,6 +58,8 @@ const getAllWarna = (req, res) => {
 };
 
 const createWarna = (req, res) => {
+    console.log(req.body);
+
 
     const {
         id_motor,
@@ -96,44 +98,47 @@ const createWarna = (req, res) => {
 }
 
 const updateWarna = (req, res) => {
-
     const { id } = req.params;
-
-    const { id_motor, nama_warna, kode_warna } = req.body
+    const { id_motor, nama_warna, kode_warna } = req.body;
 
     const sql = `
-    
-            UPDATE warna
-            SET
-            id_motor=?,
-            nama_warna=?,
-            kode_warna=?
-        WHERE id_warna=?
+        UPDATE warna
+        SET
+            id_motor = ?,
+            nama_warna = ?,
+            kode_warna = ?
+        WHERE id_warna = ?
     `;
 
-    db.query(sql, [
-        id_motor,
-        nama_warna,
-        kode_warna,
-        id
-    ], (err, result) => {
+    db.query(
+        sql,
+        [id_motor, nama_warna, kode_warna, id],
+        (err, result) => {
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "warna tidak di temukan"
-            })
+            if (err) {
+                console.log("MYSQL ERROR:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Gagal update warna",
+                    error: err
+                });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Warna tidak ditemukan"
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "Berhasil update warna"
+            });
         }
-
-
-
-        res.json({
-            success: true,
-            message: "berhasil"
-        })
-    }
-    )
-}
+    );
+};
 
 const deleteWarna = (req, res) => {
 

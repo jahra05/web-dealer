@@ -7,6 +7,7 @@ import { MdEmail } from 'react-icons/md';
 
 const NotificationModal = ({ isOpen, onClose }) => {
     const [activeTab, setActiveTab] = useState('semua');
+    const [open, setOpen] = useState(false)
 
     const notifications = {
         semua: [
@@ -154,88 +155,98 @@ const NotificationModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl shadow-lg max-w-lg w-full max-h-96 flex flex-col overflow-hidden">
-                {/* Header */}
-                <div className="flex justify-between items-center px-6 py-4 border-b border-slate-200">
-                    <h2 className="text-xl font-bold text-gray-900">Notifikasi</h2>
-                    <button
-                        onClick={onClose}
-                        className="p-1 hover:bg-slate-100 rounded-full transition"
-                    >
-                        <MdClose size={24} />
-                    </button>
-                </div>
-
-                {/* Tabs */}
-                <div className="flex gap-2 px-6 py-3 border-b border-slate-200 overflow-x-auto">
-                    {[
-                        { key: 'semua', label: 'Semua' },
-                        { key: 'message', label: 'Chat' },
-                        { key: 'pengajuan', label: 'Pengajuan' },
-                        { key: 'produk', label: 'Produk' },
-                        { key: 'stock', label: 'Stock' },
-                    ].map((tab) => (
-                        <button
-                            key={tab.key}
-                            onClick={() => setActiveTab(tab.key)}
-                            className={`px-4 py-2 rounded-full whitespace-nowrap transition ${
-                                activeTab === tab.key
-                                    ? 'bg-indigo-600 text-white'
-                                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
-                        >
-                            {tab.label}
-                        </button>
-                    ))}
-                </div>
-
-                {/* Notification List */}
-                <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
-                    {currentNotifications.length === 0 ? (
-                        <div className="flex items-center justify-center h-full text-slate-500">
-                            <p>Tidak ada notifikasi</p>
-                        </div>
-                    ) : (
-                        currentNotifications.map((notif) => (
-                            <div
-                                key={notif.id}
-                                className={`p-4 rounded-2xl border transition cursor-pointer hover:shadow-md ${
-                                    notif.isNew
-                                        ? 'bg-indigo-50 border-indigo-200'
-                                        : 'bg-white border-slate-200'
-                                }`}
+        <>
+            <button onClick={() => setOpen(true)}
+                className="relative inline-flex items-center justify-center bg-gray-200 w-10 h-10 rounded-full hover:bg-gray-300 transition"
+            >
+                <MdNotificationsNone size={24} />
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white font-bold">10</span>
+            </button>
+            {isOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                    <div className="bg-white rounded-3xl shadow-lg max-w-lg w-full max-h-96 flex flex-col overflow-hidden">
+                        {/* Header */}
+                        <div className="flex justify-between items-center px-6 py-4 border-b border-slate-200">
+                            <h2 className="text-xl font-bold text-gray-900">Notifikasi</h2>
+                            <button
+                                onClick={onClose}
+                                className="p-1 hover:bg-slate-100 rounded-full transition"
                             >
-                                <div className="flex gap-3">
-                                    {renderIcon(notif.icon, notif.color)}
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-start justify-between gap-2">
-                                            <h3 className="text-sm font-semibold text-gray-900 truncate">
-                                                {notif.title}
-                                            </h3>
-                                            {notif.isNew && (
-                                                <div className="w-2 h-2 bg-indigo-600 rounded-full mt-1 flex-shrink-0"></div>
-                                            )}
-                                        </div>
-                                        <p className="text-xs text-slate-600 mt-1 line-clamp-2">{notif.desc}</p>
-                                        <p className="text-xs text-slate-500 mt-2">{notif.time}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    )}
-                </div>
+                                <MdClose size={24} />
+                            </button>
+                        </div>
 
-                {/* Footer */}
-                {currentNotifications.length > 0 && (
-                    <div className="px-6 py-3 border-t border-slate-200 bg-slate-50">
-                        <button className="w-full text-center text-sm font-semibold text-indigo-600 hover:text-indigo-700">
-                            Lihat Semua
-                        </button>
+                        {/* Tabs */}
+                        <div className="flex gap-2 px-6 py-3 border-b border-slate-200 overflow-x-auto">
+                            {[
+                                { key: 'semua', label: 'Semua' },
+                                { key: 'message', label: 'Chat' },
+                                { key: 'pengajuan', label: 'Pengajuan' },
+                                { key: 'produk', label: 'Produk' },
+                                { key: 'stock', label: 'Stock' },
+                            ].map((tab) => (
+                                <button
+                                    key={tab.key}
+                                    onClick={() => setActiveTab(tab.key)}
+                                    className={`px-4 py-2 rounded-full whitespace-nowrap transition ${activeTab === tab.key
+                                        ? 'bg-indigo-600 text-white'
+                                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                        }`}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Notification List */}
+                        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
+                            {currentNotifications.length === 0 ? (
+                                <div className="flex items-center justify-center h-full text-slate-500">
+                                    <p>Tidak ada notifikasi</p>
+                                </div>
+                            ) : (
+                                currentNotifications.map((notif) => (
+                                    <div
+                                        key={notif.id}
+                                        className={`p-4 rounded-2xl border transition cursor-pointer hover:shadow-md ${notif.isNew
+                                            ? 'bg-indigo-50 border-indigo-200'
+                                            : 'bg-white border-slate-200'
+                                            }`}
+                                    >
+                                        <div className="flex gap-3">
+                                            {renderIcon(notif.icon, notif.color)}
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <h3 className="text-sm font-semibold text-gray-900 truncate">
+                                                        {notif.title}
+                                                    </h3>
+                                                    {notif.isNew && (
+                                                        <div className="w-2 h-2 bg-indigo-600 rounded-full mt-1 flex-shrink-0"></div>
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-slate-600 mt-1 line-clamp-2">{notif.desc}</p>
+                                                <p className="text-xs text-slate-500 mt-2">{notif.time}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+
+                        {/* Footer */}
+                        {currentNotifications.length > 0 && (
+                            <div className="px-6 py-3 border-t border-slate-200 bg-slate-50">
+                                <button className="w-full text-center text-sm font-semibold text-indigo-600 hover:text-indigo-700">
+                                    Lihat Semua
+                                </button>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-        </div>
+                </div>
+            )}
+
+        </>
+
     );
 };
 

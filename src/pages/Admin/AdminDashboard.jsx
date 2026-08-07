@@ -7,6 +7,7 @@ import { RiWalletLine } from 'react-icons/ri';
 import { HiOutlineMail } from 'react-icons/hi';
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 import UserMenuDropdwn from '../../components/UserMenuDropdown';
+import NotificationModal from '../../components/NotificationModal';
 
 export default function AdminDashboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -70,12 +71,6 @@ export default function AdminDashboard() {
                     </button>
 
                     <div className="flex items-center gap-2 ml-auto">
-                        <button
-                            className="relative inline-flex items-center justify-center bg-gray-200 w-10 h-10 rounded-full hover:bg-gray-300 transition"
-                        >
-                            <MdNotificationsNone size={24} />
-                            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white font-bold">10</span>
-                        </button>
                         <UserMenuDropdwn />
                     </div>
                 </div>
@@ -223,7 +218,6 @@ export default function AdminDashboard() {
                                     ))}
                                 </div>
                             </div>
-
                             {/* Aktivitas Terbaru */}
                             <div className="rounded-2xl bg-white p-4 lg:p-6 shadow-sm border border-gray-100">
                                 <h2 className="text-sm font-semibold text-gray-900 mb-4">Aktivitas Terbaru</h2>

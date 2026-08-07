@@ -20,7 +20,9 @@ exports.up = async function (knex) {
     // Foreign key
     table.foreign('id_motor', 'fk_motor_spesifikasi')
       .references('id_motor')
-      .inTable('motor');
+      .inTable('motor')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
   });
 };
 

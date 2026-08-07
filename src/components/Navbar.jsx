@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [infoStore, setInfoStore] = useState([])
   const [logo, setLogo] = useState(null)
+  console.log('isi store', infoStore)
 
 
 
@@ -77,6 +78,7 @@ const Navbar = () => {
       if (data.success) {
         alert("Pesan berhasil dikirim.");
         setFormData({ nama: "", email: "", no_hp: "", subjek: "", pesan: "" });
+        setIsModalOpen(false)
       } else {
         alert(data.message);
       }
@@ -121,19 +123,10 @@ const Navbar = () => {
 
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-
-              {/* <div className="bg-primary p-1 rounded"> */}
-              {/* <svg viewBox="0 0 24 24" className="w-8 h-8 text-white fill-current">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                </svg> */}
               <img className='w-14 h-14 rounded-full object-cover'
                 src={logo ? URL.createObjectURL(logo) : `http://localhost:3000/uploads/${infoStore.logo}`} />
-              {/* </div> */}
               <div>
-                {/* <h1 className="text-xl font-black text-gray-900 leading-tight">Daya Motor</h1> */}
                 <h1 className="text-xl font-black text-gray-900 leading-tight">{infoStore.nama_dealer}</h1>
-
-                {/* <p className="text-[10px] font-bold text-gray-500 tracking-wider">{infoStore.deskripsi}</p> */}
                 <p className="text-[10px] font-bold text-gray-500 tracking-wider">Dealer unggulan</p>
               </div>
             </Link>
@@ -173,60 +166,7 @@ const Navbar = () => {
         </div >
 
         {/* ── Contact Modal ── */}
-        {
-          isModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-6" onClick={closeModal}>
-              <div className="w-full max-w-2xl rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-lg font-semibold text-slate-900">Tambah Produk</p>
-                    <p className="mt-1 text-sm text-slate-500">Isi data motor baru untuk ditampilkan di katalog.</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="rounded-full border border-slate-200 px-3 py-1 text-sm text-slate-600 transition hover:bg-slate-50"
-                  >
-                    ✕
-                  </button>
-                </div>
 
-                <div className="mt-6 grid gap-4 md:grid-cols-2">
-                  <div>
-                    <p className="mb-1 text-sm font-medium text-slate-700">Nama</p>
-                    <input type="text" name="nama" value={formData.nama} onChange={handleChange}
-                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                  </div>
-                  <div>
-                    <p className="mb-1 text-sm font-medium text-slate-700">Email</p>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange}
-                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                  </div>
-                  <div>
-                    <p className="mb-1 text-sm font-medium text-slate-700">No Headphone</p>
-                    <input type="number" name="no_hp" value={formData.no_hp} onChange={handleChange}
-                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                  </div>
-                  <div>
-                    <p className="mb-1 text-sm font-medium text-slate-700">Subjek</p>
-                    <input type="text" name="subjek" value={formData.subjek} onChange={handleChange}
-                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                  </div>
-                  <div>
-                    <p className="mb-1 text-sm font-medium text-slate-700">Pesan</p>
-                    <textarea type="text" name="pesan" value={formData.pesan} onChange={handleChange}
-                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                  </div>
-                </div>
-
-                <div className="mt-6 flex justify-end gap-3">
-                  <button type="button" onClick={closeModal} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50">Batal</button>
-                  <button type="button" onClick={handleSubmit} className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700">kirim</button>
-                </div>
-              </div>
-            </div>
-          )
-        }
       </nav >
 
       {/* ── Mobile/Tablet Off-Canvas Drawer ── */}
@@ -287,6 +227,60 @@ const Navbar = () => {
           </div>
         </nav>
       </aside>
+      {
+        isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-6" onClick={closeModal}>
+            <div className="w-full max-w-2xl rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-lg font-semibold text-slate-900">Contact Us</p>
+                  <p className="mt-1 text-sm text-slate-500">Silahkan kontak Kami dengan isi form dibawah!</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="rounded-full border border-slate-200 px-3 py-1 text-sm text-slate-600 transition hover:bg-slate-50"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                <div>
+                  <p className="mb-1 text-sm font-medium text-slate-700">Nama</p>
+                  <input type="text" name="nama" value={formData.nama} onChange={handleChange}
+                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-medium text-slate-700">Email</p>
+                  <input type="email" name="email" value={formData.email} onChange={handleChange}
+                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-medium text-slate-700">No Headphone</p>
+                  <input type="number" name="no_hp" value={formData.no_hp} onChange={handleChange}
+                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-medium text-slate-700">Subjek</p>
+                  <input type="text" name="subjek" value={formData.subjek} onChange={handleChange}
+                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-medium text-slate-700">Pesan</p>
+                  <textarea type="text" name="pesan" value={formData.pesan} onChange={handleChange}
+                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end gap-3">
+                <button type="button" onClick={closeModal} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50">Batal</button>
+                <button type="button" onClick={handleSubmit} className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700">kirim</button>
+              </div>
+            </div>
+          </div>
+        )
+      }
     </>
   );
 };

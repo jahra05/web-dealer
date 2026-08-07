@@ -128,13 +128,6 @@ const PengajuanKredit = () => {
                     </div>
 
                     <div className='flex items-center gap-2'>
-                        <button
-                            onClick={() => setIsNotificationOpen(true)}
-                            className='relative inline-flex items-center justify-center bg-gray-200 w-10 h-10 rounded-full hover:bg-gray-300 transition'
-                        >
-                            <MdNotificationsNone size={24} />
-                            <span className='absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white font-bold'>10</span>
-                        </button>
                         <UserMenuDropdwn />
                     </div>
                 </div>

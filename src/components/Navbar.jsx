@@ -12,6 +12,7 @@ const Navbar = () => {
   const [infoStore, setInfoStore] = useState([])
   const [logo, setLogo] = useState(null)
   console.log('isi store', infoStore)
+  const navigate = useNavigate()
 
 
 
@@ -112,7 +113,7 @@ const Navbar = () => {
     { label: 'Produk', id: 'produk' },
     { label: 'Simulasi Kredit', id: 'simulasi-kredit' },
     { label: 'Testimonials', id: 'kontak' },
-    { label: "Admin", id:'admin' }
+    { label: "Admin", id: 'admin' }
   ];
 
 
@@ -149,6 +150,12 @@ const Navbar = () => {
                 className="text-white font-bold text-sm bg-red-500 px-5 py-2.5 rounded-full hover:bg-red-600 transition-colors"
               >
                 Contact Us
+              </button>
+              <button
+                onClick={() => navigate("/admin/login")}
+                className="text-white font-bold text-sm bg-red-500 px-5 py-2.5 rounded-full hover:bg-red-600 transition-colors"
+              >
+                admin
               </button>
             </div>
 

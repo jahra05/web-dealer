@@ -80,7 +80,6 @@ const Footer = () => {
               <li><button onClick={() => document.getElementById('produk')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Produk</button></li>
               <li><button onClick={() => document.getElementById('simulasi-kredit')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Simulasi Kredit</button></li>
               <li><Link to="#" className="hover:text-primary transition-colors font-bold">Promo Terbaru</Link></li>
-              <li><Link to="/admin/login" className="hover:text-primary transition-colors font-bold">Admin</Link></li>
             </ul>
           </motion.div>
 

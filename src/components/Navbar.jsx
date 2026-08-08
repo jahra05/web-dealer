@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LeadModal from './LeadModal';
+import { label } from 'framer-motion/client';
 
 const Navbar = () => {
   const [selected, setSelected] = useState(null);
@@ -111,6 +112,7 @@ const Navbar = () => {
     { label: 'Produk', id: 'produk' },
     { label: 'Simulasi Kredit', id: 'simulasi-kredit' },
     { label: 'Testimonials', id: 'kontak' },
+    { label: "Admin", id:'admin' }
   ];
 
 

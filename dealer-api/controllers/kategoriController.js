@@ -1,4 +1,3 @@
-const { tr } = require("framer-motion/client")
 const db = require("../config/db")
 
 const getAllKategori = (req, res) => {

@@ -75,10 +75,12 @@ const Footer = () => {
           >
             <h3 className="text-lg font-bold mb-6">Menu</h3>
             <ul className="space-y-4 text-sm text-gray-400">
+
               <li><button onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Home</button></li>
               <li><button onClick={() => document.getElementById('produk')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Produk</button></li>
               <li><button onClick={() => document.getElementById('simulasi-kredit')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Simulasi Kredit</button></li>
               <li><Link to="#" className="hover:text-primary transition-colors font-bold">Promo Terbaru</Link></li>
+              <li><Link to="/admin/login" className="hover:text-primary transition-colors font-bold">Admin</Link></li>
             </ul>
           </motion.div>
 

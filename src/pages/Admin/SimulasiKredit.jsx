@@ -115,7 +115,7 @@ const SimulasiKredit = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:3000/api/simulasi/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/simulasi/${id}`,
                 {
                     method: "DELETE"
                 }
@@ -155,8 +155,8 @@ const SimulasiKredit = () => {
 
         try {
             const url = isEdit
-                ? `http://localhost:3000/api/simulasi/${selected}`
-                : "http://localhost:3000/api/simulasi";
+                ? `${import.meta.env.VITE_API_URL}/api/simulasi/${selected}`
+                : `${import.meta.env.VITE_API_URL}/api/simulasi`;
 
             const method = isEdit ? "PUT" : "POST";
 
@@ -193,7 +193,7 @@ const SimulasiKredit = () => {
         try {
 
             const response = await fetch(
-                "http://localhost:3000/api/simulasi"
+                `${import.meta.env.VITE_API_URL}/api/simulasi`
             );
 
             const data = await response.json();
@@ -215,7 +215,7 @@ const SimulasiKredit = () => {
         try {
 
             const response = await fetch(
-                "http://localhost:3000/api/motor"
+                `${import.meta.env.VITE_API_URL}/api/motor`
             );
 
             const data = await response.json();

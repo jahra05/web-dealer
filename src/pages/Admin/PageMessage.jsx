@@ -29,7 +29,7 @@ const PageMessage = () => {
 
     const handleStatus = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/contact/${id}/status`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${id}/status`, {
                 method: "PUT"
             }
 
@@ -49,7 +49,7 @@ const PageMessage = () => {
         if (!window.confirm("yakin ingin mengapus pesan ini?")) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/contact/${id}`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${id}`,
                 {
                     method: "DELETE"
                 }
@@ -72,7 +72,7 @@ const PageMessage = () => {
         try {
 
             const response = await fetch(
-                "http://localhost:3000/api/contact"
+                `${import.meta.env.VITE_API_URL}/api/contact`
             );
 
             const data = await response.json();

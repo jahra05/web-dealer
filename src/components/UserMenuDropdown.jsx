@@ -14,7 +14,7 @@ export default function UserMenuDropdwn() {
 
     const getUser = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/user");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user`);
 
             const data = await response.json();
             setUser(data.data[0])
@@ -51,7 +51,7 @@ export default function UserMenuDropdwn() {
                 className="w-10 h-10 rounded-full bg-red-600 text-white font-bold text-sm flex items-center justify-center hover:bg-red-700 transition-colors shadow-sm"
                 aria-label="User menu"
             >
-                <img src={`http://localhost:3000/uploads/${user.foto}`} className="rounded-full h-10 w-10 object-cover" />
+                <img src={`${import.meta.env.VITE_API_URL}/uploads/${user.foto}`} className="rounded-full h-10 w-10 object-cover" />
             </button>
 
             {/* Dropdown */}
@@ -63,7 +63,7 @@ export default function UserMenuDropdwn() {
                 <div className="px-4 py-3 border-b border-gray-100">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                            <img src={`http://localhost:3000/uploads/${user.foto}`} className="rounded-full h-10 w-10 object-cover" />
+                            <img src={`${import.meta.env.VITE_API_URL}/uploads/${user.foto}`} className="rounded-full h-10 w-10 object-cover" />
                         </div>
                         <div className="min-w-0">
                             <p className="text-sm font-semibold text-gray-900 truncate">{user.username}</p>

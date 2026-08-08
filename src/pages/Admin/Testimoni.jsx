@@ -80,8 +80,8 @@ const Testimoni = () => {
         e.preventDefault();
 
         const url = isEdit
-            ? `http://localhost:3000/api/testimoni/${selected}`
-            : "http://localhost:3000/api/testimoni";
+            ? `${import.meta.env.VITE_API_URL}/api/testimoni/${selected}`
+            : `${import.meta.env.VITE_API_URL}/api/testimoni`;
 
         const method = isEdit ? "PUT" : "POST";
         const data = new FormData();
@@ -142,7 +142,7 @@ const Testimoni = () => {
         try {
 
             const response = await fetch(
-                `http://localhost:3000/api/testimoni/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/testimoni/${id}`,
                 {
                     method: "DELETE"
                 }
@@ -162,7 +162,7 @@ const Testimoni = () => {
 
     const getTestimoni = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/testimoni");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/testimoni`);
             const data = await response.json();
 
             console.log(data.data)
@@ -257,7 +257,7 @@ const Testimoni = () => {
                                             <td className="px-4 py-4 text-sm text-slate-700">{item.rating}</td>
                                             <td className="px-4 py-4">
                                                 <img
-                                                    src={`http://localhost:3000/uploads/${item.foto}`}
+                                                    src={`${import.meta.env.VITE_API_URL}/uploads/${item.foto}`}
                                                     alt={item.nama}
                                                     className="w-14 h-14 rounded-full object-cover"
                                                 />

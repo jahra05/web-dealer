@@ -18,7 +18,7 @@ const Footer = () => {
 
   const getFooter = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/footer");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
 
       const data = await response.json();
       console.log('data footer', data)
@@ -43,7 +43,7 @@ const Footer = () => {
           >
             <div className="flex items-center space-x-2 mb-6">
               <img className='w-14 h-14 rounded-full object-cover'
-                src={logo ? URL.createObjectURL(logo) : `http://localhost:3000/uploads/${footer.logo}`} />
+                src={logo ? URL.createObjectURL(logo) : `${import.meta.env.VITE_API_URL}/uploads/${footer.logo}`} />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               {footer.deskripsi}

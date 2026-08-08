@@ -41,7 +41,7 @@ const Exam = () => {
         const t = filterOverride?.tahun ?? tahun;
 
         setTab(tabName);
-        let url = `http://localhost:3000/api/laporan/${tabName}`;
+        let url = `${import.meta.env.VITE_API_URL}/api/laporan/${tabName}`;
 
         if (p === "bulanan") {
             url += `?periode=bulanan&bulan=${b}&tahun=${t}`;

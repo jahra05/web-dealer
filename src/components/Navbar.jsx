@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const getDataStore = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/footer");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
 
       const data = await response.json();
       console.log('data footer', data)
@@ -67,7 +67,7 @@ const Navbar = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/contact", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
@@ -124,7 +124,7 @@ const Navbar = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
               <img className='w-14 h-14 rounded-full object-cover'
-                src={logo ? URL.createObjectURL(logo) : `http://localhost:3000/uploads/${infoStore.logo}`} />
+                src={logo ? URL.createObjectURL(logo) : `${import.meta.env.VITE_API_URL}/uploads/${infoStore.logo}`} />
               <div>
                 <h1 className="text-xl font-black text-gray-900 leading-tight">{infoStore.nama_dealer}</h1>
                 <p className="text-[10px] font-bold text-gray-500 tracking-wider">Dealer unggulan</p>

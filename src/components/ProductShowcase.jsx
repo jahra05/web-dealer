@@ -15,7 +15,7 @@ const ProductShowcase = () => {
 
   const getTipe = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/tipe");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe`);
       const data = await response.json();
 
       if (data.success) {
@@ -28,7 +28,7 @@ const ProductShowcase = () => {
 
   const getKategori = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/kategori");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`);
       const data = await response.json();
 
       if (data.success) {
@@ -41,7 +41,7 @@ const ProductShowcase = () => {
 
   const getMotor = async () => {
     try {
-      const respose = await fetch("http://localhost:3000/api/motor");
+      const respose = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`);
       const data = await respose.json();
 
       console.log(data);
@@ -177,7 +177,7 @@ const ProductShowcase = () => {
                     <div className="mb-6 relative h-40 flex items-center justify-center">
                       <img src={
                         bike.gambar
-                          ? `http://localhost:3000/uploads/${bike.gambar}`
+                          ? `${import.meta.env.VITE_API_URL}/uploads/${bike.gambar}`
                           : "/no-image.png"
                       } alt={bike.nama_motor} className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform" />
                     </div>

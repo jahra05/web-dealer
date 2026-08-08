@@ -7,7 +7,7 @@ const Testimonials = () => {
 
   const getTestimoni = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/testimoni");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/testimoni`);
 
       const data = await response.json();
       console.log(data.data)
@@ -39,7 +39,7 @@ const Testimonials = () => {
                 "{item.isi_testimoni}"
               </p>
               <div className="flex items-center space-x-4">
-                <img src={`http://localhost:3000/uploads/${item.foto}`}
+                <img src={`${import.meta.env.VITE_API_URL}/uploads/${item.foto}`}
                   alt={item.nama} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" />
                 <div>
                   <h4 className="font-bold text-gray-900 text-sm">{item.nama}</h4>

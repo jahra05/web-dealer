@@ -24,7 +24,7 @@ const PengajuanKredit = () => {
 
         try {
 
-            const response = await fetch(`http://localhost:3000/api/pengajuan/${id}`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`,
                 {
                     method: "DELETE",
                 }
@@ -43,7 +43,7 @@ const PengajuanKredit = () => {
     const updateStatus = async (id, status) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/pengajuan/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -68,7 +68,7 @@ const PengajuanKredit = () => {
     }
     const getPengajuan = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/pengajuan");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan`);
             const data = await response.json();
 
             console.log(data);

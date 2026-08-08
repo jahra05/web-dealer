@@ -89,8 +89,8 @@ const Spesifikasi = () => {
         e.preventDefault();
 
         const url = isEdit
-            ? `http://localhost:3000/api/spesifikasi/${selected}`
-            : "http://localhost:3000/api/spesifikasi";
+            ? `${import.meta.env.VITE_API_URL}api/spesifikasi/${selected}`
+            : `${import.meta.env.VITE_API_URL}/api/spesifikasi`;
 
         const method = isEdit ? "PUT" : "POST";
 
@@ -149,7 +149,7 @@ const Spesifikasi = () => {
         try {
 
             const response = await fetch(
-                `http://localhost:3000/api/spesifikasi/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/spesifikasi/${id}`,
                 {
                     method: "DELETE"
                 }
@@ -169,7 +169,7 @@ const Spesifikasi = () => {
 
     const getMotor = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/motor");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`);
             const data = await response.json();
             console.log(data);
 
@@ -183,7 +183,7 @@ const Spesifikasi = () => {
 
     const getSpesifikasi = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/spesifikasi");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/spesifikasi`);
             const data = await response.json();
 
             console.log(data)

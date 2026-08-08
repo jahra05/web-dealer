@@ -12,7 +12,7 @@ export default function SettingProfileAdmin() {
     const getAllUser = async () => {
 
         try {
-            const response = await fetch("http://localhost:3000/api/user");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user`);
 
             const data = await response.json();
             console.log(data)
@@ -31,7 +31,7 @@ export default function SettingProfileAdmin() {
 
         try {
             const response = await fetch(
-                `http://localhost:3000/api/user/${user.id_user}/foto`,
+                `${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/foto`,
                 {
                     method: "PUT",
                     body: formData,
@@ -49,7 +49,7 @@ export default function SettingProfileAdmin() {
     const update = async () => {
 
         try {
-            const response = await fetch(`http://localhost:3000/api/user/${user.id_user}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id_user}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export default function SettingProfileAdmin() {
         try {
             console.log("Password baru:", passwordBaru);
 
-            const response = await fetch(`http://localhost:3000/api/user/${user.id_user}/password`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/password`, {
 
                 method: 'PUT',
                 headers: {
@@ -120,7 +120,7 @@ export default function SettingProfileAdmin() {
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <div className="flex flex-col sm:flex-row items-center gap-4">
                                 <div className="relative w-20 h-20">
-                                    <img src={foto ? URL.createObjectURL(foto) : `http://localhost:3000/uploads/${user.foto}`} className="w-20 h-20 rounded-full object-cover" />
+                                    <img src={foto ? URL.createObjectURL(foto) : `${import.meta.env.VITE_API_URL}/uploads/${user.foto}`} className="w-20 h-20 rounded-full object-cover" />
                                     <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-white text-red-600 cursor-pointer hover:bg-red-600 hover:text-white"> <BiEdit size={20} /></label>
                                     <input id="logo"
                                         type="file"

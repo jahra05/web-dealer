@@ -57,7 +57,7 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
       console.log("bike =", bike);
       console.log("formData =", formData);
       const response = await fetch(
-        "http://localhost:3000/api/pengajuan",
+        `${import.meta.env.VITE_API_URL}/api/pengajuan`,
         {
           method: "POST",
           headers: {

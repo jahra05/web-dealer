@@ -24,7 +24,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
   // Ambil semua data motor dari database
   const getAllMotor = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/motor");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`);
       const data = await response.json();
 
       if (data.success && data.data.length > 0) {
@@ -148,7 +148,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                       <div className="relative group">
                         <div className="absolute inset-0 bg-primary/5 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
                         <img
-                          src={`http://localhost:3000/uploads/${selected?.gambar}`}
+                          src={`${import.meta.env.VITE_API_URL}/uploads/${selected?.gambar}`}
                           alt={selected?.nama_motor}
                           className="relative z-10 w-full h-48 object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
                         />

@@ -51,7 +51,7 @@ const FaqAdmin = () => {
         e.preventDefault();
 
         try {
-            const url = isEdit ? `http://localhost:3000/api/faq/${selected}` : "http://localhost:3000/api/faq"
+            const url = isEdit ? `${import.meta.env.VITE_API_URL}/api/faq/${selected}` : `${import.meta.env.VITE_API_URL}0/api/faq`
             const method = isEdit ? "PUT" : "POST"
 
             const response = await fetch(url,
@@ -99,7 +99,7 @@ const FaqAdmin = () => {
         try {
 
             const response = await fetch(
-                `http://localhost:3000/api/faq/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/faq/${id}`,
                 {
                     method: "DELETE"
                 }
@@ -119,7 +119,7 @@ const FaqAdmin = () => {
 
     const getFaq = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/faq");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/faq`);
             const data = await response.json();
 
             if (data.success) {

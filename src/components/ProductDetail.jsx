@@ -27,7 +27,7 @@ const ProductDetail = () => {
 
   const getWhatapps = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/footer");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
 
       const data = await response.json();
 
@@ -46,7 +46,7 @@ const ProductDetail = () => {
       try {
 
         const response = await fetch(
-          `http://localhost:3000/api/motor/${id}`
+          `${import.meta.env.VITE_API_URL}/api/motor/${id}`
         );
 
         const data = await response.json();
@@ -78,7 +78,7 @@ const ProductDetail = () => {
     try {
 
       const response = await fetch(
-        `http://localhost:3000/api/spesifikasi/${id}`
+        `${import.meta.env.VITE_API_URL}/api/spesifikasi/${id}`
       );
 
       const data = await response.json();
@@ -95,7 +95,7 @@ const ProductDetail = () => {
 
   const getWarna = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/warna/${id}`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`)
       const data = await response.json()
 
       if (data.success) {
@@ -175,7 +175,7 @@ const ProductDetail = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-transparent"></div>
               <AnimatePresence mode="wait">
                 <motion.img
-                  src={`http://localhost:3000/uploads/${bike.gambar}`}
+                  src={`${import.meta.env.VITE_API_URL}/uploads/${bike.gambar}`}
                   alt={bike.nama_motor}
                   className="w-full h-auto drop-shadow-2xl relative z-10 object-contain max-h-[400px]"
                 />

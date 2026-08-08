@@ -10,7 +10,7 @@ export default function SettingProfileDealer() {
     const getFooter = async () => {
 
         try {
-            const response = await fetch("http://localhost:3000/api/footer")
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`)
 
             const data = await response.json();
             console.log(data)
@@ -25,7 +25,7 @@ export default function SettingProfileDealer() {
 
 
         try {
-            const response = await fetch(`http://localhost:3000/api/footer/${footer.id_footer}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer/${footer.id_footer}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function SettingProfileDealer() {
 
         try {
             const response = await fetch(
-                `http://localhost:3000/api/footer/${footer.id_footer}/logo`,
+                `${import.meta.env.VITE_API_URL}/api/footer/${footer.id_footer}/logo`,
                 {
                     method: "PUT",
                     body: formData,
@@ -97,7 +97,7 @@ export default function SettingProfileDealer() {
                                     src={
                                         logo
                                             ? URL.createObjectURL(logo)
-                                            : `http://localhost:3000/uploads/${footer.logo}`
+                                            : `${import.meta.env.VITE_API_URL}/uploads/${footer.logo}`
                                     }
                                 />
                                 <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-white text-red-600 cursor-pointer hover:bg-red-600 hover:text-white"> <BiEdit size={20} /></label>

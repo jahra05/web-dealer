@@ -110,7 +110,7 @@ const KelolaProduk = () => {
         if (!comfirmDelete) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/warna/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`, {
                 method: 'DELETE'
             })
             const data = await response.json()
@@ -129,7 +129,7 @@ const KelolaProduk = () => {
 
     const createWarna = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/warna", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -162,7 +162,7 @@ const KelolaProduk = () => {
     const updateWarna = async () => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/warna/${editWarna.id_warna}`,
+                `${import.meta.env.VITE_API_URL}/api/warna/${editWarna.id_warna}`,
                 {
                     method: "PUT",
                     headers: {
@@ -196,7 +196,7 @@ const KelolaProduk = () => {
 
     const getWarna = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/warna`)
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`)
             const data = await response.json()
             console.log(data.data)
             if (data.success) {
@@ -209,7 +209,7 @@ const KelolaProduk = () => {
 
     const getTipe = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/tipe", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -230,7 +230,7 @@ const KelolaProduk = () => {
 
     const getKategori = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/kategori", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -272,7 +272,7 @@ const KelolaProduk = () => {
 
     const getMotor = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/motor", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -364,7 +364,7 @@ const KelolaProduk = () => {
 
         console.log(formData)
         try {
-            const response = await fetch("http://localhost:3000/api/motor", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -376,7 +376,7 @@ const KelolaProduk = () => {
             if (data.success) {
 
 
-                await fetch("http://localhost:3000/api/warna", {
+                await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -411,7 +411,7 @@ const KelolaProduk = () => {
         }
         try {
             const response = await fetch(
-                `http://localhost:3000/api/motor/${editId}`,
+                `${import.meta.env.VITE_API_URL}/api/motor/${editId}`,
                 {
                     method: "PUT",
                     headers: {
@@ -443,7 +443,7 @@ const KelolaProduk = () => {
         if (!confirmDelet) return
 
         try {
-            const response = await fetch(`http://localhost:3000/api/motor/${id}`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/${id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -580,7 +580,7 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 whitespace-nowrap">
                                                 <div className="flex items-center w-10 h-10 ">
                                                     <img
-                                                        src={`http://localhost:3000/uploads/${item.gambar}`}
+                                                        src={`${import.meta.env.VITE_API_URL}/uploads/${item.gambar}`}
                                                         alt={item.nama_motor}
                                                         className="h-10 w-10 object-cover"
                                                     />

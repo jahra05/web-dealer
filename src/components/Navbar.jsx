@@ -12,7 +12,6 @@ const Navbar = () => {
   const [infoStore, setInfoStore] = useState([])
   const [logo, setLogo] = useState(null)
   console.log('isi store', infoStore)
-  const navigate = useNavigate()
 
 
 

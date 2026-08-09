@@ -1,4 +1,23 @@
 const db = require("../config/db");
+const cloudinary = require("../config/cloudinary")
+
+const uploadToCloudinary = (fileBuffer) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: 'dealer-motor'
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error)
+                } else {
+                    resolve(result)
+                }
+            }
+        );
+        stream.end(fileBuffer)
+    })
+}
 
 const getAllMotor = (req, res) => {
 
@@ -87,7 +106,7 @@ const getMotorID = (req, res) => {
     });
 
 };
-const createMotor = (req, res) => {
+const createMotor = async (req, res) => {
 
     const {
         nama_motor,
@@ -98,7 +117,12 @@ const createMotor = (req, res) => {
         tahun,
         deskripsi,
     } = req.body;
-    const gambar = req.file ? req.file.filename : null;
+    // const gambar = req.file ? req.file.filename : null;
+    let gambar = null;
+    if (req.file) {
+        const result = await uploadToCloudinary(req.file.buffer);
+        gambar = result.secure_url
+    }
     const sql = `
     INSERT INTO motor
     (
@@ -146,7 +170,7 @@ const createMotor = (req, res) => {
 
 };
 
-const updateMotor = (req, res) => {
+const updateMotor = async (req, res) => {
 
     const { id } = req.params;
 
@@ -159,7 +183,12 @@ const updateMotor = (req, res) => {
         tahun,
         deskripsi,
     } = req.body;
-    const gambar = req.file ? req.file.filename : req.body.gambar;
+    // const gambar = req.file ? req.file.filename : req.body.gambar;
+    let gambar = req.body.gambar;
+    if (req.file) {
+        const result = await uploadToCloudinary(req.file.buffer);
+        gambar = result.secure_url
+    }
     const sql = `
     UPDATE motor
     SET

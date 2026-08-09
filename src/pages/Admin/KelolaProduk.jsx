@@ -90,7 +90,7 @@ const KelolaProduk = () => {
     });
 
     const resetForm = () => {
-        setListWarna([])
+        // setListWarna([])
         setInputWarna({ nama_warna: "", kode_warna: "#000000" })
         setFormData({
             nama_motor: "",
@@ -359,7 +359,7 @@ const KelolaProduk = () => {
         dataForm.append("deskripsi", formData.deskripsi);
         dataForm.append("gambar", formData.gambar);
 
-        const warnamotor = warna.filter((w) => w.id_motor === item.id_motor)
+
 
 
         console.log(formData)
@@ -381,8 +381,10 @@ const KelolaProduk = () => {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify
+                    body: JSON.stringify(data)
                 })
+                // const warnamotor = warna.filter((w) => w.id_motor === item.id_motor)
+                const idMotor = data.id;
                 alert("produk berhasil ditambahkan");
                 getMotor()
                 getWarna()

@@ -331,9 +331,9 @@ const KelolaProduk = () => {
             item.nama_motor.toLowerCase().includes(search.toLocaleLowerCase())
 
         const cocoKategori = selectKategori === "" || item.id_kategori == selectKategori;
-        const cockWarna = selectWarna === "" || warna.some((w) => w.id_motor === item.id_motor && w.id_warna == selectWarna);
+        // const cockWarna = selectWarna === "" || warna.some((w) => w.id_motor === item.id_motor && w.id_warna == selectWarna);
 
-        return cocokSearch && cocoKategori && cockWarna
+        return cocokSearch && cocoKategori 
 
     })
     const totalPages = Math.max(1, Math.ceil(filteredProducts.length / rowsPerPage))
@@ -377,13 +377,13 @@ const KelolaProduk = () => {
                 const idMotor = data.id;
                 console.log('id motor baru', idMotor)
 
-                await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
+                // await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json"
+                //     },
+                //     body: JSON.stringify(data)
+                // })
                 // const warnamotor = warna.filter((w) => w.id_motor === item.id_motor)
                 alert("produk berhasil ditambahkan");
                 getMotor()
@@ -570,7 +570,7 @@ const KelolaProduk = () => {
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Gambar</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Nama Motor</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Tipe</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th>
+                                        {/* <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th> */}
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Harga</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Stok</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Aksi</th>
@@ -582,7 +582,7 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 whitespace-nowrap">
                                                 <div className="flex items-center w-10 h-10 ">
                                                     <img
-                                                        src={`${import.meta.env.VITE_API_URL}/uploads/${item.gambar}`}
+                                                        src={item.gambar}
                                                         alt={item.nama_motor}
                                                         className="h-10 w-10 object-cover"
                                                     />

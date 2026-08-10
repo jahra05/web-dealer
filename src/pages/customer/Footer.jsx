@@ -41,7 +41,7 @@ const Footer = () => {
           >
             <div className="flex items-center space-x-2 mb-6">
               <img className='w-18 h-16'
-                src={logo ? URL.createObjectURL(logo) : `${import.meta.env.VITE_API_URL}/uploads/${footer.logo}`} />
+                src={logo ? URL.createObjectURL(logo) : `${footer.logo}`} />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               {footer.deskripsi}

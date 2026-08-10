@@ -147,15 +147,12 @@ const ProductDetail = () => {
     );
   }
 
-  // const activeColor = bike.warna[selectedColorIndex];
 
-  // const openWhatsApp = () => {
-  //   const message = `halo admin honda, saya tertarik dengan unit ${bike.nama_motor}`
-  //   window.open(`https://wa.me/${infoContact.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
-  // };
   const openWhatsApp = () => {
-    window.open('https://wa.me/6287769084385?text=Halo%20Admin%20Honda,%20saya%20tertarik%20dengan%20unit%20Honda%20Beat', '_blank');
+    const message = `halo admin honda, saya tertarik dengan unit ${bike.nama_motor}`
+    window.open(`https://wa.me/${infoContact.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
   };
+
 
   return (
     <section className="bg-white py-12 md:py-20">
@@ -175,7 +172,7 @@ const ProductDetail = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-transparent"></div>
               <AnimatePresence mode="wait">
                 <motion.img
-                  src={`${import.meta.env.VITE_API_URL}/uploads/${bike.gambar}`}
+                  src={`${bike.gambar}`}
                   alt={bike.nama_motor}
                   className="w-full h-auto drop-shadow-2xl relative z-10 object-contain max-h-[400px]"
                 />
@@ -190,28 +187,10 @@ const ProductDetail = () => {
                   <p className="text-xs font-bold text-gray-900">{item.kapasitas_mesin}</p>
                 </div>
 
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚡</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Kapasitas mesin</p>
-                  <p className="text-xs font-bold text-gray-900">{item.kapasitas_mesin}</p>
-                </div> */}
-
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">tenaga</p>
                   <p className="text-xs font-bold text-gray-900">{item.tenaga}</p>
                 </div>
-
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⛽</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">tenaga</p>
-                  <p className="text-xs font-bold text-gray-900">{item.tenaga}</p>
-                </div> */}
-
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">🥤</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Torsi</p>
-                  <p className="text-xs font-bold text-gray-900">{item.torsi}</p>
-                </div> */}
 
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Torsi</p>
@@ -225,43 +204,16 @@ const ProductDetail = () => {
                 </div>
 
 
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Transmisi</p>
-                  <p className="text-xs font-bold text-gray-900">{item.transmisi}</p>
-                </div> */}
-
-
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">berat</p>
                   <p className="text-xs font-bold text-gray-900">{item.berat}</p>
                 </div>
-
-
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">berat</p>
-                  <p className="text-xs font-bold text-gray-900">{item.berat}</p>
-                </div> */}
 
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Tinggi jok</p>
                   <p className="text-xs font-bold text-gray-900">{item.tinggi_jok}</p>
                 </div>
 
-
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Tinggi jok</p>
-                  <p className="text-xs font-bold text-gray-900">{item.tinggi_jok}</p>
-                </div> */}
-
-
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">kkapasitas tangki</p>
-                  <p className="text-xs font-bold text-gray-900">{item.kapasitas_tengki}</p>
-                </div> */}
 
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">kkapasitas tangki</p>
@@ -272,13 +224,6 @@ const ProductDetail = () => {
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Mesin</p>
                   <p className="text-xs font-bold text-gray-900">{item.mesin}</p>
                 </div>
-
-
-                {/* <div className="bg-white border border-gray-100 p-4 rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-3 text-lg">⚖️</div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Mesin</p>
-                  <p className="text-xs font-bold text-gray-900">{item.mesin}</p>
-                </div> */}
 
               </div>
             ))}
@@ -308,7 +253,6 @@ const ProductDetail = () => {
                         }}
                       />
 
-                      {/* <span>{item.nama_warna}</span> */}
                     </div>
                   ))}
 

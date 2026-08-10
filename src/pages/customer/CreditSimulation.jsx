@@ -148,7 +148,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                       <div className="relative group">
                         <div className="absolute inset-0 bg-primary/5 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
                         <img
-                          src={`${import.meta.env.VITE_API_URL}/uploads/${selected?.gambar}`}
+                          src={`${selected?.gambar}`}
                           alt={selected?.nama_motor}
                           className="relative z-10 w-full h-48 object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
                         />

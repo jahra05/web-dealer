@@ -177,7 +177,7 @@ const ProductShowcase = () => {
                     <div className="mb-6 relative h-40 flex items-center justify-center">
                       <img src={
                         bike.gambar
-                          ? `${import.meta.env.VITE_API_URL}/uploads/${bike.gambar}`
+                          ? `${bike.gambar}`
                           : "/no-image.png"
                       } alt={bike.nama_motor} className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform" />
                     </div>

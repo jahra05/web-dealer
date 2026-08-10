@@ -97,7 +97,7 @@ export default function SettingProfileDealer() {
                                     src={
                                         logo
                                             ? URL.createObjectURL(logo)
-                                            : `${import.meta.env.VITE_API_URL}/uploads/${footer.logo}`
+                                            : `${footer.logo}`
                                     }
                                 />
                                 <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-white text-red-600 cursor-pointer hover:bg-red-600 hover:text-white"> <BiEdit size={20} /></label>

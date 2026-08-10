@@ -118,7 +118,7 @@ export default function SettingProfileAdmin() {
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div className="flex flex-col sm:flex-row items-center gap-4">
                             <div className="relative w-32 h-32">
-                                <img src={foto ? URL.createObjectURL(foto) : `${import.meta.env.VITE_API_URL}/uploads/${user.foto}`} className="w-32 h-32 rounded-full object-cover" />
+                                <img src={foto ? URL.createObjectURL(foto) : `${user.foto}`} className="w-32 h-32 rounded-full object-cover" />
                                 <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-white text-red-600 cursor-pointer hover:bg-red-600 hover:text-white"> <BiEdit size={20} /></label>
                                 <input id="logo"
                                     type="file"

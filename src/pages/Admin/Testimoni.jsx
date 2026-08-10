@@ -257,7 +257,7 @@ const Testimoni = () => {
                                             <td className="px-4 py-4 text-sm text-slate-700">{item.rating}</td>
                                             <td className="px-4 py-4">
                                                 <img
-                                                    src={`${import.meta.env.VITE_API_URL}/uploads/${item.foto}`}
+                                                    src={`${item.foto}`}
                                                     alt={item.nama}
                                                     className="w-14 h-14 rounded-full object-cover"
                                                 />

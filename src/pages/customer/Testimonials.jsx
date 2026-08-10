@@ -39,7 +39,7 @@ const Testimonials = () => {
                 "{item.isi_testimoni}"
               </p>
               <div className="flex items-center space-x-4">
-                <img src={`${import.meta.env.VITE_API_URL}/uploads/${item.foto}`}
+                <img src={`${item.foto}`}
                   alt={item.nama} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" />
                 <div>
                   <h4 className="font-bold text-gray-900 text-sm">{item.nama}</h4>

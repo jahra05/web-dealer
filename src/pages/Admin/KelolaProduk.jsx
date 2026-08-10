@@ -245,8 +245,6 @@ const KelolaProduk = () => {
         }
     }
 
-
-
     const handleChangeData = (e) => {
         const { name, value } = e.target;
 
@@ -536,8 +534,8 @@ const KelolaProduk = () => {
                             </div>
                         </div>
                     </div>
-
-                    <div className="mt-4 overflow-hidden bg-white shadow-sm rounded-2xl border border-slate-100">
+                    {/* Desktop */}
+                    <div className="mt-4 overflow-hidden bg-white shadow-sm rounded-2xl border border-slate-100 hidden md:block">
                         <div className="px-6 py-4 bg-red-600">
                             <p className="text-sm font-semibold text-white">Daftar Produk</p>
                         </div>
@@ -587,7 +585,7 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 text-sm whitespace-nowrap">
                                                 <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
                                             </td>
-                                            
+
                                             {openDrapMenu === item.id_motor && (
                                                 <div ref={dropdownRef} className="absolute right-32 mt-12 w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
                                                     <button onClick={() => {
@@ -634,7 +632,29 @@ const KelolaProduk = () => {
                         </div>
                     </div>
 
-                    
+
+
+                    {/* mobile */}
+
+                    <div className="md:hidden space-y-4">
+                        {products.map((item) => (
+                            <div className="rounded-xl border bg-white p-4 shadow-sm">
+                                <img src={item.gambar} alt={item.nama_motor} className="w-full h-40 object-contain" />
+                                <h3 className="mt-3 font-bold text-lg">{item.nama_motor}</h3>
+                                <div className="mt-2 space-y-1 text-sm">
+                                    <p>kategori :{item.nama_kategori}</p>
+                                    <p>Tipe : {item.nama_tipe}</p>
+                                    <p>Harga : {item.stok}</p>
+                                    <p>Tahun : {item.tahun}</p>
+                                    <div className="flex gap-2 mt-4">
+                                        <button>Edit</button>
+                                        <button>Hapus</button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
                     {isModalColor && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
                             <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>

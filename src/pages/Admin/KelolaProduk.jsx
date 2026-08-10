@@ -23,13 +23,14 @@ const KelolaProduk = () => {
     const [tipe, setTipe] = useState([])
 
     const [openDrapMenu, setOpenDrapMenu] = useState(false)
-    // const [warna, setWarna] = useState([])
-    // const [editWarna, setEditWarna] = useState({
-    //     id_warna: "",
-    //     id_motor: "",
-    //     nama_warna: "",
-    //     kode_warna: ""
-    // })
+    const [warna, setWarna] = useState([])
+    const [editWarna, setEditWarna] = useState({
+        id_warna: "",
+        id_motor: "",
+        nama_warna: "",
+        kode_warna: ""
+    })
+
     const [selectKategori, setSelectKategori] = useState("")
     const [isEdit, setIsEdit] = useState(false)
     const [editId, setEditId] = useState(null)
@@ -41,33 +42,33 @@ const KelolaProduk = () => {
 
 
 
-    // const handleEditWarna = (item) => {
-    //     setEditWarna({
-    //         id_warna: item.id_warna,
-    //         id_motor: item.id_motor,
-    //         nama_warna: item.nama_warna,
-    //         kode_warna: item.kode_warna
-    //     })
-    // }
+    const handleEditWarna = (item) => {
+        setEditWarna({
+            id_warna: item.id_warna,
+            id_motor: item.id_motor,
+            nama_warna: item.nama_warna,
+            kode_warna: item.kode_warna
+        })
+    }
 
-    // const handleOpenColor = (idMotor) => {
-    //     setEditWarna({
-    //         id_warna: "",
-    //         id_motor: idMotor,
-    //         nama_warna: "",
-    //         kode_warna: "#000000"
-    //     })
-    // }
+    const handleOpenColor = (idMotor) => {
+        setEditWarna({
+            id_warna: "",
+            id_motor: idMotor,
+            nama_warna: "",
+            kode_warna: "#000000"
+        })
+    }
 
-    // const saveColor = () => {
+    const saveColor = () => {
 
-    //     if (editWarna.id_warna) {
-    //         updateWarna();
-    //     } else {
-    //         createWarna();
-    //     }
+        if (editWarna.id_warna) {
+            updateWarna();
+        } else {
+            createWarna();
+        }
 
-    // }
+    }
 
     const openModal = () => setIsModalOpen(true)
 
@@ -90,8 +91,7 @@ const KelolaProduk = () => {
     });
 
     const resetForm = () => {
-        // setListWarna([])
-        // setInputWarna({ nama_warna: "", kode_warna: "#000000" })
+        setInputWarna({ nama_warna: "", kode_warna: "#000000" })
         setFormData({
             nama_motor: "",
             id_kategori: "",
@@ -104,108 +104,108 @@ const KelolaProduk = () => {
         })
     }
 
-    // const deleteWarna = async (id) => {
-    //     const comfirmDelete = window.confirm("yakin ingin menghaspu warna ini ? ")
+    const deleteWarna = async (id) => {
+        const comfirmDelete = window.confirm("yakin ingin menghaspu warna ini ? ")
 
-    //     if (!comfirmDelete) return;
+        if (!comfirmDelete) return;
 
-    //     try {
-    //         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`, {
-    //             method: 'DELETE'
-    //         })
-    //         const data = await response.json()
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`, {
+                method: 'DELETE'
+            })
+            const data = await response.json()
 
-    //         if (data.success) {
-    //             alert(data.message)
-    //             getWarna()
-    //         } else {
-    //             alert(data.message)
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+            if (data.success) {
+                alert(data.message)
+                getWarna()
+            } else {
+                alert(data.message)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
-    // const createWarna = async () => {
-    //     try {
-    //         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 id_motor: editWarna.id_motor,
-    //                 nama_warna: editWarna.nama_warna,
-    //                 kode_warna: editWarna.kode_warna,
-    //             }),
-    //         });
+    const createWarna = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id_motor: editWarna.id_motor,
+                    nama_warna: editWarna.nama_warna,
+                    kode_warna: editWarna.kode_warna,
+                }),
+            });
 
-    //         const data = await response.json();
+            const data = await response.json();
 
-    //         if (data.success) {
-    //             alert(data.message);
-    //             getWarna();
+            if (data.success) {
+                alert(data.message);
+                getWarna();
 
-    //             setEditWarna({
-    //                 ...editWarna,
-    //                 id_warna: "",
-    //                 nama_warna: "",
-    //                 kode_warna: "#000000",
-    //             });
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+                setEditWarna({
+                    ...editWarna,
+                    id_warna: "",
+                    nama_warna: "",
+                    kode_warna: "#000000",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    // const updateWarna = async () => {
-    //     try {
-    //         const response = await fetch(
-    //             `${import.meta.env.VITE_API_URL}/api/warna/${editWarna.id_warna}`,
-    //             {
-    //                 method: "PUT",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //                 body: JSON.stringify({
-    //                     id_motor: editWarna.id_motor,
-    //                     nama_warna: editWarna.nama_warna,
-    //                     kode_warna: editWarna.kode_warna,
-    //                 }),
-    //             }
-    //         );
+    const updateWarna = async () => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/warna/${editWarna.id_warna}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id_motor: editWarna.id_motor,
+                        nama_warna: editWarna.nama_warna,
+                        kode_warna: editWarna.kode_warna,
+                    }),
+                }
+            );
 
-    //         const data = await response.json();
+            const data = await response.json();
 
-    //         if (data.success) {
-    //             alert(data.message);
-    //             getWarna();
+            if (data.success) {
+                alert(data.message);
+                getWarna();
 
-    //             setEditWarna({
-    //                 id_warna: "",
-    //                 id_motor: editWarna.id_motor,
-    //                 nama_warna: "",
-    //                 kode_warna: "#000000",
-    //             });
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+                setEditWarna({
+                    id_warna: "",
+                    id_motor: editWarna.id_motor,
+                    nama_warna: "",
+                    kode_warna: "#000000",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    // const getWarna = async () => {
-    //     try {
-    //         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`)
-    //         const data = await response.json()
-    //         console.log(data.data)
-    //         if (data.success) {
-    //             setWarna(data.data)
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const getWarna = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`)
+            const data = await response.json()
+            console.log(data.data)
+            if (data.success) {
+                setWarna(data.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const getTipe = async () => {
         try {
@@ -245,20 +245,6 @@ const KelolaProduk = () => {
         }
     }
 
-    // const handleWarna = () => {
-    //     if (!inputWarna.nama_warna.trim()) {
-    //         alert("nama warna diisi");
-    //         return
-    //     }
-
-    //     setListWarna((prev) => [...prev, inputWarna])
-    //     setInputWarna({ nama_warna: "", kode_warna: "#00000" })
-    // }
-
-    // const handleHapusWarna = (i) => {
-    //     setListWarna((prev) => prev.filter((_, i) => i !== i))
-    // }
-
 
 
     const handleChangeData = (e) => {
@@ -294,7 +280,7 @@ const KelolaProduk = () => {
         getMotor()
         getKategori()
         getTipe()
-        // getWarna()
+        getWarna()
     }, [])
 
     const handleExport = () => {
@@ -331,9 +317,9 @@ const KelolaProduk = () => {
             item.nama_motor.toLowerCase().includes(search.toLocaleLowerCase())
 
         const cocoKategori = selectKategori === "" || item.id_kategori == selectKategori;
-        // const cockWarna = selectWarna === "" || warna.some((w) => w.id_motor === item.id_motor && w.id_warna == selectWarna);
+        const cockWarna = selectWarna === "" || warna.some((w) => w.id_motor === item.id_motor && w.id_warna == selectWarna);
 
-        return cocokSearch && cocoKategori 
+        return cocokSearch && cocoKategori && cockWarna
 
     })
     const totalPages = Math.max(1, Math.ceil(filteredProducts.length / rowsPerPage))
@@ -348,9 +334,9 @@ const KelolaProduk = () => {
     }, [search, selectKategori])
 
     const handleSubmit = async () => {
-        const dataForm = new FormData()
+        const dataForm = new FormData();
 
-        dataForm.append("nama_motor", formData.nama_motor)
+        dataForm.append("nama_motor", formData.nama_motor);
         dataForm.append("id_kategori", formData.id_kategori);
         dataForm.append("id_tipe", formData.id_tipe);
         dataForm.append("harga", formData.harga);
@@ -359,45 +345,37 @@ const KelolaProduk = () => {
         dataForm.append("deskripsi", formData.deskripsi);
         dataForm.append("gambar", formData.gambar);
 
-
-
-
-        console.log(formData)
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                body: dataForm
-            })
-            const data = await response.json()
-            console.log(data)
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/motor`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: dataForm
+                }
+            );
+
+            const data = await response.json();
+            console.log(data);
+
             if (data.success) {
                 const idMotor = data.id;
-                console.log('id motor baru', idMotor)
+                console.log("id motor baru", idMotor);
 
-                // await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
-                //     method: "POST",
-                //     headers: {
-                //         "Content-Type": "application/json"
-                //     },
-                //     body: JSON.stringify(data)
-                // })
-                // const warnamotor = warna.filter((w) => w.id_motor === item.id_motor)
-                alert("produk berhasil ditambahkan");
-                getMotor()
-                // getWarna()
-                closeModal()
-                resetForm()
+                alert("Produk berhasil ditambahkan");
+
+                getMotor();
+                closeModal();
+                resetForm();
             } else {
-                alert(data.message)
+                alert(data.message);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
+    };
     const updateMotor = async () => {
         const dataForm = new FormData();
 
@@ -479,12 +457,12 @@ const KelolaProduk = () => {
             deskripsi: item.deskripsi,
             gambar: item.gambar
         })
-        // setEditWarna({
-        //     id_motor: item.id_motor,
-        //     id_warna: "",
-        //     nama_warna: "",
-        //     kode_warna: "#000000",
-        // });
+        setEditWarna({
+            id_motor: item.id_motor,
+            id_warna: "",
+            nama_warna: "",
+            kode_warna: "#000000",
+        });
         openModal()
     }
     useEffect(() => {
@@ -570,7 +548,7 @@ const KelolaProduk = () => {
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Gambar</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Nama Motor</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Tipe</th>
-                                        {/* <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th> */}
+                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Harga</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Stok</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Aksi</th>
@@ -593,7 +571,7 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap flex items-center gap-4">
 
 
-                                                {/* {warna
+                                                {warna
                                                     .filter((w) => w.id_motor === item.id_motor)
                                                     .map((w) => (
                                                         <div key={w.id_warna} className="flex items-center gap-3">
@@ -602,14 +580,14 @@ const KelolaProduk = () => {
                                                                 style={{ backgroundColor: w.kode_warna }}
                                                             />
                                                         </div>
-                                                    ))} */}
+                                                    ))}
                                             </td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">Rp {Number(item.harga).toLocaleString("id-ID")}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.stok}</td>
                                             <td className="px-4 py-4 text-sm whitespace-nowrap">
                                                 <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
                                             </td>
-                                            {/* 
+                                            
                                             {openDrapMenu === item.id_motor && (
                                                 <div ref={dropdownRef} className="absolute right-32 mt-12 w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
                                                     <button onClick={() => {
@@ -632,7 +610,7 @@ const KelolaProduk = () => {
                                                         🗑️ <span>Hapus</span>
                                                     </button>
                                                 </div>
-                                            )} */}
+                                            )}
                                         </tr>
                                     ))}
                                 </tbody>
@@ -656,7 +634,7 @@ const KelolaProduk = () => {
                         </div>
                     </div>
 
-                    {/* 
+                    
                     {isModalColor && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
                             <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
@@ -726,7 +704,7 @@ const KelolaProduk = () => {
                             </div>
 
                         </div>
-                    )} */}
+                    )}
 
                     {isModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={closeModal}>

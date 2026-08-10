@@ -1,12 +1,12 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import Features from '../components/Features';
-import ProductShowcase from '../components/ProductShowcase';
-import CreditSimulation from '../components/CreditSimulation';
-import Testimonials from '../components/Testimonials';
-import FAQ from '../components/FAQ';
-import Footer from '../components/Footer';
+import ProductShowcase from './customer/ProductShowcase';
+import CreditSimulation from './customer/CreditSimulation';
+import Testimonials from './customer/Testimonials';
+import Hero from './customer/Hero';
+import Feature from './customer/Features';
+import Navbar from './customer/Navbar';
+import FAQ from './customer/FAQ';
+import Footer from './customer/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
 
 const HomePage = () => {
@@ -15,7 +15,7 @@ const HomePage = () => {
       <Navbar />
       <main className="max-w-[1200px] mx-auto px-4">
         <Hero />
-        <Features />
+        <Feature />
         <ProductShowcase />
         <CreditSimulation />
         <Testimonials />

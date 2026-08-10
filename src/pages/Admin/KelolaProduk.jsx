@@ -294,7 +294,7 @@ const KelolaProduk = () => {
         getMotor()
         getKategori()
         getTipe()
-        getWarna()
+        // getWarna()
     }, [])
 
     const handleExport = () => {
@@ -387,7 +387,7 @@ const KelolaProduk = () => {
                 // const warnamotor = warna.filter((w) => w.id_motor === item.id_motor)
                 alert("produk berhasil ditambahkan");
                 getMotor()
-                getWarna()
+                // getWarna()
                 closeModal()
                 resetForm()
             } else {
@@ -479,12 +479,12 @@ const KelolaProduk = () => {
             deskripsi: item.deskripsi,
             gambar: item.gambar
         })
-        setEditWarna({
-            id_motor: item.id_motor,
-            id_warna: "",
-            nama_warna: "",
-            kode_warna: "#000000",
-        });
+        // setEditWarna({
+        //     id_motor: item.id_motor,
+        //     id_warna: "",
+        //     nama_warna: "",
+        //     kode_warna: "#000000",
+        // });
         openModal()
     }
     useEffect(() => {
@@ -609,7 +609,7 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 text-sm whitespace-nowrap">
                                                 <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
                                             </td>
-{/* 
+                                            {/* 
                                             {openDrapMenu === item.id_motor && (
                                                 <div ref={dropdownRef} className="absolute right-32 mt-12 w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
                                                     <button onClick={() => {
@@ -656,7 +656,7 @@ const KelolaProduk = () => {
                         </div>
                     </div>
 
-
+                    {/* 
                     {isModalColor && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
                             <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
@@ -726,7 +726,7 @@ const KelolaProduk = () => {
                             </div>
 
                         </div>
-                    )}
+                    )} */}
 
                     {isModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={closeModal}>

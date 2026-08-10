@@ -122,14 +122,11 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-20">
 
             {/* Logo */}
-            {/* <Link to="/" className="flex items-center space-x-2 flex-shrink-0"> */}
             <img className='w-18 h-14 object-cover ml-10'
               src={logo ? URL.createObjectURL(logo) : `${infoStore.logo}`} />
             <div>
-              {/* <h1 className="text-xl font-black text-gray-900 leading-tight">{infoStore.nama_dealer}</h1> */}
-              {/* <p className="text-[10px] font-bold text-gray-500 tracking-wider">Dealer unggulan</p> */}
+           
             </div>
-            {/* </Link> */}
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">

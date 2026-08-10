@@ -46,8 +46,9 @@ export default function Setting() {
         >
             <RxHamburgerMenu size={24} />
         </button>
-            <div className="flex">
-                <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100" >
+            <div className="flex ">
+                {/* <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100" > */}
+                <aside className={`fixed top-0 left-0 z-[70] h-full w-72 bg-white transform transition-transform duration-300 ease-in-out md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`} onClick={() => setIsSidebarOpen(false)}>
                     <div className="p-4">
                         <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline" onClick={closeSidebar}>
                             <div className="w-10 h-10 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">

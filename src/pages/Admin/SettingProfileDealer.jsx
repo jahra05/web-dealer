@@ -133,35 +133,36 @@ export default function SettingProfileDealer() {
                                 </div>
                             </div>
                             <div>
-                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">deskripsi</p>
-                                <input type="text" name="deskripsi" value={footer.deskripsi} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
-                            </div>
-                            <div>
-                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">instagram</p>
-                                <input type="text" name="instagram" value={footer.instagram} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
-                            <div>
                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">Nomor Telepon</p>
                                 <input type="number" name="no_hp" value={footer.no_hp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
-                            </div>
-                            <div>
-                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">Email</p>
-                                <input type="email" name="email" value={footer.email} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
                             </div>
                             <div>
                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">whatsapp</p>
                                 <input type="text" name="whatsapp" value={footer.whatsapp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
                             </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
                             <div>
-                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">google_maps</p>
-                                <input type="text" name="google_maps" value={footer.google_maps} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">Email</p>
+                                <input type="email" name="email" value={footer.email} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                            </div>
+                            <div>
+                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">instagram</p>
+                                <input type="text" name="instagram" value={footer.instagram} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
                             </div>
                             <div>
                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">facebook</p>
                                 <input type="text" name="facebook" value={footer.facebook} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                            </div>
+                            <div>
+                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">deskripsi</p>
+                                <input type="text" name="deskripsi" value={footer.deskripsi} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                            </div>
+
+
+                            <div>
+                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">google_maps</p>
+                                <input type="text" name="google_maps" value={footer.google_maps} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
                             </div>
                         </div>
                     </div>

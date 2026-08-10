@@ -16,7 +16,6 @@ import PageMessage from './pages/Admin/PageMessage';
 import SimulasiKredit from './pages/Admin/SimulasiKredit';
 import Spesifikasi from './pages/Admin/Spesifikasi';
 import Setting from './pages/Admin/Setting';
-import ManajemenUser from './pages/Admin/ManajemenUser';
 import PageForgatPassword from './pages/Admin/PageForgatPassword';
 
 function App() {
@@ -36,7 +35,6 @@ function App() {
         <Route path="/admin/testimoni" element={<ProtectedRoute><Testimoni /></ProtectedRoute>} />
         <Route path="/admin/faq" element={<ProtectedRoute><FaqAdmin /></ProtectedRoute>} />
         <Route path="/admin/exam" element={<ProtectedRoute><Exam /></ProtectedRoute>} />
-        <Route path="/admin/manageUser" element={<ProtectedRoute><ManajemenUser /></ProtectedRoute>} />
         <Route path="/admin/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
         <Route path="/admin/forgatPassword" element={<PageForgatPassword />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />

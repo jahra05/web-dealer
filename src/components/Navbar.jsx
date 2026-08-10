@@ -150,12 +150,6 @@ const Navbar = () => {
               >
                 Contact Us
               </button>
-              <button
-                onClick={() => navigate("/admin/login")}
-                className="text-white font-bold text-sm bg-red-500 px-5 py-2.5 rounded-full hover:bg-red-600 transition-colors"
-              >
-                admin
-              </button>
             </div>
 
             {/* Hamburger Button (mobile/tablet) */}
@@ -231,12 +225,6 @@ const Navbar = () => {
               className="w-full text-white font-bold text-sm bg-red-500 px-4 py-3.5 rounded-xl hover:bg-red-600 transition-colors"
             >
               Contact Us
-            </button>
-            <button
-              onClick={() => navigate("/admin/login")}
-              className="text-white font-bold text-sm bg-red-500 px-5 py-2.5 rounded-full hover:bg-red-600 transition-colors"
-            >
-              admin
             </button>
           </div>
         </nav>

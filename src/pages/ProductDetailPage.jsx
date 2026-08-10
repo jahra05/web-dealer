@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import ProductDetail from '../components/ProductDetail';
+import Navbar from './customer/Navbar';
+import Footer from './customer/Footer';
+import ProductDetail from './customer/ProductDetail';
 import WhatsAppButton from '../components/WhatsAppButton';
 
 const ProductDetailPage = () => {

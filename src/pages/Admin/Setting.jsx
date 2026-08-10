@@ -4,8 +4,8 @@ import { BsArrowLeft } from "react-icons/bs";
 import { FaMotorcycle } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import SettingProfileAdmin from "../../components/SettingProfileAdmin";
-import SettingProfileDealer from "../../components/SettingProfileDealer";
+import SettingProfileAdmin from "../Admin/SettingProfileAdmin";
+import SettingProfileDealer from "../Admin/SettingProfileDealer";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { pre } from "framer-motion/client";
 

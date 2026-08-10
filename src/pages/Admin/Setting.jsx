@@ -47,8 +47,7 @@ export default function Setting() {
             <RxHamburgerMenu size={24} />
         </button>
             <div className="flex ">
-                {/* <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100" > */}
-                <aside className={`fixed top-0 left-0 z-[70] h-full w-72 bg-white transform transition-transform duration-300 ease-in-out md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`} onClick={() => setIsSidebarOpen(false)}>
+                <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100" >
                     <div className="p-4">
                         <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline" onClick={closeSidebar}>
                             <div className="w-10 h-10 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
@@ -87,7 +86,7 @@ export default function Setting() {
                             }`}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                            <Link to="/admin/dashboard" className="flex items-center gap-2 p-2  ">
+                            <Link to="/admin/dashboard" className="flex items-center gap-2 p-2">
                                 <span className="bg-gray-100 p-1 rounded">
                                     <IoIosArrowBack size={18} />
                                 </span>
@@ -111,7 +110,10 @@ export default function Setting() {
                                         key={item.label}
                                         item={item}
                                         isActive={tabNav === item.path}
-                                        onClick={() => setTabNav(item.path)}
+                                        onClick={() => {
+                                            closeSidebar(),
+                                                setTabNav(item.path)
+                                        }}
                                     />
                                 ))}
                             </ul>

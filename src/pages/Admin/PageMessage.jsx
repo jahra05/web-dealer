@@ -140,7 +140,7 @@ const PageMessage = () => {
                     </div>
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] ">
                             <p className="text-sm font-semibold text-white">Daftar Message</p>
                         </div>
                         <div className="overflow-x-auto">
@@ -220,7 +220,7 @@ const PageMessage = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600 rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] rounded-xl">
                             <p className="text-sm font-semibold text-white">Daftar Message</p>
                         </div>
                         {pageItems.map((item) => (

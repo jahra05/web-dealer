@@ -497,7 +497,7 @@ const KelolaProduk = () => {
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden">
                     <div className="flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center mb-4">
                         <div>
-                            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Kelola Produk</h1>
+                            <h1 className="text-xl lg:text-2xl font-bold text-[#00182F">Produk Motor</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola data produk motor.</p>
                         </div>
                         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
@@ -536,7 +536,7 @@ const KelolaProduk = () => {
                     </div>
                     {/* Desktop */}
                     <div className="mt-4 overflow-hidden bg-white shadow-sm rounded-2xl border border-slate-100 hidden md:block">
-                        <div className="px-6 py-4 bg-red-600">
+                        <div className="px-6 py-4 bg-[#004A7C]">
                             <p className="text-sm font-semibold text-white">Daftar Produk</p>
                         </div>
                         <div className="overflow-x-auto">
@@ -597,14 +597,14 @@ const KelolaProduk = () => {
                                                         });
 
                                                         setIsModalColor(true);
-                                                    }} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                    }} className="flex text-sm  h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold hover:text-[#00182F]">
                                                         🎨 <span>Kelola Warna</span>
                                                     </button>
 
-                                                    <button onClick={() => handleEdit(item)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                    <button onClick={() => handleEdit(item)} className="flex text-sm  h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold hover:text-[#00182F]">
                                                         ✏️ <span>Edit Produk</span>
                                                     </button>
-                                                    <button onClick={() => handleDelet(item.id_motor)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                    <button onClick={() => handleDelet(item.id_motor)} className="flex text-sm  h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold hover:text-[#00182F]">
                                                         🗑️ <span>Hapus</span>
                                                     </button>
                                                 </div>
@@ -613,6 +613,7 @@ const KelolaProduk = () => {
                                     ))}
                                 </tbody>
                             </table>
+
                         </div>
 
                         <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
@@ -636,7 +637,10 @@ const KelolaProduk = () => {
 
                     {/* mobile */}
 
-                    <div className="md:hidden space-y-4">
+                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
+                        <div className="px-6 py-4 bg-[#004A7C] rounded-xl">
+                            <p className="text-sm font-semibold text-white">Produk Motor</p>
+                        </div>
                         {products.map((item) => (
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
                                 <div className="bg-gray-100 w-full rounded-xl h-72">
@@ -662,7 +666,7 @@ const KelolaProduk = () => {
                                                     });
 
                                                     setIsModalColor(true);
-                                                }} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                }} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-[#002446]">
                                                     🎨 <span>Kelola Warna</span>
                                                 </button>
 
@@ -762,7 +766,7 @@ const KelolaProduk = () => {
 
                                 <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                     <button type="button" onClick={() => setIsModalColor(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                    <button type="button" onClick={() => editWarna.id_warna ? updateWarna() : createWarna()} className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700">
+                                    <button type="button" onClick={() => editWarna.id_warna ? updateWarna() : createWarna()} className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700">
                                         {editWarna.id_warna ? "Update" : "Tambah"}
                                     </button>
                                 </div>
@@ -791,12 +795,12 @@ const KelolaProduk = () => {
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Nama Motor</label>
                                         <input type="text" name="nama_motor" value={formData.nama_motor} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
                                         <select name="id_kategori" value={formData.id_kategori} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100">
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
                                             <option value="">Pilih Kategori</option>
                                             {kategori.map((item) => (
                                                 <option key={item.id_kategori} value={item.id_kategori}>{item.nama_kategori}</option>
@@ -806,7 +810,7 @@ const KelolaProduk = () => {
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Tipe</label>
                                         <select name="id_tipe" value={formData.id_tipe} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100">
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
                                             <option value="">Pilih Tipe</option>
                                             {tipe.map((item) => (
                                                 <option key={item.id_tipe} value={item.id_tipe}>{item.nama_tipe}</option>
@@ -816,34 +820,34 @@ const KelolaProduk = () => {
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Harga</label>
                                         <input type="number" name="harga" value={formData.harga} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
                                         <input type="number" name="tahun" value={formData.tahun} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Stok</label>
                                         <input type="text" name="stok" value={formData.stok} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
                                         <input type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                     </div>
                                     <div className="md:col-span-2">
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
                                         <input accept="image/*" onChange={(e) => { setFormData({ ...formData, gambar: e.target.files[0] }) }}
-                                            type="file" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-red-50 file:text-red-600 hover:file:bg-red-100" />
+                                            type="file" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-[#002446] hover:file:bg-[#E6F1F7]" />
                                     </div>
                                 </div>
 
                                 {/* Footer */}
                                 <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                     <button type="button" onClick={closeModal} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                    <button type="button" onClick={isEdit ? updateMotor : handleSubmit} className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700">{isEdit ? 'Update' : 'Simpan'}</button>
+                                    <button type="button" onClick={isEdit ? updateMotor : handleSubmit} className="rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F">{isEdit ? 'Update' : 'Simpan'}</button>
                                 </div>
                             </div>
                         </div>

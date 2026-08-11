@@ -42,7 +42,10 @@ export default function Setting({ isOpen, onClose }) {
 
                             return (
                                 <li key={item.path} className="list-none">
-                                    <Link to={item.path} onClick={close} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive ? "bg-red-100 text-red-600" : "text-gray-700 hover:bg-red-50 hover:text-red-600"}`}>{item.label}</Link>
+                                    <Link to={item.path} onClick={close} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
+                                        ? "bg-[#002446] text-[#F2F8FC]"
+                                        : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
+                                        }`}>{item.label}</Link>
                                 </li>
                             )
                         })}
@@ -90,8 +93,8 @@ export default function Setting({ isOpen, onClose }) {
                                                 transition-all
                                                 duration-200
                                                 ${isActive
-                                                        ? "bg-red-100 text-red-600"
-                                                        : "text-gray-700 hover:bg-red-50 hover:text-red-600"
+                                                        ? "bg-[#002446] text-[#F2F8FC]"
+                                                        : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
                                                     }
                                             `}
                                             >

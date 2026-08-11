@@ -134,14 +134,14 @@ const Navbar = () => {
                 <button
                   key={item.id}
                   onClick={() => handleScrollTo(item.id)}
-                  className="text-gray-700 hover:text-primary font-bold text-sm transition-colors"
+                  className="text-gray-700 hover:text-[#002446] font-bold text-sm transition-colors"
                 >
                   {item.label}
                 </button>
               ))}
               <button
                 onClick={openModal}
-                className="text-white font-bold text-sm bg-red-500 px-5 py-2.5 rounded-full hover:bg-red-600 transition-colors"
+                className="text-white font-bold text-sm bg-[#002446] px-5 py-2.5 rounded-full hover:bg-[#00345F] transition-colors"
               >
                 Contact Us
               </button>
@@ -182,7 +182,7 @@ const Navbar = () => {
         {/* Drawer Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
           <Link to="/" onClick={() => setIsDrawerOpen(false)} className="flex items-center space-x-2">
-            <div className="bg-primary p-1 rounded">
+            <div className="bg-[#006A9E] p-1 rounded">
               <svg viewBox="0 0 24 24" className="w-7 h-7 text-white fill-current">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
               </svg>

@@ -31,7 +31,7 @@ const Footer = () => {
   }, [])
 
   return (
-    <footer id="kontak" className="bg-gray-900 text-white pt-20 pb-10">
+    <footer id="kontak" className="bg-[#00182F] text-white pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <motion.div
@@ -57,7 +57,7 @@ const Footer = () => {
                     target={item.href ? "_blank" : "_self"}
                     rel="noopener noreferrer"
                     className={`bg-gray-800 p-2.5 rounded-xl transition-colors ${item.href
-                      ? "text-gray-400 hover:text-red-500"
+                      ? "text-gray-400 hover:text-[#006A9E]"
                       : "text-gray-600 pointer-events-none"
                       }`}
                   >
@@ -76,10 +76,10 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-6">Menu</h3>
             <ul className="space-y-4 text-sm text-gray-400">
 
-              <li><button onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Home</button></li>
-              <li><button onClick={() => document.getElementById('produk')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Produk</button></li>
-              <li><button onClick={() => document.getElementById('simulasi-kredit')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-primary transition-colors font-bold">Simulasi Kredit</button></li>
-              <li><Link to="#" className="hover:text-primary transition-colors font-bold">Promo Terbaru</Link></li>
+              <li><button onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E] transition-colors font-bold">Home</button></li>
+              <li><button onClick={() => document.getElementById('produk')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E]  transition-colors font-bold">Produk</button></li>
+              <li><button onClick={() => document.getElementById('simulasi-kredit')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E]  transition-colors font-bold">Simulasi Kredit</button></li>
+              <li><Link to="#" className="hover:text-[#006A9E] transition-colors font-bold">Promo Terbaru</Link></li>
             </ul>
           </motion.div>
 
@@ -91,16 +91,15 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-6">Hubungi Kami</h3>
             <ul className="space-y-4 text-sm text-gray-400 font-bold">
               <li className="flex items-start space-x-3">
-                <FaMapMarkerAlt size={18} className="text-primary shrink-0" />
+                <FaMapMarkerAlt size={18} className="text-[#006A9E] shrink-0" />
                 <span>{footer.alamat}</span>
               </li>
               <li className="flex items-center space-x-3">
-                <MdPhone size={18} className="text-primary shrink-0" />
+                <MdPhone size={18} className="text-[#006A9E] shrink-0" />
                 <span>{footer.no_hp}</span>
               </li>
               <li className="flex items-center space-x-3">
-                <IoIosMail size={18} className="text-primary shrink-0" />
-                {/* <span>info@hondajahra.com</span> */}
+                <IoIosMail size={18} className="text-[#006A9E] shrink-0" />
                 <span>{footer.email}</span>
               </li>
             </ul>
@@ -114,14 +113,14 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-6">Jam Operasional</h3>
             <ul className="space-y-4 text-sm text-gray-400 font-bold mb-6">
               <li className="flex items-start space-x-3">
-                <FaRegClock size={18} className="text-primary shrink-0" />
+                <FaRegClock size={18} className="text-[#006A9E] shrink-0" />
                 <div>
                   <p className="text-white font-bold">Senin - Jumat</p>
                   <p>{footer.jam_senin_jumat}</p>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
-                <FaRegClock size={18} className="text-primary shrink-0" />
+                <FaRegClock size={18} className="text-[#006A9E] shrink-0" />
                 <div>
                   <p className="text-white font-bold">Sabtu - Minggu</p>
                   <p>{footer.jam_sabtu}</p>

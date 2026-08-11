@@ -37,10 +37,10 @@ const FAQ = () => {
                     onClick={() => setOpenIndex(openIndex === item ? -1 : item)}
                     className="w-full py-6 flex justify-between items-center text-left group"
                   >
-                    <span className={`font-bold transition-colors ${openIndex === item ? 'text-primary' : 'text-gray-700 group-hover:text-primary'}`}>
+                    <span className={`font-bold transition-colors ${openIndex === item ? 'hover:text-[#4B5563]' : 'text-gray-700 group-hover:text-[#004A7C]'}`}>
                       {item.pertanyaan}
                     </span>
-                    {openIndex === item ? <FaMinus size={18} className="text-primary" /> : <FaPlus size={18} className="text-gray-400" />}
+                    {openIndex === item ? <FaMinus size={18} className="hover:text-[#4B5563]" /> : <FaPlus size={18} className="text-gray-400" />}
                   </button>
                   {openIndex === item && (
                     <div className="pb-6">

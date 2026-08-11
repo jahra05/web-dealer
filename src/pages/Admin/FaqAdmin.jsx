@@ -182,7 +182,7 @@ const FaqAdmin = () => {
                         <p className="text-sm text-gray-500 mt-1">Kelola FAQ dan pertanyaan pelanggan.</p>
                     </div>
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600 flex justify-between items-center">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center">
                             <p className="text-sm font-semibold text-white">Daftar FAQ</p>
                             <button
                                 type="button"
@@ -255,18 +255,18 @@ const FaqAdmin = () => {
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Pertanyaan</label>
                                             <textarea name="pertanyaan" value={formData.pertanyaan} onChange={handleChange} placeholder="Tulis pertanyaan"
-                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none" />
+                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Jawaban</label>
                                             <textarea name="jawaban" value={formData.jawaban} onChange={handleChange} placeholder="Tulis jawaban"
-                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none" />
+                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 resize-none" />
                                         </div>
                                     </div>
                                     {/* Footer */}
                                     <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                         <button type="button" onClick={() => setIsModalOpen(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                        <button type="submit" className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700">{isEdit ? 'Update' : 'Simpan'}</button>
+                                        <button type="submit" className="rounded-full bg-[#004A7C] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F]">{isEdit ? 'Update' : 'Simpan'}</button>
                                     </div>
                                 </form>
                             </div>
@@ -275,7 +275,7 @@ const FaqAdmin = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600 flex justify-between  items-center rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between  items-center rounded-xl">
                             <p className="text-sm font-semibold text-white">Daftar FAQ</p>
                             <button
                                 type="button"

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-// import { bikes } from '../data/siteData';
 import { motion, AnimatePresence } from 'framer-motion';
 import LeadModal from '../../components/LeadModal';
 import { FaMessage, FaStar } from "react-icons/fa6";
@@ -125,9 +124,9 @@ const ProductDetail = () => {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full"
+          className="w-12 h-12 border-4 border-[#002446] border-t-transparent rounded-full"
         />
-        <p className="text-gray-500 font-bold animate-pulse uppercase tracking-widest text-xs">Memuat Produk...</p>
+        <p className="text-[#4B5563] font-bold animate-pulse uppercase tracking-widest text-xs">Memuat Produk...</p>
       </div>
     );
   }
@@ -138,7 +137,7 @@ const ProductDetail = () => {
         <h2 className="text-2xl font-black text-gray-900">Produk Tidak Ditemukan</h2>
         <button
           onClick={() => navigate('/')}
-          className="bg-primary text-white px-8 py-3 rounded-xl font-bold flex items-center space-x-2"
+          className="bg-[#00345F] text-white px-8 py-3 rounded-xl font-bold flex items-center space-x-2"
         >
           <FaArrowCircleLeft size={20} />
           <span>Kembali ke Beranda</span>
@@ -159,7 +158,7 @@ const ProductDetail = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <button
           onClick={() => navigate('/')}
-          className="mb-8 flex items-center space-x-2 text-gray-400 hover:text-primary font-bold transition-colors group"
+          className="mb-8 flex items-center space-x-2 text-gray-400 hover:text-[#00345F] font-bold transition-colors group"
         >
           <MdOutlineKeyboardArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           <span>Kembali ke Daftar Motor</span>
@@ -169,7 +168,7 @@ const ProductDetail = () => {
           {/* Left Column: Image and Specs */}
           <div>
             <div className="bg-gray-50 rounded-[40px] p-8 md:p-12 mb-8 flex items-center justify-center relative overflow-hidden border border-gray-100 min-h-[300px] md:min-h-[500px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#F2F8FC] to-transparent"></div>
               <AnimatePresence mode="wait">
                 <motion.img
                   src={`${bike.gambar}`}
@@ -232,9 +231,9 @@ const ProductDetail = () => {
           {/* Right Column: Info and Simulation Summary */}
           <div className="mt-12 lg:mt-0">
             <div className="mb-10">
-              <span className="inline-block px-3 py-1 rounded bg-red-50 text-primary text-[10px] font-black mb-4 uppercase tracking-widest">UNIT TERSEDIA</span>
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-3">{bike.nama_motor} <span className="text-primary">{bike.type}</span></h2>
-              <h3 className="text-4xl font-black text-gray-900 mb-6">Rp {Number(bike.harga).toLocaleString("id-ID")}</h3>
+              <span className="inline-block px-3 py-1 rounded bg-blue-50 text-[#004A7C] text-[10px] font-black mb-4 uppercase tracking-widest">UNIT TERSEDIA</span>
+              <h2 className="text-4xl md:text-5xl font-black text-[#00182F] mb-3">{bike.nama_motor} <span className="text-[#00182F">{bike.type}</span></h2>
+              <h3 className="text-4xl font-black text-[#004A7C] mb-6">Rp {Number(bike.harga).toLocaleString("id-ID")}</h3>
               <p className="text-gray-600 leading-relaxed max-w-lg mb-8 text-lg">
                 {bike.deskripsi}
               </p>
@@ -262,7 +261,7 @@ const ProductDetail = () => {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="flex-1 min-w-[200px] bg-primary hover:bg-red-700 text-white font-black py-5 rounded-2xl transition-all shadow-xl shadow-red-200 flex items-center justify-center space-x-2 active:scale-95"
+                  className="flex-1 min-w-[200px] bg-[#002446] hover:bg-[#00345F] text-white font-black py-5 rounded-2xl transition-all shadow-xl shadow-[#F2F8FC] flex items-center justify-center space-x-2 active:scale-95"
                 >
                   <IoSend size={20} />
                   <span>Ajukan Kredit</span>
@@ -294,7 +293,7 @@ const ProductDetail = () => {
                   <div>
                     <div className="flex justify-between mb-3">
                       <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest">Uang Muka (DP)</label>
-                      <span className="text-primary font-black text-sm">Rp {dp.toLocaleString('id-ID')}</span>
+                      <span className="text-[#006A9E] font-black text-sm">Rp {dp.toLocaleString('id-ID')}</span>
                     </div>
                     <input
                       type="range"
@@ -303,7 +302,7 @@ const ProductDetail = () => {
                       step={100000}
                       value={dp}
                       onChange={(e) => setDp(parseInt(e.target.value))}
-                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#002446]"
                     />
                   </div>
                   <div>
@@ -313,7 +312,7 @@ const ProductDetail = () => {
                         <button
                           key={t}
                           onClick={() => setTenor(t)}
-                          className={`py-3 rounded-xl font-black transition-all text-xs ${tenor === t ? 'bg-primary text-white shadow-lg' : 'bg-white text-gray-400 border border-gray-200'}`}
+                          className={`py-3 rounded-xl font-black transition-all text-xs ${tenor === t ? 'bg-[#00345F] text-white shadow-lg shadow-[#E6F1F7]' : 'bg-white text-gray-400 border border-gray-200 hover:border-[#006A9E]' }`}
                         >
                           {t}
                         </button>
@@ -324,7 +323,7 @@ const ProductDetail = () => {
 
                 <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl shadow-gray-200/50">
                   <p className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">ESTIMASI CICILAN</p>
-                  <h4 className="text-4xl font-black text-primary mb-6">Rp {Math.round(monthlyInstallment).toLocaleString('id-ID')}<span className="text-base text-gray-400 ml-2 font-bold">/ bln</span></h4>
+                  <h4 className="text-4xl font-black text-[#006A9E] mb-6">Rp {Math.round(monthlyInstallment).toLocaleString('id-ID')}<span className="text-base text-gray-400 ml-2 font-bold">/ bln</span></h4>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="flex items-center space-x-2 text-green-600">

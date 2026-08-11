@@ -112,8 +112,8 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
                   font-semibold text-sm
                   transition-all duration-200
                   ${isActive
-                            ? "bg-red-100 text-red-600"
-                            : "text-gray-700 hover:bg-red-50 hover:text-red-600"
+                            ? "bg-[#004A7C] text-[#E6F1F7]"
+                            : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
                           }
                 `}
                       >
@@ -196,9 +196,9 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
                   rounded-xl
                   font-semibold text-sm
                   transition-all duration-200
-                  ${isActive
-                              ? "bg-red-100 text-red-600"
-                              : "text-gray-700 hover:bg-red-50 hover:text-red-600"
+                   ${isActive
+                              ? "bg-[#004A7C] text-[#E6F1F7]"
+                              : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
                             }
                 `}
                         >

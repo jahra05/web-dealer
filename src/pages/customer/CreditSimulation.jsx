@@ -146,7 +146,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                   >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                       <div className="relative group">
-                        <div className="absolute inset-0 bg-primary/5 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
+                        <div className="absolute inset-0 bg-[#F2F8FC] rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
                         <img
                           src={`${selected?.gambar}`}
                           alt={selected?.nama_motor}
@@ -154,8 +154,8 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                         />
                       </div>
                       <div className="space-y-3">
-                        <h3 className="text-2xl font-black text-gray-900 leading-tight">{selected.nama_motor}</h3>
-                        <p className="text-xl font-black text-primary">Rp {Number(selected.harga).toLocaleString("id-ID")}</p>
+                        <h3 className="text-2xl font-black text-[#00182F] leading-tight">{selected.nama_motor}</h3>
+                        <p className="text-xl font-black text-[#006A9E]">Rp {Number(selected.harga).toLocaleString("id-ID")}</p>
                       </div>
                     </div>
                   </motion.div>
@@ -165,7 +165,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
               <div>
                 <div className="flex justify-between mb-3">
                   <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">Jumlah DP (Uang Muka)</label>
-                  <span className="text-primary font-black">
+                  <span className="text-[#006A9E] font-black">
                     Rp {dp.toLocaleString("id-ID")}
                   </span>
                 </div>
@@ -176,7 +176,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                   step={100000}
                   value={dp}
                   onChange={(e) => setDp(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#002446]"
                 />
                 <div className="flex justify-between mt-2 text-[10px] font-bold text-gray-400">
                   <span>Rp 500rb</span>
@@ -192,8 +192,8 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                       key={t}
                       onClick={() => handleTenorChange(t)}
                       className={`py-4 rounded-2xl font-black transition-all text-sm ${tenor === t
-                        ? "bg-primary text-white shadow-lg shadow-red-200"
-                        : "bg-white text-gray-400 border border-gray-200 hover:border-primary/50"
+                        ? "bg-[#00345F] text-white shadow-lg shadow-[#E6F1F7]"
+                        : "bg-white text-gray-400 border border-gray-200 hover:border-[#006A9E]"
                         }`}
                     >
                       {t}
@@ -216,11 +216,11 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
               transition={{ duration: 0.5 }}
               className="bg-white rounded-[32px] p-8 md:p-10 shadow-xl shadow-gray-200/50 border border-gray-100 relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full -mr-16 -mt-16 blur-3xl opacity-50"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 blur-3xl opacity-50"></div>
 
               <div className="relative z-10">
                 <div className="flex items-center space-x-3 mb-8">
-                  <div className="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center text-primary">
+                  <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-[#002446]">
                     <FaCalculator size={24} />
                   </div>
                   <div>
@@ -252,7 +252,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                   </div>
                 </div>
 
-                <div className="bg-primary rounded-3xl p-6 text-white text-center shadow-lg shadow-red-200">
+                <div className="bg-[#002446] rounded-3xl p-6 text-white text-center shadow-lg shadow-[#E6F1F7]">
                   <p className="text-xs font-bold text-white/70 uppercase mb-1">Cicilan Per Bulan</p>
                   <h3 className="text-4xl font-black mb-1">Rp {cicilan.toLocaleString("id-ID")}</h3>
                   <p className="text-[10px] italic text-white/50">*Harga belum termasuk asuransi & biaya admin</p>
@@ -261,7 +261,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                 <div className="mt-8">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="w-full bg-primary hover:bg-red-700 text-white px-6 py-2.5 rounded-lg font-bold flex justify-center items-center space-x-2 transition-colors active:scale-95 shadow-lg shadow-red-200"
+                    className="w-full bg-[#002446] hover:bg-[#00345F] text-white px-6 py-2.5 rounded-lg font-bold flex justify-center items-center space-x-2 transition-colors active:scale-95 shadow-lg shadow-[#E6F1F7]"
                   >
                     <FaBasketShopping size={18} />
                     <span className="hidden sm:inline">Ajukan Kredit</span>

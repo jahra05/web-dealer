@@ -118,13 +118,13 @@ export default function SettingProfileDealer() {
                                                     : `${footer.logo}`
                                             }
                                         />
-                                        <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-white text-red-600 cursor-pointer hover:bg-red-600 hover:text-white"> <BiEdit size={20} /></label>
+                                        <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-[#002446] text-[#F2F8FC]  cursor-pointer hover:bg-[#00182F] hover:text-white"> <BiEdit size={20} /></label>
                                         <input id="logo" type="file" accept="image/*" onChange={handlelogoFooter} className="hidden" />
                                     </div>
 
                                 </div>
                                 <div className="flex gap-2">
-                                    <button onClick={updateLogo} className="bg-red-500 rounded-md p-2 text-white text-sm font-medium">update</button>
+                                    <button onClick={updateLogo} className="bg-[#002446] text-[#F2F8FC] rounded-md p-2  text-sm font-medium hover:scale-[1.02] hover:shadow-xl active:scale-95 transition-all">update</button>
                                 </div>
                             </div>
                         </div>
@@ -134,57 +134,57 @@ export default function SettingProfileDealer() {
                                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">Nama Delaer</p>
-                                        <input type="text" name="nama_dealer" value={footer.nama_dealer} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="text" name="nama_dealer" value={footer.nama_dealer} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">Alamat</p>
-                                        <textarea type="text" name="alamat" value={footer.alamat} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <textarea type="text" name="alamat" value={footer.alamat} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_sabtu</p>
-                                            <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                            <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                         </div>
                                         <div>
                                             <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_senin_jumat</p>
-                                            <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                            <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                         </div>
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">Nomor Telepon</p>
-                                        <input type="number" name="no_hp" value={footer.no_hp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="number" name="no_hp" value={footer.no_hp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">whatsapp</p>
-                                        <input type="text" name="whatsapp" value={footer.whatsapp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="text" name="whatsapp" value={footer.whatsapp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100rounded-xl w-full text-sm" />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">Email</p>
-                                        <input type="email" name="email" value={footer.email} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="email" name="email" value={footer.email} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">instagram</p>
-                                        <input type="text" name="instagram" value={footer.instagram} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="text" name="instagram" value={footer.instagram} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">facebook</p>
-                                        <input type="text" name="facebook" value={footer.facebook} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="text" name="facebook" value={footer.facebook} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100rounded-xl w-full text-sm" />
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">deskripsi</p>
-                                        <input type="text" name="deskripsi" value={footer.deskripsi} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="text" name="deskripsi" value={footer.deskripsi} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
 
 
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">google_maps</p>
-                                        <input type="text" name="google_maps" value={footer.google_maps} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                        <input type="text" name="google_maps" value={footer.google_maps} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={updateFooter} className="w-28 bg-red-600 text-white px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-red-700 hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center mt-10">Update</button>
+                            <button onClick={updateFooter} className="w-28 bg-[#002446] text-[#F2F8FC]  px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center mt-10">Update</button>
                         </div>
                     </div>
                 </div>

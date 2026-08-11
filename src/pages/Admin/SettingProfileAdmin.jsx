@@ -136,7 +136,7 @@ export default function SettingProfileAdmin() {
                                     <div className="flex flex-col sm:flex-row items-center gap-4">
                                         <div className="relative w-32 h-32">
                                             <img src={foto ? URL.createObjectURL(foto) : `${user.foto}`} className="w-32 h-32 rounded-full object-cover" />
-                                            <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-white text-red-600 cursor-pointer hover:bg-red-600 hover:text-white"> <BiEdit size={20} /></label>
+                                            <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-[#002446] text-[#F2F8FC] cursor-pointer hover:bg-[#00182F] hover:text-white"> <BiEdit size={20} /></label>
                                             <input id="logo"
                                                 type="file"
                                                 accept="image/*"
@@ -146,7 +146,7 @@ export default function SettingProfileAdmin() {
 
                                     </div>
                                     <div className="flex gap-2">
-                                        <button onClick={updateLogo} className="bg-red-500 rounded-md p-2 text-white text-sm font-medium">update</button>
+                                        <button onClick={updateLogo} className="bg-[#002446] text-[#F2F8FC] rounded-md p-2  text-sm font-medium">update</button>
                                     </div>
                                 </div>
                             </div>
@@ -158,20 +158,20 @@ export default function SettingProfileAdmin() {
                                             <div>
                                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">Nama Lengkap</p>
                                                 <input name="nama_lengkap" value={user.nama_lengkap || ""} onChange={handleChange}
-                                                    type="text" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                                    type="text" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                             </div>
                                             <div>
                                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">Username</p>
-                                                <input name="username" value={user.username || ""} ronChange={handleChange} type="text" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                                <input name="username" value={user.username || ""} ronChange={handleChange} type="text" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                             </div>
                                             <div>
                                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">Email</p>
-                                                <input name="email" value={user.email || ""} onChange={handleChange} type="email" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                                <input name="email" value={user.email || ""} onChange={handleChange} type="email" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                             </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <button onClick={update} className="bg-red-600 text-white px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-red-700 hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center">Update</button>
+                                        <button onClick={update} className="bg-[#002446] text-[#F2F8FC] px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center">Update</button>
                                     </div>
                                 </div>
 
@@ -180,14 +180,14 @@ export default function SettingProfileAdmin() {
                                     <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                                         <div>
                                             <p className="text-gray-600 w-32 text-sm font-medium mb-2">Current Password</p>
-                                            <input type="password" name="passwordLama" value={password.passwordLama} onChange={handleChangePassword} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                            <input type="password" name="passwordLama" value={password.passwordLama} onChange={handleChangePassword} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                         </div>
                                         <div>
                                             <p className="text-gray-600 w-32 text-sm font-medium mb-2">New Password</p>
-                                            <input type="password" name="passwordBaru" value={password.passworBaru} onChange={handleChangePassword} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-red-500 focus:ring-red-500/40 rounded-xl w-full text-sm" />
+                                            <input type="password" name="passwordBaru" value={password.passworBaru} onChange={handleChangePassword} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                         </div>
                                     </div>
-                                    <button onClick={SavePassword} className="bg-red-600 text-white px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-red-700 hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center mt-10">Update</button>
+                                    <button onClick={SavePassword} className="bg-[#002446] text-[#F2F8FC] px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center mt-10">Update</button>
                                 </div>
                             </div>
                         </main>

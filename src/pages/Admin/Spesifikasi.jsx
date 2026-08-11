@@ -250,7 +250,7 @@ const Spesifikasi = () => {
                     </div>
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600 flex justify-between items-center">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center">
                             <p className="text-sm font-semibold text-white">Daftar Spesifikasi</p>
                             <button
                                 type="button"
@@ -319,7 +319,16 @@ const Spesifikasi = () => {
                         </div>
                     </div>
 
-                    <div className="md:hidden space-y-4">
+                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center rounded-xl">
+                            <p className="text-sm font-semibold text-white">Spesifikasi</p>
+                            <button
+                                type="button"
+                                onClick={openModal}
+                                className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50'>
+                                <PiPlus size={20} />
+                            </button>
+                        </div>
                         {pageItems.map((item) => (
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
 
@@ -413,7 +422,7 @@ const Spesifikasi = () => {
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Pilih Motor</label>
                                             <select name="id_motor" value={formData.id_motor} onChange={handleChange}
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100">
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
                                                 <option value="">Pilih Motor</option>
                                                 {motor.map((item) => (
                                                     <option key={item.id_motor} value={item.id_motor}>{item.nama_motor}</option>
@@ -423,49 +432,49 @@ const Spesifikasi = () => {
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Mesin</label>
                                             <input type="text" name="kapasitas_mesin" value={formData.kapasitas_mesin} onChange={handleChange} placeholder="Kapasitas mesin"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Tenaga</label>
                                             <input type="text" name="tenaga" value={formData.tenaga} onChange={handleChange} placeholder="Tenaga"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Torsi</label>
                                             <input type="text" name="torsi" value={formData.torsi} onChange={handleChange} placeholder="Torsi"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Transmisi</label>
                                             <input type="text" name="transmisi" value={formData.transmisi} onChange={handleChange} placeholder="Transmisi"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Berat</label>
                                             <input type="text" name="berat" value={formData.berat} onChange={handleChange} placeholder="Berat"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Tinggi Jok</label>
                                             <input type="text" name="tinggi_jok" value={formData.tinggi_jok} onChange={handleChange} placeholder="Tinggi Jok"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Tangki</label>
                                             <input type="text" name="kapasitas_tengki" value={formData.kapasitas_tengki} onChange={handleChange} placeholder="Kapasitas Tangki"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Mesin</label>
                                             <input type="text" name="mesin" value={formData.mesin} onChange={handleChange} placeholder="Mesin"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                     </div>
 
                                     {/* Footer */}
                                     <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                         <button type="button" onClick={() => setIsModalOpen(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                        <button type="submit" className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700">{isEdit ? 'Update' : 'Simpan'}</button>
+                                        <button type="submit" className="rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F]">{isEdit ? 'Update' : 'Simpan'}</button>
                                     </div>
                                 </form>
                             </div>

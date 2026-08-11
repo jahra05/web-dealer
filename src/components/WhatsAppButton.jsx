@@ -14,7 +14,7 @@ const WhatsAppButton = () => {
         className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl shadow-green-200 hover:scale-110 transition-transform active:scale-95 border-4 border-white"
       >
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-8 h-8 brightness-0 invert" alt="WA" />
-        <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white">1</span>
+        <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#002446] text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white">1</span>
       </a>
     </div>
   );

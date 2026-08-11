@@ -26,11 +26,11 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="relative z-10"
           >
-            <span className="inline-block px-3 py-1 rounded bg-red-50 text-primary text-xs font-bold mb-4">
+            <span className="inline-block px-3 py-1 rounded bg-blue-50 text-[#004A7C] text-xs font-bold mb-4">
               DEALER RESMI HONDA
             </span>
             <h1 className="text-4xl md:text-7xl font-black text-gray-900 mb-2">
-              HONDA <span className="block text-primary">BEAT</span>
+              HONDA <span className="block text-[#006A9E]">BEAT</span>
             </h1>
             <p className="text-lg text-gray-600 mb-8 max-w-lg">
               Hidup lebih praktis, irit dan lincah
@@ -54,7 +54,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={scrollToSimulation}
-                className="bg-primary hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-red-200 transition-all active:scale-95"
+                className="bg-[#002446] hover:bg-[#00345F] text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-[#E6F1F7] transition-all active:scale-95"
               >
                 Simulasi Kredit
               </button>
@@ -83,12 +83,12 @@ const Hero = () => {
 
             {/* Promo Badge */}
             <div className="absolute top-0 right-0 bg-white rounded-2xl shadow-xl overflow-hidden w-48 border border-gray-100">
-              <div className="bg-primary text-white text-[10px] font-black py-2 px-4 text-center tracking-widest uppercase">
+              <div className="bg-[#002446] text-white text-[10px] font-black py-2 px-4 text-center tracking-widest uppercase">
                 PROMO BULAN INI
               </div>
               <div className="p-4 text-center">
                 <p className="text-[10px] font-bold text-gray-400 uppercase">DP MULAI</p>
-                <h3 className="text-3xl font-black text-primary">500RB</h3>
+                <h3 className="text-3xl font-black text-[#004A7C]">500RB</h3>
                 <hr className="my-3 border-gray-100" />
                 <p className="text-[10px] font-bold text-gray-400 uppercase leading-none">CICILAN MULAI</p>
                 <div className="flex items-baseline justify-center">

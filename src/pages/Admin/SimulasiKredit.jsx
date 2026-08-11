@@ -377,7 +377,7 @@ const SimulasiKredit = () => {
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Motor</label>
                                             <select name="id_motor" value={modalFormData.id_motor} onChange={handleModalChange}
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100">
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
                                                 <option value="">Pilih Motor</option>
                                                 {motor.map((item) => (
                                                     <option key={item.id_motor} value={item.id_motor}>{item.nama_motor}</option>
@@ -394,12 +394,12 @@ const SimulasiKredit = () => {
                                             <label className="block text-sm font-medium text-gray-700 mb-1">DP</label>
                                             <input type="number" min="0" name="dp" value={modalFormData.dp} onChange={handleModalChange}
                                                 placeholder="Masukkan jumlah DP"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Tenor (bulan)</label>
                                             <select name="tenor" value={modalFormData.tenor} onChange={handleModalChange}
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100">
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
                                                 <option value="11">11</option>
                                                 <option value="17">17</option>
                                                 <option value="23">23</option>
@@ -411,7 +411,7 @@ const SimulasiKredit = () => {
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Bunga (%)</label>
                                             <input type="number" min="0" step="0.01" name="bunga" value={modalFormData.bunga} onChange={handleModalChange}
                                                 placeholder="Masukkan persen bunga"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Cicilan</label>
@@ -423,7 +423,7 @@ const SimulasiKredit = () => {
                                     {/* Footer */}
                                     <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                         <button type="button" onClick={closeModal} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                        <button type="submit" className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700">{isEdit ? 'Update' : 'Simpan'}</button>
+                                        <button type="submit" className="rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F]">{isEdit ? 'Update' : 'Simpan'}</button>
                                     </div>
                                 </form>
                             </div>
@@ -431,7 +431,7 @@ const SimulasiKredit = () => {
                     )}
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600">
+                        <div className="px-4 lg:px-6 py-4 bg-[#002446]">
                             <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
                         </div>
                         <div className="overflow-x-auto">
@@ -491,7 +491,7 @@ const SimulasiKredit = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600 rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-[#002446] rounded-xl">
                             <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
                         </div>
                         {pageItems.map((item) => (

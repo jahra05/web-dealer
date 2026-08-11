@@ -227,8 +227,8 @@ const Testimoni = () => {
                         <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
                     </div>
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
-                        <div className="px-4 lg:px-6 py-4 flex justify-between bg-red-600 items-center">
-                            <p className="text-sm font-semibold text-white">Daftar Testimoni</p>
+                        <div className="px-4 lg:px-6 py-4 flex justify-between bg-[#004A7C] items-center">
+                            <p className="text-xl font-semibold text-white">Testimoni</p>
                             <button
                                 type="button"
                                 onClick={openModal}
@@ -318,17 +318,17 @@ const Testimoni = () => {
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Nama</label>
                                                 <input type="text" name="nama" value={formData.nama} onChange={handleChange} placeholder="Nama"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Pekerjaan</label>
                                                 <input type="text" name="pekerjaan" value={formData.pekerjaan} onChange={handleChange} placeholder="Pekerjaan"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
                                                 <select name="rating" value={formData.rating} onChange={handleChange}
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100">
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
                                                     <option value="">Pilih Rating</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -340,19 +340,19 @@ const Testimoni = () => {
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Foto</label>
                                                 <input type="file" accept="image/*" onChange={handleFileChange}
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-red-50 file:text-red-600 hover:file:bg-red-100" />
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-[#E6F1F7] file:text-[#002446] hover:file:bg-[#F2F8FC]" />
                                             </div>
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Isi Testimoni</label>
                                             <textarea name="isi_testimoni" value={formData.isi_testimoni} onChange={handleChange} placeholder="Isi Testimoni"
-                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none" />
+                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 resize-none" />
                                         </div>
                                     </div>
                                     {/* Footer */}
                                     <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                         <button type="button" onClick={() => setIsModalOpen(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                        <button type="submit" className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700">{isEdit ? 'Update' : 'Simpan'}</button>
+                                        <button type="submit" className="rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F]">{isEdit ? 'Update' : 'Simpan'}</button>
                                     </div>
                                 </form>
                             </div>
@@ -362,7 +362,7 @@ const Testimoni = () => {
 
                 {/* mobile */}
                 <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                    <div className="px-4 flex justify-between items-center lg:px-6 py-4 bg-red-600 rounded-xl">
+                    <div className="px-4 flex justify-between items-center lg:px-6 py-4 bg-[#004A7C] rounded-xl">
                         <p className=" text-sm font-semibold text-white">Daftar Testimoni</p>
                         <button
                             type="button"

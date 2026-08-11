@@ -56,7 +56,7 @@ export default function AdminDashboard() {
 
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
-            <AdminNavbar  isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
             {/* Main content area */}
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
@@ -85,8 +85,8 @@ export default function AdminDashboard() {
                     {/* Stat cards — responsive grid */}
                     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 mb-6">
                         <div className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm border border-gray-100">
-                            <div className="bg-red-100 p-3 w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0">
-                                <FaMotorcycle size={22} className="text-red-600" />
+                            <div className="bg-[#F2F8FC] p-3 w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0">
+                                <FaMotorcycle size={22} className="text-[#006A9E]" />
                             </div>
                             <div className="min-w-0">
                                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Motor Tersedia</p>
@@ -220,7 +220,7 @@ export default function AdminDashboard() {
                                     {contactTerbaru.map((item) => (
                                         <div key={item.id_message} className="flex items-center justify-between gap-3">
                                             <div className="flex items-center gap-3 min-w-0">
-                                                <div className="bg-red-600 text-white flex items-center justify-center text-sm font-bold w-8 h-8 rounded-full flex-shrink-0">
+                                                <div className="bg-[#F2F8FC] text-[#002446] flex items-center justify-center text-sm font-bold w-8 h-8 rounded-full flex-shrink-0">
                                                     {item.nama.charAt(0).toUpperCase()}
                                                 </div>
                                                 <div className="min-w-0">

@@ -168,7 +168,7 @@ const PengajuanKredit = () => {
                     </div>
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] ">
                             <p className="text-sm font-semibold text-white">Daftar Pengajuan Kredit</p>
                         </div>
 
@@ -199,7 +199,7 @@ const PengajuanKredit = () => {
                                                         item.id_pengajuan,
                                                         e.target.value
                                                     )}
-                                                    className="border rounded-lg px-2 py-1"
+                                                    className="border border-[#002446] rounded-lg px-2 py-1"
                                                 >
                                                     <option value="Menunggu">Menunggu</option>
                                                     <option value="Disetujui">Disetujui</option>
@@ -237,7 +237,7 @@ const PengajuanKredit = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-red-600 rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C]  rounded-xl">
                             <p className="text-sm font-semibold text-white">Daftar Pengajuan Kredit</p>
                         </div>
                         {pageItems.map((item) => (

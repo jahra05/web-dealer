@@ -7,6 +7,10 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
+
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 db.connect((err) => {
@@ -15,7 +19,7 @@ db.connect((err) => {
         console.log(err);
     } else {
         console.log("Database berhasil terhubung");
-        console.log("database ", process.env.DB_NAME, )
+        console.log("database ", process.env.DB_NAME,)
     }
 });
 

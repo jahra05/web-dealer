@@ -167,10 +167,11 @@ const PengajuanKredit = () => {
                         </div>
                     </div>
 
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
+                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-red-600">
                             <p className="text-sm font-semibold text-white">Daftar Pengajuan Kredit</p>
                         </div>
+
                         <div className="overflow-x-auto">
                             <table className="min-w-[800px] w-full">
                                 <thead className="bg-white">
@@ -218,6 +219,10 @@ const PengajuanKredit = () => {
                                 </tbody>
                             </table>
                         </div>
+
+
+
+
                         <div className="px-4 lg:px-6 py-3 flex flex-wrap items-center justify-end gap-3">
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
@@ -234,6 +239,25 @@ const PengajuanKredit = () => {
                         </div>
                     </div>
 
+                    {/* mobile */}
+                    <div className="md:hidden space-y-4 bg-white">
+                        {pageItems.map((item) => (
+                            <div className="bg-white shadow p-2 rounded-xl">
+                                <div className="flex gap-4">
+                                    <div>
+                                        <span className="bg-red-50 w-14 h-14 text-center pt-2 text-2xl font-medium rounded-sm">s</span>
+                                        <p>{item.nama}</p>
+                                        <p>{item.no_hp}</p>
+                                    </div>
+                                    
+                                </div>
+                                <div className=" items-center p-2 flex">
+                                    <p className="  text-xs font-semibold uppercase tracking-wider text-slate-500">No Headphone</p>
+                                    <p className="text-black font-medium text-sm mt-0">{item.no_hp}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </main>
             </div>
         </div>

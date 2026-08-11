@@ -5,7 +5,7 @@ import NavTop from "../../components/NavTop"
 import { BiExport, BiSearch, BiUpArrow } from "react-icons/bi"
 import { PiPlus } from "react-icons/pi"
 import { CiFileOn } from "react-icons/ci"
-import { MdDelete, MdMoreHoriz, MdNotificationsNone } from "react-icons/md"
+import { MdDelete, MdMoreHoriz, MdMoreVert, MdNotificationsNone } from "react-icons/md"
 import { FaEdit, FaSearch } from "react-icons/fa"
 import { exportExcel } from "../../utils/export/exportExcel"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
@@ -639,17 +639,48 @@ const KelolaProduk = () => {
                     <div className="md:hidden space-y-4">
                         {products.map((item) => (
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
-                                <img src={item.gambar} alt={item.nama_motor} className="w-full h-40 object-contain" />
-                                <h3 className="mt-3 font-bold text-lg">{item.nama_motor}</h3>
-                                <div className="mt-2 space-y-1 text-sm">
-                                    <p>kategori :{item.nama_kategori}</p>
-                                    <p>Tipe : {item.nama_tipe}</p>
-                                    <p>Harga : {item.stok}</p>
-                                    <p>Tahun : {item.tahun}</p>
-                                    <div className="flex gap-2 mt-4">
-                                        <button>Edit</button>
-                                        <button>Hapus</button>
+                                <div className="bg-gray-100 w-full rounded-xl h-72">
+                                    <img src={item.gambar} alt={item.nama_motor} className="w-full max-w-[470px] h-72 rounded-xl object-center object-contain py-4 " />
+                                </div>
+                                <div className="flex justify-between mt-2">
+                                    <div className="flex gap-4">
+                                        <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.nama_kategori}</p>
+                                        <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.nama_tipe}</p>
+                                        <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.tahun}</p>
                                     </div>
+                                    <div>
+                                        <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
+
+                                        {openDrapMenu === item.id_motor && (
+                                            <div ref={dropdownRef} className="absolute right-8  w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
+                                                <button onClick={() => {
+                                                    setEditWarna({
+                                                        id_motor: item.id_motor,
+                                                        id_warna: "",
+                                                        nama_warna: "",
+                                                        kode_warna: "#000000",
+                                                    });
+
+                                                    setIsModalColor(true);
+                                                }} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                    🎨 <span>Kelola Warna</span>
+                                                </button>
+
+                                                <button onClick={() => handleEdit(item)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                    ✏️ <span>Edit Produk</span>
+                                                </button>
+                                                <button onClick={() => handleDelet(item.id_motor)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
+                                                    🗑️ <span>Hapus</span>
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <h3 className="mt-3 font-bold text-lg">{item.nama_motor}</h3>
+                                    <p className="text-l text-gray-500 font-medium">Harga : Rp {Number(item.harga).toLocaleString("id-ID")}</p>
+                                    <p className="text-sm mt-2">Stok : <span className="font-semibold">{item.stok}</span></p>
                                 </div>
                             </div>
                         ))}

@@ -165,7 +165,8 @@ export default function AdminDashboard() {
                             </div>
 
                             {/* Recent applications table */}
-                            <div className="rounded-2xl bg-white p-4 lg:p-6 shadow-sm border border-gray-100">
+                            {/* Desktop */}
+                            <div className="rounded-2xl bg-white p-4 lg:p-6 shadow-sm border border-gray-100 hidden md:block">
                                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Pengajuan Kredit Terbaru</h2>
                                 <div className="overflow-x-auto">
                                     <table className="min-w-full divide-y divide-gray-200">
@@ -194,6 +195,22 @@ export default function AdminDashboard() {
                             </div>
                         </div>
 
+                        {/* Mobile */}
+                        <div className='md:hidden space-y-4 rounded-2xl bg-white p-4 lg:p-6 shadow-sm border border-gray-100'>
+                            <h2 className="text-lg font-semibold text-gray-900 mb-4">Pengajuan Kredit Terbaru</h2>
+                            {pengajuanTerbaru.map((item) => (
+                                <div>
+                                    <div className='rounded-xl border border-gray-100 bg-white p-4 shadow'>
+                                        <p className="bg-green-100 text-green-700 px-2 py-1 rounded w-32 text-xs font-medium mb-2">Status : {item.status}</p>
+                                        <p className=" flex justify-between mb-4 text-left text-sm font-semibold text-black  tracking-wider whitespace-nowrap">Nama <span className="text-sm text-gray-700 whitespace-nowrap" >{item.nama}</span></p>
+                                        <p className=" flex justify-between mb-4 text-left text-sm font-semibold text-black  tracking-wider whitespace-nowrap">Motor <span className="text-sm text-gray-700 whitespace-nowrap" >{item.nama_motor}</span></p>
+                                        <p className=" flex justify-between mb-4 text-left text-sm font-semibold text-black  tracking-wider whitespace-nowrap">Tanggal <span className="text-sm text-gray-500 whitespace-nowrap" >{item.tanggal_pengajuan}</span></p>
+                                    </div>
+                                </div>
+
+                            ))}
+                        </div>
+
                         {/* Right column: contacts + activity */}
                         <div className="flex flex-col gap-4">
                             {/* Contact Us */}
@@ -207,8 +224,8 @@ export default function AdminDashboard() {
                                                     {item.nama.charAt(0).toUpperCase()}
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <p className="text-xs font-semibold text-gray-900 truncate">{item.nama}</p>
-                                                    <p className="text-xs text-gray-500 truncate">{item.subjek}</p>
+                                                    <p className="text-sm font-semibold text-gray-900 truncate">{item.nama}</p>
+                                                    <p className="text-sm text-gray-500 truncate">{item.subjek}</p>
                                                 </div>
                                             </div>
                                             <p className="text-[10px] text-gray-400 flex-shrink-0">
@@ -231,8 +248,8 @@ export default function AdminDashboard() {
                                                     </span>
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <p className="text-xs font-semibold text-gray-900 truncate">{item.nama}</p>
-                                                    <p className="text-xs text-gray-500 truncate">{item.aktivitas}</p>
+                                                    <p className="text-sm font-semibold text-gray-900 truncate">{item.nama}</p>
+                                                    <p className="text-sm text-gray-500 truncate">{item.aktivitas}</p>
                                                 </div>
                                             </div>
                                             <p className="text-[10px] text-gray-400 flex-shrink-0">

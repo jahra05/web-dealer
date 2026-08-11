@@ -249,7 +249,7 @@ const Spesifikasi = () => {
                         </div>
                     </div>
 
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
+                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-red-600 flex justify-between items-center">
                             <p className="text-sm font-semibold text-white">Daftar Spesifikasi</p>
                             <button
@@ -319,6 +319,65 @@ const Spesifikasi = () => {
                         </div>
                     </div>
 
+                    <div className="md:hidden space-y-4">
+                        {pageItems.map((item) => (
+                            <div className="rounded-xl border bg-white p-4 shadow-sm">
+
+                                <div className="flex gap-4">
+                                    <div className="bg-gray-100 w-20 h-20 rounded">
+                                        s
+                                    </div>
+                                    <div>
+                                        <p className="mb-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-500"><span className="text-sm text-slate-700">{item.nama_motor}</span></p>
+                                        <p className=" text-left text-xs font-semibold uppercase tracking-wider text-slate-500"> Mesin : <span className=" text-sm text-slate-700">{item.mesin}</span></p>
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-between mb-8 mt-8">
+                                    <div className="w-48 text-center p-2">
+                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tenaga</p>
+                                        <p className="text-black font-medium text-sm mt-0">{item.tenaga}</p>
+                                    </div>
+
+
+                                    <div className="w-48 text-center p-2">
+                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Bahan Bakar</p>
+                                        <p className="text-black font-medium text-sm mt-0">{item.torsi}</p>
+                                    </div>
+
+                                    <div className="w-48 text-center p-2">
+                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Transmisi</p>
+                                        <p className="text-black font-medium text-sm mt-0">{item.transmisi}</p>
+                                    </div>
+                                </div>
+                                <div className="flex justify-between">
+                                    <div className="w-48 text-center p-2">
+                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Berat</p>
+                                        <p className="text-black font-medium text-sm mt-0">{item.berat}</p>
+                                    </div>
+
+                                    <div className="w-48 text-center p-2">
+                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tinggi Jok</p>
+                                        <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
+                                    </div>
+
+                                    <div className="w-48 text-center p-2">
+                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Ban</p>
+                                        <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-4 justify-between h-10 rounded-md border-1 mt-8">
+                                    <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-blue-100 text-black rounded-md transition  hover:bg-sky-50">
+                                        <span className="mr-2">Hapus</span><MdDelete />
+                                    </button>
+                                    <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black  transition hover:bg-slate-50">
+                                        <span className="mr-2">Edit</span> <FaEdit />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                     {isModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalOpen(false)}>

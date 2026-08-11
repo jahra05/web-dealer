@@ -377,6 +377,20 @@ const Spesifikasi = () => {
                                 </div>
                             </div>
                         ))}
+                        <div className="px-6 py-3 flex items-center justify-end gap-3">
+                            <button
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                disabled={page === 1}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Prev</button>
+                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                            <button
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={page === totalPages}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Next
+                            </button>
+                        </div>
                     </div>
 
                     {isModalOpen && (

@@ -17,6 +17,8 @@ import SimulasiKredit from './pages/Admin/SimulasiKredit';
 import Spesifikasi from './pages/Admin/Spesifikasi';
 import Setting from './pages/Admin/Setting';
 import PageForgatPassword from './pages/Admin/PageForgatPassword';
+import SettingProfileDealer from './pages/Admin/SettingProfileDealer';
+import SettingProfileAdmin from './pages/Admin/SettingProfileAdmin';
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
         <Route path="/admin/exam" element={<ProtectedRoute><Exam /></ProtectedRoute>} />
         <Route path="/admin/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
         <Route path="/admin/forgatPassword" element={<PageForgatPassword />} />
+        <Route path="/admin/setting/profile-dealer" element={<SettingProfileDealer />} />
+        <Route path="/admin/setting/profile-admin" element={<SettingProfileAdmin />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
       </Routes>
     </Router>

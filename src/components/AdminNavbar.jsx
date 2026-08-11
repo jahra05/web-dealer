@@ -1,35 +1,62 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaMotorcycle, FaFileShield } from 'react-icons/fa6';
+import { FaMotorcycle, FaFileShield, FaClipboardList } from 'react-icons/fa6';
 import { MdQuiz } from 'react-icons/md';
-import { BiBox, BiMessageAdd, BiUser } from 'react-icons/bi';
+import { BiBarChart, BiBox, BiCalculator, BiKey, BiMessageAdd, BiMessageSquare, BiUser } from 'react-icons/bi';
 import { SiPrek } from 'react-icons/si';
 import { CgComment, CgCreditCard } from 'react-icons/cg';
 import { IoBagCheckOutline } from 'react-icons/io5';
+import { LuCircleHelp, LuLayoutDashboard, LuMessageCircleHeart } from 'react-icons/lu';
+import { FiFileText } from 'react-icons/fi';
+import { BarChart } from 'recharts';
+import { CiSettings } from 'react-icons/ci';
 
 const NAV_ITEMS = [
-  { path: '/admin/dashboard', label: 'Dashboard', icon: BiBox },
-  { path: '/admin/kelolaProduk', label: 'Kelola Produk', icon: FaMotorcycle },
-  { path: '/admin/spesifikasi', label: 'Spesifikasi', icon: SiPrek },
-  { path: '/admin/pengajuanKredit', label: 'Pengajuan Kredit', icon: CgCreditCard },
-  { path: '/admin/simulasiKredit', label: 'Simulasi Kredit', icon: IoBagCheckOutline },
-  { path: '/admin/pagemessage', label: 'Message', icon: BiMessageAdd },
-  { path: '/admin/testimoni', label: 'Testimoni', icon: CgComment },
-  { path: '/admin/faq', label: 'FAQ', icon: MdQuiz },
-  { path: '/admin/exam', label: 'Laporan', icon: FaFileShield },
-  { path: '/admin/manageUser', label: 'Managemen User', icon: BiUser },
+  {
+    title: 'MAIN',
+    items: [
+      { path: '/admin/dashboard', label: 'Dashboard', icon: LuLayoutDashboard },
+
+    ]
+  },
+  {
+    title: 'INVENTORY',
+    items: [
+      { path: '/admin/kelolaProduk', label: 'Produk Motot', icon: BiKey },
+      { path: '/admin/spesifikasi', label: 'Spesifikasi', icon: FaClipboardList },
+    ]
+  },
+  {
+    title: 'TRANSAKSI',
+    items: [
+      { path: '/admin/pengajuanKredit', label: 'Pengajuan Kredit', icon: FiFileText },
+      { path: '/admin/simulasiKredit', label: 'Simulasi Kredit', icon: BiCalculator },
+
+    ]
+  },
+  {
+    title: 'KOMUNIKASI',
+    items: [
+      { path: '/admin/pagemessage', label: 'Pesan Masuk', icon: BiMessageSquare },
+      { path: '/admin/testimoni', label: 'Testimoni', icon: LuMessageCircleHeart },
+      { path: '/admin/faq', label: 'FAQ', icon: LuCircleHelp },
+
+    ]
+  },
+  {
+    title: 'ANALITIK',
+    items: [
+      { path: '/admin/exam', label: 'Laporan', icon: BiBarChart },
+    ]
+  },
+  {
+    title: 'SYSTEM',
+    items: [
+      { path: '/admin/setting/profile-admin', label: 'Pengaturan', icon: CiSettings },
+    ]
+  },
 ];
 
-const NavItem = ({ item, isActive, onClick }) => (
-  <li
-    onClick={onClick}
-    className={`list-none cursor-pointer px-4 py-3 w-full flex rounded-xl hover:bg-red-600 hover:text-white items-center font-semibold text-sm transition-all duration-300 ease-in-out ${isActive ? 'bg-red-100 text-red-500' : 'text-gray-700 hover:text-white'
-      }`}
-  >
-    <item.icon size={22} className="mr-3 flex-shrink-0" />
-    {item.label}
-  </li>
-);
 
 const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
   const navigate = useNavigate();
@@ -56,16 +83,55 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
         </div>
 
         <nav className="flex-1 px-3 py-2 overflow-y-auto">
-          <ul className="flex flex-col gap-0.5">
-            {NAV_ITEMS.map((item) => (
-              <NavItem
-                key={item.path}
-                item={item}
-                isActive={location.pathname === item.path}
-                onClick={() => handleNavigate(item.path)}
-              />
-            ))}
-          </ul>
+          {NAV_ITEMS.map((group) => (
+            <div key={group.title} className="mb-5">
+
+              {/* Judul kelompok */}
+              <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">
+                {group.title}
+              </p>
+
+              <ul className="space-y-1">
+                {group.items.map((item) => {
+                  const Icon = item.icon;
+
+                  const isActive =
+                    location.pathname === item.path ||
+                    location.pathname.startsWith(`${item.path}/`);
+
+                  return (
+                    <li key={item.path} className="list-none">
+                      <Link
+                        to={item.path}
+                        onClick={onClose}
+                        className={`
+                  flex items-center gap-3
+                  px-4 py-3
+                  w-full
+                  rounded-xl
+                  font-semibold text-sm
+                  transition-all duration-200
+                  ${isActive
+                            ? "bg-red-100 text-red-600"
+                            : "text-gray-700 hover:bg-red-50 hover:text-red-600"
+                          }
+                `}
+                      >
+                        <Icon
+                          size={20}
+                          strokeWidth={1.8}
+                          className="flex-shrink-0"
+                        />
+
+                        <span>{item.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+            </div>
+          ))}
         </nav>
       </aside>
 
@@ -101,17 +167,56 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
             </button>
           </div>
 
-          <nav className="flex-1 px-3 py-3 overflow-y-auto">
-            <ul className="flex flex-col gap-0.5">
-              {NAV_ITEMS.map((item) => (
-                <NavItem
-                  key={item.path}
-                  item={item}
-                  isActive={location.pathname === item.path}
-                  onClick={() => handleNavigate(item.path)}
-                />
-              ))}
-            </ul>
+          <nav className="flex-1 px-3 py-2 overflow-y-auto">
+            {NAV_ITEMS.map((group) => (
+              <div key={group.title} className="mb-5">
+
+                {/* Judul kelompok */}
+                <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">
+                  {group.title}
+                </p>
+
+                <ul className="space-y-1">
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+
+                    const isActive =
+                      location.pathname === item.path ||
+                      location.pathname.startsWith(`${item.path}/`);
+
+                    return (
+                      <li key={item.path} className="list-none">
+                        <Link
+                          to={item.path}
+                          onClick={onClose}
+                          className={`
+                  flex items-center gap-3
+                  px-4 py-3
+                  w-full
+                  rounded-xl
+                  font-semibold text-sm
+                  transition-all duration-200
+                  ${isActive
+                              ? "bg-red-100 text-red-600"
+                              : "text-gray-700 hover:bg-red-50 hover:text-red-600"
+                            }
+                `}
+                        >
+                          <Icon
+                            size={20}
+                            strokeWidth={1.8}
+                            className="flex-shrink-0"
+                          />
+
+                          <span>{item.label}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+              </div>
+            ))}
           </nav>
         </aside>
       </div>

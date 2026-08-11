@@ -40,7 +40,6 @@ export default function UserMenuDropdwn() {
 
     const menuSelect = [
         { label: 'Logout', icon: LuLogOut, onclick: () => { localStorage.clear(); navigate("/admin/login") } },
-        { label: 'Setting', icon: CiSettings, onclick: () => navigate('/admin/setting') }
     ]
 
     return (

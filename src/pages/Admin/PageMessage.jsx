@@ -139,7 +139,7 @@ const PageMessage = () => {
                         </div>
                     </div>
 
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
+                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-red-600">
                             <p className="text-sm font-semibold text-white">Daftar Message</p>
                         </div>
@@ -218,6 +218,67 @@ const PageMessage = () => {
                         </div>
                     </div>
 
+                    {/* mobile */}
+                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-red-600 rounded-xl">
+                            <p className="text-sm font-semibold text-white">Daftar Message</p>
+                        </div>
+                        {pageItems.map((item) => (
+                            <div className="bg-white shadow p-4 rounded-xl">
+                                <div className="flex justify-between items-center">
+
+                                    <button
+                                        onClick={() => handleStatus(item.id_message)}
+                                        className={`px-3 py-1 rounded-full text-sm font-semibold transition ${item.status === "belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
+                                    >
+                                        {item.status === 'Belum dibaca' ? "belum dibaca" : "sudah dibaca"}  </button>
+
+                                    <button onClick={() => handleDelete(item.id_message)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                        <MdDelete />
+                                    </button>
+                                </div>
+
+                                <div className="mt-6">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Nama</p>
+                                        <p className="text-sm font-medium">{item.nama}</p>
+                                    </div>
+
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Email</p>
+                                        <p className="text-sm font-medium">{item.email}</p>
+                                    </div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Subjek</p>
+                                        <p className="text-sm font-medium">{item.subjek}</p>
+                                    </div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">No Headphone</p>
+                                        <p className="text-sm font-medium">{item.no_hp}</p>
+                                    </div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Pesan</p>
+                                        <p className="text-sm font-medium">{item.pesan}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))}
+                        <div className="px-6 py-3 flex items-center justify-end gap-3">
+                            <button
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                disabled={page === 1}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Prev</button>
+                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                            <button
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={page === totalPages}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Next
+                            </button>
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>

@@ -430,7 +430,7 @@ const SimulasiKredit = () => {
                         </div>
                     )}
 
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
+                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-red-600">
                             <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
                         </div>
@@ -487,6 +487,69 @@ const SimulasiKredit = () => {
                             </button>
                         </div>
                     </div>
+
+
+                    {/* mobile */}
+                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-red-600 rounded-xl">
+                            <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
+                        </div>
+                        {pageItems.map((item) => (
+                            <div className="bg-white shadow p-4 rounded-xl">
+                                <div className="flex justify-between">
+                                    <div className="flex gap-2">
+                                        <p className="bg-blue-100 text-blue-500 w-14 h-14 text-center py-3 text-2xl uppercase font-medium rounded-xl">f</p>
+                                        <div>
+                                            <p className="text-sm text-gray-700 font-semibold">{item.nama_motor}</p>
+                                            <p className="text-sm text-gray-500 font-medium">Rp {Number(item.harga).toLocaleString("id-ID")}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex items-center gap-2">
+                                            <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                                <FaEdit />
+                                            </button>
+                                            <button onClick={() => handeleDelete(item.id_simulasi)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                                <MdDelete />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">DP</p>
+                                        <p className="text-sm font-medium">Rp {Number(item.dp).toLocaleString("id-ID")}</p>
+                                    </div>
+
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Tenor</p>
+                                        <p className="text-sm font-medium">{item.tenor} Bulan</p>
+                                    </div>
+                                    <div className="flex justify-between items-center mb-2 ">
+                                        <p className="text-sm text-gray-600">Ciciclan / Bulan</p>
+                                        <p className="text-sm font-medium border-b-2 border-red-400 py-2">Rp {Number(item.cicilan ?? 0).toLocaleString("id-ID")}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))}
+                        <div className="px-6 py-3 flex items-center justify-end gap-3">
+                            <button
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                disabled={page === 1}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Prev</button>
+                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                            <button
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={page === totalPages}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Next
+                            </button>
+                        </div>
+                    </div>
+
 
                 </main>
             </div>

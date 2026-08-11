@@ -219,10 +219,6 @@ const PengajuanKredit = () => {
                                 </tbody>
                             </table>
                         </div>
-
-
-
-
                         <div className="px-4 lg:px-6 py-3 flex flex-wrap items-center justify-end gap-3">
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
@@ -240,23 +236,67 @@ const PengajuanKredit = () => {
                     </div>
 
                     {/* mobile */}
-                    <div className="md:hidden space-y-4 bg-white">
+                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-red-600 rounded-xl">
+                            <p className="text-sm font-semibold text-white">Daftar Pengajuan Kredit</p>
+                        </div>
                         {pageItems.map((item) => (
-                            <div className="bg-white shadow p-2 rounded-xl">
-                                <div className="flex gap-4">
-                                    <div>
-                                        <span className="bg-red-50 w-14 h-14 text-center pt-2 text-2xl font-medium rounded-sm">s</span>
-                                        <p>{item.nama}</p>
-                                        <p>{item.no_hp}</p>
+                            <div className="bg-white shadow p-4 rounded-xl">
+                                <div className="flex justify-between">
+                                    <div className="flex gap-2">
+                                        <p className="bg-blue-100 text-blue-500 w-14 h-14 text-center py-3 text-2xl uppercase font-medium rounded-xl">f</p>
+                                        <div>
+                                            <p className="text-sm text-gray-700 font-semibold">{item.nama}</p>
+                                            <p className="text-sm text-gray-500 font-medium">{item.no_hp}</p>
+                                        </div>
                                     </div>
-                                    
+                                    <div>
+                                        <select value={item.status}
+                                            onChange={(e) => updateStatus(
+                                                item.id_pengajuan,
+                                                e.target.value
+                                            )}
+                                            className="border rounded-lg px-2 py-1 text-sm"
+                                        >
+                                            <option value="Menunggu">Menunggu</option>
+                                            <option value="Disetujui">Disetujui</option>
+                                            <option value="Ditolak">Ditolak</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div className=" items-center p-2 flex">
-                                    <p className="  text-xs font-semibold uppercase tracking-wider text-slate-500">No Headphone</p>
-                                    <p className="text-black font-medium text-sm mt-0">{item.no_hp}</p>
+
+                                <div className="mt-8">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Motor</p>
+                                        <p className="text-sm font-medium">{item.nama_motor}</p>
+                                    </div>
+
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Alamat</p>
+                                        <p className="text-sm font-medium">{item.alamat}</p>
+                                    </div>
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-sm text-gray-600">Pekerjaan</p>
+                                        <p className="text-sm font-medium">{item.pekerjaan}</p>
+                                    </div>
                                 </div>
+
                             </div>
                         ))}
+                        <div className="px-4 lg:px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                            <button
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                disabled={page === 1}
+                                className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100 cursor-not-allowed' : 'text-slate-700 bg-white border border-slate-200 hover:bg-slate-50'}`}>
+                                Prev</button>
+                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                            <button
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={page === totalPages}
+                                className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100 cursor-not-allowed' : 'text-slate-700 bg-white border border-slate-200 hover:bg-slate-50'}`}>
+                                Next
+                            </button>
+                        </div>
                     </div>
                 </main>
             </div>

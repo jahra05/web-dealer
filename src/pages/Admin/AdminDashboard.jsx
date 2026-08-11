@@ -56,7 +56,7 @@ export default function AdminDashboard() {
 
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
-            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <AdminNavbar  isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
             {/* Main content area */}
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">

@@ -242,7 +242,7 @@ const Exam = () => {
                         </div>
                     </div>
 
-                    <div className="mt-2">
+                    <div className="mt-2 hidden md:block">
                         {/* ── Tab: Produk ── */}
                         {tab === "produk" && (
                             <div className="mt-0 overflow-hidden rounded-2xl bg-white shadow-sm">
@@ -398,6 +398,188 @@ const Exam = () => {
                                         </tbody>
                                     </table>
                                 </div>
+                                {renderPagination()}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* mobile */}
+                    <div className="md:hidden space-y-4  rounded-xl">
+                        {/* ── Tab: Produk ── */}
+                        {tab === "produk" && (
+                            <div className=" rounded-xl bg-white shadow p-4">
+                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Produk Motor</p>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        {renderFilterSelects()}
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white/10 text-white px-3 shadow-sm transition hover:bg-white/20">
+                                            <CiFileOn size={18} />
+                                            <span className="text-xs">Export</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {pageItems.map((item) => (
+                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                        <div className="mt-6">
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Nama Motor</p>
+                                                <p className="text-sm font-medium">{item.nama_motor}</p>
+                                            </div>
+
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Kategori</p>
+                                                <p className="text-sm font-medium">{item.nama_kategori}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Tipe</p>
+                                                <p className="text-sm font-medium">{item.nama_tipe}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Warna</p>
+                                                <p className="text-sm font-medium">{item.warna}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Stok</p>
+                                                <p className="text-sm font-medium">{item.stok}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                ))}
+                                {renderPagination()}
+                            </div>
+                        )}
+
+                        {/* ── Tab: Pengajuan Kredit ── */}
+                        {tab === "pengajuanKredit" && (
+                            <div className=" rounded-xl bg-white shadow p-4">
+                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Pengajuan Kredit</p>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        {renderFilterSelects()}
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white/10 text-white px-3 shadow-sm transition hover:bg-white/20">
+                                            <CiFileOn size={18} />
+                                            <span className="text-xs">Export</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {pageItems.map((item) => (
+                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                        <div className="mt-6">
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Nama</p>
+                                                <p className="text-sm font-medium">{item.nama}</p>
+                                            </div>
+
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">No Headphone</p>
+                                                <p className="text-sm font-medium">{item.no_hp}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Alamat</p>
+                                                <p className="text-sm font-medium">{item.alamat}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Nama Motor</p>
+                                                <p className="text-sm font-medium">{item.nama_motor}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Tanggal Pengajuan</p>
+                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Status</p>
+                                                <p className="text-sm font-medium bg-">{item.status}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                ))}
+                                {renderPagination()}
+                            </div>
+                        )}
+
+                        {/* ── Tab: Contact ── */}
+                        {tab === "contact" && (
+                            <div className=" rounded-xl bg-white shadow p-4">
+                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Contact</p>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        {renderFilterSelects()}
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white/10 text-white px-3 shadow-sm transition hover:bg-white/20">
+                                            <CiFileOn size={18} />
+                                            <span className="text-xs">Export</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {pageItems.map((item) => (
+                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                        <div className="mt-6">
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Nama</p>
+                                                <p className="text-sm font-medium">{item.nama}</p>
+                                            </div>
+
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Email</p>
+                                                <p className="text-sm font-medium">{item.email}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Subjek</p>
+                                                <p className="text-sm font-medium">{item.subjek}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Pesan</p>
+                                                <p className="text-sm font-medium">{item.pesan}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">No Headphone</p>
+                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                {renderPagination()}
+                            </div>
+
+                        )}
+
+                        {/* ── Tab: Testimoni ── */}
+                        {tab === "testimoni" && (
+                            <div className=" rounded-xl bg-white shadow p-4">
+                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-red-600 px-6 py-4">
+                                    <p className="text-sm font-semibold text-white">Testimoni</p>
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                        {renderFilterSelects()}
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white/10 text-white px-3 shadow-sm transition hover:bg-white/20">
+                                            <CiFileOn size={18} />
+                                            <span className="text-xs">Export</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {pageItems.map((item) => (
+                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                        <div className="mt-6">
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Nama</p>
+                                                <p className="text-sm font-medium">{item.nama}</p>
+                                            </div>
+
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Pekerjaan</p>
+                                                <p className="text-sm font-medium">{item.email}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-3 w-72">Isi Testimoni</p>
+                                                <p className="text-sm font-medium text-right mb-2">{item.isi_testimoni}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Rating</p>
+                                                <p className="text-sm font-medium">{item.rating}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                                 {renderPagination()}
                             </div>
                         )}

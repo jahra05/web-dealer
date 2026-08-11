@@ -166,7 +166,7 @@ const Testimoni = () => {
             const data = await response.json();
 
             console.log(data.data)
-            
+
             if (data.success) {
                 setTestimoni(data.data);
             }
@@ -221,7 +221,7 @@ const Testimoni = () => {
                         <UserMenuDropdwn />
                     </div>
                 </div>
-                <div className="flex-1 px-4 pb-6 overflow-x-hidden">
+                <div className="flex-1 px-4 pb-6 overflow-x-hidden hidden md:block">
                     <div className="mb-4">
                         <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
                         <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
@@ -254,7 +254,11 @@ const Testimoni = () => {
                                             <td className="px-4 py-4 text-sm text-slate-700">{item.nama}</td>
                                             <td className="px-4 py-4 text-sm text-slate-700">{item.pekerjaan}</td>
                                             <td className="px-4 py-4 text-sm text-slate-700">{item.isi_testimoni}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.rating}</td>
+                                            <td className="px-4 py-4 text-sm text-slate-700"> <div className="flex text-yellow-400 mb-3">
+                                                {Array.from({ length: item.rating }).map((_, index) => (
+                                                    <span key={index}>⭐</span>
+                                                ))}
+                                            </div></td>
                                             <td className="px-4 py-4">
                                                 <img
                                                     src={`${item.foto}`}
@@ -293,6 +297,7 @@ const Testimoni = () => {
                             </button>
                         </div>
                     </div>
+
                     {isModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalOpen(false)}>
                             <div className="w-full max-w-lg lg:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
@@ -353,10 +358,80 @@ const Testimoni = () => {
                             </div>
                         </div>
                     )}
-
                 </div>
+
+                {/* mobile */}
+                <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
+                    <div className="px-4 flex justify-between items-center lg:px-6 py-4 bg-red-600 rounded-xl">
+                        <p className=" text-sm font-semibold text-white">Daftar Testimoni</p>
+                        <button
+                            type="button"
+                            onClick={openModal}
+                            className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 focus:ring-2 focus:ring-indigo-200'>
+                            <PiPlus size={20} />
+                        </button>
+                    </div>
+                    {pageItems.map((item) => (
+                        <div className="bg-white shadow p-4 rounded-xl">
+                            <div className="flex justify-between">
+                                <div className="flex gap-2">
+                                    <img
+                                        src={`${item.foto}`}
+                                        alt={item.nama}
+                                        className="w-14 h-14 rounded-xl object-cover border"
+                                    />
+                                    <div>
+                                        <p className="text-sm text-gray-700 font-semibold">{item.nama}</p>
+                                        <p className="text-sm text-gray-500 font-medium">{item.pekerjaan}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                            <FaEdit />
+                                        </button>
+                                        <button onClick={() => handleDelete(item.id_testimoni)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                            <MdDelete />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-8">
+                                <div className="flex justify-between items-center mb-3">
+                                    <p className="text-sm text-gray-600">Isi Testimoni</p>
+                                    <p className="text-sm font-medium w-72 text-right">{item.isi_testimoni}</p>
+                                </div>
+
+                                <div className="flex justify-between items-center mb-3">
+                                    <p className="text-sm text-gray-600">Rating</p>
+                                    <div className="flex text-yellow-400 mb-3">
+                                        {Array.from({ length: item.rating }).map((_, index) => (
+                                            <span key={index}>⭐</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    <div className="px-6 py-3 flex items-center justify-end gap-3">
+                        <button
+                            onClick={() => setPage((p) => Math.max(1, p - 1))}
+                            disabled={page === 1}
+                            className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                            Prev</button>
+                        <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                        <button
+                            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                            disabled={page === totalPages}
+                            className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                            Next
+                        </button>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </div >
 
     )
 }

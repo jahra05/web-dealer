@@ -248,13 +248,13 @@ const deleteMotor = (req, res) => {
 
     db.query(sql, [id], (err, result) => {
 
-        // if (err) {
-        //     console.log(err)
-        //     return res.status(500).json({
-        //         success: false,
-        //         message: "Hapus dulu Di tabel pengajuan produk"
-        //     });
-        // }
+        if (err) {
+            console.log(err)
+            return res.status(500).json({
+                success: false,
+                message: "Hapus dulu Di tabel pengajuan produk"
+            });
+        }
 
         if (result.affectedRows === 0) {
             return res.status(404).json({

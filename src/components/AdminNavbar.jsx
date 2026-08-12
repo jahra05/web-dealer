@@ -22,7 +22,7 @@ const NAV_ITEMS = [
   {
     title: 'INVENTORY',
     items: [
-      { path: '/admin/kelolaProduk', label: 'Produk Motot', icon: BiKey },
+      { path: '/admin/kelolaProduk', label: 'Produk Motor', icon: BiKey },
       { path: '/admin/spesifikasi', label: 'Spesifikasi', icon: FaClipboardList },
     ]
   },
@@ -87,7 +87,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
       <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100">
         <div className="p-4">
           <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
-            <div className="w-11 h-11 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
+            <div className="w-11 h-11 flex items-center justify-center bg-red-100 text-white rounded-lg shadow-sm flex-shrink-0">
               <img src={navLogo.logo} alt={navLogo.nama_dealer} />
             </div>
             <div className="leading-tight min-w-0">

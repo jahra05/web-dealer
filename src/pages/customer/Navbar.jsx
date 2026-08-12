@@ -122,10 +122,13 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-20">
 
             {/* Logo */}
-            <img className='w-18 h-14 object-cover ml-10'
-              src={logo ? URL.createObjectURL(logo) : `${infoStore.logo}`} />
-            <div>
-           
+            <div className='flex items-center gap-4'>
+              <img className='w-18 h-14 object-cover ml-10'
+                src={logo ? URL.createObjectURL(logo) : `${infoStore.logo}`} />
+              <div className="leading-tight min-w-0">
+                <h2 className="text-lg font-bold text-gray-900 truncate">{infoStore.nama_dealer}</h2>
+                <p className="text-[10px] text-gray-500">{infoStore.deskripsi}</p>
+              </div>
             </div>
 
             {/* Desktop Menu */}
@@ -141,7 +144,7 @@ const Navbar = () => {
               ))}
               <button
                 onClick={openModal}
-                className="text-white font-bold text-sm bg-[#002446] px-5 py-2.5 rounded-full hover:bg-[#00345F] transition-colors"
+                className="text-white font-bold text-sm bg-[#002446]  hover:bg-[#00345F]  px-5 py-2.5 rounded-full transition-colors"
               >
                 Contact Us
               </button>
@@ -180,16 +183,15 @@ const Navbar = () => {
           }`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between p-5 border-b border-gray-100">
+        <div className="flex items-center justify-between p-2 border-b border-gray-100">
           <Link to="/" onClick={() => setIsDrawerOpen(false)} className="flex items-center space-x-2">
-            <div className="bg-[#006A9E] p-1 rounded">
-              <svg viewBox="0 0 24 24" className="w-7 h-7 text-white fill-current">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-lg font-black text-gray-900 leading-tight">Daya Motor</h1>
-              <p className="text-[9px] font-bold text-gray-500 tracking-wider">DEALER RESMI HONDA</p>
+            <div className='flex items-center gap-4 ml-6'>
+              <img className='w-18 h-14'
+                src={logo ? URL.createObjectURL(logo) : `${infoStore.logo}`} />
+              <div className="leading-tight min-w-0">
+                <h2 className="text-lg font-bold text-gray-900 truncate">{infoStore.nama_dealer}</h2>
+                <p className="text-[10px] text-gray-500">{infoStore.deskripsi}</p>
+              </div>
             </div>
           </Link>
           <button
@@ -209,7 +211,7 @@ const Navbar = () => {
             <button
               key={item.id}
               onClick={() => handleScrollTo(item.id)}
-              className="w-full text-left px-4 py-3.5 rounded-xl text-gray-700 hover:text-primary hover:bg-red-50 font-bold text-sm transition-colors"
+              className="w-full text-left px-4 py-3.5 rounded-xl text-gray-700 hover:text-[#002446] hover:bg-blue-50 font-bold text-sm transition-colors"
             >
               {item.label}
             </button>
@@ -217,7 +219,7 @@ const Navbar = () => {
           <div className="pt-3">
             <button
               onClick={() => handleMenuClick(openModal)}
-              className="w-full text-white font-bold text-sm bg-red-500 px-4 py-3.5 rounded-xl hover:bg-red-600 transition-colors"
+              className="w-full text-white font-bold text-sm bg-[#002446] px-4 py-3.5 rounded-xl hover:bg-[#00345F] transition-colors"
             >
               Contact Us
             </button>

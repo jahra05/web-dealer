@@ -15,7 +15,9 @@ exports.up = async function (knex) {
     // Foreign key
     table.foreign('id_tipe', 'fk_varian_tipe')
       .references('id_tipe')
-      .inTable('tipe');
+      .inTable('tipe')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
   });
 };
 

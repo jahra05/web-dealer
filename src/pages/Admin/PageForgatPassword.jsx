@@ -60,9 +60,9 @@ export default function PageForgatPassword() {
             <div className="p-4">
                 {/* <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline"> */}
                 <div className="flex items-center gap-3 no-underline">
-                    <div className="w-11 h-11 flex items-center justify-center bg-blue-600 text-white rounded-lg shadow-sm flex-shrink-0">
+                    <div className="w-18 h-16 flex items-center justify-center text-white rounded-lg shadow-sm flex-shrink-0">
                         {/* <FaMotorcycle size={28} /> */}
-                        <img src={infoDealer.logo} alt={infoDealer.nama_Dealer}/>
+                        <img src={infoDealer.logo} alt={infoDealer.nama_Dealer} className="w-18 h-16 bg-white rounded-full" />
                     </div>
                     <div className="leading-tight min-w-0">
                         <h2 className="text-lg font-bold text-gray-900 truncate">{infoDealer.nama_dealer}</h2>

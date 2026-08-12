@@ -146,7 +146,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                   >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                       <div className="relative group">
-                        <div className="absolute inset-0 bg-[#F2F8FC] rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
+                        <div className="absolute inset-0 bg-blue-50/20 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
                         <img
                           src={`${selected?.gambar}`}
                           alt={selected?.nama_motor}

@@ -87,8 +87,8 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
       <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100">
         <div className="p-4">
           <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
-            <div className="w-11 h-11 flex items-center justify-center bg-red-100 text-white rounded-lg shadow-sm flex-shrink-0">
-              <img src={navLogo.logo} alt={navLogo.nama_dealer} />
+            <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
+              <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-14 h-14' />
             </div>
             <div className="leading-tight min-w-0">
               <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
@@ -163,8 +163,8 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
         >
           <div className="flex items-center justify-between p-4 border-b border-gray-100">
             <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
-              <div className="w-11 h-11 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
-                <img src={navLogo.logo} alt={navLogo.nama_dealer} />
+              <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
+                <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-18 h-16 bg-white rounded-full' />
               </div>
               <div className="leading-tight min-w-0">
                 <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>

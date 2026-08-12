@@ -149,7 +149,7 @@ const ProductShowcase = () => {
 
             <button
               onClick={resetFilters}
-              className="mt-auto sm:mb-0 bg-white border border-gray-200 text-gray-400 hover:text-primary hover:border-primary/50 p-3.5 rounded-xl transition-all flex items-center justify-center"
+              className="mt-auto sm:mb-0 bg-white border border-gray-200 text-gray-400 hover:text-blue-900 hover:border-blue-50 p-3.5 rounded-xl transition-all flex items-center justify-center"
               title="Reset Filter"
             >
               <FiRotateCcw size={20} />

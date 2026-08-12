@@ -39,8 +39,8 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center space-x-2 mb-6">
-              <img className='w-18 h-16'
+            <div className="flex items-center space-x-2 mb-6  ">
+              <img className='w-18 h-16 bg-white rounded-full'
                 src={logo ? URL.createObjectURL(logo) : `${footer.logo}`} />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">

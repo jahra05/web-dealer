@@ -77,7 +77,7 @@ export default function UserMenuDropdwn() {
                         const Icon = item.icon
                         return (
                             <button key={item.label} onClick={item.onclick}
-                                className="flex items-center w-full gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                className="flex items-center w-full gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                             >
                                 <Icon size={20} />
                                 <span className="text-ms">{item.label}</span>

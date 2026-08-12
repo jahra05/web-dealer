@@ -38,8 +38,8 @@ export default function Setting({ isOpen, onClose }) {
             <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100 m-4 rounded-lg">
                 <div className="p-4">
                     <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
-                        <div className="w-11 h-11 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
-                            <img src={settingInfo.logo} alt={settingInfo.nama_dealer} />
+                        <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
+                            <img src={settingInfo.logo} alt={settingInfo.nama_dealer} className='w-18 h-16 bg-white rounded-full'/>
                         </div>
                         <div className="leading-tight min-w-0">
                             <h2 className="text-lg font-bold text-gray-900 truncate">{settingInfo.nama_dealer}</h2>

@@ -27,25 +27,31 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-black text-gray-900 mb-12">Testimoni Pembeli</h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6">
           {testimoni.map((item) => (
             <div key={item.id_testimoni} className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex text-yellow-400 mb-4">
-                {Array.from({ length: item.rating }).map((_, index) => (
-                  <span key={index}>⭐</span>
-                ))}
-              </div>
-              <p className="text-gray-600 text-sm italic mb-8 leading-relaxed">
-                "{item.isi_testimoni}"
-              </p>
-              <div className="flex items-center space-x-4">
-                <img src={`${item.foto}`}
-                  alt={item.nama} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" />
-                <div>
-                  <h4 className="font-bold text-gray-900 text-sm">{item.nama}</h4>
-                  <p className="text-[10px] font-bold text-gray-400">{item.pekerjaan}</p>
+
+              <div className='flex justify-between items-center'>
+                <div className="flex items-center space-x-4">
+                  <img src={`${item.foto}`}
+                    alt={item.nama} className="w-12 h-12 rounded-full border-2 border-white shadow-sm" />
+                  <div>
+                    <h4 className="font-bold text-gray-900 text-sm">{item.nama}</h4>
+                    <p className="text-[10px] font-bold text-gray-400">{item.pekerjaan}</p>
+                  </div>
+                </div>
+
+                <div className="flex text-yellow-400 mb-4">
+                  {Array.from({ length: item.rating }).map((_, index) => (
+                    <span key={index} className='text-sm'>⭐</span>
+                  ))}
                 </div>
               </div>
+
+              <p className="text-gray-600 text-sm italic mt-4 leading-relaxed">
+                "{item.isi_testimoni}"
+              </p>
+
             </div>
           ))}
         </div>

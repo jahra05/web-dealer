@@ -38,7 +38,7 @@ const KelolaProduk = () => {
     const [selectWarna, setSelectWarna] = useState("")
     const [isNotificationOpen, setIsNotificationOpen] = useState(false)
     const [isSidebarOpen, setIsSidebarOpen] = useState(null)
-    const dropdownRef = useRef(null);
+    const dropdownContainerRef = useRef(null);
 
 
 
@@ -91,7 +91,6 @@ const KelolaProduk = () => {
     });
 
     const resetForm = () => {
-        setInputWarna({ nama_warna: "", kode_warna: "#000000" })
         setFormData({
             nama_motor: "",
             id_kategori: "",
@@ -463,19 +462,25 @@ const KelolaProduk = () => {
         });
         openModal()
     }
+
     useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-                setOpenDrapMenu(false);
+        const handleClickOutside = (event) => {
+            if (
+                dropdownContainerRef.current &&
+                !dropdownContainerRef.current.contains(event.target)
+            ) {
+                setOpenDrapMenu(null);
             }
         };
-        if (openDrapMenu) {
-            document.addEventListener("mousedown", handleClickOutside);
-        }
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [openDrapMenu]);
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
     return (
-        <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
+        <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden" ref={dropdownContainerRef}>
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between p-4'>
@@ -583,32 +588,74 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">Rp {Number(item.harga).toLocaleString("id-ID")}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.stok}</td>
                                             <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
-                                            </td>
-
-                                            {openDrapMenu === item.id_motor && (
-                                                <div ref={dropdownRef} className="absolute right-32 mt-12 w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
-                                                    <button onClick={() => {
-                                                        setEditWarna({
-                                                            id_motor: item.id_motor,
-                                                            id_warna: "",
-                                                            nama_warna: "",
-                                                            kode_warna: "#000000",
-                                                        });
-
-                                                        setIsModalColor(true);
-                                                    }} className="flex text-sm  h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold hover:text-[#00182F]">
-                                                        🎨 <span>Kelola Warna</span>
+                                                <div className="relative">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            setOpenDrapMenu(
+                                                                openDrapMenu === item.id_motor
+                                                                    ? null
+                                                                    : item.id_motor
+                                                            )
+                                                        }
+                                                        className="p-2 rounded-lg hover:bg-gray-100"
+                                                    >
+                                                        <MdMoreHoriz size={20} />
                                                     </button>
 
-                                                    <button onClick={() => handleEdit(item)} className="flex text-sm  h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold hover:text-[#00182F]">
-                                                        ✏️ <span>Edit Produk</span>
-                                                    </button>
-                                                    <button onClick={() => handleDelet(item.id_motor)} className="flex text-sm  h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold hover:text-[#00182F]">
-                                                        🗑️ <span>Hapus</span>
-                                                    </button>
+                                                    {openDrapMenu === item.id_motor && (
+                                                        <div className="absolute right-0 top-full mt-2 w-40 bg-white z-[9999] shadow-xl rounded-lg border border-gray-100 overflow-hidden">
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    console.log("KLIK KELOLA WARNA");
+
+                                                                    setEditWarna({
+                                                                        id_motor: item.id_motor,
+                                                                        id_warna: "",
+                                                                        nama_warna: "",
+                                                                        kode_warna: "#000000",
+                                                                    });
+
+                                                                    setIsModalColor(true);
+                                                                    setOpenDrapMenu(null);
+                                                                }}
+                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                            >
+                                                                🎨
+                                                                <span>Kelola Warna</span>
+                                                            </button>
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    handleEdit(item);
+                                                                    setOpenDrapMenu(null);
+                                                                }}
+                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                            >
+                                                                ✏️
+                                                                <span>Edit Produk</span>
+                                                            </button>
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    handleDelet(item.id_motor);
+                                                                    setOpenDrapMenu(null);
+                                                                }}
+                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-red-600 hover:bg-red-50 font-semibold"
+                                                            >
+                                                                🗑️
+                                                                <span>Hapus</span>
+                                                            </button>
+
+                                                        </div>
+                                                    )}
+
                                                 </div>
-                                            )}
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -656,7 +703,7 @@ const KelolaProduk = () => {
                                         <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
 
                                         {openDrapMenu === item.id_motor && (
-                                            <div ref={dropdownRef} className="absolute right-8  w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
+                                            <div className="absolute right-8  w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
                                                 <button onClick={() => {
                                                     setEditWarna({
                                                         id_motor: item.id_motor,

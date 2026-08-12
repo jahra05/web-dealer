@@ -349,7 +349,7 @@ const SimulasiKredit = () => {
                                 <button
                                     type="button"
                                     onClick={openModal}
-                                    className='inline-flex items-center gap-2 h-10  px-4 rounded-full bg-primary text-white shadow-sm transition hover:bg-primary/90'
+                                    className='inline-flex items-center gap-2 h-10 w-10   p-2 rounded-full bg-white text-black shadow-sm transition'
                                 >
                                     <PiPlus size={18} />
                                 </button>
@@ -431,7 +431,7 @@ const SimulasiKredit = () => {
                     )}
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
-                        <div className="px-4 lg:px-6 py-4 bg-[#002446]">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C]">
                             <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
                         </div>
                         <div className="overflow-x-auto">
@@ -491,7 +491,7 @@ const SimulasiKredit = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-[#002446] rounded-xl">
+                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] rounded-xl">
                             <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
                         </div>
                         {pageItems.map((item) => (

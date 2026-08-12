@@ -63,23 +63,23 @@ export default function PageForgatPassword() {
                     <div className="px-6 py-8 grid gap-4 md:grid-cols-1">
                         <div>
                             <label className="text-sm font-medium text-gray-400">Email</label>
-                            <input placeholder="Enter your emaul address" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 " />
+                            <input placeholder="Enter your emaul address" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 " />
                         </div>
                         <div>
                             <label className="text-sm font-medium text-gray-400">Username</label>
-                            <input placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 mt-1" />
+                            <input placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1" />
                         </div>
                         <div>
                             <label className="text-sm font-medium text-gray-400">Password Baru</label>
-                            <input placeholder="Enter your new password" type="password" value={passwordBaru} onChange={(e) => setPasswordBaru(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 mt-1" />
+                            <input placeholder="Enter your new password" type="password" value={passwordBaru} onChange={(e) => setPasswordBaru(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1" />
                         </div>
                         <div>
                             <label className="text-sm font-medium text-gray-400">Komfirmasi password</label>
-                            <input placeholder="Confirm your password" type="password" value={konfirmasiPassword} onChange={(e) => setKonfirmasiPassword(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 mt-1" />
+                            <input placeholder="Confirm your password" type="password" value={konfirmasiPassword} onChange={(e) => setKonfirmasiPassword(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1" />
                         </div>
                         <div className="flex gap-4">
-                            <button onClick={() => navigate("/admin/login")} className=" w-full rounded-lg border border-gray-200 bg-white px-5 py-2 font-medium text-gray-700  hover:text-red-700 transition  hover:border-red-400 hover:ring-2 hover:ring-red-100  mt-2">Cancel</button>
-                            <button type="button" onClick={handleSumbit} className=" w-full rounded-lg border border-gray-200 bg-red-700 px-5 py-2 font-medium text-white   mt-2 ">Continue</button>
+                            <button onClick={() => navigate("/admin/login")} className=" w-full rounded-lg border border-gray-200 bg-white px-5 py-2 font-medium text-gray-700  hover:text-[#00182F] transition  hover:border-blue-400 hover:ring-2 hover:ring-[3E6F1F7]  mt-2">Cancel</button>
+                            <button type="button" onClick={handleSumbit} className=" w-full rounded-lg border border-gray-200 bg-[#002446] px-5 py-2 font-medium text-white   mt-2 ">Continue</button>
                         </div>
                     </div>
                 </div>

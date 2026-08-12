@@ -1,4 +1,24 @@
-const db = require("../config/db")
+const db = require("../config/db");
+const cloudinary = require("../config/cloudinary");
+
+const uploadToCloudinary = (fileBuffer) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "dealer-motor/testimoni",
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+
+        stream.end(fileBuffer);
+    });
+};
 
 const getAllTestimoni = (req, res) => {
     const sql = `
@@ -29,7 +49,11 @@ const getAllTestimoni = (req, res) => {
 }
 
 
-const createTestimoni = (req, res) => {
+const createTestimoni = async (req, res) => {
+
+    console.log("========== CREATE TESTIMONI ==========");
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
 
     const {
         nama,
@@ -38,51 +62,76 @@ const createTestimoni = (req, res) => {
         rating
     } = req.body;
 
-    const foto = req.file ? req.file.filename : null;
+    try {
 
-    const sql = `
-        INSERT INTO testimoni
-        (
-            nama,
-            pekerjaan,
-            isi_testimoni,
-            rating,
-            foto
-        )
-        VALUES (?, ?, ?, ?, ?)
-    `;
+        let foto = null;
+        console.log("===== UPDATE PROFILE =====");
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
+        console.log("FILE BUFFER:", req.file?.buffer?.length);
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer);
 
-    db.query(
-        sql,
-        [nama, pekerjaan, isi_testimoni, rating, foto],
-        (err, result) => {
+            console.log("HASIL CLOUDINARY:", result);
 
-            if (err) {
-                return res.status(500).json({
-                    success: false,
-                    message: "Gagal menambahkan testimoni",
-                    error: err
+            foto = result.secure_url;
+
+            console.log("URL FOTO:", foto);
+        }
+
+        const sql = `
+            INSERT INTO testimoni
+            (
+                nama,
+                pekerjaan,
+                isi_testimoni,
+                rating,
+                foto
+            )
+            VALUES (?, ?, ?, ?, ?)
+        `;
+
+        db.query(
+            sql,
+            [nama, pekerjaan, isi_testimoni, rating, foto],
+            (err, result) => {
+
+                if (err) {
+                    console.error("ERROR DATABASE:", err);
+
+                    return res.status(500).json({
+                        success: false,
+                        message: "Gagal menambahkan testimoni",
+                        error: err.message
+                    });
+                }
+
+                return res.status(201).json({
+                    success: true,
+                    message: "Testimoni berhasil ditambahkan",
+                    data: {
+                        id: result.insertId,
+                        nama,
+                        pekerjaan,
+                        isi_testimoni,
+                        rating,
+                        foto
+                    }
                 });
             }
+        );
 
-            res.status(201).json({
-                success: true,
-                message: "Testimoni berhasil ditambahkan",
-                data: {
-                    id: result.insertId,
-                    nama,
-                    pekerjaan,
-                    isi_testimoni,
-                    rating,
-                    foto
-                }
-            });
+    } catch (error) {
 
-        }
-    );
+        console.error("ERROR UPLOAD:", error);
 
+        return res.status(500).json({
+            success: false,
+            message: "Gagal upload foto",
+            error: error.message
+        });
+    }
 };
-
 const deleteTestimoni = (req, res) => {
 
     const { id } = req.params;
@@ -118,66 +167,106 @@ const deleteTestimoni = (req, res) => {
 
 }
 
-const updateTestimoni = (req, res) => {
+const updateTestimoni = async (req, res) => {
     const { id } = req.params;
 
     const {
         nama, pekerjaan, isi_testimoni, rating
     } = req.body;
-    const foto = req.file ? req.file.filename : null
-    let sql;
-    let values;
 
-    if (foto) {
-        sql = `
-            UPDATE testimoni
-            SET
-                nama=?,
-                pekerjaan=?,
-                isi_testimoni=?,
-                rating=?,
-                foto=?
-            WHERE id_testimoni=?
-        `;
+    try {
+        let foto = null;
 
-        values = [
-            nama, pekerjaan, isi_testimoni, rating, foto, id
-        ]
-    } else {
-        sql = `
-            UPDATE testimoni
-            SET
-                nama=?,
-                pekerjaan=?,
-                isi_testimoni=?,
-                rating=?
-            WHERE id_testimoni=?
-        `;
+        // Kalau upload foto baru
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer);
 
-        values = [
-            nama,
-            pekerjaan,
-            isi_testimoni,
-            rating,
-            id
-        ];
-    }
+            console.log("HASIL CLOUDINARY UPDATE:", result);
 
-    db.query(sql, values, (err) => {
-        if (err) {
-            console.log(err)
-            return res.status(500).json({
-                success: false,
-                message: "gagal update testimoni",
-                error: err
-            })
+            foto = result.secure_url;
+
+            console.log("URL FOTO BARU:", foto);
         }
 
-        res.json({
-            success: true,
-            message: "Testimoni berhasil diupdate"
-        })
-    })
+        let sql;
+        let values;
+
+        if (foto) {
+            sql = `
+                UPDATE testimoni
+                SET
+                    nama = ?,
+                    pekerjaan = ?,
+                    isi_testimoni = ?,
+                    rating = ?,
+                    foto = ?
+                WHERE id_testimoni = ?
+            `;
+
+            values = [
+                nama,
+                pekerjaan,
+                isi_testimoni,
+                rating,
+                foto,
+                id
+            ];
+
+        } else {
+            sql = `
+                UPDATE testimoni
+                SET
+                    nama = ?,
+                    pekerjaan = ?,
+                    isi_testimoni = ?,
+                    rating = ?
+                WHERE id_testimoni = ?
+            `;
+
+            values = [
+                nama,
+                pekerjaan,
+                isi_testimoni,
+                rating,
+                id
+            ];
+        }
+
+        db.query(sql, values, (err, result) => {
+
+            if (err) {
+                console.error("ERROR DATABASE:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Gagal update testimoni",
+                    error: err.message
+                });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Testimoni tidak ditemukan"
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "Testimoni berhasil diupdate",
+                foto: foto
+            });
+        });
+
+    } catch (error) {
+        console.error("ERROR CLOUDINARY:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Gagal upload foto testimoni",
+            error: error.message
+        });
+    }
 }
 
 module.exports = {

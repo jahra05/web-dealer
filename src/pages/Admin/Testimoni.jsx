@@ -79,35 +79,48 @@ const Testimoni = () => {
     const handleCreateTestimoni = async (e) => {
         e.preventDefault();
 
+        console.log("🔥🔥 BUTTON SUBMIT TERKLIK");
+
         const url = isEdit
             ? `${import.meta.env.VITE_API_URL}/api/testimoni/${selected}`
             : `${import.meta.env.VITE_API_URL}/api/testimoni`;
 
         const method = isEdit ? "PUT" : "POST";
+
+        console.log("🔥 URL:", url);
+        console.log("🔥 METHOD:", method);
+        console.log("🔥 FORM:", formData);
+
         const data = new FormData();
 
         data.append("nama", formData.nama);
         data.append("pekerjaan", formData.pekerjaan);
         data.append("isi_testimoni", formData.isi_testimoni);
         data.append("rating", formData.rating);
+
         if (formData.foto) {
+            console.log("🔥 FOTO ADA:", formData.foto);
             data.append("foto", formData.foto);
+        } else {
+            console.log("❌ FOTO TIDAK ADA");
         }
+
+        console.log("🔥 SEBELUM FETCH");
 
         try {
 
-            const response = await fetch(
-                url,
-                {
-                    method,
-                    body: data
-                }
-            );
+            const response = await fetch(url, {
+                method,
+                body: data
+            });
+
+            console.log("🔥 RESPONSE FETCH:", response);
 
             const result = await response.json();
 
-            if (result.success) {
+            console.log("🔥 RESPONSE DATA:", result);
 
+            if (result.success) {
                 alert("Testimoni berhasil ditambahkan");
 
                 getTestimoni();
@@ -121,20 +134,14 @@ const Testimoni = () => {
                     rating: "",
                     foto: null
                 });
-
             } else {
-
                 alert(result.message);
-
             }
 
         } catch (error) {
-
-            console.log(error);
-
+            console.error("🔥 FETCH ERROR:", error);
         }
     };
-
     const handleDelete = async (id) => {
 
         if (!window.confirm("Yakin ingin menghapus testimoni?")) return;
@@ -261,7 +268,7 @@ const Testimoni = () => {
                                             </div></td>
                                             <td className="px-4 py-4">
                                                 <img
-                                                    src={`${item.foto}`}
+                                                    src={item.foto || "/default-avatar.png"}
                                                     alt={item.nama}
                                                     className="w-14 h-14 rounded-full object-cover"
                                                 />

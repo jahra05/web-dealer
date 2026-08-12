@@ -28,27 +28,50 @@ export default function SettingProfileAdmin() {
         }
     }
 
-    const updateLogo = async () => {
-        const formData = new FormData();
+const updateLogo = async () => {
+    if (!foto) {
+        alert("Pilih foto terlebih dahulu");
+        return;
+    }
 
-        formData.append("foto", foto);
+    const formData = new FormData();
 
-        try {
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/foto`,
-                {
-                    method: "PUT",
-                    body: formData,
-                }
-            );
+    formData.append("foto", foto);
 
-            const data = await response.json();
+    console.log("FILE YANG DIKIRIM:", foto);
+
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/foto`,
+            {
+                method: "PUT",
+                body: formData,
+            }
+        );
+
+        const data = await response.json();
+
+        
+        console.log("RESPONSE UPDATE FOTO:", data);
+
+        if (data.success) {
             alert(data.message);
 
-        } catch (error) {
-            console.log(error);
+            // langsung update tampilan
+            setUser((prev) => ({
+                ...prev,
+                foto: data.foto
+            }));
+
+            setFoto(null);
+        } else {
+            alert(data.message);
         }
-    };
+
+    } catch (error) {
+        console.log(error);
+    }
+};
 
     const update = async () => {
 
@@ -58,7 +81,7 @@ export default function SettingProfileAdmin() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(footer),
+                body: JSON.stringify(user),
             });
             const data = await response.json();
             console.log(data)

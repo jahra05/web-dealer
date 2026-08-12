@@ -118,6 +118,10 @@ const createMotor = async (req, res) => {
         deskripsi,
     } = req.body;
     // const gambar = req.file ? req.file.filename : null;
+    console.log("===== UPDATE PROFILE =====");
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+    console.log("FILE BUFFER:", req.file?.buffer?.length);
     let gambar = null;
     if (req.file) {
         const result = await uploadToCloudinary(req.file.buffer);
@@ -183,7 +187,6 @@ const updateMotor = async (req, res) => {
         tahun,
         deskripsi,
     } = req.body;
-    // const gambar = req.file ? req.file.filename : req.body.gambar;
     let gambar = req.body.gambar;
     if (req.file) {
         const result = await uploadToCloudinary(req.file.buffer);

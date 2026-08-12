@@ -70,7 +70,7 @@ const Login = () => {
                             <div>
                                 <h2 className="text-4xl font-bold  text-white items-center">Admin Login</h2>
                                 <p className='text-gray-300'>Welcome back! Please login first</p>
-                                <div className='h-1 bg-red-600 rounded-full mt-4'></div>
+                                <div className='h-1 bg-[#004A7C] rounded-full mt-4'></div>
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-white">username</label>
@@ -78,7 +78,7 @@ const Login = () => {
                                     <FaUser className="absolute left-4 top-6 text-gray-300" />
                                     <input type="email" placeholder='Enter Your Username' value={email} onChange={(e) => setEmail(e.target.value)}
                                         className="mt-2 w-full rounded-xl bg-white/10 border border-white/20 px-10 py-3 text-white placeholder-gray-300 
-                                        focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/40" />
+                                        focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40" />
                                 </div>
                             </div>
 
@@ -88,13 +88,13 @@ const Login = () => {
                                     <FaLock className="absolute left-4 top-6 text-gray-300" />
                                     <input type="password" placeholder='Enter Your Password' value={password} onChange={(e) => setPassword(e.target.value)}
                                         className="mt-2 w-full rounded-xl bg-white/10 border border-white/20 px-10 py-3 text-white placeholder-gray-300 
-                                        focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/40" />
+                                        focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40" />
                                 </div>
                             </div>
                             <div>
-                                <button className='text-red-400 text-sm hover:underline' onClick={() => navigate("/admin/forgatPassword")}>Forgot Password ? </button>
-                                <button onClick={handleSubmit} type="submit" className="w-full mt-2 py-3 rounded-xl bg-red-600 font-semibold text-white transition-all duration-300 
-                            hover:bg-red-700 hover:scale-[1.02] hover:shadow-xl active:scale-95" >Login</button>
+                                <button className='text-white text-sm hover:underline' onClick={() => navigate("/admin/forgatPassword")}>Forgot Password ? </button>
+                                <button onClick={handleSubmit} type="submit" className="w-full mt-2 py-3 rounded-xl bg-[#002446] font-semibold text-white transition-all duration-300 
+                            hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95" >Login</button>
                             </div>
 
 
@@ -105,8 +105,8 @@ const Login = () => {
 
 
                         <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-20 max-w-lg text-white">
-                            <div className='w-20 h-1 bg-red-600 rounded-full mb-6' ></div>
-                            <span className="text-red-500 uppercase tracking-[6px] font-semibold">
+                            <div className='w-20 h-1 bg-[#004A7C] rounded-full mb-6' ></div>
+                            <span className="text-blue-950 uppercase tracking-[6px] font-semibold">
                                 Honda Dealer
                             </span>
 
@@ -122,20 +122,20 @@ const Login = () => {
 
                             <div className='flex gap-12 mt-10'>
                                 <div className='text-center'>
-                                    <div className='w-12 h-12 rounded-full border border-red-500 flex items-center justify-center mx-auto'>
-                                        <FaMotorcycle className='text-red-500' />
+                                    <div className='w-12 h-12 rounded-full border border-blue-500 flex items-center justify-center mx-auto'>
+                                        <FaMotorcycle className='text-blue-500' />
                                     </div>
                                     <p className='mt-3 text-sm'>Premium</p>
                                 </div>
                                 <div className='text-center'>
-                                    <div className='w-12 h-12 rounded-full border border-red-500 flex items-center justify-center mx-auto'>
-                                        <FaMotorcycle className='text-red-500' />
+                                    <div className='w-12 h-12 rounded-full border border-blue-500 flex items-center justify-center mx-auto'>
+                                        <FaMotorcycle className='text-blue-500' />
                                     </div>
                                     <p className='mt-3 text-sm'>Premium</p>
                                 </div>
                                 <div className='text-center'>
-                                    <div className='w-12 h-12 rounded-full border border-red-500 flex items-center justify-center mx-auto'>
-                                        <FaMotorcycle className='text-red-500' />
+                                    <div className='w-12 h-12 rounded-full border border-blue-500 flex items-center justify-center mx-auto'>
+                                        <FaMotorcycle className='text-blue-500' />
                                     </div>
                                     <p className='mt-3 text-sm'>Premium</p>
                                 </div>

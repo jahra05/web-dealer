@@ -15,6 +15,12 @@ router.get("/", getAllTestimoni);
 router.post(
     "/",
     upload.single("foto"),
+    (req, res, next) => {
+        console.log("🔥 ROUTE TESTIMONI TERPANGGIL");
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
+        next();
+    },
     createTestimoni
 );
 router.put(

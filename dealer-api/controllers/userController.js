@@ -1,4 +1,24 @@
 const db = require("../config/db")
+const cloudinary = require("../config/cloudinary")
+
+const uploadToCloudinary = (fileBuffer) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: 'dealer-motor'
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error)
+                } else {
+                    resolve(result)
+                }
+            }
+        );
+        stream.end(fileBuffer)
+    })
+}
+
 
 const getUser = (req, res) => {
     const sql = `
@@ -28,36 +48,69 @@ const getUser = (req, res) => {
     })
 
 }
-const updateProfile = (req, res) => {
+const updateProfile = async (req, res) => {
     const { id } = req.params;
-    const profile = req.file.filename
 
-    const sql = `
-    UPDATE user
-    SET foto = ?
-    WHERE id_user = ?
-    `;
+    try {
+        console.log("========== UPDATE FOTO ==========");
+        console.log("ID USER:", id);
+        console.log("FILE:", req.file);
 
-    db.query(sql, [profile, id], (err, result) => {
-        if (err) {
-            return res.status(500).json({
+        if (!req.file) {
+            return res.status(400).json({
                 success: false,
-                message: "gagal mengudate"
-            })
+                message: "File foto tidak ditemukan"
+            });
         }
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "user gagal di update"
-            })
-        }
-        return res.status(200).json({
-            success: true,
-            message: "User berhasil diupdate"
-        })
-    })
-}
+        // Upload buffer ke Cloudinary
+        const cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+
+        console.log("HASIL CLOUDINARY:", cloudinaryResult);
+
+        const foto = cloudinaryResult.secure_url;
+
+        console.log("URL FOTO:", foto);
+
+        const sql = `
+            UPDATE user
+            SET foto = ?
+            WHERE id_user = ?
+        `;
+
+        db.query(sql, [foto, id], (err, result) => {
+
+            if (err) {
+                console.error("ERROR DATABASE:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Gagal mengupdate foto",
+                    error: err.message
+                });
+            }
+
+            console.log("HASIL UPDATE DATABASE:", result);
+
+            return res.status(200).json({
+                success: true,
+                message: "Foto profil berhasil diupdate",
+                foto: foto,
+                affectedRows: result.affectedRows,
+                changedRows: result.changedRows
+            });
+        });
+
+    } catch (error) {
+        console.error("ERROR CLOUDINARY:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Gagal upload foto",
+            error: error.message
+        });
+    }
+};
 
 const upadteUser = async (req, res) => {
     const { id } = req.params;

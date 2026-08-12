@@ -249,10 +249,12 @@ const deleteMotor = (req, res) => {
     db.query(sql, [id], (err, result) => {
 
         if (err) {
-            console.log(err)
+            console.error("❌ Error delete motor:", err);
+
             return res.status(500).json({
                 success: false,
-                message: "Hapus dulu Di tabel pengajuan produk"
+                message: "Gagal menghapus motor",
+                error: err.message
             });
         }
 
@@ -267,7 +269,6 @@ const deleteMotor = (req, res) => {
             success: true,
             message: "Motor berhasil dihapus"
         });
-
     });
 };
 

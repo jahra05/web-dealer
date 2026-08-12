@@ -429,6 +429,11 @@ const KelolaProduk = () => {
                 }
             )
             const data = await response.json();
+            console.log("STATUS", response.status)
+            console.log("RESPONE", data)
+            if (!response.ok) {
+                throw new Error(data.message || "Gagal menghapus motor");
+            }
 
             if (data.success) {
                 alert("produk berhasil dihapus");

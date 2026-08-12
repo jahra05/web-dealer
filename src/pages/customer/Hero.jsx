@@ -1,10 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import LeadModal from '../../components/LeadModal';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dispalyProduk, setDisplayProduk] = useState(null)
 
+  useEffect(() => {
+    const fetchMotor = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/motor`
+        );
+
+        const data = await response.json();
+
+        console.log("Semua motor:", data);
+
+        if (data.success) {
+          const motor = data.data.find(
+            (item) => item.id_motor === 29
+          );
+
+          setDisplayProduk(motor);
+        }
+      } catch (error) {
+        console.log("Gagal mengambil motor:", error);
+      }
+    };
+
+    fetchMotor();
+  }, []);
+
+  if (!dispalyProduk) {
+    return <p>Loading...</p>;
+  }
   const scrollToSimulation = () => {
     const element = document.getElementById('simulasi-kredit');
     if (element) {
@@ -74,10 +104,10 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="mt-12 lg:mt-0 relative"
           >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-red-50 rounded-full blur-3xl opacity-50 -z-10"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-50 rounded-full blur-3xl opacity-50 -z-10"></div>
             <img
-              src="src/assets/hondaImg.png"
-              alt="Honda Beat"
+              src={dispalyProduk.gambar}
+              alt={dispalyProduk.nama_motor}
               className="w-full h-auto drop-shadow-2xl scale-110"
             />
 

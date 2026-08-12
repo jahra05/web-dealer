@@ -124,7 +124,7 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden"
           >
-            <div className="bg-primary p-6 text-white relative">
+            <div className="bg-[#002446] p-6 text-white relative">
               <h3 className="text-2xl font-black">Ajukan Kredit</h3>
               <p className="text-white/80 text-sm">Isi formulir di bawah ini dan kami akan segera menghubungi Anda.</p>
               <button
@@ -145,10 +145,10 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                     name="nama"
                     value={formData.nama}
                     onChange={handleChange}
-                    className={`w-full bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all`}
+                    className={`w-full bg-gray-50 border ${errors.name ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all`}
                     placeholder="Contoh: Budi Santoso"
                   />
-                  {errors.nama && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.nama}</p>}
+                  {errors.nama && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.nama}</p>}
                 </div>
                 <div>
                   <label className="block text-[10px] font-black text-gray-400 uppercase mb-1">pekerjaan</label>
@@ -157,10 +157,10 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                     name="pekerjaan"
                     value={formData.pekerjaan}
                     onChange={handleChange}
-                    className={`w-full bg-gray-50 border ${errors.pekerjaan ? 'border-red-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all`}
+                    className={`w-full bg-gray-50 border ${errors.pekerjaan ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all`}
                     placeholder="Contoh: Budi Santoso"
                   />
-                  {errors.pekerjaan && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.pekerjaan}</p>}
+                  {errors.pekerjaan && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.pekerjaan}</p>}
                 </div>
               </div>
 
@@ -172,10 +172,10 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                     name="no_hp"
                     value={formData.no_hp}
                     onChange={handleChange}
-                    className={`w-full bg-gray-50 border ${errors.no_hp ? 'border-red-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all`}
+                    className={`w-full bg-gray-50 border ${errors.no_hp ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all`}
                     placeholder="0812xxxxxxxx"
                   />
-                  {errors.no_hp && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.no_hp}</p>}
+                  {errors.no_hp && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.no_hp}</p>}
                 </div>
               </div>
 
@@ -188,14 +188,14 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                   value={formData.alamat}
                   onChange={handleChange}
                   rows="2"
-                  className={`w-full bg-gray-50 border ${errors.alamat ? 'border-red-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none`}
+                  className={`w-full bg-gray-50 border ${errors.alamat ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all resize-none`}
                   placeholder="Jl. Merdeka No. 123, Jakarta"
                 ></textarea>
-                {errors.alamat && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.alamat}</p>}
+                {errors.alamat && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.alamat}</p>}
               </div>
               <button
                 type="submit"
-                className="w-full bg-primary hover:bg-red-700 text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-red-200 active:scale-95"
+                className="w-full bg-[#002446] hover:bg-[#00345F] text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-[#E6F1F7] active:scale-95"
               >
                 Kirim Permohonan
               </button>

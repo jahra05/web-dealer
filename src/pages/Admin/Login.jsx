@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaClock, FaLock, FaMotorcycle, FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,24 @@ const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [infoDealer, setInfoDealer] = useState([])
+
+    const getInfoDealer = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+
+            const data = await response.json();
+            console.log('data footer', data)
+
+            setInfoDealer(data.data[0])
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        getInfoDealer()
+    }, [])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -52,14 +70,13 @@ const Login = () => {
                     <div className="relative z-10 flex  flex-col px-6 md:px-12  py-8 justify-start  h-full" >
 
                         <div className="flex items-center space-x-2 flex-shrink-0 mt-4">
-                            <div className="bg-primary p-1 rounded">
-                                <svg viewBox="0 0 24 24" className="w-8 h-8 text-white fill-current">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                                </svg>
+                            <div className="w-11 h-11 flex items-center justify-center bg-blue-600 text-white rounded-lg shadow-sm flex-shrink-0">
+                                {/* <FaMotorcycle size={28} /> */}
+                                <img src={infoDealer.logo} alt={infoDealer.nama_Dealer} />
                             </div>
-                            <div>
-                                <h1 className="text-xl font-black text-gray-900 leading-tight">Daya Motor</h1>
-                                <p className="text-[10px] font-bold text-gray-500 tracking-wider">DEALER RESMI HONDA</p>
+                            <div className="leading-tight min-w-0">
+                                <h2 className="text-lg font-bold text-gray-900 truncate">{infoDealer.nama_dealer}</h2>
+                                <p className="text-[10px] text-gray-500">{infoDealer.deskripsi}</p>
                             </div>
                         </div>
 

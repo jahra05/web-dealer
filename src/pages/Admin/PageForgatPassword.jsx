@@ -9,6 +9,24 @@ export default function PageForgatPassword() {
     const [passwordBaru, setPasswordBaru] = useState("")
     const [konfirmasiPassword, setKonfirmasiPassword] = useState("")
     const navigate = useNavigate()
+    const [infoDealer, setInfoDealer] = useState([])
+
+
+    const getInfoDealer = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+
+            const data = await response.json();
+            console.log('data footer', data)
+
+            setInfoDealer(data.data[0])
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        getInfoDealer()
+    }, [])
 
     const handleSumbit = async (e) => {
         e.preventDefault()
@@ -42,12 +60,13 @@ export default function PageForgatPassword() {
             <div className="p-4">
                 {/* <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline"> */}
                 <div className="flex items-center gap-3 no-underline">
-                    <div className="w-11 h-11 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
-                        <FaMotorcycle size={28} />
+                    <div className="w-11 h-11 flex items-center justify-center bg-blue-600 text-white rounded-lg shadow-sm flex-shrink-0">
+                        {/* <FaMotorcycle size={28} /> */}
+                        <img src={infoDealer.logo} alt={infoDealer.nama_Dealer}/>
                     </div>
                     <div className="leading-tight min-w-0">
-                        <h2 className="text-lg font-bold text-gray-900 truncate">Daya Motor</h2>
-                        <p className="text-[10px] text-gray-500">DEALER RESMI HONDA</p>
+                        <h2 className="text-lg font-bold text-gray-900 truncate">{infoDealer.nama_dealer}</h2>
+                        <p className="text-[10px] text-gray-500">{infoDealer.deskripsi}</p>
                     </div>
                 </div>
 

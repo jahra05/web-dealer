@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaMotorcycle, FaFileShield, FaClipboardList } from 'react-icons/fa6';
 import { MdQuiz } from 'react-icons/md';
@@ -61,6 +61,21 @@ const NAV_ITEMS = [
 const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [navLogo, setNavLogo] = useState([])
+
+  const getAllFooter = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+      const data = await response.json();
+      setNavLogo(data.data[0])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getAllFooter()
+  }, [])
+
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -73,11 +88,11 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
         <div className="p-4">
           <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
             <div className="w-11 h-11 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
-              <FaMotorcycle size={28} />
+              <img src={navLogo.logo} alt={navLogo.nama_dealer} />
             </div>
             <div className="leading-tight min-w-0">
-              <h2 className="text-lg font-bold text-gray-900 truncate">Daya Motor</h2>
-              <p className="text-[10px] text-gray-500">DEALER RESMI HONDA</p>
+              <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
+              <p className="text-[10px] text-gray-500">{navLogo.deskripsi}</p>
             </div>
           </Link>
         </div>
@@ -147,13 +162,13 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
             }`}
         >
           <div className="flex items-center justify-between p-4 border-b border-gray-100">
-            <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline" onClick={onClose}>
-              <div className="w-10 h-10 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
-                <FaMotorcycle size={24} />
+            <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
+              <div className="w-11 h-11 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
+                <img src={navLogo.logo} alt={navLogo.nama_dealer} />
               </div>
               <div className="leading-tight min-w-0">
-                <h2 className="text-base font-bold text-gray-900 truncate">Daya Motor</h2>
-                <p className="text-[10px] text-gray-500">DEALER RESMI HONDA</p>
+                <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
+                <p className="text-[10px] text-gray-500">{navLogo.deskripsi}</p>
               </div>
             </Link>
             <button

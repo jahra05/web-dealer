@@ -1,4 +1,24 @@
 const db = require('../config/db')
+const cloudinary = require("../config/cloudinary")
+
+const uploadToCloudinary = (fileBuffer) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: 'dealer-motor'
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error)
+                } else {
+                    resolve(result)
+                }
+            }
+        );
+        stream.end(fileBuffer)
+    })
+}
+
 
 const getFooter = (req, res) => {
     const sql = `
@@ -37,9 +57,14 @@ const getFooter = (req, res) => {
     })
 }
 
-const updateLogo = (req, res) => {
+const updateLogo = async (req, res) => {
     const { id } = req.params;
-    const logo = req.file.filename
+
+    let logo = null
+    if (req.file) {
+        const result = await uploadToCloudinary(req.file.buffer);
+        logo = result.secure_url
+    }
 
     const sql = `
     UPDATE footer

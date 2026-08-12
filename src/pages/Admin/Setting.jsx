@@ -12,6 +12,21 @@ import { pre } from "framer-motion/client";
 export default function Setting({ isOpen, onClose }) {
     const navigate = useNavigate()
     const location = useLocation()
+    const [settingInfo, setSettingInfo] = useState([])
+
+    const getAllInfo = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+            const data = await response.json();
+            setSettingInfo(data.data[0])
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        getAllInfo()
+    }, [])
+
     const navSetting = [
         { path: "/admin/setting/profile-admin", label: "Profile Admin" },
         { path: "/admin/setting/profile-dealer", label: "profile Dealer" },
@@ -22,13 +37,13 @@ export default function Setting({ isOpen, onClose }) {
             {/* DESKTOP */}
             <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100 m-4 rounded-lg">
                 <div className="p-4">
-                    <Link to='/admin/dashboard' className="flex items-center gap-3 no-underline">
+                    <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
                         <div className="w-11 h-11 flex items-center justify-center bg-red-600 text-white rounded-lg shadow-sm flex-shrink-0">
-                            <FaMotorcycle size={28} />
+                            <img src={settingInfo.logo} alt={settingInfo.nama_dealer} />
                         </div>
                         <div className="leading-tight min-w-0">
-                            <h2 className="text-lg font-bold text-gray-900 truncate">Daya Motor</h2>
-                            <p className="text-[10px] text-gray-500">DEALER RESMI HONDA</p>
+                            <h2 className="text-lg font-bold text-gray-900 truncate">{settingInfo.nama_dealer}</h2>
+                            <p className="text-[10px] text-gray-500">{settingInfo.deskripsi}</p>
                         </div>
                     </Link>
                 </div>
@@ -59,7 +74,7 @@ export default function Setting({ isOpen, onClose }) {
                     <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out rounded-lg ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                         <div className="flex items-center justify-between p-4 border-b border-gray-100">
                             <Link to="/admin/dashboard" onClick={onClose} className="flex items-center gap-2">
-                                <span className="bg-gray-100 p-1 rounded"><IoIosArrowBack size={18} /></span>
+                                  <img src={settingInfo.logo} alt={settingInfo.nama_dealer} />
                                 <p className="text-md font-semibold">Pengaturan</p>
                             </Link>
                             <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100">X</button>

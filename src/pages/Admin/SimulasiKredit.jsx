@@ -7,7 +7,9 @@ import { CiFileOn } from "react-icons/ci"
 import { MdDelete, MdNotificationsNone } from "react-icons/md"
 import { FaEdit } from "react-icons/fa"
 import { useEffect, useMemo, useState } from "react"
-import toast from "react-hot-toast"
+// using CustomAlert instead of react-hot-toast for consistent UI
+import CustomAlert from "../../components/CustomAlert"
+import ConfirmAlert from "../../components/ConfirmAlert"
 import { i } from "framer-motion/client"
 import { exportExcel } from "../../utils/export/exportExcel"
 import { RxHamburgerMenu } from "react-icons/rx"
@@ -37,6 +39,8 @@ const SimulasiKredit = () => {
     })
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [alert, setAlert] = useState(null)
+    const [confirm, setConfirm] = useState(null)
 
     const selectedModalMotor = motor.find(
         (item) => item.id_motor === Number(modalFormData.id_motor)
@@ -107,31 +111,28 @@ const SimulasiKredit = () => {
     };
 
     const handeleDelete = async (id) => {
-        const confirmDelete = window.confirm(
-            "Apakah andad yakin ingin menghapus simulasi ini ?"
-        )
-
-        if (!confirmDelete) return
-
-        try {
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/simulasi/${id}`,
-                {
-                    method: "DELETE"
+        setConfirm({
+            title: 'Hapus Simulasi',
+            message: 'Apakah anda yakin ingin menghapus simulasi ini?',
+            onConfirm: async () => {
+                try {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/simulasi/${id}`, { method: 'DELETE' })
+                    const data = await response.json()
+                    if (data.success) {
+                        setAlert({ type: 'success', message: data.message || 'Simulasi berhasil dihapus' })
+                        getSimulasi()
+                    } else {
+                        setAlert({ type: 'error', message: data.message })
+                    }
+                } catch (error) {
+                    console.log(error)
+                    setAlert({ type: 'error', message: 'Terjadi kesalahan saat menghapus' })
+                } finally {
+                    setConfirm(null)
                 }
-            )
-            const data = await response.json()
-
-            if (data.success) {
-                toast.success("simulasi berhasil di hapus")
-                getSimulasi()
-            } else {
-                toast.error(data.message)
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error("terjadi kesalahan")
-        }
+            },
+            onCancel: () => setConfirm(null)
+        })
     }
     const handleEdit = (item) => {
         setIsEdit(true);
@@ -149,7 +150,7 @@ const SimulasiKredit = () => {
         e.preventDefault();
 
         if (!modalFormData.id_motor || !modalFormData.dp || !modalFormData.tenor || !modalFormData.bunga) {
-            toast.error("Lengkapi semua data simulasi terlebih dahulu.");
+            setAlert({ type: 'error', message: 'Lengkapi semua data simulasi terlebih dahulu.' })
             return;
         }
 
@@ -176,15 +177,15 @@ const SimulasiKredit = () => {
 
             const data = await response.json();
             if (data.success) {
-                toast.success("Simulasi berhasil disimpan.");
+                setAlert({ type: 'success', message: data.message || 'Simulasi berhasil disimpan.' })
                 getSimulasi();
                 closeModal();
             } else {
-                toast.error(data.message || "Gagal menyimpan simulasi.");
+                setAlert({ type: 'error', message: data.message || 'Gagal menyimpan simulasi.' })
             }
         } catch (error) {
-            console.error(error);
-            toast.error("Terjadi kesalahan saat menyimpan simulasi.");
+                console.error(error);
+                setAlert({ type: 'error', message: 'Terjadi kesalahan saat menyimpan simulasi.' })
         }
     };
 
@@ -294,12 +295,14 @@ const SimulasiKredit = () => {
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+                {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
                 <div className='flex items-center justify-between p-4'>
                     <div className='flex items-center gap-4'>
                         <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
                             <RxHamburgerMenu size={24} />
                         </button>
-                        <div className="flex gap-2 bg-white border border-slate-200 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-slate-300">
+                        <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-blue-300">
                             <BiSearch size={20} />
                             <input value={serach} onChange={(e) => serSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm" placeholder="Search" />
                         </div>
@@ -322,7 +325,7 @@ const SimulasiKredit = () => {
                                     name="id_motor"
                                     value={filterFormData.id_motor}
                                     onChange={handleFilterChange}
-                                    className="w-full sm:w-56 lg:w-72 h-10 px-4 rounded-full bg-white border border-slate-200 text-sm"
+                                    className="w-full sm:w-56 lg:w-72 h-10 px-4 rounded-full bg-white border border-blue-100 text-sm"
                                 >
                                     <option value="">Pilih Motor</option>
 
@@ -342,14 +345,14 @@ const SimulasiKredit = () => {
 
 
                             <div className='flex gap-2'>
-                                <button onClick={handleExportSimulasi} className='inline-flex items-center gap-2 h-10 px-3 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 focus:ring-2 focus:ring-indigo-200'>
+                                <button onClick={handleExportSimulasi} className='inline-flex items-center gap-2 h-10 px-3 rounded-full bg-white border border-blue-100 text-slate-700  transition hover:shadow-md hover:border-blue-300  focus:ring-2 focus:ring-indigo-200'>
                                     <CiFileOn size={18} />
                                     <span className="text-xs">Export</span>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={openModal}
-                                    className='inline-flex items-center gap-2 h-10 w-10   p-2 rounded-full bg-white text-black shadow-sm transition'
+                                    className='inline-flex items-center gap-2 h-10 w-10   text-center  p-3 rounded-full  bg-white border border-blue-100 text-black  hover:shadow-md hover:border-blue-300  transition'
                                 >
                                     <PiPlus size={18} />
                                 </button>
@@ -432,7 +435,7 @@ const SimulasiKredit = () => {
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C]">
-                            <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
+                            <p className="text-xl font-semibold text-white"> Simulasi Kredit</p>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="min-w-[700px] w-full">
@@ -492,13 +495,13 @@ const SimulasiKredit = () => {
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] rounded-xl">
-                            <p className="text-sm font-semibold text-white">Daftar Simulasi Kredit</p>
+                            <p className="text-xl font-semibold text-white">Simulasi Kredit</p>
                         </div>
                         {pageItems.map((item) => (
                             <div className="bg-white shadow p-4 rounded-xl">
                                 <div className="flex justify-between">
                                     <div className="flex gap-2">
-                                        <p className="bg-blue-100 text-blue-500 w-14 h-14 text-center py-3 text-2xl uppercase font-medium rounded-xl">f</p>
+                                        <p className="bg-blue-100 text-blue-500 w-14 h-14 text-center py-3 text-2xl uppercase font-medium rounded-xl">{item.nama_motor.charAt(0).toUpperCase()}</p>
                                         <div>
                                             <p className="text-sm text-gray-700 font-semibold">{item.nama_motor}</p>
                                             <p className="text-sm text-gray-500 font-medium">Rp {Number(item.harga).toLocaleString("id-ID")}</p>

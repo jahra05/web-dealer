@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+// replaced react-hot-toast with CustomAlert
+import CustomAlert from './CustomAlert'
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoIosClose } from 'react-icons/io';
 
@@ -23,6 +24,7 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
   }, [bike]);
 
   const [errors, setErrors] = useState({});
+  const [alert, setAlert] = useState(null)
   const validate = () => {
     const newErrors = {};
 
@@ -72,7 +74,7 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
 
       if (data.success) {
 
-        toast.success("Pengajuan berhasil dikirim.");
+        setAlert({ type: 'success', message: data.message || 'Pengajuan berhasil dikirim.' })
 
         setFormData({
           nama: "",
@@ -86,14 +88,14 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
 
       } else {
 
-        toast.error(data.message);
+        setAlert({ type: 'error', message: data.message })
 
       }
 
     } catch (error) {
 
       console.log(error);
-      toast.error("Terjadi kesalahan.");
+      setAlert({ type: 'error', message: 'Terjadi kesalahan.' })
 
     }
 
@@ -124,6 +126,7 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden"
           >
+            {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
             <div className="bg-[#002446] p-6 text-white relative">
               <h3 className="text-2xl font-black">Ajukan Kredit</h3>
               <p className="text-white/80 text-sm">Isi formulir di bawah ini dan kami akan segera menghubungi Anda.</p>

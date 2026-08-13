@@ -7,6 +7,8 @@ import { CiFileOn } from "react-icons/ci"
 import { MdDelete, MdNotificationsNone } from "react-icons/md"
 import { FaEdit } from "react-icons/fa"
 import { useEffect, useMemo, useState } from "react"
+import CustomAlert from "../../components/CustomAlert"
+import ConfirmAlert from "../../components/ConfirmAlert"
 import { CgRead } from "react-icons/cg"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
@@ -17,6 +19,8 @@ const PageMessage = () => {
     const [search, setSearch] = useState("")
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const rowsPerPage = 5
+    const [alert, setAlert] = useState(null)
+    const [confirm, setConfirm] = useState(null)
     const [formData, setFormData] = useState({
         id_message: "",
         nama: "",
@@ -46,25 +50,28 @@ const PageMessage = () => {
     }
 
     const handleDelete = async (id) => {
-        if (!window.confirm("yakin ingin mengapus pesan ini?")) return;
-
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${id}`,
-                {
-                    method: "DELETE"
+        setConfirm({
+            title: 'Hapus Pesan',
+            message: 'Yakin ingin menghapus pesan ini?',
+            onConfirm: async () => {
+                try {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${id}`, { method: 'DELETE' })
+                    const data = await response.json()
+                    if (data.success) {
+                        getContact();
+                        setAlert({ type: 'success', message: data.message || 'Pesan berhasil dihapus' })
+                    } else {
+                        setAlert({ type: 'error', message: data.message })
+                    }
+                } catch (error) {
+                    console.log(error)
+                    setAlert({ type: 'error', message: 'Terjadi kesalahan saat menghapus' })
+                } finally {
+                    setConfirm(null)
                 }
-            );
-            const data = await response.json();
-
-            if (data.success) {
-                getContact();
-            } else {
-
-                alert(data.message)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+            },
+            onCancel: () => setConfirm(null)
+        })
     }
 
     const getContact = async () => {
@@ -107,12 +114,14 @@ const PageMessage = () => {
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+                {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
                 <div className='flex items-center justify-between p-4'>
                     <div className='flex items-center gap-4'>
                         <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
                             <RxHamburgerMenu size={24} />
                         </button>
-                        <div className="flex gap-2 bg-white border border-slate-200 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-slate-300">
+                        <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full  transition hover:shadow-md hover:border-blue-300">
                             <BiSearch size={20} />
                             <input
                                 type="search"
@@ -141,7 +150,7 @@ const PageMessage = () => {
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] ">
-                            <p className="text-sm font-semibold text-white">Daftar Message</p>
+                            <p className="text-xl font-semibold text-white">Message</p>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="min-w-[800px] w-full">
@@ -221,7 +230,7 @@ const PageMessage = () => {
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] rounded-xl">
-                            <p className="text-sm font-semibold text-white">Daftar Message</p>
+                            <p className="text-xl font-semibold text-white">Message</p>
                         </div>
                         {pageItems.map((item) => (
                             <div className="bg-white shadow p-4 rounded-xl">

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import CustomAlert from "../../components/CustomAlert"
 import { BiEdit } from "react-icons/bi"
 import Setting from "./Setting"
 import { RxHamburgerMenu } from "react-icons/rx"
@@ -11,6 +12,7 @@ export default function SettingProfileAdmin() {
     })
     const [foto, setFoto] = useState(null)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [alert, setAlert] = useState(null)
 
 
     const getAllUser = async () => {
@@ -30,7 +32,7 @@ export default function SettingProfileAdmin() {
 
 const updateLogo = async () => {
     if (!foto) {
-        alert("Pilih foto terlebih dahulu");
+        setAlert({ type: 'warning', message: 'Pilih foto terlebih dahulu' })
         return;
     }
 
@@ -55,7 +57,7 @@ const updateLogo = async () => {
         console.log("RESPONSE UPDATE FOTO:", data);
 
         if (data.success) {
-            alert(data.message);
+            setAlert({ type: 'success', message: data.message })
 
             // langsung update tampilan
             setUser((prev) => ({
@@ -65,7 +67,7 @@ const updateLogo = async () => {
 
             setFoto(null);
         } else {
-            alert(data.message);
+            setAlert({ type: 'error', message: data.message })
         }
 
     } catch (error) {
@@ -85,7 +87,7 @@ const updateLogo = async () => {
             });
             const data = await response.json();
             console.log(data)
-            alert('berhasil di ubah')
+            setAlert({ type: 'success', message: 'Berhasil diubah' })
 
         } catch (error) {
             console.log(error)
@@ -107,7 +109,7 @@ const updateLogo = async () => {
             })
             const data = await response.json();
             console.log(data)
-            alert(data.message)
+            setAlert({ type: 'info', message: data.message })
 
         } catch (error) {
             console.log(error)
@@ -139,6 +141,7 @@ const updateLogo = async () => {
             <div className="min-h-screen w-full flex gap-2 bg-gray-50 overflow-x-hidden">
                 <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
                 <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden mr-4">
+                    {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
                     <div className="flex items-center justify-between p-4">
                         <button
                             className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -157,7 +160,7 @@ const updateLogo = async () => {
                             <div className="flex flex-col shadow p-4 rounded-xl">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                     <div className="flex flex-col sm:flex-row items-center gap-4">
-                                        <div className="relative w-32 h-32">
+                                        <div className="w-32 h-32">
                                             <img src={foto ? URL.createObjectURL(foto) : `${user.foto}`} className="w-32 h-32 rounded-full object-cover" />
                                             <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-[#002446] text-[#F2F8FC] cursor-pointer hover:bg-[#00182F] hover:text-white"> <BiEdit size={20} /></label>
                                             <input id="logo"

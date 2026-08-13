@@ -39,7 +39,7 @@ export default function Setting({ isOpen, onClose }) {
                 <div className="p-4">
                     <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
                         <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
-                            <img src={settingInfo.logo} alt={settingInfo.nama_dealer} className='w-18 h-16 bg-white rounded-full'/>
+                            <img src={settingInfo.logo} alt={settingInfo.nama_dealer} className='w-14 h-14 bg-white rounded-full' />
                         </div>
                         <div className="leading-tight min-w-0">
                             <h2 className="text-lg font-bold text-gray-900 truncate">{settingInfo.nama_dealer}</h2>
@@ -73,11 +73,10 @@ export default function Setting({ isOpen, onClose }) {
                 <div className={`fixed inset-0 bg-black/50 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`} onClick={onClose}>
                     <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out rounded-lg ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                         <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                            <Link to="/admin/dashboard" onClick={onClose} className="flex items-center gap-2">
-                                  <img src={settingInfo.logo} alt={settingInfo.nama_dealer} />
-                                <p className="text-md font-semibold">Pengaturan</p>
+                            <Link to="/admin/dashboard" onClick={onClose} className="flex  items-center gap-2">
+                                <img src={settingInfo.logo} alt={settingInfo.nama_dealer} className="w-16 h-16" />
                             </Link>
-                            <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100">X</button>
+                            <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100 ">x</button>
                         </div>
 
                         <nav className="flex-1 px-3 py-2 overflow-y-auto">

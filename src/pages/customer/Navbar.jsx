@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LeadModal from '../../components/LeadModal';
+import CustomAlert from '../../components/CustomAlert'
 
 const Navbar = () => {
   const [selected, setSelected] = useState(null);
@@ -37,6 +38,7 @@ const Navbar = () => {
     subjek: "",
     pesan: ""
   });
+  const [alert, setAlert] = useState(null)
 
 
 
@@ -76,11 +78,11 @@ const Navbar = () => {
       const data = await response.json();
 
       if (data.success) {
-        alert("Pesan berhasil dikirim.");
+        setAlert({ type: 'success', message: data.message || 'Pesan berhasil dikirim.' })
         setFormData({ nama: "", email: "", no_hp: "", subjek: "", pesan: "" });
         setIsModalOpen(false)
       } else {
-        alert(data.message);
+        setAlert({ type: 'error', message: data.message })
       }
     } catch (error) {
       console.log(error);
@@ -116,6 +118,7 @@ const Navbar = () => {
 
   return (
     <>
+      {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">

@@ -247,10 +247,10 @@ const Exam = () => {
                         {tab === "produk" && (
                             <div className="mt-0 overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Daftar Laporan Produk</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Produk</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -290,10 +290,10 @@ const Exam = () => {
                         {tab === "pengajuanKredit" && (
                             <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex items-center justify-between bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Daftar Laporan Pengajuan</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Pengajuan</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -335,10 +335,10 @@ const Exam = () => {
                         {tab === "contact" && (
                             <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex items-center justify-between bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Daftar Laporan Contact</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Contact</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -376,10 +376,10 @@ const Exam = () => {
                         {tab === "testimoni" && (
                             <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex items-center justify-between bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Daftar Laporan Testimoni</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Testimoni</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -418,10 +418,10 @@ const Exam = () => {
                         {tab === "produk" && (
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Produk Motor</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Produk Motor</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -463,10 +463,10 @@ const Exam = () => {
                         {tab === "pengajuanKredit" && (
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Pengajuan Kredit</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Pengajuan Kredit</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -512,10 +512,10 @@ const Exam = () => {
                         {tab === "contact" && (
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Contact</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Contact</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -557,10 +557,10 @@ const Exam = () => {
                         {tab === "testimoni" && (
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-sm font-semibold text-white">Testimoni</p>
+                                    <p className="text-xl font-semibold text-white">Laporan Testimoni</p>
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-[#006A9E] text-white px-3 shadow-sm transition hover:bg-[#004A7C]">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>

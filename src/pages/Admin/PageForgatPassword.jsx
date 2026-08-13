@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CustomAlert from "../../components/CustomAlert"
 import AdminNavbar from "../../components/AdminNavbar";
 import { Link, useNavigate } from "react-router-dom";
 import { FaMotorcycle } from "react-icons/fa6";
@@ -10,6 +11,7 @@ export default function PageForgatPassword() {
     const [konfirmasiPassword, setKonfirmasiPassword] = useState("")
     const navigate = useNavigate()
     const [infoDealer, setInfoDealer] = useState([])
+    const [alert, setAlert] = useState(null)
 
 
     const getInfoDealer = async () => {
@@ -44,14 +46,14 @@ export default function PageForgatPassword() {
             const data = await response.json()
 
             if (data.success) {
-                alert(data.message)
+                setAlert({ type: 'success', message: data.message })
                 navigate("/admin/login")
             } else {
-                alert(data.message)
+                setAlert({ type: 'error', message: data.message })
             }
         } catch (error) {
             console.error(error)
-            alert("tidak dapat terhubung keserver")
+            setAlert({ type: 'error', message: 'tidak dapat terhubung ke server' })
         }
     }
 
@@ -74,6 +76,7 @@ export default function PageForgatPassword() {
             </div>
 
             <div className="flex justify-center ">
+                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
                 <div className="w-full max-w-xl  p-2 mt-20 rounded-2xl ">
                     <div className="px-6 py-8 border-b border-gray-100 text-center">
                         <h2 className="text-5xl font-bold text-gray-600">Reset your password</h2>

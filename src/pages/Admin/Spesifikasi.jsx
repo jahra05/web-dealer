@@ -7,6 +7,8 @@ import { CiFileOn } from "react-icons/ci"
 import { MdDelete, MdNotificationsNone } from "react-icons/md"
 import { FaEdit } from "react-icons/fa"
 import { useEffect, useMemo, useState } from "react"
+import CustomAlert from "../../components/CustomAlert"
+import ConfirmAlert from "../../components/ConfirmAlert"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import { RxHamburgerMenu } from "react-icons/rx"
 
@@ -31,6 +33,9 @@ const Spesifikasi = () => {
         kapasitas_tengki: "",
         mesin: ""
     });
+
+    const [alert, setAlert] = useState(null)
+    const [confirm, setConfirm] = useState(null)
 
     const rowsPerPage = 8;
 
@@ -110,8 +115,7 @@ const Spesifikasi = () => {
             const result = await response.json();
 
             if (result.success) {
-
-                alert("spesifikasi berhasil ditambahkan");
+                setAlert({ type: 'success', message: result.message || 'Spesifikasi berhasil ditambahkan' })
 
                 getSpesifikasi();
 
@@ -131,7 +135,7 @@ const Spesifikasi = () => {
 
             } else {
 
-                alert(result.message);
+                setAlert({ type: 'error', message: result.message })
 
             }
 
@@ -143,28 +147,33 @@ const Spesifikasi = () => {
     };
 
     const handleDelete = async (id) => {
+        setConfirm({
+            title: 'Hapus Spesifikasi',
+            message: 'Yakin ingin menghapus data spesifikasi ini?',
+            onConfirm: async () => {
+                try {
+                    const response = await fetch(
+                        `${import.meta.env.VITE_API_URL}/api/spesifikasi/${id}`,
+                        { method: 'DELETE' }
+                    )
 
-        if (!window.confirm("Yakin ingin menghapus color?")) return;
+                    const data = await response.json()
 
-        try {
-
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/spesifikasi/${id}`,
-                {
-                    method: "DELETE"
+                    if (data.success) {
+                        getSpesifikasi()
+                        setAlert({ type: 'success', message: data.message || 'Spesifikasi berhasil dihapus' })
+                    } else {
+                        setAlert({ type: 'error', message: data.message })
+                    }
+                } catch (error) {
+                    console.log(error)
+                    setAlert({ type: 'error', message: 'Terjadi kesalahan saat menghapus' })
+                } finally {
+                    setConfirm(null)
                 }
-            );
-
-            const data = await response.json();
-
-            if (data.success) {
-                getSpesifikasi();
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
-
+            },
+            onCancel: () => setConfirm(null)
+        })
     }
 
     const getMotor = async () => {
@@ -223,12 +232,14 @@ const Spesifikasi = () => {
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+                {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
                 <div className='flex items-center justify-between p-4'>
                     <div className='flex items-center gap-4'>
                         <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
                             <RxHamburgerMenu size={24} />
                         </button>
-                        <div className="flex gap-2 bg-white border border-slate-200 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-slate-300">
+                        <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-blue-300">
                             <BiSearch size={20} />
                             <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm" placeholder="Search" />
                         </div>
@@ -251,11 +262,11 @@ const Spesifikasi = () => {
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center">
-                            <p className="text-sm font-semibold text-white">Daftar Spesifikasi</p>
+                            <p className="text-xl font-semibold text-white">Spesifikasi</p>
                             <button
                                 type="button"
                                 onClick={openModal}
-                                className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50'>
+                                className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white text-slate-700 shadow-sm transition hover:shadow-md hover:text-blue-300'>
                                 <PiPlus size={20} />
                             </button>
                         </div>
@@ -321,7 +332,7 @@ const Spesifikasi = () => {
 
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center rounded-xl">
-                            <p className="text-sm font-semibold text-white">Spesifikasi</p>
+                            <p className="text-xl font-semibold text-white">Spesifikasi</p>
                             <button
                                 type="button"
                                 onClick={openModal}
@@ -333,12 +344,14 @@ const Spesifikasi = () => {
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
 
                                 <div className="flex gap-4">
-                                    <div className="bg-gray-100 w-20 h-20 rounded">
-                                        s
+
+                                    <div>
+                                        <p className="mb-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Motor</p>
+                                        <p className=" text-left text-xs font-semibold uppercase tracking-wider text-slate-500"> Mesin</p>
                                     </div>
                                     <div>
-                                        <p className="mb-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-500"><span className="text-sm text-slate-700">{item.nama_motor}</span></p>
-                                        <p className=" text-left text-xs font-semibold uppercase tracking-wider text-slate-500"> Mesin : <span className=" text-sm text-slate-700">{item.mesin}</span></p>
+                                        <p className="text-black font-medium text-sm">{item.nama_motor}</p>
+                                        <p className="text-black font-medium text-sm">{item.mesin}</p>
                                     </div>
                                 </div>
 
@@ -376,11 +389,11 @@ const Spesifikasi = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-4 justify-between h-10 rounded-md border-1 mt-8">
-                                    <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-blue-100 text-black rounded-md transition  hover:bg-sky-50">
+                                <div className="flex items-center gap-4 justify-between mt-6">
+                                    <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
                                         <span className="mr-2">Hapus</span><MdDelete />
                                     </button>
-                                    <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black  transition hover:bg-slate-50">
+                                    <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
                                         <span className="mr-2">Edit</span> <FaEdit />
                                     </button>
                                 </div>

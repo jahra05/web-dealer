@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FaClock, FaLock, FaMotorcycle, FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import CustomAlert from '../../components/CustomAlert';
 
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [infoDealer, setInfoDealer] = useState([])
+    const [alert, setAlert] = useState(null)
 
     const getInfoDealer = async () => {
         try {
@@ -46,14 +48,19 @@ const Login = () => {
             if (data.success) {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("user", JSON.stringify(data.user));
-
                 navigate("/admin/dashboard")
             } else {
-                alert(data.message)
+                setAlert({
+                    type: "error",
+                    message: data.message
+                })
             }
         } catch (error) {
             console.error(error);
-            alert("Tidak dapat tehubung ke server")
+            setAlert({
+                type: 'error',
+                message: "Tidak dapat terhubung ke server"
+            })
         }
     };
     return (
@@ -71,7 +78,6 @@ const Login = () => {
 
                         <div className="flex items-center space-x-2 flex-shrink-0 mt-4">
                             <div className="w-18 h-16  flex items-center justify-center  text-white rounded-lg shadow-sm flex-shrink-0">
-                                {/* <FaMotorcycle size={28} /> */}
                                 <img src={infoDealer.logo} alt={infoDealer.nama_Dealer} className='w-18 h-16 bg-white rounded-full' />
                             </div>
                             <div className="leading-tight min-w-0">
@@ -82,7 +88,6 @@ const Login = () => {
 
 
 
-                        {/* <form className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 " onSubmit={handleSubmit}> */}
                         <div className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 ">
                             <div>
                                 <h2 className="text-4xl font-bold  text-white items-center">Admin Login</h2>
@@ -110,7 +115,9 @@ const Login = () => {
                             </div>
                             <div>
                                 <button className='text-white text-sm hover:underline' onClick={() => navigate("/admin/forgatPassword")}>Forgot Password ? </button>
-                                <button onClick={handleSubmit} type="submit" className="w-full mt-2 py-3 rounded-xl bg-[#002446] font-semibold text-white transition-all duration-300 
+                                <button onClick={
+                                    handleSubmit
+                                } type="submit" className="w-full mt-2 py-3 rounded-xl bg-[#002446] font-semibold text-white transition-all duration-300 
                             hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95" >Login</button>
                             </div>
 
@@ -118,8 +125,9 @@ const Login = () => {
                             <div>
                             </div>
                         </div>
-                        {/* </form> */}
-
+                        {alert && (
+                            <CustomAlert type={alert.type} message={alert.message} onClose={() => { setAlert(null); setEmail(""); setPassword("") }} />
+                        )}
 
                         <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-20 max-w-lg text-white">
                             <div className='w-20 h-1 bg-[#004A7C] rounded-full mb-6' ></div>

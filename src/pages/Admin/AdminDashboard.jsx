@@ -61,7 +61,7 @@ export default function AdminDashboard() {
             {/* Main content area */}
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4">
+                 <div className="flex items-center justify-between p-4">
                     <button
                         className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
                         onClick={() => setIsSidebarOpen(prev => !prev)}

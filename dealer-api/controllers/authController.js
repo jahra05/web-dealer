@@ -20,7 +20,7 @@ const login = async (req, res) => {
         if (results.length === 0) {
             return res.status(401).json({
                 success: false,
-                message: "Username tidak ditemukan"
+                message: "Gagal Memproses Data"
             });
         }
 
@@ -33,7 +33,7 @@ const login = async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({
                 success: false,
-                message: "Password salah"
+                message: "Terjadi Kesalahan Pada Password"
             });
         }
 
@@ -51,7 +51,7 @@ const login = async (req, res) => {
         // Login berhasil
         res.status(200).json({
             success: true,
-            message: "Login berhasil",
+            message: "Anda Berhasil Login",
             token: token,
             user: {
                 id: user.id_user,
@@ -69,7 +69,7 @@ const forgotPassword = async (req, res) => {
     if (!username || !email || !passwordBaru || !konfirmasiPassword) {
         return res.status(400).json({
             success: false,
-            message: "semua field wajib diisi"
+            message: "Isi Semua Field"
         })
     }
 

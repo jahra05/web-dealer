@@ -7,6 +7,8 @@ import { CiFileOn } from "react-icons/ci"
 import { MdDelete, MdNotificationsNone } from "react-icons/md"
 import { FaEdit } from "react-icons/fa"
 import { useEffect, useMemo, useState } from "react"
+import CustomAlert from "../../components/CustomAlert"
+import ConfirmAlert from "../../components/ConfirmAlert"
 import { TbTrash } from "react-icons/tb"
 import { exportExcel } from "../../utils/export/exportExcel"
 import { RxHamburgerMenu } from "react-icons/rx"
@@ -18,27 +20,32 @@ const PengajuanKredit = () => {
     const [selectStatus, setSelectStatus] = useState("")
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const rowsPerPage = 5
+    const [alert, setAlert] = useState(null)
+    const [confirm, setConfirm] = useState(null)
 
     const handleDelete = async (id) => {
-        if (!window.confirm("yakin ingin menghapus pengajuan ini?")) return;
-
-        try {
-
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`,
-                {
-                    method: "DELETE",
+        setConfirm({
+            title: 'Hapus Pengajuan',
+            message: 'Yakin ingin menghapus pengajuan ini?',
+            onConfirm: async () => {
+                try {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`, { method: 'DELETE' })
+                    const data = await response.json()
+                    if (data.success) {
+                        getPengajuan()
+                        setAlert({ type: 'success', message: data.message || 'Pengajuan berhasil dihapus' })
+                    } else {
+                        setAlert({ type: 'error', message: data.message })
+                    }
+                } catch (error) {
+                    console.log(error)
+                    setAlert({ type: 'error', message: 'Terjadi kesalahan saat menghapus' })
+                } finally {
+                    setConfirm(null)
                 }
-            );
-            const data = await response.json();
-
-            if (data.success) {
-                getPengajuan()
-            } else {
-                alert(data.message)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+            },
+            onCancel: () => setConfirm(null)
+        })
     }
     const updateStatus = async (id, status) => {
         try {
@@ -56,11 +63,11 @@ const PengajuanKredit = () => {
             );
             const data = await response.json();
             if (data.success) {
-                alert("status berhasil diubha")
+                setAlert({ type: 'success', message: data.message || 'Status berhasil diubah' })
                 getPengajuan()
 
             } else {
-                alert(data.message)
+                setAlert({ type: 'error', message: data.message })
             }
         } catch (error) {
             console.log(error)
@@ -120,6 +127,8 @@ const PengajuanKredit = () => {
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+                {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
                 <div className='flex items-center justify-between p-4'>
                     <div className='flex items-center gap-4'>
                         <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
@@ -143,7 +152,7 @@ const PengajuanKredit = () => {
                                 <select
                                     value={selectStatus}
                                     onChange={(e) => setSelectStatus(e.target.value)}
-                                    className="w-full sm:w-56 lg:w-72 h-10 px-4 rounded-full bg-white border border-slate-200 text-sm"
+                                    className="w-full sm:w-56 lg:w-72 h-10 px-4 rounded-full bg-white border border-blue-100 text-sm"
                                 >
                                     <option value="">Semua Status</option>
 
@@ -159,7 +168,7 @@ const PengajuanKredit = () => {
                             </div>
 
                             <div className='flex gap-2 mt-2 sm:mt-0'>
-                                <button onClick={handleExportPengajuan} className='inline-flex items-center gap-2 h-10 px-4 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 text-sm'>
+                                <button onClick={handleExportPengajuan} className='inline-flex items-center gap-2 h-10 px-4 rounded-full bg-white border border-blue-100 text-slate-700 shadow-sm transition hover:shadow-md hover:border-blue-300  text-sm'>
                                     <CiFileOn size={18} />
                                     <span className="text-xs">Export</span>
                                 </button>
@@ -169,7 +178,7 @@ const PengajuanKredit = () => {
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] ">
-                            <p className="text-sm font-semibold text-white">Daftar Pengajuan Kredit</p>
+                            <p className="text-xl font-semibold text-white">Pengajuan Kredit</p>
                         </div>
 
                         <div className="overflow-x-auto">
@@ -238,13 +247,13 @@ const PengajuanKredit = () => {
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C]  rounded-xl">
-                            <p className="text-sm font-semibold text-white">Daftar Pengajuan Kredit</p>
+                            <p className="text-xl font-semibold text-white">Pengajuan Kredit</p>
                         </div>
                         {pageItems.map((item) => (
                             <div className="bg-white shadow p-4 rounded-xl">
                                 <div className="flex justify-between">
                                     <div className="flex gap-2">
-                                        <p className="bg-blue-100 text-blue-500 w-14 h-14 text-center py-3 text-2xl uppercase font-medium rounded-xl">f</p>
+                                        <p className="bg-blue-100 text-blue-500 w-14 h-14 text-center py-3 text-2xl uppercase font-medium rounded-xl">{item.nama.charAt(0).toUpperCase()}</p>
                                         <div>
                                             <p className="text-sm text-gray-700 font-semibold">{item.nama}</p>
                                             <p className="text-sm text-gray-500 font-medium">{item.no_hp}</p>

@@ -11,6 +11,8 @@ import { exportExcel } from "../../utils/export/exportExcel"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import { RxHamburgerMenu } from "react-icons/rx"
 import { data } from "react-router-dom"
+import CustomAlert from "../../components/CustomAlert"
+import ConfirmAlert from "../../components/ConfirmAlert"
 
 const KelolaProduk = () => {
     const [page, setPage] = useState(1)
@@ -39,6 +41,8 @@ const KelolaProduk = () => {
     const [isNotificationOpen, setIsNotificationOpen] = useState(false)
     const [isSidebarOpen, setIsSidebarOpen] = useState(null)
     const dropdownContainerRef = useRef(null);
+    const [alert, setAlert] = useState(null)
+    const [confrim, setConfirm] = useState(null)
 
 
 
@@ -104,10 +108,6 @@ const KelolaProduk = () => {
     }
 
     const deleteWarna = async (id) => {
-        const comfirmDelete = window.confirm("yakin ingin menghaspu warna ini ? ")
-
-        if (!comfirmDelete) return;
-
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`, {
                 method: 'DELETE'
@@ -115,14 +115,20 @@ const KelolaProduk = () => {
             const data = await response.json()
 
             if (data.success) {
-                alert(data.message)
                 getWarna()
             } else {
-                alert(data.message)
+                setAlert({
+                    type: 'error',
+                    message: data.message
+                })
             }
         } catch (error) {
-            console.log(error)
+            setAlert({
+                type: 'error',
+                message: data.message
+            })
         }
+        setConfirm(false)
     }
 
 
@@ -143,7 +149,10 @@ const KelolaProduk = () => {
             const data = await response.json();
 
             if (data.success) {
-                alert(data.message);
+                setAlert({
+                    type: 'success',
+                    message: data.message
+                })
                 getWarna();
 
                 setEditWarna({
@@ -155,6 +164,10 @@ const KelolaProduk = () => {
             }
         } catch (error) {
             console.log(error);
+            setAlert({
+                type: 'error',
+                message: "Gagal Create warna"
+            })
         }
     };
 
@@ -178,7 +191,7 @@ const KelolaProduk = () => {
             const data = await response.json();
 
             if (data.success) {
-                alert(data.message);
+                setAlert({ type: 'success', message: data.message })
                 getWarna();
 
                 setEditWarna({
@@ -267,7 +280,7 @@ const KelolaProduk = () => {
             if (data.success) {
                 setProducts(data.data);
             } else {
-                alert(data.message)
+                setAlert({ type: 'error', message: data.message })
             }
         } catch (error) {
             console.error(error)
@@ -360,17 +373,27 @@ const KelolaProduk = () => {
             if (data.success) {
                 const idMotor = data.id;
                 console.log("id motor baru", idMotor);
-
-                alert("Produk berhasil ditambahkan");
+                setAlert({
+                    type: "success",
+                    message: "Produk berhasil ditambahkan"
+                })
 
                 getMotor();
                 closeModal();
                 resetForm();
             } else {
-                alert(data.message);
+                // alert(data.message);
+                setAlert({
+                    type: "warning",
+                    message: data.message
+                })
             }
         } catch (error) {
             console.log(error);
+            setAlert({
+                type: 'error',
+                message: "gaga; submit"
+            })
         }
     };
     const updateMotor = async () => {
@@ -400,7 +423,7 @@ const KelolaProduk = () => {
             const data = await response.json();
 
             if (data.success) {
-                alert("Produk berhasi diupdate")
+                setAlert({ type: 'success', message: 'Produk berhasil diupdate' })
 
                 getMotor()
                 closeModal()
@@ -409,15 +432,13 @@ const KelolaProduk = () => {
                 setIsEdit(false)
                 setEditId(null)
             } else {
-                alert(data.message)
+                setAlert({ type: 'error', message: data.message })
             }
         } catch (error) {
             console.log(error)
         }
     }
     const handleDelet = async (id) => {
-        const confirmDelet = window.confirm("Yakin ingin menhapus produk ini ?")
-        if (!confirmDelet) return
 
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/${id}`,
@@ -432,14 +453,26 @@ const KelolaProduk = () => {
             console.log("STATUS", response.status)
             console.log("RESPONE", data)
             if (!response.ok) {
-                throw new Error(data.message || "Gagal menghapus motor");
+                // throw new Error(data.message || "Gagal menghapus motor");
+                setAlert({
+                    type: 'warning',
+                    message: "Gagal Mengapus Motor"
+                })
             }
 
             if (data.success) {
-                alert("produk berhasil dihapus");
+                setAlert({
+                    type: 'success',
+                    message: "Produk berhasil dihapus"
+                })
+                // alert("produk berhasil dihapus");
                 getMotor()
             } else {
-                alert(data.message)
+                setAlert({
+                    type: 'error',
+                    message: data.message
+                })
+                // alert(data.message)
             }
         } catch (error) {
             console.log(error)
@@ -493,7 +526,7 @@ const KelolaProduk = () => {
                         <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
                             <RxHamburgerMenu size={24} />
                         </button>
-                        <div className="flex gap-2 bg-white border border-slate-200 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-slate-300">
+                        <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-blue-300">
                             <BiSearch size={20} />
                             <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm" placeholder="Search" />
                         </div>
@@ -515,7 +548,7 @@ const KelolaProduk = () => {
                                 <select
                                     value={selectKategori}
                                     onChange={(e) => setSelectKategori(e.target.value)}
-                                    className="w-full h-10 px-4 rounded-full bg-white border border-slate-200 text-sm"
+                                    className="w-full h-10 px-4 rounded-full bg-white border border-blue-100 text-sm"
                                 >
                                     <option value="">Semua Kategori</option>
 
@@ -531,14 +564,14 @@ const KelolaProduk = () => {
                             </div>
 
                             <div className='flex flex-wrap gap-2'>
-                                <button onClick={handleExport} className='inline-flex items-center gap-2 h-10 px-3 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 focus:ring-2 focus:ring-indigo-200'>
+                                <button onClick={handleExport} className='inline-flex items-center gap-2 h-10 px-3 rounded-full bg-white border border-blue-100 text-slate-700 transition hover:border-blue-300  hover:shadow-md focus:ring-2 focus:ring-indigo-200'>
                                     <CiFileOn size={18} />
                                     <span className="text-xs">Export</span>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={openModal}
-                                    className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 focus:ring-2 focus:ring-indigo-200'>
+                                    className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-blue-100 text-slate-700 transition hover:shadow-md hover:border-blue-300  focus:ring-2 focus:ring-indigo-200'>
                                     <PiPlus size={20} />
                                 </button>
                             </div>
@@ -547,7 +580,7 @@ const KelolaProduk = () => {
                     {/* Desktop */}
                     <div className="mt-4 overflow-hidden bg-white shadow-sm rounded-2xl border border-slate-100 hidden md:block">
                         <div className="px-6 py-4 bg-[#004A7C]">
-                            <p className="text-sm font-semibold text-white">Daftar Produk</p>
+                            <p className="text-xl font-semibold text-white">Produk</p>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="min-w-[720px] w-full overflow-auto">
@@ -691,7 +724,7 @@ const KelolaProduk = () => {
 
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
                         <div className="px-6 py-4 bg-[#004A7C] rounded-xl">
-                            <p className="text-sm font-semibold text-white">Produk Motor</p>
+                            <p className="text-xl font-semibold text-white">Produk Motor</p>
                         </div>
                         {products.map((item) => (
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
@@ -757,6 +790,12 @@ const KelolaProduk = () => {
                         </div>
                     </div>
 
+                    {confrim && (
+                        <ConfirmAlert title='Hapus' message='yakin ingin mengapus warna ini' onConfirm={deleteWarna} onCancel={() => { setConfirm(false) }} />
+                    )}
+                    {alert && (
+                        <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
+                    )}
                     {isModalColor && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
                             <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>

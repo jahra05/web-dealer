@@ -2,12 +2,14 @@ import { useEffect, useState } from "react"
 import { BiEdit } from "react-icons/bi"
 import Setting from "./Setting"
 import { RxHamburgerMenu } from "react-icons/rx"
+import CustomAlert from "../../components/CustomAlert"
 
 export default function SettingProfileDealer() {
 
     const [footer, setFooter] = useState([])
     const [logo, setLogo] = useState(null)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [alert, setAlert] = useState(null)
 
 
     const getFooter = async () => {
@@ -37,8 +39,7 @@ export default function SettingProfileDealer() {
             });
 
             const data = await response.json();
-            alert(data.message)
-
+            setAlert({ type: 'success', message: data.message })
             console.log(data)
 
         } catch (error) {
@@ -62,7 +63,7 @@ export default function SettingProfileDealer() {
             );
 
             const data = await response.json();
-            alert(data.message);
+            setAlert({ type: 'success', message: data.message })
 
         } catch (error) {
             console.log(error);
@@ -89,6 +90,7 @@ export default function SettingProfileDealer() {
         <div className="min-h-screen w-full flex gap-2 bg-gray-50 overflow-x-hidden ">
             <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden mr-4">
+                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
                 <div className="flex items-center justify-between p-4">
                     <button
                         className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -110,7 +112,7 @@ export default function SettingProfileDealer() {
                         <div className="flex flex-col shadow p-4 rounded-xl">
                             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                 <div className="flex flex-col sm:flex-row items-center gap-4">
-                                    <div className="relative w-64">
+                                    <div className="w-64">
                                         <img className="w-64"
                                             src={
                                                 logo

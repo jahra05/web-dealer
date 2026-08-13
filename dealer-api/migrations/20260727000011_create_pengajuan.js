@@ -13,13 +13,13 @@ exports.up = async function (knex) {
     table.string('pekerjaan', 100).notNullable();
     table.integer('id_motor').unsigned().notNullable();
     table.timestamp('tanggal_pengajuan').notNullable().defaultTo(knex.fn.now());
-    table.enu('status', ['Menunggu', 'Diproses', 'Disetujui', 'Ditolak']).defaultTo('Menunggu');
+    table.enum('status', ['Menunggu', 'Diproses', 'Disetujui', 'Ditolak']).defaultTo('Menunggu');
 
     // Foreign key
     table.foreign('id_motor', 'pengajuan_ibfk_1')
       .references('id_motor')
       .inTable('motor')
-      .onDelete('CASCADE')
+      .onDelete('NO ACTION')
       .onUpdate('CASCADE');
   });
 };

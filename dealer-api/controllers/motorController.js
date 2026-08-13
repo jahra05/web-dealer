@@ -33,7 +33,8 @@ const getAllMotor = (req, res) => {
         motor.stok,
         motor.tahun,
         motor.deskripsi,
-        motor.gambar
+        motor.gambar,
+        motor.status
     FROM motor
     JOIN kategori ON motor.id_kategori = kategori.id_kategori
     JOIN tipe ON motor.id_tipe = tipe.id_tipe
@@ -242,36 +243,108 @@ const updateMotor = async (req, res) => {
 };
 
 const deleteMotor = (req, res) => {
+    console.log("🔥 DELETE MOTOR BARU DIPANGGIL");
+    console.log("ID MOTOR:", req.params.id);
+
     const { id } = req.params;
 
-    const sql = "DELETE FROM motor WHERE id_motor = ?";
+    const checkRelasi = `
+        SELECT
+            (SELECT COUNT(*)
+             FROM pengajuan
+             WHERE id_motor = ?) AS jumlah_pengajuan,
 
-    db.query(sql, [id], (err, result) => {
+            (SELECT COUNT(*)
+             FROM simulasi_kredit
+             WHERE id_motor = ?) AS jumlah_simulasi
+    `;
+
+    db.query(checkRelasi, [id, id], (err, result) => {
 
         if (err) {
-            console.error("❌ Error delete motor:", err);
+            console.error("❌ Error cek relasi motor:", err);
 
             return res.status(500).json({
                 success: false,
-                message: "Gagal menghapus motor",
+                message: "Gagal mengecek data motor",
                 error: err.message
             });
         }
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Motor tidak ditemukan"
+        const jumlahPengajuan = result[0].jumlah_pengajuan;
+        const jumlahSimulasi = result[0].jumlah_simulasi;
+
+        console.log("📌 Jumlah pengajuan:", jumlahPengajuan);
+        console.log("📌 Jumlah simulasi:", jumlahSimulasi);
+
+        // ==========================================
+        // MOTOR MASIH DIGUNAKAN
+        // ==========================================
+
+        if (jumlahPengajuan > 0 || jumlahSimulasi > 0) {
+
+            const updateStatus = `
+                UPDATE motor
+                SET status = 'Nonaktif'
+                WHERE id_motor = ?
+            `;
+
+            db.query(updateStatus, [id], (err, result) => {
+
+                if (err) {
+                    console.error("❌ Error menonaktifkan motor:", err);
+
+                    return res.status(500).json({
+                        success: false,
+                        message: "Gagal menonaktifkan motor",
+                        error: err.message
+                    });
+                }
+
+                return res.json({
+                    success: true,
+                    message: "Motor dinonaktifkan karena masih digunakan dalam data transaksi"
+                });
             });
+
+            return;
         }
 
-        res.json({
-            success: true,
-            message: "Motor berhasil dihapus"
+        // ==========================================
+        // MOTOR TIDAK DIGUNAKAN
+        // ==========================================
+
+        const deleteSql = `
+            DELETE FROM motor
+            WHERE id_motor = ?
+        `;
+
+        db.query(deleteSql, [id], (err, result) => {
+
+            if (err) {
+                console.error("❌ Error delete motor:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Gagal menghapus motor",
+                    error: err.message
+                });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Motor tidak ditemukan"
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "Motor berhasil dihapus"
+            });
         });
     });
 };
-
 module.exports = {
     getAllMotor,
     getMotorID,

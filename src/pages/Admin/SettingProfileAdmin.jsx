@@ -30,50 +30,50 @@ export default function SettingProfileAdmin() {
         }
     }
 
-const updateLogo = async () => {
-    if (!foto) {
-        setAlert({ type: 'warning', message: 'Pilih foto terlebih dahulu' })
-        return;
-    }
-
-    const formData = new FormData();
-
-    formData.append("foto", foto);
-
-    console.log("FILE YANG DIKIRIM:", foto);
-
-    try {
-        const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/foto`,
-            {
-                method: "PUT",
-                body: formData,
-            }
-        );
-
-        const data = await response.json();
-
-        
-        console.log("RESPONSE UPDATE FOTO:", data);
-
-        if (data.success) {
-            setAlert({ type: 'success', message: data.message })
-
-            // langsung update tampilan
-            setUser((prev) => ({
-                ...prev,
-                foto: data.foto
-            }));
-
-            setFoto(null);
-        } else {
-            setAlert({ type: 'error', message: data.message })
+    const updateLogo = async () => {
+        if (!foto) {
+            setAlert({ type: 'warning', message: 'Pilih foto terlebih dahulu' })
+            return;
         }
 
-    } catch (error) {
-        console.log(error);
-    }
-};
+        const formData = new FormData();
+
+        formData.append("foto", foto);
+
+        console.log("FILE YANG DIKIRIM:", foto);
+
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/foto`,
+                {
+                    method: "PUT",
+                    body: formData,
+                }
+            );
+
+            const data = await response.json();
+
+
+            console.log("RESPONSE UPDATE FOTO:", data);
+
+            if (data.success) {
+                setAlert({ type: 'success', message: data.message })
+
+                // langsung update tampilan
+                setUser((prev) => ({
+                    ...prev,
+                    foto: data.foto
+                }));
+
+                setFoto(null);
+            } else {
+                setAlert({ type: 'error', message: data.message })
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const update = async () => {
 
@@ -160,16 +160,19 @@ const updateLogo = async () => {
                             <div className="flex flex-col shadow p-4 rounded-xl">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                                     <div className="flex flex-col sm:flex-row items-center gap-4">
-                                        <div className="w-32 h-32">
-                                            <img src={foto ? URL.createObjectURL(foto) : `${user.foto}`} className="w-32 h-32 rounded-full object-cover" />
-                                            <label htmlFor="logo" className=" absolute bottom-0 right-0 w-8 h-8 flex items-center justify-center rounded-full bg-[#002446] text-[#F2F8FC] cursor-pointer hover:bg-[#00182F] hover:text-white"> <BiEdit size={20} /></label>
-                                            <input id="logo"
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={handleFotoChange} className="hidden"
-                                            />
+                                        <div className="w-32">
+                                            <div className="w-32 h-32">
+                                                <img src={foto ? URL.createObjectURL(foto) : `${user.foto}`} className="w-32 h-32 rounded-full object-cover" />
+                                            </div>
+                                            <div className="-mt-10">
+                                                <label htmlFor="logo" className="ml-32 -mt-2 w-8 h-8 flex items-center justify-center rounded-full bg-[#002446] text-[#F2F8FC] cursor-pointer hover:bg-[#00182F] hover:text-white shadow-md z-10"> <BiEdit size={20} />
+                                                </label></div>
                                         </div>
-
+                                        <input id="logo"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleFotoChange} className="hidden"
+                                        />
                                     </div>
                                     <div className="flex gap-2">
                                         <button onClick={updateLogo} className="bg-[#002446] text-[#F2F8FC] rounded-md p-2  text-sm font-medium">update</button>
@@ -184,15 +187,15 @@ const updateLogo = async () => {
                                             <div>
                                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">Nama Lengkap</p>
                                                 <input name="nama_lengkap" value={user.nama_lengkap || ""} onChange={handleChange}
-                                                    type="text" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
+                                                    type="text" placeholder="Nama Lengkap" title="Nama Lengkap" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                             </div>
                                             <div>
                                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">Username</p>
-                                                <input name="username" value={user.username || ""} ronChange={handleChange} type="text" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
+                                                <input name="username" value={user.username || ""} onChange={handleChange} type="text" placeholder="Username" title="Username" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                             </div>
                                             <div>
                                                 <p className="text-gray-600 w-32 text-sm font-medium mb-2">Email</p>
-                                                <input name="email" value={user.email || ""} onChange={handleChange} type="email" placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
+                                                <input name="email" value={user.email || ""} onChange={handleChange} type="email" placeholder="Email" title="Email" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                             </div>
                                         </div>
                                     </div>
@@ -206,11 +209,11 @@ const updateLogo = async () => {
                                     <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                                         <div>
                                             <p className="text-gray-600 w-32 text-sm font-medium mb-2">Current Password</p>
-                                            <input type="password" name="passwordLama" value={password.passwordLama} onChange={handleChangePassword} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
+                                            <input type="password" name="passwordLama" value={password.passwordLama} onChange={handleChangePassword} placeholder="Password Lama" title="Password Lama" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                         </div>
                                         <div>
                                             <p className="text-gray-600 w-32 text-sm font-medium mb-2">New Password</p>
-                                            <input type="password" name="passwordBaru" value={password.passworBaru} onChange={handleChangePassword} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
+                                            <input type="password" name="passwordBaru" value={password.passwordBaru} onChange={handleChangePassword} placeholder="Password Baru" title="Password Baru" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                         </div>
                                     </div>
                                     <button onClick={SavePassword} className="bg-[#002446] text-[#F2F8FC] px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center mt-10">Update</button>
@@ -221,9 +224,9 @@ const updateLogo = async () => {
 
 
                     </div>
-                </div>
+                </div >
 
-            </div>
+            </div >
 
         </>
     )

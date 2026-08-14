@@ -528,7 +528,7 @@ const KelolaProduk = () => {
                         </button>
                         <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-blue-300">
                             <BiSearch size={20} />
-                            <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm" placeholder="Search" />
+                            <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder" placeholder="Search" title="Search" />
                         </div>
                     </div>
 
@@ -892,7 +892,7 @@ const KelolaProduk = () => {
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Nama Motor</label>
                                         <input type="text" name="nama_motor" value={formData.nama_motor} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            placeholder="Nama Motor" title="Nama Motor" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
@@ -917,27 +917,27 @@ const KelolaProduk = () => {
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Harga</label>
                                         <input type="number" name="harga" value={formData.harga} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            placeholder="Harga (angka)" title="Harga" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
                                         <input type="number" name="tahun" value={formData.tahun} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            placeholder="Tahun" title="Tahun" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Stok</label>
                                         <input type="text" name="stok" value={formData.stok} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            placeholder="Stok" title="Stok" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
                                         <input type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            placeholder="Deskripsi singkat" title="Deskripsi" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                     </div>
                                     <div className="md:col-span-2">
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
                                         <input accept="image/*" onChange={(e) => { setFormData({ ...formData, gambar: e.target.files[0] }) }}
-                                            type="file" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-[#002446] hover:file:bg-[#E6F1F7]" />
+                                            type="file" title="Pilih gambar produk" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-[#002446] hover:file:bg-[#E6F1F7]" />
                                     </div>
                                 </div>
 

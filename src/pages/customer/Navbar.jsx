@@ -130,7 +130,7 @@ const Navbar = () => {
                 src={logo ? URL.createObjectURL(logo) : `${infoStore.logo}`} />
               <div className="leading-tight min-w-0">
                 <h2 className="text-lg font-bold text-gray-900 truncate">{infoStore.nama_dealer}</h2>
-                <p className="text-[10px] text-gray-500">{infoStore.deskripsi}</p>
+                <p className="text-[10px] text-gray-500">{infoStore.title}</p>
               </div>
             </div>
 
@@ -193,7 +193,7 @@ const Navbar = () => {
                 src={logo ? URL.createObjectURL(logo) : `${infoStore.logo}`} />
               <div className="leading-tight min-w-0">
                 <h2 className="text-lg font-bold text-gray-900 truncate">{infoStore.nama_dealer}</h2>
-                <p className="text-[10px] text-gray-500">{infoStore.deskripsi}</p>
+                <p className="text-[10px] text-gray-500">{infoStore.title}</p>
               </div>
             </div>
           </Link>

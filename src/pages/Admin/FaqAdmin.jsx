@@ -176,8 +176,9 @@ const FaqAdmin = () => {
                                 type="search"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="h-8 w-full outline-none rounded-full text-sm"
+                                className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder"
                                 placeholder="Search"
+                                title="Search"
                             />
                         </div>
                     </div>
@@ -263,13 +264,13 @@ const FaqAdmin = () => {
                                     <div className="px-6 py-5 space-y-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Pertanyaan</label>
-                                            <textarea name="pertanyaan" value={formData.pertanyaan} onChange={handleChange} placeholder="Tulis pertanyaan"
-                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <textarea name="pertanyaan" value={formData.pertanyaan} onChange={handleChange} placeholder="Tulis pertanyaan" title="Tulis pertanyaan"
+                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Jawaban</label>
-                                            <textarea name="jawaban" value={formData.jawaban} onChange={handleChange} placeholder="Tulis jawaban"
-                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 resize-none" />
+                                            <textarea name="jawaban" value={formData.jawaban} onChange={handleChange} placeholder="Tulis jawaban" title="Tulis jawaban"
+                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 resize-none truncate-placeholder" />
                                         </div>
                                     </div>
                                     {/* Footer */}

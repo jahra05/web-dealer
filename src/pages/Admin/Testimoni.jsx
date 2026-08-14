@@ -228,8 +228,9 @@ const Testimoni = () => {
                                 type="search"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="h-8 w-full outline-none rounded-full text-sm"
+                                className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder"
                                 placeholder="Search"
+                                title="Search"
                             />
                         </div>
                     </div>
@@ -333,13 +334,13 @@ const Testimoni = () => {
                                         <div className="grid gap-4 md:grid-cols-2">
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Nama</label>
-                                                <input type="text" name="nama" value={formData.nama} onChange={handleChange} placeholder="Nama"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                                <input type="text" name="nama" value={formData.nama} onChange={handleChange} placeholder="Nama" title="Nama"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Pekerjaan</label>
-                                                <input type="text" name="pekerjaan" value={formData.pekerjaan} onChange={handleChange} placeholder="Pekerjaan"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                                <input type="text" name="pekerjaan" value={formData.pekerjaan} onChange={handleChange} placeholder="Pekerjaan" title="Pekerjaan"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
@@ -361,8 +362,8 @@ const Testimoni = () => {
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Isi Testimoni</label>
-                                            <textarea name="isi_testimoni" value={formData.isi_testimoni} onChange={handleChange} placeholder="Isi Testimoni"
-                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 resize-none" />
+                                            <textarea name="isi_testimoni" value={formData.isi_testimoni} onChange={handleChange} placeholder="Isi Testimoni" title="Isi Testimoni"
+                                                className="w-full h-32 rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 resize-none truncate-placeholder" />
                                         </div>
                                     </div>
                                     {/* Footer */}

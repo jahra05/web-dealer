@@ -127,8 +127,9 @@ const PageMessage = () => {
                                 type="search"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="h-8 w-full outline-none rounded-full text-sm"
+                                className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder"
                                 placeholder="Search"
+                                title="Search"
                             />
                         </div>
                     </div>

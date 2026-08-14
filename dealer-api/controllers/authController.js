@@ -86,7 +86,7 @@ const forgotPassword = async (req, res) => {
         if (err) {
             return res.status(500).json({
                 success: false,
-                message: "terjadi kesalahan pada databse"
+                message: "terjadi kesalahan pada database"
             })
         }
 

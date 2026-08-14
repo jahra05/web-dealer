@@ -68,7 +68,7 @@ export default function PageForgatPassword() {
                     </div>
                     <div className="leading-tight min-w-0">
                         <h2 className="text-lg font-bold text-gray-900 truncate">{infoDealer.nama_dealer}</h2>
-                        <p className="text-[10px] text-gray-500">{infoDealer.deskripsi}</p>
+                        <p className="text-[10px] text-gray-500">{infoDealer.title}</p>
                     </div>
                 </div>
 
@@ -85,19 +85,19 @@ export default function PageForgatPassword() {
                     <div className="px-6 py-8 grid gap-4 md:grid-cols-1">
                         <div>
                             <label className="text-sm font-medium text-gray-400">Email</label>
-                            <input placeholder="Enter your emaul address" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 " />
+                            <input placeholder="Email" title="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                         </div>
                         <div>
                             <label className="text-sm font-medium text-gray-400">Username</label>
-                            <input placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1" />
+                            <input placeholder="Username" title="Username" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1 truncate-placeholder" />
                         </div>
                         <div>
                             <label className="text-sm font-medium text-gray-400">Password Baru</label>
-                            <input placeholder="Enter your new password" type="password" value={passwordBaru} onChange={(e) => setPasswordBaru(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1" />
+                            <input placeholder="Password Baru" title="Password Baru" type="password" value={passwordBaru} onChange={(e) => setPasswordBaru(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1 truncate-placeholder" />
                         </div>
                         <div>
                             <label className="text-sm font-medium text-gray-400">Komfirmasi password</label>
-                            <input placeholder="Confirm your password" type="password" value={konfirmasiPassword} onChange={(e) => setKonfirmasiPassword(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1" />
+                            <input placeholder="Konfirmasi Password" title="Konfirmasi Password" type="password" value={konfirmasiPassword} onChange={(e) => setKonfirmasiPassword(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100 mt-1 truncate-placeholder" />
                         </div>
                         <div className="flex gap-4">
                             <button onClick={() => navigate("/admin/login")} className=" w-full rounded-lg border border-gray-200 bg-white px-5 py-2 font-medium text-gray-700  hover:text-[#00182F] transition  hover:border-blue-400 hover:ring-2 hover:ring-[3E6F1F7]  mt-2">Cancel</button>

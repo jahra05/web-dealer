@@ -150,8 +150,9 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                     name="nama"
                     value={formData.nama}
                     onChange={handleChange}
-                    className={`w-full bg-gray-50 border ${errors.name ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all`}
+                    className={`w-full bg-gray-50 border ${errors.name ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all truncate-placeholder`}
                     placeholder="Contoh: Budi Santoso"
+                    title="Contoh: Budi Santoso"
                   />
                   {errors.nama && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.nama}</p>}
                 </div>
@@ -162,8 +163,9 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                     name="pekerjaan"
                     value={formData.pekerjaan}
                     onChange={handleChange}
-                    className={`w-full bg-gray-50 border ${errors.pekerjaan ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all`}
+                    className={`w-full bg-gray-50 border ${errors.pekerjaan ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all truncate-placeholder`}
                     placeholder="Contoh: Budi Santoso"
+                    title="Contoh: Budi Santoso"
                   />
                   {errors.pekerjaan && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.pekerjaan}</p>}
                 </div>
@@ -177,8 +179,9 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                     name="no_hp"
                     value={formData.no_hp}
                     onChange={handleChange}
-                    className={`w-full bg-gray-50 border ${errors.no_hp ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all`}
+                    className={`w-full bg-gray-50 border ${errors.no_hp ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all truncate-placeholder`}
                     placeholder="0812xxxxxxxx"
+                    title="0812xxxxxxxx"
                   />
                   {errors.no_hp && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.no_hp}</p>}
                 </div>
@@ -193,8 +196,9 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
                   value={formData.alamat}
                   onChange={handleChange}
                   rows="2"
-                  className={`w-full bg-gray-50 border ${errors.alamat ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all resize-none`}
+                  className={`w-full bg-gray-50 border ${errors.alamat ? 'border-blue-500' : 'border-gray-200'} rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-50 outline-none transition-all resize-none truncate-placeholder`}
                   placeholder="Jl. Merdeka No. 123, Jakarta"
+                  title="Jl. Merdeka No. 123, Jakarta"
                 ></textarea>
                 {errors.alamat && <p className="text-blue-500 text-[10px] mt-1 font-bold">{errors.alamat}</p>}
               </div>

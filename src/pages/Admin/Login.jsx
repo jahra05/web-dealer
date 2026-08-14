@@ -82,7 +82,7 @@ const Login = () => {
                             </div>
                             <div className="leading-tight min-w-0">
                                 <h2 className="text-lg font-bold text-white truncate">{infoDealer.nama_dealer}</h2>
-                                <p className="text-[10px] text-gray-500">{infoDealer.deskripsi}</p>
+                                <p className="text-[10px] text-gray-500">{infoDealer.title}</p>
                             </div>
                         </div>
 
@@ -95,12 +95,12 @@ const Login = () => {
                                 <div className='h-1 bg-[#004A7C] rounded-full mt-4'></div>
                             </div>
                             <div>
-                                <label className="block mb-2 text-sm font-medium text-white">username</label>
+                                <label className="block mb-2 text-sm font-medium text-white">Email</label>
                                 <div className='border-b-white relative '>
                                     <FaUser className="absolute left-4 top-6 text-gray-300" />
-                                    <input type="email" placeholder='Enter Your Username' value={email} onChange={(e) => setEmail(e.target.value)}
+                                    <input type="email" placeholder='Email' title="Email" value={email} onChange={(e) => setEmail(e.target.value)}
                                         className="mt-2 w-full rounded-xl bg-white/10 border border-white/20 px-10 py-3 text-white placeholder-gray-300 
-                                        focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40" />
+                                        focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 truncate-placeholder" />
                                 </div>
                             </div>
 
@@ -108,9 +108,9 @@ const Login = () => {
                                 <label className="block mb-2 text-sm font-medium text-white">Password</label>
                                 <div className='border-b-white relative '>
                                     <FaLock className="absolute left-4 top-6 text-gray-300" />
-                                    <input type="password" placeholder='Enter Your Password' value={password} onChange={(e) => setPassword(e.target.value)}
+                                    <input type="password" placeholder='Password' title="Password" value={password} onChange={(e) => setPassword(e.target.value)}
                                         className="mt-2 w-full rounded-xl bg-white/10 border border-white/20 px-10 py-3 text-white placeholder-gray-300 
-                                        focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40" />
+                                        focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 truncate-placeholder" />
                                 </div>
                             </div>
                             <div>

@@ -304,7 +304,7 @@ const SimulasiKredit = () => {
                         </button>
                         <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-blue-300">
                             <BiSearch size={20} />
-                            <input value={serach} onChange={(e) => serSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm" placeholder="Search" />
+                            <input value={serach} onChange={(e) => serSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder" placeholder="Search" title="Search" />
                         </div>
                     </div>
 
@@ -396,8 +396,8 @@ const SimulasiKredit = () => {
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">DP</label>
                                             <input type="number" min="0" name="dp" value={modalFormData.dp} onChange={handleModalChange}
-                                                placeholder="Masukkan jumlah DP"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                                placeholder="Masukkan jumlah DP" title="Masukkan jumlah DP"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Tenor (bulan)</label>
@@ -413,8 +413,8 @@ const SimulasiKredit = () => {
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Bunga (%)</label>
                                             <input type="number" min="0" step="0.01" name="bunga" value={modalFormData.bunga} onChange={handleModalChange}
-                                                placeholder="Masukkan persen bunga"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                                placeholder="Masukkan persen bunga" title="Masukkan persen bunga"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Cicilan</label>

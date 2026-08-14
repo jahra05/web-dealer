@@ -92,7 +92,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
             </div>
             <div className="leading-tight min-w-0">
               <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
-              <p className="text-[10px] text-gray-500">{navLogo.deskripsi}</p>
+              <p className="text-[10px] text-gray-500">{navLogo.title}</p>
             </div>
           </Link>
         </div>
@@ -168,7 +168,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
               </div>
               <div className="leading-tight min-w-0">
                 <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
-                <p className="text-[10px] text-gray-500">{navLogo.deskripsi}</p>
+                <p className="text-[10px] text-gray-500">{navLogo.title}</p>
               </div>
             </Link>
             <button

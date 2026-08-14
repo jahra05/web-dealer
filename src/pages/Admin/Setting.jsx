@@ -43,7 +43,7 @@ export default function Setting({ isOpen, onClose }) {
                         </div>
                         <div className="leading-tight min-w-0">
                             <h2 className="text-lg font-bold text-gray-900 truncate">{settingInfo.nama_dealer}</h2>
-                            <p className="text-[10px] text-gray-500">{settingInfo.deskripsi}</p>
+                            <p className="text-[10px] text-gray-500">{settingInfo.title}</p>
                         </div>
                     </Link>
                 </div>

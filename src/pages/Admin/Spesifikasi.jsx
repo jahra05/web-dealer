@@ -241,7 +241,7 @@ const Spesifikasi = () => {
                         </button>
                         <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-blue-300">
                             <BiSearch size={20} />
-                            <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm" placeholder="Search" />
+                            <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder" placeholder="Search" title="Search" />
                         </div>
                     </div>
 
@@ -444,43 +444,43 @@ const Spesifikasi = () => {
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Mesin</label>
-                                            <input type="text" name="kapasitas_mesin" value={formData.kapasitas_mesin} onChange={handleChange} placeholder="Kapasitas mesin"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="kapasitas_mesin" value={formData.kapasitas_mesin} onChange={handleChange} placeholder="Kapasitas mesin" title="Kapasitas mesin"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Tenaga</label>
-                                            <input type="text" name="tenaga" value={formData.tenaga} onChange={handleChange} placeholder="Tenaga"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="tenaga" value={formData.tenaga} onChange={handleChange} placeholder="Tenaga" title="Tenaga"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Torsi</label>
-                                            <input type="text" name="torsi" value={formData.torsi} onChange={handleChange} placeholder="Torsi"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="torsi" value={formData.torsi} onChange={handleChange} placeholder="Torsi" title="Torsi"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Transmisi</label>
-                                            <input type="text" name="transmisi" value={formData.transmisi} onChange={handleChange} placeholder="Transmisi"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="transmisi" value={formData.transmisi} onChange={handleChange} placeholder="Transmisi" title="Transmisi"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Berat</label>
-                                            <input type="text" name="berat" value={formData.berat} onChange={handleChange} placeholder="Berat"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="berat" value={formData.berat} onChange={handleChange} placeholder="Berat" title="Berat"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Tinggi Jok</label>
-                                            <input type="text" name="tinggi_jok" value={formData.tinggi_jok} onChange={handleChange} placeholder="Tinggi Jok"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="tinggi_jok" value={formData.tinggi_jok} onChange={handleChange} placeholder="Tinggi Jok" title="Tinggi Jok"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Tangki</label>
-                                            <input type="text" name="kapasitas_tengki" value={formData.kapasitas_tengki} onChange={handleChange} placeholder="Kapasitas Tangki"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="kapasitas_tengki" value={formData.kapasitas_tengki} onChange={handleChange} placeholder="Kapasitas Tangki" title="Kapasitas Tangki"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Mesin</label>
-                                            <input type="text" name="mesin" value={formData.mesin} onChange={handleChange} placeholder="Mesin"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" />
+                                            <input type="text" name="mesin" value={formData.mesin} onChange={handleChange} placeholder="Mesin" title="Mesin"
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                         </div>
                                     </div>
 

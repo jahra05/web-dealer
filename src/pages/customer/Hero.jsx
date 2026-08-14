@@ -13,6 +13,8 @@ const Hero = () => {
         const data = await response.json();
 
         if (data.success && data.data.length > 0) {
+          console.log('data hero berhasil', data)
+
           setHero(data.data[0])
         }
       } catch (error) {

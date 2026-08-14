@@ -1,4 +1,3 @@
-const { title } = require("framer-motion/client");
 
 exports.seed = async function (knex) {
   await knex("footer").del();

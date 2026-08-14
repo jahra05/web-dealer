@@ -1,6 +1,5 @@
 const db = require('../config/db')
 const cloudinary = require("../config/cloudinary");
-const { title } = require('framer-motion/client');
 
 const uploadToCloudinary = (fileBuffer) => {
     return new Promise((resolve, reject) => {

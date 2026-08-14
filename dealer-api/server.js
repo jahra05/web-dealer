@@ -21,6 +21,7 @@ const warnaRoutes = require("./routes/warnaRoutes")
 const laporanStatus = require("./routes/laporanRoutes")
 const user = require('./routes/userRoutes')
 const footer = require('./routes/footerRoutes')
+const hero = require("./routes/heroRoutes")
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/api/warna", warnaRoutes)
 app.use("/api/laporan", laporanStatus)
 app.use("/api/user", user)
 app.use("/api/footer", footer)
+app.use("/api/hero", hero)
 
 app.get("/", (req, res) => {
     res.send("API Dealer Motor")

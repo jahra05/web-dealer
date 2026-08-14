@@ -19,6 +19,7 @@ import Setting from './pages/Admin/Setting';
 import PageForgatPassword from './pages/Admin/PageForgatPassword';
 import SettingProfileDealer from './pages/Admin/SettingProfileDealer';
 import SettingProfileAdmin from './pages/Admin/SettingProfileAdmin';
+import HeroSetting from './pages/Admin/HeroSetting';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/admin/forgatPassword" element={<PageForgatPassword />} />
         <Route path="/admin/setting/profile-dealer" element={<SettingProfileDealer />} />
         <Route path="/admin/setting/profile-admin" element={<SettingProfileAdmin />} />
+        <Route path="/admin/setting/hero" element={<HeroSetting />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
       </Routes>
     </Router>

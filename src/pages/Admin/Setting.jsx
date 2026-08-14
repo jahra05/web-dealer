@@ -30,6 +30,7 @@ export default function Setting({ isOpen, onClose }) {
     const navSetting = [
         { path: "/admin/setting/profile-admin", label: "Profile Admin" },
         { path: "/admin/setting/profile-dealer", label: "profile Dealer" },
+        { path: "/admin/setting/hero", label: "Hero Setting" },
     ]
 
     return (

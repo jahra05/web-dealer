@@ -592,6 +592,7 @@ const KelolaProduk = () => {
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Harga</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Stok</th>
+                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Status</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Aksi</th>
                                     </tr>
                                 </thead>
@@ -625,6 +626,11 @@ const KelolaProduk = () => {
                                             </td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">Rp {Number(item.harga).toLocaleString("id-ID")}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.stok}</td>
+                                            <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">
+                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${item.status === 'Aktif' ? "bg-green-300 text-gray-600 border-gray-200" : "bg-red-50 text-red-600 border-red-200"}`}>
+                                                    <span className={`w-1.5 h-1.5 rounded-full ${item.status === 'Aktif' ? "bg-gray-50" : "bg-red-500"}`} />{item.status}
+                                                </span>
+                                            </td>
                                             <td className="px-4 py-4 text-sm whitespace-nowrap">
                                                 <div className="relative">
                                                     <button

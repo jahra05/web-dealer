@@ -1,5 +1,6 @@
 const db = require('../config/db')
-const cloudinary = require("../config/cloudinary")
+const cloudinary = require("../config/cloudinary");
+const { title } = require('framer-motion/client');
 
 const uploadToCloudinary = (fileBuffer) => {
     return new Promise((resolve, reject) => {
@@ -27,6 +28,7 @@ const getFooter = (req, res) => {
     footer.nama_dealer,
     footer.logo,
     footer.deskripsi,
+    footer.title,
     footer.email,
     footer.no_hp,
     footer.whatsapp,
@@ -96,7 +98,7 @@ const updateLogo = async (req, res) => {
 const updateFooter = async (req, ress) => {
     const { id } = req.params;
     const {
-        nama_dealer, deskripsi, email, no_hp, whatsapp, alamat, google_maps, instagram, facebook, tiktok, youtube,
+        nama_dealer, deskripsi, title, email, no_hp, whatsapp, alamat, google_maps, instagram, facebook, tiktok, youtube,
         jam_senin_jumat, jam_sabtu
     } = req.body
 
@@ -106,6 +108,7 @@ const updateFooter = async (req, ress) => {
     SET
     nama_dealer = ? ,
     deskripsi = ? ,
+    title = ? ,
     email = ?,
     no_hp = ?,
     whatsapp = ?,
@@ -120,7 +123,7 @@ const updateFooter = async (req, ress) => {
     WHERE id_footer = ?
     `;
 
-    db.query(sql, [nama_dealer, deskripsi, email, no_hp, whatsapp,
+    db.query(sql, [nama_dealer, deskripsi, title, email, no_hp, whatsapp,
         alamat, google_maps, instagram, facebook, tiktok, youtube, jam_senin_jumat, jam_sabtu, id,
         (err, result) => {
             if (err) {

@@ -1,3 +1,5 @@
+const { title } = require("framer-motion/client");
+
 exports.seed = async function (knex) {
   await knex("footer").del();
 
@@ -6,6 +8,7 @@ exports.seed = async function (knex) {
       nama_dealer: "Daya Motor",
       logo: "logo.png",
       deskripsi: "Dealer resmi Honda",
+      title: 'Title Singkat',
       email: "info@dayamotor.com",
       no_hp: "08123456789",
       whatsapp: "087769084385",

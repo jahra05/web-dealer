@@ -142,15 +142,13 @@ export default function SettingProfileDealer() {
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">Alamat</p>
                                         <textarea type="text" name="alamat" value={footer.alamat} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_sabtu</p>
-                                            <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
-                                        </div>
-                                        <div>
-                                            <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_senin_jumat</p>
-                                            <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
-                                        </div>
+                                    <div>
+                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_sabtu</p>
+                                        <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
+                                    </div>
+                                    <div>
+                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_senin_jumat</p>
+                                        <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">Nomor Telepon</p>
@@ -158,7 +156,7 @@ export default function SettingProfileDealer() {
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">whatsapp</p>
-                                        <input type="text" name="whatsapp" value={footer.whatsapp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100rounded-xl w-full text-sm" />
+                                        <input type="text" name="whatsapp" value={footer.whatsapp} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
@@ -172,13 +170,17 @@ export default function SettingProfileDealer() {
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">facebook</p>
-                                        <input type="text" name="facebook" value={footer.facebook} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100rounded-xl w-full text-sm" />
+                                        <input type="text" name="facebook" value={footer.facebook} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">deskripsi</p>
                                         <input type="text" name="deskripsi" value={footer.deskripsi} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
                                     </div>
 
+                                    <div>
+                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">Sub Title</p>
+                                        <input type="text" name="title" value={footer.title} onChange={handleFooter} placeholder="Enter Your Name" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm" />
+                                    </div>
 
                                     <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">google_maps</p>

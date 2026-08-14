@@ -84,7 +84,9 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
           id_motor: bike?.id_motor ?? null
         });
 
-        onClose();
+        setTimeout(() => {
+          onClose();
+        }, 1500)
 
       } else {
 

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import Setting from "./Setting";
 
 export default function HeroSetting() {
     const [hero, setHero] = useState([]);
     const [motor, setMotor] = useState([]);
     const [select, setSelect] = useState("");
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
     const token = localStorage.getItem("token");
 
@@ -94,8 +97,10 @@ export default function HeroSetting() {
     };
 
     return (
-        <>
-            <div className="bg-white rounded-xl shadow p-5">
+        <>            <div className="min-h-screen w-full flex gap-2 bg-gray-50 overflow-x-hidden">
+
+            <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <div className="bg-white rounded-xl shadow p-5 w-full">
 
                 <h2 className="text-lg font-bold mb-4">
                     Pilih Produk Hero
@@ -189,6 +194,8 @@ export default function HeroSetting() {
                 )}
 
             </div>
+        </div>
+
         </>
     );
 }

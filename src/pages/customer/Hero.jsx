@@ -4,58 +4,25 @@ import LeadModal from '../../components/LeadModal';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dispalyProduk, setDisplayProduk] = useState(null)
-  const [spek, setSpek] = useState(null)
+  const [hero, setHero] = useState(null)
 
   useEffect(() => {
-    const getSpesifikasi = async () => {
+    const getHero = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/spesifikasi/12`
-        );
-
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/hero`);
         const data = await response.json();
-
-        console.log("DATA:", data);
 
         if (data.success && data.data.length > 0) {
-          setSpek(data.data[0]);
+          setHero(data.data[0])
         }
       } catch (error) {
-        console.log(error);
+        console.error("Gagal mengambil hero:", error)
       }
-    };
+    }
+    getHero()
+  }, [])
 
-    getSpesifikasi();
-  }, []);
-
-  useEffect(() => {
-    const fetchMotor = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/motor`
-        );
-
-        const data = await response.json();
-
-        console.log("Semua motor:", data);
-
-        if (data.success) {
-          const motor = data.data.find(
-            (item) => item.id_motor === 29
-          );
-
-          setDisplayProduk(motor);
-        }
-      } catch (error) {
-        console.log("Gagal mengambil motor:", error);
-      }
-    };
-
-    fetchMotor();
-  }, []);
-
-  if (!dispalyProduk) {
+  if (!hero) {
     return <p>Loading...</p>;
   }
   const scrollToSimulation = () => {
@@ -83,30 +50,26 @@ const Hero = () => {
               DEALER RESMI HONDA
             </span>
             <h1 className="text-4xl md:text-7xl font-black text-gray-900 mb-2">
-              <span className="block text-[#006A9E]">{dispalyProduk.nama_kategori}</span>
-              {dispalyProduk.nama_motor}
+              <span className="block text-[#006A9E]">{hero.nama_kategori}</span>
+              {hero.nama_motor}
             </h1>
             <p className="text-lg text-gray-600 mb-8 max-w-lg">
-              {dispalyProduk.deskripsi}
+              {hero.deskripsi}
             </p>
-            {spek && (
-              <div className="flex flex-wrap gap-4 mb-10">
-                <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
-                  <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">🔥</span>
-                  <span className="text-sm font-bold text-gray-700">Tenaga {spek.tenaga}</span>
-                </div>
-                <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
-                  <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">⚙️</span>
-                  <span className="text-sm font-bold text-gray-700">MESIN {spek.mesin}</span>
-                </div>
-                <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
-                  <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">✨</span>
-                  <span className="text-sm font-bold text-gray-700">Berat {spek.berat}</span>
-                </div>
+            <div className="flex flex-wrap gap-4 mb-10">
+              <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
+                <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">🔥</span>
+                <span className="text-sm font-bold text-gray-700">Tenaga {hero.tenaga}</span>
               </div>
-            )}
-
-
+              <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
+                <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">⚙️</span>
+                <span className="text-sm font-bold text-gray-700">MESIN {hero.mesin}</span>
+              </div>
+              <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
+                <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">✨</span>
+                <span className="text-sm font-bold text-gray-700">Berat {hero.berat}</span>
+              </div>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <button
@@ -133,8 +96,8 @@ const Hero = () => {
           >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-50 rounded-full blur-3xl opacity-50 -z-10"></div>
             <img
-              src={dispalyProduk.gambar}
-              alt={dispalyProduk.nama_motor}
+              src={hero.gambar}
+              alt={hero.nama_motor}
               className="w-full h-auto drop-shadow-2xl scale-110"
             />
 

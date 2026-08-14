@@ -7,9 +7,6 @@ export default function HeroSetting() {
 
     const token = localStorage.getItem("token");
 
-    // =========================
-    // GET HERO
-    // =========================
     const getHero = async () => {
         try {
             const response = await fetch(
@@ -21,16 +18,13 @@ export default function HeroSetting() {
             console.log("DATA HERO:", data);
 
             if (data.success) {
-                setHero(data.data);
+                setHero(data.data || []);
             }
         } catch (error) {
             console.error("Gagal mengambil hero:", error);
         }
     };
 
-    // =========================
-    // GET MOTOR
-    // =========================
     const getMotor = async () => {
         try {
             const response = await fetch(
@@ -42,7 +36,7 @@ export default function HeroSetting() {
             console.log("DATA MOTOR:", data);
 
             if (data.success) {
-                setMotor(data.data);
+                setMotor(data.data || []);
             }
         } catch (error) {
             console.error("Gagal mengambil motor:", error);
@@ -54,11 +48,7 @@ export default function HeroSetting() {
         getMotor();
     }, []);
 
-    // =========================
-    // PILIH / GANTI HERO
-    // =========================
     const createHero = async () => {
-
         if (!select) {
             alert("Silakan pilih motor terlebih dahulu");
             return;
@@ -90,28 +80,28 @@ export default function HeroSetting() {
             }
 
             if (data.success) {
-                alert(data.message || "Motor berhasil dijadikan hero");
+                alert("Motor berhasil dijadikan Hero");
 
                 setSelect("");
 
                 // Ambil data hero terbaru
                 getHero();
             }
-
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error create hero:", error);
             alert("Terjadi kesalahan");
         }
     };
 
     return (
         <>
-            {/* PILIH HERO */}
             <div className="bg-white rounded-xl shadow p-5">
+
                 <h2 className="text-lg font-bold mb-4">
                     Pilih Produk Hero
                 </h2>
 
+                {/* SELECT MOTOR */}
                 <div className="flex flex-col md:flex-row gap-3">
 
                     <select
@@ -143,39 +133,62 @@ export default function HeroSetting() {
                     </button>
 
                 </div>
-            </div>
 
-            {/* HERO SAAT INI */}
-            {hero.length > 0 && (
-                <div className="mt-6">
-                    <h2 className="text-lg font-bold mb-4">
-                        Hero Saat Ini
-                    </h2>
 
-                    {hero.map((item) => (
-                        <div
-                            key={item.id_hero}
-                            className="flex items-center gap-4 border rounded-xl p-4"
-                        >
-                            <img
-                                src={item.gambar}
-                                alt={item.nama_motor}
-                                className="w-24 h-24 object-cover rounded-lg"
-                            />
+                {/* HERO YANG SUDAH DIPILIH */}
+                {hero.length > 0 && (
+                    <div className="mt-6">
 
-                            <div>
-                                <p className="font-bold">
-                                    {item.nama_motor}
-                                </p>
+                        <h2 className="text-lg font-bold mb-4">
+                            Hero Saat Ini
+                        </h2>
 
-                                <p className="text-sm text-gray-500">
-                                    {item.nama_kategori}
-                                </p>
+                        {hero.map((item) => (
+                            <div
+                                key={item.id_hero}
+                                className="border rounded-2xl p-4 flex flex-col md:flex-row gap-5"
+                            >
+
+                                {/* GAMBAR */}
+                                <img
+                                    src={item.gambar}
+                                    alt={item.nama_motor}
+                                    className="w-full md:w-40 h-40 object-cover rounded-xl"
+                                />
+
+                                {/* DATA MOTOR */}
+                                <div className="flex flex-col justify-center">
+
+                                    <span className="w-fit text-xs bg-green-100 text-green-600 px-3 py-1 rounded-full font-semibold mb-2">
+                                        Hero Aktif
+                                    </span>
+
+                                    <h3 className="text-xl font-bold text-[#002446]">
+                                        {item.nama_motor}
+                                    </h3>
+
+                                    <p className="text-sm text-gray-500">
+                                        {item.nama_kategori} • {item.nama_tipe}
+                                    </p>
+
+                                    <p className="text-sm text-gray-600 mt-2">
+                                        Harga: Rp{" "}
+                                        {Number(item.harga).toLocaleString("id-ID")}
+                                    </p>
+
+                                    <p className="text-sm text-gray-600 mt-2">
+                                        {item.deskripsi}
+                                    </p>
+
+                                </div>
+
                             </div>
-                        </div>
-                    ))}
-                </div>
-            )}
+                        ))}
+
+                    </div>
+                )}
+
+            </div>
         </>
     );
 }

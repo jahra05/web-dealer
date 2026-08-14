@@ -2,12 +2,13 @@ const db = require('../config/db')
 
 const geHero = (req, res) => {
     const sql = `
-    
         SELECT 
             h.id_hero,
             m.id_motor,
+            m.nama_motor,
             m.gambar,
             m.harga,
+            m.tahun,
             m.deskripsi,
             m.status,
             k.nama_kategori,
@@ -19,27 +20,27 @@ const geHero = (req, res) => {
             ON m.id_kategori = k.id_kategori
         JOIN tipe t
             ON m.id_tipe = t.id_tipe
-        WHERE m.status = 'AKTIF'
+        WHERE m.status = 'Aktif'
     `;
 
     db.query(sql, (err, result) => {
         if (err) {
-            console.error('Error. mengambil hero:', err);
+            console.error("Error mengambil hero:", err);
 
             return res.status(500).json({
-                succeess: false,
-                message: 'Gagal mengambil data hero',
+                success: false,
+                message: "Gagal mengambil data hero",
                 error: err.message
-            })
+            });
         }
 
-        res.json({
-            succeess: true,
+        return res.json({
+            success: true,
             message: "Data hero berhasil diambil",
             data: result
-        })
-    })
-}
+        });
+    });
+};
 
 const createHero = (req, res) => {
     const { id_motor } = req.body;
@@ -172,7 +173,7 @@ const deleteHero = (req, res) => {
             console.error('Error mengahapus hero : ', err)
 
             return res.status(500).json({
-                succeess: false,
+                success: false,
                 message: "Gagal mengahapus hero",
                 error: err.message
             })
@@ -180,13 +181,13 @@ const deleteHero = (req, res) => {
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                succeess: false,
+                success: false,
                 message: "Herp tidak ditemukan"
             })
         }
 
         res.json({
-            succeess: true,
+            success: true,
             message: "Motor berhasil dihapus dari hero"
         })
     })

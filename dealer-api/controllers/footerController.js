@@ -94,7 +94,7 @@ const updateLogo = async (req, res) => {
     })
 }
 
-const updateFooter = async (req, ress) => {
+const updateFooter = async (req, res) => {
     const { id } = req.params;
     const {
         nama_dealer, deskripsi, title, email, no_hp, whatsapp, alamat, google_maps, instagram, facebook, tiktok, youtube,

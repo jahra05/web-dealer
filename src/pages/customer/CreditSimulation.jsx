@@ -17,7 +17,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
   const [selected, setSelected] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dp, setDp] = useState(0);
-  const [tenor, setTenor] = useState(12);
+  const [tenor, setTenor] = useState(11);
   const [bunga, setBunga] = useState(0);
   const [cicilan, setCicilan] = useState(0);
 

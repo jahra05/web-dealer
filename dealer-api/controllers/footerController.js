@@ -118,12 +118,12 @@ const updateFooter = async (req, ress) => {
     tiktok = ?,
     youtube = ?,
     jam_senin_jumat = ?,
-    jam_sabtu = ?,
+    jam_sabtu = ?
     WHERE id_footer = ?
     `;
 
     db.query(sql, [nama_dealer, deskripsi, title, email, no_hp, whatsapp,
-        alamat, google_maps, instagram, facebook, tiktok, youtube, jam_senin_jumat, jam_sabtu, id,
+        alamat, google_maps, instagram, facebook, tiktok, youtube, jam_senin_jumat, jam_sabtu, id],
         (err, result) => {
             if (err) {
                 return res.status(500).json({
@@ -143,7 +143,7 @@ const updateFooter = async (req, ress) => {
             })
 
         }
-    ])
+    )
 }
 
 module.exports = {

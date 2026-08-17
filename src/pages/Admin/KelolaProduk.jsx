@@ -518,7 +518,7 @@ const KelolaProduk = () => {
         };
     }, []);
     return (
-        <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden" ref={dropdownContainerRef}>
+        <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden" >
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between p-4'>
@@ -642,14 +642,14 @@ const KelolaProduk = () => {
                                                                     : item.id_motor
                                                             )
                                                         }
-                                                        className="p-2 rounded-lg hover:bg-gray-100"
+                                                        className="p-2 rounded-lg hover:bg-gray-100 absolute top-1"
                                                     >
                                                         <MdMoreHoriz size={20} />
                                                     </button>
-
-                                                    {openDrapMenu === item.id_motor && (
-                                                        <div className="absolute right-0 top-full mt-2 w-40 bg-white z-[9999] shadow-xl rounded-lg border border-gray-100 overflow-hidden">
-
+                                                </div>
+                                                {openDrapMenu === item.id_motor && (
+                                                    <div className="absolute right-20 top-fuul flex mt-2 w-44 bg-white z-[9999] shadow-xl  border border-gray-100 overflow-hidden">
+                                                        <div>
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
@@ -689,16 +689,17 @@ const KelolaProduk = () => {
                                                                     handleDelet(item.id_motor);
                                                                     setOpenDrapMenu(null);
                                                                 }}
-                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-red-600 hover:bg-red-50 font-semibold"
+                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC]  font-semibold"
                                                             >
                                                                 🗑️
                                                                 <span>Hapus</span>
                                                             </button>
-
                                                         </div>
-                                                    )}
-
-                                                </div>
+                                                        <div>
+                                                            <button className=" bg-blue-50 h-10 w-8 text-center hover:bg-[#002446] hover:text-[#F2F8FC]" onClick={() => setOpenDrapMenu(false)}>x</button>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </td>
                                         </tr>
                                     ))}
@@ -747,26 +748,58 @@ const KelolaProduk = () => {
                                         <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
 
                                         {openDrapMenu === item.id_motor && (
-                                            <div className="absolute right-8  w-40 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
-                                                <button onClick={() => {
-                                                    setEditWarna({
-                                                        id_motor: item.id_motor,
-                                                        id_warna: "",
-                                                        nama_warna: "",
-                                                        kode_warna: "#000000",
-                                                    });
+                                            <div className="absolute right-8  w-46 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
+                                                <div className="flex">
+                                                    <div>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                console.log("KLIK KELOLA WARNA");
 
-                                                    setIsModalColor(true);
-                                                }} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-[#002446]">
-                                                    🎨 <span>Kelola Warna</span>
-                                                </button>
+                                                                setEditWarna({
+                                                                    id_motor: item.id_motor,
+                                                                    id_warna: "",
+                                                                    nama_warna: "",
+                                                                    kode_warna: "#000000",
+                                                                });
 
-                                                <button onClick={() => handleEdit(item)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
-                                                    ✏️ <span>Edit Produk</span>
-                                                </button>
-                                                <button onClick={() => handleDelet(item.id_motor)} className="flex text-sm  h-10 items-center px-4 gap-2 text-slate-600 hover:bg-white font-semibold hover:text-red-500">
-                                                    🗑️ <span>Hapus</span>
-                                                </button>
+                                                                setIsModalColor(true);
+                                                                setOpenDrapMenu(null);
+                                                            }}
+                                                            className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                        >
+                                                            🎨
+                                                            <span>Kelola Warna</span>
+                                                        </button>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                handleEdit(item);
+                                                                setOpenDrapMenu(null);
+                                                            }}
+                                                            className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                        >
+                                                            ✏️
+                                                            <span>Edit Produk</span>
+                                                        </button>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                handleDelet(item.id_motor);
+                                                                setOpenDrapMenu(null);
+                                                            }}
+                                                            className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC]  font-semibold"
+                                                        >
+                                                            🗑️
+                                                            <span>Hapus</span>
+                                                        </button>
+                                                    </div>
+                                                    <div>
+                                                        <button className=" bg-blue-50 h-10 w-8 text-center hover:bg-[#002446] hover:text-[#F2F8FC]" onClick={() => setOpenDrapMenu(false)}>x</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         )}
                                     </div>
@@ -826,7 +859,7 @@ const KelolaProduk = () => {
                                                     nama_warna: e.target.value
                                                 })
                                             }
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
@@ -863,7 +896,7 @@ const KelolaProduk = () => {
 
                                 <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                     <button type="button" onClick={() => setIsModalColor(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                    <button type="button" onClick={() => editWarna.id_warna ? updateWarna() : createWarna()} className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700">
+                                    <button type="button" onClick={() => editWarna.id_warna ? updateWarna() : createWarna()} className="rounded-full bg-[#002446]  hover:bg-[#00182F] px-5 py-2.5 text-sm font-medium text-white transition ">
                                         {editWarna.id_warna ? "Update" : "Tambah"}
                                     </button>
                                 </div>
@@ -931,10 +964,10 @@ const KelolaProduk = () => {
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
-                                        <input type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
-                                            placeholder="Deskripsi singkat" title="Deskripsi" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                        <textarea  maxLength={200} rows={4} type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
+                                            placeholder="Deskripsi singkat" title="Deskripsi" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 " />
                                     </div>
-                                    <div className="md:col-span-2">
+                                    <div className="">
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
                                         <input accept="image/*" onChange={(e) => { setFormData({ ...formData, gambar: e.target.files[0] }) }}
                                             type="file" title="Pilih gambar produk" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-[#002446] hover:file:bg-[#E6F1F7]" />
@@ -944,15 +977,15 @@ const KelolaProduk = () => {
                                 {/* Footer */}
                                 <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
                                     <button type="button" onClick={closeModal} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                    <button type="button" onClick={isEdit ? updateMotor : handleSubmit} className="rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F">{isEdit ? 'Update' : 'Simpan'}</button>
+                                    <button type="button" onClick={isEdit ? updateMotor : handleSubmit} className="rounded-full bg-[#002446]  hover:bg-[#00182F] px-5 py-2.5 text-sm font-medium text-white transition">{isEdit ? 'Update' : 'Simpan'}</button>
                                 </div>
                             </div>
                         </div>
                     )}
 
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
 
     )
 }

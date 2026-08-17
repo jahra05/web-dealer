@@ -61,7 +61,7 @@ export default function AdminDashboard() {
             {/* Main content area */}
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 {/* Header */}
-                 <div className="flex items-center justify-between p-4">
+                <div className="flex items-center justify-between p-4">
                     <button
                         className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
                         onClick={() => setIsSidebarOpen(prev => !prev)}
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
                                                 <tr key={item.id_pengajuan} className="hover:bg-gray-50">
                                                     <td className="px-3 py-3 text-sm text-gray-700 whitespace-nowrap">{item.nama}</td>
                                                     <td className="px-3 py-3 text-sm text-gray-700 whitespace-nowrap">{item.nama_motor}</td>
-                                                    <td className="px-3 py-3 text-sm text-gray-700 whitespace-nowrap">{item.tanggal_pengajuan}</td>
+                                                    <td className="px-3 py-3 text-sm text-gray-700 whitespace-nowrap ">{item.tanggal_pengajuan}</td>
                                                     <td className="px-3 py-3 text-sm whitespace-nowrap">
                                                         <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">{item.status}</span>
                                                     </td>
@@ -228,7 +228,7 @@ export default function AdminDashboard() {
                                                     <p className="text-sm text-gray-500 truncate">{item.subjek}</p>
                                                 </div>
                                             </div>
-                                            <p className="text-[10px] text-gray-400 flex-shrink-0">
+                                            <p className="text-[12px] text-[#002446] font-semibold flex-shrink-0">
                                                 {new Date(item.created_at).toLocaleDateString("id-ID")}
                                             </p>
                                         </div>
@@ -252,7 +252,7 @@ export default function AdminDashboard() {
                                                     <p className="text-sm text-gray-500 truncate">{item.aktivitas}</p>
                                                 </div>
                                             </div>
-                                            <p className="text-[10px] text-gray-400 flex-shrink-0">
+                                            <p className="text-[12px] text-[#002446] font-semibold flex-shrink-0">
                                                 {new Date(item.tanggal).toLocaleDateString("id-ID")}
                                             </p>
                                         </div>

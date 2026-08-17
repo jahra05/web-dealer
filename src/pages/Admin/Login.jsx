@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { FaClock, FaLock, FaMotorcycle, FaUser } from 'react-icons/fa';
+import { FaClock, FaHeadset, FaLock, FaMotorcycle, FaShieldAlt, FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/CustomAlert';
+import { FaShield } from 'react-icons/fa6';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -132,7 +133,7 @@ const Login = () => {
                         <div className="hidden lg:block absolute top-1/2 -translate-y-1/2 right-20 max-w-lg text-white">
                             <div className='w-20 h-1 bg-[#004A7C] rounded-full mb-6' ></div>
                             <span className="text-blue-950 uppercase tracking-[6px] font-semibold">
-                                Honda Dealer
+                                Honda Dealer <span className='text-white'>Cibeber</span>
                             </span>
 
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mt-4 leading-tight">
@@ -147,22 +148,22 @@ const Login = () => {
 
                             <div className='flex gap-12 mt-10'>
                                 <div className='text-center'>
-                                    <div className='w-12 h-12 rounded-full border border-blue-500 flex items-center justify-center mx-auto'>
-                                        <FaMotorcycle className='text-blue-500' />
+                                    <div className='w-12 h-12 rounded-full border border-[#002446] flex items-center justify-center mx-auto'>
+                                        <FaMotorcycle size={32} className='text-[#004A7C]' />
                                     </div>
-                                    <p className='mt-3 text-sm'>Premium</p>
+                                    <p className='mt-3 text-sm w-32 text-center'>Premium Motorcycles</p>
                                 </div>
                                 <div className='text-center'>
-                                    <div className='w-12 h-12 rounded-full border border-blue-500 flex items-center justify-center mx-auto'>
-                                        <FaMotorcycle className='text-blue-500' />
+                                    <div className='w-12 h-12 rounded-full border border-[#002446] flex items-center justify-center mx-auto'>
+                                        <FaShieldAlt size={32} className='text-[#004A7C]' />
                                     </div>
-                                    <p className='mt-3 text-sm'>Premium</p>
+                                    <p className='mt-3 text-sm w-20 text-center'>Trusted Dealer</p>
                                 </div>
                                 <div className='text-center'>
-                                    <div className='w-12 h-12 rounded-full border border-blue-500 flex items-center justify-center mx-auto'>
-                                        <FaMotorcycle className='text-blue-500' />
+                                    <div className='w-12 h-12 rounded-full border border-[#002446] flex items-center justify-center mx-auto'>
+                                        <FaHeadset size={32} className='text-[#004A7C]' />
                                     </div>
-                                    <p className='mt-3 text-sm'>Premium</p>
+                                    <p className='mt-3 text-sm w-32 text-center'>Best Service Support</p>
                                 </div>
                             </div>
                         </div>

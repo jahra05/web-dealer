@@ -9,7 +9,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-
+    console.log("Email yg laogin ", email)
     const sql = "SELECT * FROM user WHERE email = ?";
 
     db.query(sql, [email], async (err, results) => {

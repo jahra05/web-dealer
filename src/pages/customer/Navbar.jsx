@@ -222,7 +222,7 @@ const Navbar = () => {
           <div className="pt-3">
             <button
               onClick={() => handleMenuClick(openModal)}
-              className="w-full text-white font-bold text-sm bg-[#002446] px-4 py-3.5 rounded-xl hover:bg-[#00345F] transition-colors"
+              className="w-full text-white font-bold text-sm bg-[#002446]  hover:bg-[#00345F] px-4 py-3.5 rounded-xl transition-colors"
             >
               Contact Us
             </button>
@@ -250,34 +250,34 @@ const Navbar = () => {
               <div className="mt-6 grid gap-4 md:grid-cols-2">
                 <div>
                   <p className="mb-1 text-sm font-medium text-slate-700">Nama</p>
-                  <input type="text" name="nama" value={formData.nama} onChange={handleChange}
+                  <input type="text" name="nama" value={formData.nama} onChange={handleChange} placeholder='Nama'
                     className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
                 </div>
                 <div>
                   <p className="mb-1 text-sm font-medium text-slate-700">Email</p>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange}
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Email'
                     className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
                 </div>
                 <div>
                   <p className="mb-1 text-sm font-medium text-slate-700">No Headphone</p>
-                  <input type="number" name="no_hp" value={formData.no_hp} onChange={handleChange}
+                  <input type="number" name="no_hp" value={formData.no_hp} onChange={handleChange} placeholder='No Headphone'
                     className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
                 </div>
                 <div>
                   <p className="mb-1 text-sm font-medium text-slate-700">Subjek</p>
-                  <input type="text" name="subjek" value={formData.subjek} onChange={handleChange}
+                  <input type="text" name="subjek" value={formData.subjek} onChange={handleChange} placeholder='Subjek'
                     className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
                 </div>
                 <div>
-                  <p className="mb-1 text-sm font-medium text-slate-700">Pesan</p>
-                  <textarea type="text" name="pesan" value={formData.pesan} onChange={handleChange}
+                  <p className="mb-1 text-sm font-medium text-slate-700">Message</p>
+                  <textarea type="text" name="pesan" value={formData.pesan} onChange={handleChange} placeholder='Message'
                     className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
                 </div>
               </div>
 
               <div className="mt-6 flex justify-end gap-3">
                 <button type="button" onClick={closeModal} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50">Batal</button>
-                <button type="button" onClick={handleSubmit} className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700">kirim</button>
+                <button type="button" onClick={handleSubmit} className="rounded-full bg-[#002446]  hover:bg-[#00345F] px-4 py-2 text-sm font-medium text-white transition">kirim</button>
               </div>
             </div>
           </div>

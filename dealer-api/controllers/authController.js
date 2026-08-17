@@ -1,8 +1,11 @@
 const db = require("../config/db");
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt')
-const nodemailer = require("nodemailer")
 const crypto = require("crypto")
+const { Resend } = require("resend")
+
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -127,43 +130,44 @@ const sendOtp = async (req, res) => {
 
                 try {
 
-                    const transporter = nodemailer.createTransport({
-                        service: "gmail",
-                        auth: {
-                            user: process.env.EMAIL_USER,
-                            pass: process.env.EMAIL_PASS
-                        }
-                    });
-
-                    await transporter.sendMail({
-                        from: `"Dealer Admin" <${process.env.EMAIL_USER}>`,
-                        to: user.email,
+                    const { data, error } = await resend.emails.send({
+                        from: "Dealer Admin <onboarding@resend.dev>",
+                        to: [user.email],
                         subject: "Kode OTP Reset Password",
                         html: `
-                            <div style="font-family: Arial, sans-serif;">
-                                <h2>Reset Password</h2>
+                                <div style="font-family: Arial, sans-serif;">
+                                    <h2>Reset Password</h2>
 
-                                <p>
-                                    Gunakan kode OTP berikut
-                                    untuk mengubah password akun Anda:
-                                </p>
+                                    <p>
+                                        Gunakan kode OTP berikut
+                                        untuk mengubah password akun Anda:
+                                    </p>
 
-                                <h1 style="letter-spacing: 8px;">
-                                    ${otp}
-                                </h1>
+                                    <h1 style="letter-spacing: 8px;">
+                                        ${otp}
+                                    </h1>
 
-                                <p>
-                                    Kode OTP berlaku selama
-                                    <strong>5 menit</strong>.
-                                </p>
+                                    <p>
+                                        Kode OTP berlaku selama
+                                        <strong>5 menit</strong>.
+                                    </p>
 
-                                <p>
-                                    Jika Anda tidak meminta reset password,
-                                    abaikan email ini.
-                                </p>
-                            </div>
-                        `
-                    });
+                                    <p>
+                                        Jika Anda tidak meminta reset password,
+                                        abaikan email ini.
+                                    </p>
+                                </div>
+            `
+                    })
+
+                    if (error) {
+                        console.error("Resend error", error);
+
+                        return res.status(500).json({
+                            success: false,
+                            message: "Gagal mengirim OTP ke email"
+                        });
+                    }
 
                     return res.status(200).json({
                         success: true,
@@ -172,7 +176,7 @@ const sendOtp = async (req, res) => {
 
                 } catch (error) {
 
-                    console.error("Nodemailer error:", error);
+                    console.error("Resend error:", error);
 
                     return res.status(500).json({
                         success: false,

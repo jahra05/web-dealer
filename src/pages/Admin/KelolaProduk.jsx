@@ -261,7 +261,7 @@ const KelolaProduk = () => {
         const { name, value } = e.target;
 
         setFormData((prev) => ({
-            ...prev, [name]: value
+            ...prev, [name]: name === 'harga' ? value.replace(/\D/g, "") : value
         }))
     }
 
@@ -590,6 +590,7 @@ const KelolaProduk = () => {
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Gambar</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Nama Motor</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Tipe</th>
+                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Tahun</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Harga</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Stok</th>
@@ -611,6 +612,7 @@ const KelolaProduk = () => {
                                             </td>
                                             <td className="px-4 py-4 text-sm font-medium text-slate-900 whitespace-nowrap">{item.nama_motor}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.nama_tipe}</td>
+                                            <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.tahun}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap flex items-center gap-4">
 
 
@@ -950,7 +952,7 @@ const KelolaProduk = () => {
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Harga</label>
-                                        <input type="number" name="harga" value={formData.harga} onChange={handleChangeData}
+                                        <input type="text" name="harga" value={Number(formData.harga || 0).toLocaleString("id-ID")} onChange={handleChangeData}
                                             placeholder="Harga (angka)" title="Harga" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                     </div>
                                     <div>

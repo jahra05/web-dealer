@@ -45,7 +45,6 @@ const KelolaProduk = () => {
     const [confrim, setConfirm] = useState(null)
 
 
-
     const handleEditWarna = (item) => {
         setEditWarna({
             id_warna: item.id_warna,
@@ -964,7 +963,7 @@ const KelolaProduk = () => {
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
-                                        <textarea  maxLength={200} rows={4} type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
+                                        <textarea maxLength={200} rows={4} type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
                                             placeholder="Deskripsi singkat" title="Deskripsi" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 " />
                                     </div>
                                     <div className="">

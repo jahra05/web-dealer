@@ -19,6 +19,34 @@ const uploadToCloudinary = (fileBuffer) => {
     })
 }
 
+
+const getStokMenipis = (req, res) => {
+    const sql = `
+        SELECT 
+            id_motor,
+            nama_motor,
+            stok
+        FROM motor 
+        WHERE stok <= 2 
+        AND status = 'Aktif'
+        ORDER BY stok ASC
+    `;
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Gagal mengambil data stok"
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: result
+        })
+    })
+}
+
 const getAllMotor = (req, res) => {
 
     const sql = `
@@ -346,6 +374,7 @@ const deleteMotor = (req, res) => {
     });
 };
 module.exports = {
+    getStokMenipis,
     getAllMotor,
     getMotorID,
     createMotor,

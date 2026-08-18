@@ -5,6 +5,7 @@ const motorController = require("../controllers/motorController");
 const verifyToken = require("../middleware/verifyToken");
 const upload = require("../middleware/upload");
 
+router.get("/stok-menipis", motorController.getStokMenipis)
 router.get("/", motorController.getAllMotor);
 
 router.get("/:id", motorController.getMotorID);

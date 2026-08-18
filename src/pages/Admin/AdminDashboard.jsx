@@ -8,6 +8,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 import UserMenuDropdwn from '../../components/UserMenuDropdown';
 import NotificationModal from '../../components/NotificationModal';
+import Notifikasi from '../../components/Notifikasi';
 
 export default function AdminDashboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -72,6 +73,7 @@ export default function AdminDashboard() {
 
                     <div className="flex items-center gap-2 ml-auto">
                         <UserMenuDropdwn />
+                        <Notifikasi />
                     </div>
                 </div>
 

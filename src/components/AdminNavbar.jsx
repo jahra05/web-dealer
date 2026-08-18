@@ -63,6 +63,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
   const location = useLocation();
   const [navLogo, setNavLogo] = useState([])
 
+
   const getAllFooter = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
@@ -89,6 +90,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
           <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
             <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
               <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-14 h-14' />
+              
             </div>
             <div className="leading-tight min-w-0">
               <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>

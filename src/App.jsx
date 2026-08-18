@@ -13,7 +13,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Testimoni from './pages/Admin/Testimoni';
 import FaqAdmin from './pages/Admin/FaqAdmin';
 import PageMessage from './pages/Admin/PageMessage';
-import SimulasiKredit from './pages/Admin/SimulasiKredit';
+// import SimulasiKredit from './pages/Admin/SimulasiKredit';
 import Spesifikasi from './pages/Admin/Spesifikasi';
 import Setting from './pages/Admin/Setting';
 import PageForgatPassword from './pages/Admin/PageForgatPassword';
@@ -33,7 +33,7 @@ function App() {
         <Route path="/admin/kelolaProduk" element={<ProtectedRoute><KelolaProduk /></ProtectedRoute>} />
         <Route path="/admin/spesifikasi" element={<ProtectedRoute><Spesifikasi /></ProtectedRoute>} />
         <Route path="/admin/pengajuanKredit" element={<ProtectedRoute> <PengajuanKredit /> </ProtectedRoute>} />
-        <Route path="/admin/simulasiKredit" element={<ProtectedRoute> <SimulasiKredit /> </ProtectedRoute>} />
+        {/* <Route path="/admin/simulasiKredit" element={<ProtectedRoute> <SimulasiKredit /> </ProtectedRoute>} /> */}
         <Route path="/admin/pagemessage" element={<ProtectedRoute><PageMessage /></ProtectedRoute>} />
         <Route path="/admin/testimoni" element={<ProtectedRoute><Testimoni /></ProtectedRoute>} />
         <Route path="/admin/faq" element={<ProtectedRoute><FaqAdmin /></ProtectedRoute>} />

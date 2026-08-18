@@ -13,6 +13,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import { data } from "react-router-dom"
 import CustomAlert from "../../components/CustomAlert"
 import ConfirmAlert from "../../components/ConfirmAlert"
+import Notifikasi from "../../components/Notifikasi"
 
 const KelolaProduk = () => {
     const [page, setPage] = useState(1)
@@ -500,22 +501,22 @@ const KelolaProduk = () => {
         openModal()
     }
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (
-                dropdownContainerRef.current &&
-                !dropdownContainerRef.current.contains(event.target)
-            ) {
-                setOpenDrapMenu(null);
-            }
-        };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (
+    //             dropdownContainerRef.current &&
+    //             !dropdownContainerRef.current.contains(event.target)
+    //         ) {
+    //             setOpenDrapMenu(null);
+    //         }
+    //     };
 
-        document.addEventListener("mousedown", handleClickOutside);
+    //     document.addEventListener("mousedown", handleClickOutside);
 
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+    //     return () => {
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, []);
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden" >
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
@@ -533,6 +534,7 @@ const KelolaProduk = () => {
 
                     <div className='flex items-center gap-2 self-end sm:self-auto'>
                         <UserMenuDropdwn />
+                        <Notifikasi />
                     </div>
                 </div>
 
@@ -641,13 +643,13 @@ const KelolaProduk = () => {
                                                                     : item.id_motor
                                                             )
                                                         }
-                                                        className="p-2 rounded-lg hover:bg-gray-100 absolute top-1"
+                                                        className="px-2 rounded-lg hover:bg-gray-100 absolute -top-3 "
                                                     >
                                                         <MdMoreHoriz size={20} />
                                                     </button>
                                                 </div>
                                                 {openDrapMenu === item.id_motor && (
-                                                    <div className="absolute right-20 top-fuul flex mt-2 w-44 bg-white z-[9999] shadow-xl  border border-gray-100 overflow-hidden">
+                                                    <div className="absolute right-10 top-fuul flex mt-2 w-44 bg-white z-[9999] shadow-xl  border border-gray-100 overflow-hidden">
                                                         <div>
                                                             <button
                                                                 type="button"

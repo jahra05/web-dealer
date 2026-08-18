@@ -11,6 +11,7 @@ import CustomAlert from "../../components/CustomAlert"
 import ConfirmAlert from "../../components/ConfirmAlert"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
+import Notifikasi from "../../components/Notifikasi"
 
 const Testimoni = () => {
     const [page, setPage] = useState(1);
@@ -236,6 +237,7 @@ const Testimoni = () => {
                     </div>
                     <div className='flex items-center gap-2'>
                         <UserMenuDropdwn />
+                        <Notifikasi/>
                     </div>
                 </div>
                 <div className="flex-1 px-4 pb-6 overflow-x-hidden hidden md:block">

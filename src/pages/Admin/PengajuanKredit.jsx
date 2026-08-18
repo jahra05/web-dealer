@@ -13,6 +13,7 @@ import { TbTrash } from "react-icons/tb"
 import { exportExcel } from "../../utils/export/exportExcel"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
+import Notifikasi from "../../components/Notifikasi"
 
 const PengajuanKredit = () => {
     const [page, setPage] = useState(1)
@@ -138,6 +139,7 @@ const PengajuanKredit = () => {
 
                     <div className='flex items-center gap-2'>
                         <UserMenuDropdwn />
+                        <Notifikasi/>
                     </div>
                 </div>
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden">

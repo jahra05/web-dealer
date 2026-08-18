@@ -31,19 +31,29 @@ export default function Notifikasi() {
     const getNotifikasi = async () => {
         try {
 
-            const [stokRes, pesanRes, pengajuanRes] = await Promise.all([
+            const [stokRes, pengajuanRes, pesanRes] = await Promise.all([
                 fetch(`${import.meta.env.VITE_API_URL}/api/motor/stok-menipis`),
                 fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan`),
                 fetch(`${import.meta.env.VITE_API_URL}/api/contact`)
-            ])
+            ]);
 
             const stokData = await stokRes.json();
-            const pesanData = await pesanRes.json();
             const pengajuanData = await pengajuanRes.json();
-            console.log("MESSAGE:", pesanData.data)
+            const pesanData = await pesanRes.json();
+
+
+            console.log("STATUS MESSAGE:", pesanData.data.map(item => ({
+                id: item.id_message,
+                nama: item.nama,
+                status: item.status
+            })));
             console.log("STOK:", stokData.data)
 
-            console.log("PENGAJUAN:", pengajuanData.data)
+            console.log("STATUS PENGAJUAN:", pengajuanData.data.map(item => ({
+                id: item.id_pengajuan,
+                nama: item.nama,
+                status: item.status
+            })));
 
             if (stokData.success) {
                 setStokMenipis(stokData.data)
@@ -100,8 +110,8 @@ export default function Notifikasi() {
             </div>
 
             {isOpen && (
-                <div className="absolute right-2 top-12 w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 z-[9999] overflow-hidden">
-                    <div className="flex items-center justify-between px-5 py-4 border-b">
+                <div className="absolute right-2 top-12 w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 z-[9999] overflow-hidden" onClick={()=>setIsOpen(false)}>
+                    <div className="flex items-center justify-between px-5 py-4 border-b" >
                         <div>
                             <h3 className="font-bold text-[#002446]">Notifikasi</h3>
                             <p className="text-xs text-gray-500 mt-1">{totalNotifikasi} notifikasi perlu diperhatikan</p>
@@ -132,21 +142,52 @@ export default function Notifikasi() {
                                 </div>
                             </div>
                         )}
-                        {messageMasuk.map((item) => (
-                            <div
-                                key={item.id_message}
-                                onClick={() => handleMessageClick(item)}
-                                className="p-3 rounded-xl bg-blue-50 cursor-pointer hover:bg-blue-100"
-                            >
-                                <p className="text-sm font-semibold">
-                                    {item.nama}
-                                </p>
+                        {messageMasuk.length > 0 && (
+                            <div className="p-4 border-b">
 
-                                <p className="text-xs text-gray-500 mt-1 truncate">
-                                    {item.subjek}
-                                </p>
+                                <div className="flex items-center gap-2 mb-3">
+                                    <FiMessageSquare
+                                        className="text-blue-500"
+                                        size={19}
+                                    />
+
+                                    <h4 className="font-semibold text-sm">
+                                        Pesan Baru
+                                    </h4>
+
+                                    <span className="ml-auto text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">
+                                        {messageMasuk.length}
+                                    </span>
+                                </div>
+
+                                <div className="space-y-2">
+                                    {messageMasuk.map((item) => (
+                                        <div
+                                            key={item.id_message}
+                                            onClick={() => handleClickMessage(item)}
+                                            className="p-3 rounded-xl bg-blue-50 cursor-pointer hover:bg-blue-100 transition"
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <p className="text-sm font-semibold text-gray-800">
+                                                    {item.nama}
+                                                </p>
+
+                                                <span className="w-2 h-2 rounded-full bg-blue-500" />
+                                            </div>
+
+                                            <p className="text-xs text-gray-500 mt-1 truncate">
+                                                {item.subjek}
+                                            </p>
+
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                Klik untuk menandai sudah dibaca
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+
                             </div>
-                        ))}
+                        )}
                         {pengajuanMasuk.length > 0 && (
                             <div className="p-4 border-b">
 

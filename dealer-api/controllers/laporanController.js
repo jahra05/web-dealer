@@ -10,6 +10,8 @@ const produk = (req, res) => {
         k.nama_kategori,
         t.nama_tipe,
         
+        m.status,
+        m.deskripsi,
         m.tahun,
         m.harga,
         m.stok

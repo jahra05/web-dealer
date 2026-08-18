@@ -47,7 +47,7 @@ export default function UserMenuDropdwn() {
             {/* Avatar button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm flex items-center justify-center hover:bg-blue-700 transition-colors shadow-sm"
+                className="w-10 h-10 rounded-full bg-[#004A7C] text-white font-bold text-sm flex items-center justify-center transition-colors shadow-sm"
                 aria-label="User menu"
             >
                 <img src={user.foto} className="rounded-full h-10 w-10 object-cover" />

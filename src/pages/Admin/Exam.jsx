@@ -5,6 +5,7 @@ import { exportExcel } from "../../utils/export/exportExcel"
 import { MdNotificationsNone } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
+import Notifikasi from "../../components/Notifikasi"
 
 const MONTHS = [
     { value: "1", label: "Januari" },
@@ -104,6 +105,9 @@ const Exam = () => {
                 { label: "Warna", key: "nama_warna" },
                 { label: "Harga", key: "harga" },
                 { label: "Stok", key: "stok" },
+                { label: "Tahun", key: "tahun" },
+                { label: "Deskripsi", key: "deskripsi" },
+                { label: "Status", key: "status" },
             ]
         });
     };
@@ -226,6 +230,7 @@ const Exam = () => {
                     </button>
                     <div className='flex items-center gap-2 ml-auto'>
                         <UserMenuDropdwn />
+                        <Notifikasi/>
                     </div>
                 </div>
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden">
@@ -266,6 +271,10 @@ const Exam = () => {
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Warna</th>
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Harga</th>
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Stok</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tahun</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Deskripsi</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">status</th>
+
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white">
@@ -277,6 +286,9 @@ const Exam = () => {
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.warna}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.harga}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.stok}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.tahun}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.deskripsi}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.status}</td>
                                                 </tr>
                                             ))}
                                         </tbody>

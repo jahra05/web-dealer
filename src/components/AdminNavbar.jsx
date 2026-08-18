@@ -30,7 +30,7 @@ const NAV_ITEMS = [
     title: 'TRANSAKSI',
     items: [
       { path: '/admin/pengajuanKredit', label: 'Pengajuan Kredit', icon: FiFileText },
-      { path: '/admin/simulasiKredit', label: 'Simulasi Kredit', icon: BiCalculator },
+      // { path: '/admin/simulasiKredit', label: 'Simulasi Kredit', icon: BiCalculator },
 
     ]
   },

@@ -11,6 +11,7 @@ import CustomAlert from "../../components/CustomAlert"
 import ConfirmAlert from "../../components/ConfirmAlert"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import { RxHamburgerMenu } from "react-icons/rx"
+import Notifikasi from "../../components/Notifikasi"
 
 const Spesifikasi = () => {
     const [page, setPage] = useState(1);
@@ -247,6 +248,7 @@ const Spesifikasi = () => {
 
                     <div className='flex items-center gap-2'>
                         <UserMenuDropdwn />
+                        <Notifikasi/>
                     </div>
                 </div>
 

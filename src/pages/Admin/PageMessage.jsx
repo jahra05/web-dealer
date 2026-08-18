@@ -12,6 +12,7 @@ import ConfirmAlert from "../../components/ConfirmAlert"
 import { CgRead } from "react-icons/cg"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
+import Notifikasi from "../../components/Notifikasi"
 
 const PageMessage = () => {
     const [page, setPage] = useState(1)
@@ -136,6 +137,7 @@ const PageMessage = () => {
 
                     <div className='flex items-center gap-2'>
                         <UserMenuDropdwn />
+                        <Notifikasi/>
                     </div>
                 </div>
 

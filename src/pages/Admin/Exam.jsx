@@ -34,6 +34,14 @@ const Exam = () => {
     const [bulan, setBulan] = useState("1")
     const [tahun, setTahun] = useState(CURRENT_YEAR);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [activeLaporan, setActiveLaporan] = useState('produk')
+
+    const laporanMenu = [
+        { key: 'produk', label: "Laporan Produk" },
+        { key: 'pengajuanKredit', label: "Pengajuan Kredit" },
+        { key: 'contact', label: "Laporan Message" },
+        { key: 'testimoni', label: "Laporan Testimoni" },
+    ]
 
     // Panggil API laporan dengan parameter filter
     const getLaporan = useCallback(async (tabName, filterOverride) => {
@@ -240,11 +248,12 @@ const Exam = () => {
                             <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Laporan & Export</h1>
                             <p className="text-sm text-gray-500 mt-1">Export data dan laporan.</p>
                         </div>
-                        <div className="flex flex-wrap gap-2">
-                            <button className="bg-[#004A7C] hover:bg-[#00345F] px-3 py-2 rounded-full text-white text-xs font-semibold transition" onClick={() => getLaporan("produk")}>Laporan Produk</button>
-                            <button className="bg-[#004A7C] hover:bg-[#00345F] px-3 py-2 rounded-full text-white text-xs font-semibold transition" onClick={() => getLaporan("pengajuanKredit")}>Laporan Pengajuan</button>
-                            <button className="bg-[#004A7C] hover:bg-[#00345F] px-3 py-2 rounded-full text-white text-xs font-semibold transition" onClick={() => getLaporan("contact")}>Laporan Contact</button>
-                            <button className="bg-[#004A7C] hover:bg-[#00345F] px-3 py-2 rounded-full text-white text-xs font-semibold transition" onClick={() => getLaporan("testimoni")}>Laporan Testimoni</button>
+                        <div className="flex text-center gap-2">
+                            {laporanMenu.map((item) => (
+                                <button key={item.key} onClick={() => { setActiveLaporan(item.key); getLaporan(item.key) }}
+                                    className={`px-3 py-2  text-l font-semibold transition ${activeLaporan === item.key ? 'border-b-[#00203b] border-b-2 transition text-black' : " hover:border-b-2 text-black"
+                                        }`} > {item.label}</button>
+                            ))}
                         </div>
                     </div>
 
@@ -286,7 +295,7 @@ const Exam = () => {
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_kategori}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_tipe}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_warna}</td>
-                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.harga}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700"> Rp {Number(item.harga).toLocaleString("id-ID")}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.stok}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.tahun}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.deskripsi}</td>
@@ -334,7 +343,7 @@ const Exam = () => {
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.alamat}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.pekerjaan}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
-                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.tanggal_pengajuan}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700"> {new Date(item.tanggal_pengajuan).toLocaleDateString("id-ID")}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.status}</td>
                                                 </tr>
                                             ))}
@@ -433,7 +442,7 @@ const Exam = () => {
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
                                     <p className="text-xl font-semibold text-white">Laporan Produk Motor</p>
-                                    <div className="flex items-center gap-2 flex-wrap">
+                                    <div className="flex  items-center gap-2">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
@@ -459,7 +468,7 @@ const Exam = () => {
                                             </div>
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">Warna</p>
-                                                <p className="text-sm font-medium">{item.warna}</p>
+                                                <p className="text-sm font-medium">{item.nama_warna}</p>
                                             </div>
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">Stok</p>
@@ -490,7 +499,7 @@ const Exam = () => {
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
                                     <p className="text-xl font-semibold text-white">Laporan Pengajuan Kredit</p>
-                                    <div className="flex items-center gap-2 flex-wrap">
+                                    <div className="flex items-center gap-2">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
@@ -514,21 +523,19 @@ const Exam = () => {
                                                 <p className="text-sm text-gray-600 mb-2">Alamat</p>
                                                 <p className="text-sm font-medium">{item.alamat}</p>
                                             </div>
+
                                             <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Nama Motor</p>
+                                                <p className="text-sm text-gray-600 mb-2">pekerjaan</p>
+                                                <p className="text-sm font-medium">{item.pekerjaan}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Motor</p>
                                                 <p className="text-sm font-medium">{item.nama_motor}</p>
                                             </div>
+
                                             <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Tanggal Pengajuan</p>
-                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
-                                            </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Tanggal Pengajuan</p>
-                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
-                                            </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Tanggal Pengajuan</p>
-                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
+                                                <p className="text-sm text-gray-600 mb-2">Tanggal</p>
+                                                <p className="text-sm font-medium"> {new Date(item.tanggal_pengajuan).toLocaleDateString("id-ID")}</p>
                                             </div>
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">Status</p>
@@ -547,7 +554,7 @@ const Exam = () => {
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
                                     <p className="text-xl font-semibold text-white">Laporan Contact</p>
-                                    <div className="flex items-center gap-2 flex-wrap">
+                                    <div className="flex items-center gap-2 ">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
@@ -577,7 +584,7 @@ const Exam = () => {
                                             </div>
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">No Headphone</p>
-                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
+                                                <p className="text-sm font-medium">{item. no_hp}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -592,7 +599,7 @@ const Exam = () => {
                             <div className=" rounded-xl bg-white shadow p-4">
                                 <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
                                     <p className="text-xl font-semibold text-white">Laporan Testimoni</p>
-                                    <div className="flex items-center gap-2 flex-wrap">
+                                    <div className="flex items-center gap-2 ">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
@@ -610,7 +617,7 @@ const Exam = () => {
 
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">Pekerjaan</p>
-                                                <p className="text-sm font-medium">{item.email}</p>
+                                                <p className="text-sm font-medium">{item.pekerjaan}</p>
                                             </div>
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-3 w-72">Isi Testimoni</p>

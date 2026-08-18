@@ -9,7 +9,7 @@ const produk = (req, res) => {
         m.nama_motor,
         k.nama_kategori,
         t.nama_tipe,
-        
+        GROUP_CONCAT(w.nama_warna SEPARATOR ' , ' ) AS nama_warna,
         m.status,
         m.deskripsi,
         m.tahun,
@@ -20,7 +20,19 @@ const produk = (req, res) => {
         ON m.id_kategori = k.id_kategori
     LEFT JOIN tipe t
         ON m.id_tipe = t.id_tipe
-   
+    LEFT JOIN warna w 
+        ON w.id_motor = w.id_motor
+
+    GROUP BY 
+        m.id_motor,
+        m.nama_motor,
+        k.nama_kategori,
+        t.nama_tipe,
+        m.status,
+        m.deskripsi,
+        m.tahun,
+        m.harga,
+        m.stok
 `;
 
     let params = [];

@@ -95,6 +95,7 @@ const Exam = () => {
 
     const handleExportSAllProduk = async () => {
         const dataLaporan = await getLaporan("produk");
+        console.log("isi dari data laporan", dataLaporan)
         exportExcel({
             data: dataLaporan,
             fileName: "semua Data produk",
@@ -230,7 +231,7 @@ const Exam = () => {
                     </button>
                     <div className='flex items-center gap-2 ml-auto'>
                         <UserMenuDropdwn />
-                        <Notifikasi/>
+                        <Notifikasi />
                     </div>
                 </div>
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden">
@@ -279,7 +280,8 @@ const Exam = () => {
                                         </thead>
                                         <tbody className="bg-white">
                                             {pageItems.map((item) => (
-                                                <tr key={item.id_motor} className="transition hover:bg-slate-50">
+                                                console.log('isis dai pageitem', pageItems),
+                                                < tr key={item.id_motor} className="transition hover:bg-slate-50" >
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_kategori}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_tipe}</td>
@@ -463,6 +465,18 @@ const Exam = () => {
                                                 <p className="text-sm text-gray-600 mb-2">Stok</p>
                                                 <p className="text-sm font-medium">{item.stok}</p>
                                             </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Tahun</p>
+                                                <p className="text-sm font-medium">{item.tahun}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2 w-54 text-right">
+                                                <p className="text-sm text-gray-600 mb-3">Deskripsi</p>
+                                                <p className="text-sm font-medium mb-1">{item.deskripsi}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Status</p>
+                                                <p className="text-sm font-medium">{item.status}</p>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -503,6 +517,14 @@ const Exam = () => {
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">Nama Motor</p>
                                                 <p className="text-sm font-medium">{item.nama_motor}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Tanggal Pengajuan</p>
+                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center border-b mb-2">
+                                                <p className="text-sm text-gray-600 mb-2">Tanggal Pengajuan</p>
+                                                <p className="text-sm font-medium">{item.tanggal_pengajuan}</p>
                                             </div>
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">Tanggal Pengajuan</p>
@@ -606,8 +628,8 @@ const Exam = () => {
                         )}
                     </div>
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 

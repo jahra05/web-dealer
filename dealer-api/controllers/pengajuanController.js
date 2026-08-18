@@ -119,9 +119,10 @@ const createPengajuan = (req, res) => {
         no_hp,
         alamat,
         pekerjaan,
-        id_motor
+        id_motor,
+        status
     )
-    VALUES (?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?,'Menunggu')
     `;
 
     db.query(
@@ -131,7 +132,8 @@ const createPengajuan = (req, res) => {
             no_hp,
             alamat,
             pekerjaan,
-            id_motor
+            id_motor,
+            
         ],
         (err, result) => {
 

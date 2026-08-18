@@ -47,9 +47,10 @@ const createContact = (req, res) => {
             email,
             no_hp,
             subjek,
-            pesan
+            pesan,
+            status
         )
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, "Belum Dibaca")
     `;
 
     db.query(sql, [nama, email, no_hp, subjek, pesan], (err, result) => {

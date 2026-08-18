@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { FiMessageSquare } from "react-icons/fi"
+import { FiFileText, FiMessageSquare } from "react-icons/fi"
 import { IoNotifications, IoNotificationsOutline } from "react-icons/io5"
 import { MdInventory2 } from "react-icons/md"
 
@@ -8,6 +8,25 @@ export default function Notifikasi() {
     const [messageMasuk, setMessageMasuk] = useState([])
     const [pengajuanMasuk, setPengajuanMasuk] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+
+
+    const handleClickMessage = async (item) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${item.id_message}/status`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            const data = await response.json();
+
+            if (data.success) {
+                setMessageMasuk((prev) => prev.filter((message) => message.id_message !== item.id_message))
+            }
+        } catch (error) {
+            console.error("Gagal mengubha status message", error)
+        }
+    }
 
     const getNotifikasi = async () => {
         try {
@@ -21,6 +40,11 @@ export default function Notifikasi() {
             const stokData = await stokRes.json();
             const pesanData = await pesanRes.json();
             const pengajuanData = await pengajuanRes.json();
+            console.log("MESSAGE:", pesanData.data)
+            console.log("STOK:", stokData.data)
+
+            console.log("PENGAJUAN:", pengajuanData.data)
+
             if (stokData.success) {
                 setStokMenipis(stokData.data)
             }
@@ -29,6 +53,7 @@ export default function Notifikasi() {
                 const belumDibaca = pesanData.data.filter(
                     (item) => item.status === "Belum Dibaca"
                 )
+                console.log("MESSAGE BELUM DIBACA:", belumDibaca);
                 setMessageMasuk(belumDibaca)
             }
 
@@ -36,6 +61,9 @@ export default function Notifikasi() {
                 const pengajuanBaru = pengajuanData.data.filter(
                     (item) => item.status === "Menunggu"
                 )
+
+                console.log("PENGAJUAN MENUNGGU:", pengajuanBaru);
+
                 setPengajuanMasuk(pengajuanBaru)
             }
 
@@ -65,7 +93,7 @@ export default function Notifikasi() {
                     {totalNotifikasi > 0 && (
                         <span className="absolute -top-1 -right-1 min-w-5 h-5 px-1 
                         bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">
-                            {totalNotifikasi > 99 ? "99+" : totalNotifikasif}
+                            {totalNotifikasi > 99 ? "99+" : totalNotifikasi}
                         </span>
                     )}
                 </button>
@@ -104,32 +132,26 @@ export default function Notifikasi() {
                                 </div>
                             </div>
                         )}
+                        {messageMasuk.map((item) => (
+                            <div
+                                key={item.id_message}
+                                onClick={() => handleMessageClick(item)}
+                                className="p-3 rounded-xl bg-blue-50 cursor-pointer hover:bg-blue-100"
+                            >
+                                <p className="text-sm font-semibold">
+                                    {item.nama}
+                                </p>
 
-                        {messageMasuk.length > 0 && (
-                            <div className="p-4 border-b">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <FiMessageSquare className="text-blue-500" size={19} />
-                                    <h4 className="font-semibold text-sm">Pesan Baru</h4>
-                                    <span className="ml-auto text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">{messageMasuk.length}</span>
-                                </div>
-                                <div className="space-y-2">
-                                    {messageMasuk.map((item) => (
-                                        <div className="p-3 rounded-xl bg-blue-50">
-                                            <p className="text-sm font-semibold">{item.nama}</p>
-                                            <p className="text-xs text-gray-500 mt-1 truncate">
-                                                {item.subjek}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
+                                <p className="text-xs text-gray-500 mt-1 truncate">
+                                    {item.subjek}
+                                </p>
                             </div>
-                        )}
-
+                        ))}
                         {pengajuanMasuk.length > 0 && (
                             <div className="p-4 border-b">
 
                                 <div className="flex items-center gap-2 mb-3">
-                                    <FileText
+                                    <FiFileText
                                         className="text-green-600"
                                         size={19}
                                     />

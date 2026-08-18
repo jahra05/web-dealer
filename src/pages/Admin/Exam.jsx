@@ -285,7 +285,7 @@ const Exam = () => {
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_kategori}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_tipe}</td>
-                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.warna}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">{item.nama_warna}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.harga}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.stok}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.tahun}</td>

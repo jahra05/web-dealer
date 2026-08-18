@@ -15,24 +15,17 @@ const produk = (req, res) => {
         m.tahun,
         m.harga,
         m.stok
+
     FROM motor m
+
     LEFT JOIN kategori k
         ON m.id_kategori = k.id_kategori
+
     LEFT JOIN tipe t
         ON m.id_tipe = t.id_tipe
-    LEFT JOIN warna w 
-        ON w.id_motor = w.id_motor
 
-    GROUP BY 
-        m.id_motor,
-        m.nama_motor,
-        k.nama_kategori,
-        t.nama_tipe,
-        m.status,
-        m.deskripsi,
-        m.tahun,
-        m.harga,
-        m.stok
+   LEFT JOIN warna w
+    ON w.id_motor = m.id_motor
 `;
 
     let params = [];
@@ -52,7 +45,18 @@ const produk = (req, res) => {
     }
 
     sqlProdukRaport += `
-        ORDER BY m.nama_motor ASC
+        GROUP BY 
+            m.id_motor,
+            m.nama_motor,
+            k.nama_kategori,
+            t.nama_tipe,
+            m.status,
+            m.deskripsi,
+            m.tahun,
+            m.harga,
+            m.stok
+
+            ORDER BY m.nama_motor ASC
     `;
 
     db.query(sqlProdukRaport, params, (err, result) => {

@@ -83,6 +83,7 @@ const Navbar = () => {
         setIsModalOpen(false)
       } else {
         setAlert({ type: 'error', message: data.message })
+        setIsModalOpen(false)
       }
     } catch (error) {
       console.log(error);

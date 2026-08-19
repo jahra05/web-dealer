@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FiFileText, FiMessageSquare } from "react-icons/fi"
 import { IoNotifications, IoNotificationsOutline } from "react-icons/io5"
 import { MdInventory2 } from "react-icons/md"
@@ -8,7 +8,24 @@ export default function Notifikasi() {
     const [messageMasuk, setMessageMasuk] = useState([])
     const [pengajuanMasuk, setPengajuanMasuk] = useState([])
     const [isOpen, setIsOpen] = useState(false)
+    const notifikasiRef = useRef(null)
 
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (notifikasiRef.current && !notifikasiRef.current.contains(e.target)
+            ) {
+                setIsOpen(false)
+            }
+        }
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [isOpen])
 
     const handleClickMessage = async (item) => {
         try {
@@ -110,7 +127,7 @@ export default function Notifikasi() {
             </div>
 
             {isOpen && (
-                <div className="absolute right-2 top-12 w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 z-[9999] overflow-hidden" onClick={()=>setIsOpen(false)}>
+                <div className="absolute right-2 top-12 w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 z-[9999] overflow-hidden" ref={notifikasiRef}>
                     <div className="flex items-center justify-between px-5 py-4 border-b" >
                         <div>
                             <h3 className="font-bold text-[#002446]">Notifikasi</h3>
@@ -119,7 +136,7 @@ export default function Notifikasi() {
                         <button type="button" onClick={() => setIsOpen(false)} className="w-8 h-8 rounded-full hover:bg-gray-100 text-gray-500">x</button>
                     </div>
 
-                    <div className="max-h-[450px] overflow-y-auto">
+                    <div className="max-h-[450px] overflow-y-auto" >
                         {stokMenipis.length > 0 && (
                             <div className="p-4 border-b">
                                 <div className="flex items-center gap-2 mb-3">

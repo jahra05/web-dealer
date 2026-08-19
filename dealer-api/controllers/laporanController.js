@@ -90,6 +90,7 @@ const pengajuanKredit = (req, res) => {
             p.pekerjaan,
             p.tanggal_pengajuan,
             m.nama_motor,
+            m.harga,
             p.status,
             DATE_FORMAT(p.tanggal_pengajuan,'%d/%m/%Y') AS tanggal
         FROM pengajuan p

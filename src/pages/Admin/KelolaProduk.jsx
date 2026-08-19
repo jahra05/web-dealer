@@ -520,25 +520,42 @@ const KelolaProduk = () => {
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden" >
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-            <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between p-4'>
-                    <div className='flex items-center gap-4 w-full sm:w-auto'>
-                        <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
-                            <RxHamburgerMenu size={24} />
-                        </button>
-                        <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm transition hover:shadow-md hover:border-blue-300">
-                            <BiSearch size={20} />
-                            <input value={search} onChange={(e) => setSearch(e.target.value)} type="search" className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder" placeholder="Search" title="Search" />
-                        </div>
-                    </div>
 
-                    <div className='flex items-center gap-2 self-end sm:self-auto'>
-                        <UserMenuDropdwn />
-                        <Notifikasi />
+            <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                    <div className="flex items-center justify-between gap-3 p-4">
+
+                        <div className="flex items-center gap-4 w-full sm:w-auto">
+
+                            <button
+                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                                onClick={() => setIsSidebarOpen(prev => !prev)}
+                            >
+                                <RxHamburgerMenu size={24} />
+                            </button>
+
+                            <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm">
+                                <BiSearch size={20} />
+
+                                <input
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    type="search"
+                                    className="h-8 w-full outline-none rounded-full text-sm"
+                                    placeholder="Search"
+                                />
+                            </div>
+
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <UserMenuDropdwn />
+                            <Notifikasi />
+                        </div>
+
                     </div>
                 </div>
-
-                <main className="flex-1 px-4 pb-6 overflow-x-hidden">
+                <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <div className="flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center mb-4">
                         <div>
                             <h1 className="text-xl lg:text-2xl font-bold text-[#00182F">Produk Motor</h1>
@@ -589,6 +606,7 @@ const KelolaProduk = () => {
                                     <tr>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Gambar</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Nama Motor</th>
+                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Kategori</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Tipe</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Tahun</th>
                                         <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">warna</th>
@@ -611,6 +629,7 @@ const KelolaProduk = () => {
                                                 </div>
                                             </td>
                                             <td className="px-4 py-4 text-sm font-medium text-slate-900 whitespace-nowrap">{item.nama_motor}</td>
+                                            <td className="px-4 py-4 text-sm font-medium text-slate-900 whitespace-nowrap">{item.nama_kategori}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.nama_tipe}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.tahun}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap flex items-center gap-4">
@@ -812,6 +831,7 @@ const KelolaProduk = () => {
                                     <h3 className="mt-3 font-bold text-lg">{item.nama_motor}</h3>
                                     <p className="text-l text-gray-500 font-medium">Harga : Rp {Number(item.harga).toLocaleString("id-ID")}</p>
                                     <p className="text-sm mt-2">Stok : <span className="font-semibold">{item.stok}</span></p>
+                                    <p>{item.nama_warna}</p>
                                 </div>
                             </div>
                         ))}
@@ -972,7 +992,22 @@ const KelolaProduk = () => {
                                     </div>
                                     <div className="">
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
-                                        <input accept="image/*" onChange={(e) => { setFormData({ ...formData, gambar: e.target.files[0] }) }}
+                                        <input accept="image/jpeg,image/png,image/webp" onChange={(e) => {
+                                            const file = e.target.files[0]
+                                            if (!file) return
+
+                                            const maxSize = 5 * 1024 * 1024
+
+                                            if (file.size > maxSize) {
+                                                setAlert({
+                                                    type: "warning",
+                                                    message: "Ukuran gambar maksimal 5 mb"
+                                                })
+                                                e.target.value = ""
+                                                return
+                                            }
+                                            setFormData({ ...formData, gambar: file })
+                                        }}
                                             type="file" title="Pilih gambar produk" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-[#002446] hover:file:bg-[#E6F1F7]" />
                                     </div>
                                 </div>

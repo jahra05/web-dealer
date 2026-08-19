@@ -23,6 +23,9 @@ const getAllPengajuan = (req, res) => {
     FROM pengajuan
     JOIN motor
         ON pengajuan.id_motor = motor.id_motor
+    ORDER BY id_pengajuan DESC
+
+
     `;
 
     db.query(sql, (err, result) => {
@@ -133,7 +136,7 @@ const createPengajuan = (req, res) => {
             alamat,
             pekerjaan,
             id_motor,
-            
+
         ],
         (err, result) => {
 

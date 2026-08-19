@@ -133,6 +133,7 @@ const Exam = () => {
                 { label: "Alamat", key: "alamat" },
                 { label: "Pekerjaan", key: "pekerjaan" },
                 { label: "Pengajuan", key: "nama_motor" },
+                { label: "Harga", key: "harga" },
                 { label: "Tanggal", key: "tanggal_pengajuan" },
                 { label: "Status", key: "status" },
             ]
@@ -233,16 +234,31 @@ const Exam = () => {
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                <div className='flex items-center justify-between p-4'>
-                    <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
-                        <RxHamburgerMenu size={24} />
-                    </button>
-                    <div className='flex items-center gap-2 ml-auto'>
-                        <UserMenuDropdwn />
-                        <Notifikasi />
+                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                    <div className="flex items-center justify-between gap-3 p-4">
+
+                        <div className="flex items-center gap-4 w-full sm:w-auto">
+
+                            <button
+                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                                onClick={() => setIsSidebarOpen(prev => !prev)}
+                            >
+                                <RxHamburgerMenu size={24} />
+                            </button>
+
+
+
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <UserMenuDropdwn />
+                            <Notifikasi />
+                        </div>
+
                     </div>
                 </div>
-                <main className="flex-1 px-4 pb-6 overflow-x-hidden">
+
+                <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
                         <div>
                             <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Laporan & Export</h1>
@@ -331,6 +347,7 @@ const Exam = () => {
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Alamat</th>
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Pekerjaan</th>
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Motor</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Harga</th>
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tanggal</th>
                                                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Status</th>
                                             </tr>
@@ -343,6 +360,7 @@ const Exam = () => {
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.alamat}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.pekerjaan}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
+                                                    <td className="px-4 py-4 text-sm text-slate-700">Rp. {Number(item.harga).toLocaleString('id-ID')}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700"> {new Date(item.tanggal_pengajuan).toLocaleDateString("id-ID")}</td>
                                                     <td className="px-4 py-4 text-sm text-slate-700">{item.status}</td>
                                                 </tr>
@@ -584,7 +602,7 @@ const Exam = () => {
                                             </div>
                                             <div className="flex justify-between items-center border-b mb-2">
                                                 <p className="text-sm text-gray-600 mb-2">No Headphone</p>
-                                                <p className="text-sm font-medium">{item. no_hp}</p>
+                                                <p className="text-sm font-medium">{item.no_hp}</p>
                                             </div>
                                         </div>
                                     </div>

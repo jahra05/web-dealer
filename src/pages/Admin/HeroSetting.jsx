@@ -150,15 +150,15 @@ export default function HeroSetting() {
         <>
             <div className="min-h-screen w-full flex gap-2 bg-gray-50 overflow-x-hidden">
                 <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-                <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden mr-4">
-                    <div className="flex items-center justify-between p-4">
-                        <button className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+                    <div className="flex items-center justify-between px-0 py-4">
+                        <button className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors bg-white shadow-sm"
                             onClick={() => setIsSidebarOpen(prev => !prev)}>
                             <RxHamburgerMenu size={24} />
                         </button>
                     </div>
 
-                    <div className="bg-white p-4 rounded-xl w-[100%]">
+                    <div className="bg-white p-4 rounded-xl w-full mb-4">
                         <h2 className="text-lg font-bold mb-4">
                             Pilih Produk Hero
                         </h2>

@@ -79,7 +79,6 @@ const Footer = () => {
               <li><button onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E] transition-colors font-bold">Home</button></li>
               <li><button onClick={() => document.getElementById('produk')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E]  transition-colors font-bold">Produk</button></li>
               <li><button onClick={() => document.getElementById('simulasi-kredit')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E]  transition-colors font-bold">Simulasi Kredit</button></li>
-              <li><Link to="#" className="hover:text-[#006A9E] transition-colors font-bold">Promo Terbaru</Link></li>
             </ul>
           </motion.div>
 
@@ -122,7 +121,7 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <FaRegClock size={18} className="text-[#006A9E] shrink-0" />
                 <div>
-                  <p className="text-white font-bold">Sabtu - Minggu</p>
+                  <p className="text-white font-bold">Sabtu</p>
                   <p>{footer.jam_sabtu}</p>
                 </div>
               </li>
@@ -142,7 +141,7 @@ const Footer = () => {
           ></iframe>
         </div>
         <div className="pt-10 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 gap-4 font-bold uppercase tracking-widest">
-          <p>© 2026 Honda Jahra Dealer. All rights reserved.</p>
+          <p>© 2026 Honda Daya Motor Cibeber. All rights reserved.</p>
           <div className="flex space-x-6">
             <a href="#" className="hover:text-white transition-colors">Kebijakan Privasi</a>
             <a href="#" className="hover:text-white transition-colors">Syarat & Ketentuan</a>

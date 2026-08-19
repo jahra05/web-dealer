@@ -138,20 +138,20 @@ export default function SettingProfileAdmin() {
     }
     return (
         <>
-            <div className="min-h-screen w-full flex gap-2 bg-gray-50 overflow-x-hidden">
+            <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden gap-2">
                 <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-                <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden mr-4">
+                <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                     {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
-                    <div className="flex items-center justify-between p-4">
+                    <div className="sticky top-0 z-20 flex items-center justify-start px-0 py-4 bg-gray-50 border-b border-gray-100 lg:border-b-0">
                         <button
-                            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                            className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors bg-white shadow-sm"
                             onClick={() => setIsSidebarOpen(prev => !prev)}
                             aria-label="Toggle sidebar"
                         >
                             <RxHamburgerMenu size={24} />
                         </button>
                     </div>
-                    <div className="bg-white p-4 rounded-xl w-[100%]">
+                    <div className="bg-white p-4 rounded-xl w-full lg:mx-0 mb-4 mt-0 lg:mt-0">
                         <div className="mb-4 border-b py-4">
                             <p className="text-lg font-medium">Profil Admin</p>
                             <p className="text-xs text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa, accusantium?</p>

@@ -66,6 +66,7 @@ const getAllMotor = (req, res) => {
     FROM motor
     JOIN kategori ON motor.id_kategori = kategori.id_kategori
     JOIN tipe ON motor.id_tipe = tipe.id_tipe
+    ORDER BY motor.id_motor DESC
     `;
 
     db.query(sql, (err, result) => {

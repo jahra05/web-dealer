@@ -62,22 +62,29 @@ export default function AdminDashboard() {
             {/* Main content area */}
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4">
-                    <button
-                        className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                        onClick={() => setIsSidebarOpen(prev => !prev)}
-                        aria-label="Toggle sidebar"
-                    >
-                        <RxHamburgerMenu size={24} />
-                    </button>
+                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                    <div className="flex items-center justify-between gap-3 p-4">
 
-                    <div className="flex items-center gap-2 ml-auto">
-                        <UserMenuDropdwn />
-                        <Notifikasi />
+                        <div className="flex items-center gap-4 w-full sm:w-auto">
+
+                            <button
+                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                                onClick={() => setIsSidebarOpen(prev => !prev)}
+                            >
+                                <RxHamburgerMenu size={24} />
+                            </button>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <UserMenuDropdwn />
+                            <Notifikasi />
+                        </div>
+
                     </div>
                 </div>
 
-                <main className="flex-1 px-4 pb-6 overflow-x-hidden">
+
+                <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     {/* Dashboard title */}
                     <div className="mb-6">
                         <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Dashboard Admin</h1>

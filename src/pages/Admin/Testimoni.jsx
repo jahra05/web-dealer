@@ -218,34 +218,47 @@ const Testimoni = () => {
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
                 {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
-                <div className='flex items-center justify-between p-4'>
-                    <div className='flex items-center gap-4'>
-                        <button className='lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors' onClick={() => setIsSidebarOpen(prev => !prev)} aria-label="Toggle sidebar">
-                            <RxHamburgerMenu size={24} />
-                        </button>
-                        <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full transition hover:shadow-md hover:border-blue-300">
-                            <BiSearch size={20} />
-                            <input
-                                type="search"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="h-8 w-full outline-none rounded-full text-sm truncate-placeholder"
-                                placeholder="Search"
-                                title="Search"
-                            />
+                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                    <div className="flex items-center justify-between gap-3 p-4">
+
+                        <div className="flex items-center gap-4 w-full sm:w-auto">
+
+                            <button
+                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                                onClick={() => setIsSidebarOpen(prev => !prev)}
+                            >
+                                <RxHamburgerMenu size={24} />
+                            </button>
+
+                            <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm">
+                                <BiSearch size={20} />
+
+                                <input
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    type="search"
+                                    className="h-8 w-full outline-none rounded-full text-sm"
+                                    placeholder="Search"
+                                />
+                            </div>
+
                         </div>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                        <UserMenuDropdwn />
-                        <Notifikasi/>
+
+                        <div className="flex items-center gap-2">
+                            <UserMenuDropdwn />
+                            <Notifikasi />
+                        </div>
+
                     </div>
                 </div>
-                <div className="flex-1 px-4 pb-6 overflow-x-hidden hidden md:block">
-                    <div className="mb-4">
+
+                {/* <div className="mt-"> */}
+                <div className="flex-1 px-4 py-6 overflow-x-hidden mt-24">
+                    <div className="">
                         <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
                         <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
                     </div>
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
+                    <div className="overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 flex justify-between bg-[#004A7C] items-center">
                             <p className="text-xl font-semibold text-white">Testimoni</p>
                             <button
@@ -378,6 +391,7 @@ const Testimoni = () => {
                         </div>
                     )}
                 </div>
+                {/* </div> */}
 
                 {/* mobile */}
                 <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
@@ -417,13 +431,13 @@ const Testimoni = () => {
                             </div>
 
                             <div className="mt-8">
-                                <div className="flex justify-between items-center mb-3">
-                                    <p className="text-sm text-gray-600">Isi Testimoni</p>
-                                    <p className="text-sm font-medium w-72 text-right">{item.isi_testimoni}</p>
+                                <div className="flex flex-col  mb-3">
+                                    <p className="text-sm text-gray-600 mb-2">Isi Testimoni</p>
+                                    <p className="text-sm font-medium w-[430px]">{item.isi_testimoni}</p>
                                 </div>
 
-                                <div className="flex justify-between items-center mb-3">
-                                    <p className="text-sm text-gray-600">Rating</p>
+                                <div className="flex-col mb-3">
+                                    <p className="text-sm text-gray-600 mb-2">Rating</p>
                                     <div className="flex text-yellow-400 mb-3">
                                         {Array.from({ length: item.rating }).map((_, index) => (
                                             <span key={index}>⭐</span>

@@ -34,22 +34,37 @@ const PageMessage = () => {
 
     const handleStatus = async (id) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${id}/status`, {
-                method: "PUT"
-            }
-
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/contact/${id}/status`,
+                {
+                    method: "PUT"
+                }
             );
 
             const data = await response.json();
 
-            if (data.success) {
-                getContact()
+            if (!response.ok) {
+                throw new Error(data.message || "Gagal mengubah status");
             }
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
+            if (data.success) {
+                await getContact();
+
+                setAlert({
+                    type: "success",
+                    message: data.message || "Pesan berhasil ditandai sudah dibaca"
+                });
+            }
+
+        } catch (error) {
+            console.error("❌ ERROR HANDLE STATUS:", error);
+
+            setAlert({
+                type: "error",
+                message: error.message || "Gagal mengubah status pesan"
+            });
+        }
+    };
     const handleDelete = async (id) => {
         setConfirm({
             title: 'Hapus Pesan',
@@ -76,26 +91,34 @@ const PageMessage = () => {
     }
 
     const getContact = async () => {
-
         try {
+            const url = `${import.meta.env.VITE_API_URL}/api/contact`;
 
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/contact`
-            );
+            console.log("🔗 GET CONTACT:", url);
+
+            const response = await fetch(url);
 
             const data = await response.json();
 
-            console.log(data.data);
+            console.log("📡 STATUS:", response.status);
+            console.log("📦 RESPONSE:", data);
+
+            if (!response.ok) {
+                throw new Error(data.message || "Gagal mengambil data contact");
+            }
+
             if (data.success) {
                 setContact(data.data);
             }
 
         } catch (error) {
+            console.error("❌ ERROR GET CONTACT:", error);
 
-            console.log(error);
-
+            setAlert({
+                type: "error",
+                message: error.message || "Gagal mengambil pesan"
+            });
         }
-
     };
     useEffect(() => {
         getContact()
@@ -182,7 +205,7 @@ const PageMessage = () => {
                                 </thead>
                                 <tbody className="bg-white">
                                     {pageItems.map((item, index) => (
-                                        <tr key={item.id_contact} className="transition hover:bg-slate-50">
+                                        <tr key={item.id_message} className="transition hover:bg-slate-50">
                                             <td className="px-4 py-4 text-sm text-slate-700">{(page - 1) * rowsPerPage + index + 1}</td>
                                             <td className="px-4 py-4 text-sm text-slate-700">{item.nama}</td>
                                             <td className="px-4 py-4 text-sm text-slate-700">{item.email}</td>
@@ -246,14 +269,14 @@ const PageMessage = () => {
                             <p className="text-xl font-semibold text-white">Message</p>
                         </div>
                         {pageItems.map((item) => (
-                            <div className="bg-white shadow p-4 rounded-xl">
+                            <div key={item.id_message} className="bg-white shadow p-4 rounded-xl">
                                 <div className="flex justify-between items-center">
 
                                     <button
                                         onClick={() => handleStatus(item.id_message)}
                                         className={`px-3 py-1 rounded-full text-sm font-semibold transition ${item.status === "belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
                                     >
-                                        {item.status === 'Belum dibaca' ? "belum dibaca" : "sudah dibaca"}  </button>
+                                        {item.status === 'Belum dibaca' ? "Belum dibaca" : "Sudah Dibaca"}  </button>
 
                                     <button onClick={() => handleDelete(item.id_message)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
                                         <MdDelete />

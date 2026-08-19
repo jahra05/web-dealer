@@ -1,7 +1,9 @@
 const db = require("../config/db");
 
 const getAllContact = (req, res) => {
-    
+
+    console.log("🔥 GET /api/contact TERPANGGIL");
+
     const sql = `
         SELECT
             id_message,
@@ -15,11 +17,12 @@ const getAllContact = (req, res) => {
         FROM contact
         ORDER BY id_message DESC
     `;
-
+    console.log("🔥 SQL CONTACT:", sql);
+    
     db.query(sql, (err, result) => {
-    if (err) {
+        if (err) {
             console.error("❌ ERROR GET CONTACT:", err);
-            
+
             return res.status(500).json({
                 success: false,
                 message: "Gagal mengambil contact"
@@ -53,34 +56,47 @@ const createContact = (req, res) => {
             pesan,
             status
         )
-        VALUES (?, ?, ?, ?, ?, "Belum Dibaca")
+        VALUES (?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [nama, email, no_hp, subjek, pesan], (err, result) => {
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Gagal menambahkan contact",
-                error: err
+    db.query(
+        sql,
+        [
+            nama,
+            email,
+            no_hp,
+            subjek,
+            pesan,
+            "Belum Dibaca"
+        ],
+        (err, result) => {
+
+            if (err) {
+                console.error("❌ ERROR CREATE CONTACT:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Gagal menambahkan contact",
+                    error: err.message
+                });
+            }
+
+            res.status(201).json({
+                success: true,
+                message: "Contact berhasil ditambahkan",
+                data: {
+                    id_message: result.insertId,
+                    nama,
+                    email,
+                    no_hp,
+                    subjek,
+                    pesan,
+                    status: "Belum Dibaca"
+                }
             });
         }
-
-        res.status(201).json({
-            success: true,
-            message: "Contact berhasil ditambahkan",
-            data: {
-                id_message: result.insertId,
-                nama,
-                email,
-                no_hp,
-                subjek,
-                pesan,
-                status: "Belum Dibaca"
-            }
-        });
-    });
+    );
 };
-
 const deleteContact = (req, res) => {
     const { id } = req.params;
 

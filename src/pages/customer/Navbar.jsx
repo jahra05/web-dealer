@@ -248,38 +248,103 @@ const Navbar = () => {
                 </button>
               </div>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
-                <div>
-                  <p className="mb-1 text-sm font-medium text-slate-700">Nama</p>
-                  <input type="text" name="nama" value={formData.nama} onChange={handleChange} placeholder='Nama'
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-medium text-slate-700">Email</p>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Email'
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-medium text-slate-700">No Headphone</p>
-                  <input type="number" name="no_hp" value={formData.no_hp} onChange={handleChange} placeholder='No Headphone'
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-medium text-slate-700">Subjek</p>
-                  <input type="text" name="subjek" value={formData.subjek} onChange={handleChange} placeholder='Subjek'
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <p className="mb-1 text-sm font-medium text-slate-700">Message</p>
-                  <textarea type="text" name="pesan" value={formData.pesan} onChange={handleChange} placeholder='Message'
-                    className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400" />
-                </div>
-              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
 
-              <div className="mt-6 flex justify-end gap-3">
-                <button type="button" onClick={closeModal} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50">Batal</button>
-                <button type="button" onClick={handleSubmit} className="rounded-full bg-[#002446]  hover:bg-[#00345F] px-4 py-2 text-sm font-medium text-white transition">kirim</button>
-              </div>
+                  <div>
+                    <p className="mb-1 text-sm font-medium text-slate-700">
+                      Nama
+                    </p>
+
+                    <input
+                      type="text"
+                      name="nama"
+                      value={formData.nama}
+                      onChange={handleChange}
+                      placeholder="Nama"
+                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400"
+                    />
+                  </div>
+
+                  <div>
+                    <p className="mb-1 text-sm font-medium text-slate-700">
+                      Email
+                    </p>
+
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email"
+                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400"
+                    />
+                  </div>
+
+                  <div>
+                    <p className="mb-1 text-sm font-medium text-slate-700">
+                      No. Handphone
+                    </p>
+
+                    <input
+                      type="tel"
+                      name="no_hp"
+                      value={formData.no_hp}
+                      onChange={handleChange}
+                      placeholder="No. Handphone"
+                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400"
+                    />
+                  </div>
+
+                  <div>
+                    <p className="mb-1 text-sm font-medium text-slate-700">
+                      Subjek
+                    </p>
+
+                    <input
+                      type="text"
+                      name="subjek"
+                      value={formData.subjek}
+                      onChange={handleChange}
+                      placeholder="Subjek"
+                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <p className="mb-1 text-sm font-medium text-slate-700">
+                      Pesan
+                    </p>
+
+                    <textarea
+                      name="pesan"
+                      value={formData.pesan}
+                      onChange={handleChange}
+                      placeholder="Tulis pesan..."
+                      rows={5}
+                      className="w-full rounded-2xl border border-slate-200 px-3 py-2 outline-none focus:border-indigo-400 resize-none"
+                    />
+                  </div>
+
+                </div>
+
+                <div className="mt-6 flex justify-end gap-3">
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
+                  >
+                    Batal
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="rounded-full bg-[#002446] hover:bg-[#00345F] px-4 py-2 text-sm font-medium text-white transition"
+                  >
+                    Kirim
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )

@@ -1,6 +1,7 @@
 const db = require("../config/db");
 
 const getAllContact = (req, res) => {
+    
     const sql = `
         SELECT
             id_message,
@@ -16,7 +17,9 @@ const getAllContact = (req, res) => {
     `;
 
     db.query(sql, (err, result) => {
-        if (err) {
+    if (err) {
+            console.error("❌ ERROR GET CONTACT:", err);
+            
             return res.status(500).json({
                 success: false,
                 message: "Gagal mengambil contact"

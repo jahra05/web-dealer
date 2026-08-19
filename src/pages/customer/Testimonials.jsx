@@ -23,7 +23,7 @@ const Testimonials = () => {
     getTestimoni();
   }, []);
   return (
-    <section className="bg-gray-50 py-20 rounded-[40px]">
+    <section className="bg-gray-50 py-20 rounded-[40px]" id='testimoni'>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-black text-gray-900 mb-12">Testimoni Pembeli</h2>
 

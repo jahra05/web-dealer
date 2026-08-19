@@ -79,6 +79,7 @@ const Footer = () => {
               <li><button onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E] transition-colors font-bold">Home</button></li>
               <li><button onClick={() => document.getElementById('produk')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E]  transition-colors font-bold">Produk</button></li>
               <li><button onClick={() => document.getElementById('simulasi-kredit')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E]  transition-colors font-bold">Simulasi Kredit</button></li>
+              <li><button onClick={() => document.getElementById('testimoni')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#006A9E]  transition-colors font-bold">Testimoni</button></li>
             </ul>
           </motion.div>
 

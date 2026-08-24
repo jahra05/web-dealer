@@ -17,7 +17,7 @@ const db = mysql.createPool({
     }
 });
 
-db.connect((err) => {
+db.query("SELECT 1", (err) => {
     if (err) {
         console.log("Koneksi database gagal!");
         console.log(err);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { BiEdit } from "react-icons/bi"
 import Setting from "./Setting"
 import { RxHamburgerMenu } from "react-icons/rx"
-import CustomAlert from "../../components/CustomAlert"
+import CustomAlert from "../../../components/CustomAlert"
 
 export default function SettingProfileDealer() {
 
@@ -138,52 +138,25 @@ export default function SettingProfileDealer() {
                                         <input type="text" name="nama_dealer" value={footer.nama_dealer} onChange={handleFooter} placeholder="Nama Dealer" title="Nama Dealer" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                     </div>
                                     <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">Alamat</p>
-                                        <textarea type="text" name="alamat" value={footer.alamat} onChange={handleFooter} placeholder="Alamat" title="Alamat" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_sabtu</p>
-                                        <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Jam Operasional (Sabtu)" title="Jam Operasional (Sabtu)" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_senin_jumat</p>
-                                        <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Jam Operasional (Senin-Jumat)" title="Jam Operasional (Senin-Jumat)" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">Nomor Telepon</p>
-                                        <input type="number" name="no_hp" value={footer.no_hp} onChange={handleFooter} placeholder="Nomor Telepon" title="Nomor Telepon" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">whatsapp</p>
-                                        <input type="text" name="whatsapp" value={footer.whatsapp} onChange={handleFooter} placeholder="WhatsApp" title="WhatsApp" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">Email</p>
-                                        <input type="email" name="email" value={footer.email} onChange={handleFooter} placeholder="Email" title="Email" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">instagram</p>
-                                        <input type="text" name="instagram" value={footer.instagram} onChange={handleFooter} placeholder="Instagram" title="Instagram" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">facebook</p>
-                                        <input type="text" name="facebook" value={footer.facebook} onChange={handleFooter} placeholder="Facebook" title="Facebook" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">deskripsi</p>
-                                        <textarea type="text" name="deskripsi" value={footer.deskripsi} onChange={handleFooter} placeholder="Deskripsi" title="Deskripsi" className="bg-white/10 border  border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm " />
-                                    </div>
-
-                                    <div>
                                         <p className="text-gray-600 w-32 text-sm font-medium mb-2">Sub Title</p>
                                         <input type="text" name="title" value={footer.title} onChange={handleFooter} placeholder="Sub Title" title="Sub Title" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                     </div>
+                                </div>
 
+                                <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                                        <div>
+                                            <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_sabtu</p>
+                                            <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Jam Operasional (Sabtu)" title="Jam Operasional (Sabtu)" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
+                                        </div>
+                                        <div>
+                                            <p className="text-gray-600 w-32 text-sm font-medium mb-2">jam_senin_jumat</p>
+                                            <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Jam Operasional (Senin-Jumat)" title="Jam Operasional (Senin-Jumat)" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
+                                        </div>
+                                    </div>
                                     <div>
-                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">google_maps</p>
-                                        <input type="text" name="google_maps" value={footer.google_maps} onChange={handleFooter} placeholder="Google Maps (URL atau embed)" title="Google Maps (URL atau embed)" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
+                                        <p className="text-gray-600 w-32 text-sm font-medium mb-2">Alamat</p>
+                                        <textarea type="text" name="alamat" value={footer.alamat} onChange={handleFooter} placeholder="Alamat" title="Alamat" className="bg-white/10 border border-black/15 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
                                     </div>
                                 </div>
                             </div>

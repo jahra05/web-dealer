@@ -4,10 +4,10 @@ import { BsArrowLeft } from "react-icons/bs";
 import { FaMotorcycle } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import SettingProfileAdmin from "../Admin/SettingProfileAdmin";
-import SettingProfileDealer from "../Admin/SettingProfileDealer";
+import SettingProfileAdmin from "./SettingProfileAdmin";
+import SettingProfileDealer from "./SettingProfileDealer";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { pre } from "framer-motion/client";
+import { pre, title } from "framer-motion/client";
 
 export default function Setting({ isOpen, onClose }) {
     const navigate = useNavigate()
@@ -28,9 +28,26 @@ export default function Setting({ isOpen, onClose }) {
     }, [])
 
     const navSetting = [
-        { path: "/admin/setting/profile-admin", label: "Profile Admin" },
-        { path: "/admin/setting/profile-dealer", label: "profile Dealer" },
-        { path: "/admin/setting/hero", label: "Hero Setting" },
+        {
+            title: "PROFILE", items: [
+                { path: "/admin/setting/profile-admin", label: "Profile Admin" },
+                { path: "/admin/setting/profile-dealer", label: "profile Dealer" },
+
+            ]
+        },
+        {
+            title: "TAMPILAN", items: [
+                { path: "/admin/setting/hero", label: "Hero" },
+                { path: "/admin/setting/footer", label: "Footer" },
+
+            ]
+        },
+        {
+            title: "KATEGORI & TIPE", items: [
+                { path: "/admin/setting/dataMaster", label: "Produk" },
+
+            ]
+        }
     ]
 
     return (
@@ -49,10 +66,31 @@ export default function Setting({ isOpen, onClose }) {
                     </Link>
                 </div>
                 <nav className="flex-1 px-3 py-2 overflow-y-auto">
-                    <p className="px-3 mb-2 text-[13px] font-semibold tracking-wider text-gray-400">
+                    <p className="px-3 mb-4 text-[13px] font-semibold tracking-wider text-gray-400">
                         PENGATURAN
                     </p>
-                    <ul className="space-y-1">
+                    {/* <div className="mb-5"> */}
+                    {navSetting.map((group) => (
+                        <div key={group.title} className="mb-5">
+                            <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">{group.title}</p>
+                            <ul className="space-y-1">
+                                {group.items.map((item) => {
+                                    const isActive = location.pathname === item.path
+
+                                    return (
+                                        <li key={item.path} className="list-none">
+                                            <Link to={item.path} onClick={onClose} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
+                                                ? "bg-[#002446] text-[#F2F8FC]"
+                                                : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
+                                                }`}>{item.label}</Link>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    ))}
+                    {/* </div> */}
+                    {/* <ul className="space-y-1">
                         {navSetting.map((item) => {
                             const isActive = location.pathname === item.path
 
@@ -65,7 +103,7 @@ export default function Setting({ isOpen, onClose }) {
                                 </li>
                             )
                         })}
-                    </ul>
+                    </ul> */}
                 </nav>
             </aside>
 
@@ -83,42 +121,45 @@ export default function Setting({ isOpen, onClose }) {
                         </Link>
                         <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors" aria-label="Close sidebar">x</button>
                     </div>
-
                     <nav className="flex-1 px-3 py-2 overflow-y-auto">
-                        <p className="px-3 mb-2 text-[13px] font-semibold tracking-wider text-gray-400">
+                        <p className="px-3 mb-4 text-[13px] font-semibold tracking-wider text-gray-400">
                             PENGATURAN
                         </p>
+                        {/* <div className="mb-5"> */}
+                        {navSetting.map((group) => (
+                            <div key={group.title} className="mb-5">
+                                <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">{group.title}</p>
+                                <ul className="space-y-1">
+                                    {group.items.map((item) => {
+                                        const isActive = location.pathname === item.path
 
-                        <ul className="space-y-1">
-                            {navSetting.map((item) => {
-                                const isActive = location.pathname === item.path;
-
-                                return (
-                                    <li key={item.path} className="list-none">
-                                        <Link
-                                            to={item.path}
-                                            onClick={onClose}
-                                            className={`
-                                                flex items-center
-                                                px-4 py-3
-                                                w-full
-                                                rounded-xl
-                                                text-sm
-                                                font-semibold
-                                                transition-all
-                                                duration-200
-                                                ${isActive
+                                        return (
+                                            <li key={item.path} className="list-none">
+                                                <Link to={item.path} onClick={onClose} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
                                                     ? "bg-[#002446] text-[#F2F8FC]"
                                                     : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
-                                                }
-                                            `}
-                                        >
-                                            {item.label}
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                                                    }`}>{item.label}</Link>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+                        ))}
+                        {/* </div> */}
+                        {/* <ul className="space-y-1">
+                        {navSetting.map((item) => {
+                            const isActive = location.pathname === item.path
+
+                            return (
+                                <li key={item.path} className="list-none">
+                                    <Link to={item.path} onClick={onClose} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
+                                        ? "bg-[#002446] text-[#F2F8FC]"
+                                        : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
+                                        }`}>{item.label}</Link>
+                                </li>
+                            )
+                        })}
+                    </ul> */}
                     </nav>
                 </aside>
             </div>

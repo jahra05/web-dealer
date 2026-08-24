@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Setting from "./Setting";
-import CustomAlert from "../../components/CustomAlert";
-import ConfirmAlert from "../../components/ConfirmAlert";
+import CustomAlert from "../../../components/CustomAlert";
+import ConfirmAlert from "../../../components/ConfirmAlert";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function HeroSetting() {

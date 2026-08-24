@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import CustomAlert from "../../components/CustomAlert"
 import { BiEdit } from "react-icons/bi"
 import Setting from "./Setting"
 import { RxHamburgerMenu } from "react-icons/rx"
+import CustomAlert from "../../../components/CustomAlert"
 
 export default function SettingProfileAdmin() {
     const [user, setUser] = useState([])

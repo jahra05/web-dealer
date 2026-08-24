@@ -5,6 +5,7 @@ const getAllTipe = (req, res) => {
     SELECT 
     tipe.id_tipe,
     tipe.nama_tipe,
+    tipe.status,
     kategori.id_kategori,
     kategori.nama_kategori
     FROM tipe JOIN kategori ON tipe.id_kategori = kategori.id_kategori
@@ -89,7 +90,8 @@ const deleteTipe = (req, res) => {
     const { id } = req.params
 
     const sql = `
-    DELETE FROM tipe
+    UPDATE tipe
+    SET status = 'Nonaktif
     WHERE id_tipe = ?
     `;
 

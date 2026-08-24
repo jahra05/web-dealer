@@ -15,11 +15,13 @@ import FaqAdmin from './pages/Admin/FaqAdmin';
 import PageMessage from './pages/Admin/PageMessage';
 // import SimulasiKredit from './pages/Admin/SimulasiKredit';
 import Spesifikasi from './pages/Admin/Spesifikasi';
-import Setting from './pages/Admin/Setting';
+import Setting from './pages/Admin/setting/Setting';
 import PageForgatPassword from './pages/Admin/PageForgatPassword';
-import SettingProfileDealer from './pages/Admin/SettingProfileDealer';
-import SettingProfileAdmin from './pages/Admin/SettingProfileAdmin';
-import HeroSetting from './pages/Admin/HeroSetting';
+import SettingProfileDealer from './pages/Admin/setting/SettingProfileDealer';
+import SettingProfileAdmin from './pages/Admin/setting/SettingProfileAdmin';
+import HeroSetting from './pages/Admin/setting/HeroSetting';
+import Footer from './pages/Admin/setting/Footer';
+import DataMaster from './pages/Admin/setting/DataMaster';
 
 function App() {
   return (
@@ -40,9 +42,11 @@ function App() {
         <Route path="/admin/exam" element={<ProtectedRoute><Exam /></ProtectedRoute>} />
         <Route path="/admin/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
         <Route path="/admin/forgatPassword" element={<PageForgatPassword />} />
-        <Route path="/admin/setting/profile-dealer" element={<SettingProfileDealer />} />
-        <Route path="/admin/setting/profile-admin" element={<SettingProfileAdmin />} />
-        <Route path="/admin/setting/hero" element={<HeroSetting />} />
+        <Route path="/admin/setting/profile-dealer" element={<ProtectedRoute><SettingProfileDealer /></ProtectedRoute>} />
+        <Route path="/admin/setting/profile-admin" element={<ProtectedRoute><SettingProfileAdmin /></ProtectedRoute>} />
+        <Route path="/admin/setting/hero" element={<ProtectedRoute><HeroSetting /></ProtectedRoute>} />
+        <Route path="/admin/setting/footer" element={<ProtectedRoute><Footer /></ProtectedRoute>} />
+        <Route path="/admin/setting/dataMaster" element={<ProtectedRoute><DataMaster /></ProtectedRoute>} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
       </Routes>
     </Router>

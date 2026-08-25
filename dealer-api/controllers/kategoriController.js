@@ -140,41 +140,41 @@ const updateKategori = (req, res) => {
     })
 }
 
-// const deleteKategori = (req, res) => {
+const deleteKategori = (req, res) => {
 
-//     const { id } = req.params;
+    const { id_kategori } = req.params;
 
-//     const sql = "DELETE FROM kategori WHERE id_kategori = ?";
+    const sql = "DELETE FROM kategori WHERE id_kategori = ?";
 
-//     db.query(sql, [id], (err, result) => {
+    db.query(sql, [id_kategori], (err, result) => {
 
-//         if (err) {
-//             return res.status(500).json({
-//                 success: false,
-//                 message: "Gagal menghapus kategori"
-//             });
-//         }
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Gagal menghapus kategori"
+            });
+        }
 
-//         if (result.affectedRows === 0) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: "Kategori tidak ditemukan"
-//             });
-//         }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Kategori tidak ditemukan"
+            });
+        }
 
-//         res.status(200).json({
-//             success: true,
-//             message: "Kategori berhasil dihapus"
-//         });
+        res.status(200).json({
+            success: true,
+            message: "Kategori berhasil dihapus"
+        });
 
-//     });
+    });
 
-// };
+};
 
 module.exports = {
     getAllKategori,
     addKategori,
     updateKategori,
-    updateStatusKategori
-    // deleteKategori
+    updateStatusKategori,
+    deleteKategori
 }

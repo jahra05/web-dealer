@@ -11,6 +11,6 @@ router.put("/:id_kategori/status", (req, res, next) => {
     console.log("🔥 ROUTE STATUS KATEGORI DIPANGGIL");
     next();
 }, verifyToken, kategoriController.updateStatusKategori);
-// router.delete("/:id_kategori", verifyToken, kategoriController.deleteKategori);
+router.delete("/:id_kategori", verifyToken, kategoriController.deleteKategori);
 
 module.exports = router

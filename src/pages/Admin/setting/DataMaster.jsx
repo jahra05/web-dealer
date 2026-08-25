@@ -39,7 +39,41 @@ export default function DataMaster() {
         }))
     }
 
+    const deletKategori = async (id) => {
+        try {
+            const token = localStorage.getItem("token");
 
+            console.log("ID KATEGORI:", id);
+            console.log("TOKEN:", token);
+
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/kategori/${id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            console.log("STATUS DELETE:", response.status);
+
+            const data = await response.json();
+
+            console.log("RESPONSE DELETE:", data);
+
+            if (!response.ok) {
+                throw new Error(data.message || "Gagal menghapus kategori");
+            }
+
+            alert(data.message);
+            await getKategori();
+
+        } catch (error) {
+            console.error("ERROR MENGHAPUS KATEGORI:", error);
+            alert(error.message || "Terjadi kesalahan");
+        }
+    };
 
     const handleSubmitKategori = async (e) => {
         e.preventDefault();
@@ -115,9 +149,7 @@ export default function DataMaster() {
         } catch (error) {
             console.error(error)
         }
-        alert(
-            "gagal mengubah status kategori"
-        )
+
     }
 
     const getKategori = async () => {
@@ -198,6 +230,7 @@ export default function DataMaster() {
                                             </span>
                                         </div>
                                         <div className="flex gap-2">
+                                            <button onClick={() => deletKategori(item.id_kategori)}>delete</button>
                                             <button onClick={() => openEditKategori(item)} className="px-3 py-2 rounded-lg border border-gray-200 text-sm hover:bg-gray-50">Edit</button>
                                             <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className={`px-3 py-2 rounded-lg text-sm ${item.status === "Aktif"
                                                 ? "bg-red-50 text-red-600 hover:bg-red-100"
@@ -250,7 +283,7 @@ export default function DataMaster() {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    setIsKategoriModalOpen(false)
+                                    setIskategoriModalOpen(false)
                                 }
                                 className="w-8 h-8 rounded-full hover:bg-gray-100"
                             >
@@ -288,7 +321,7 @@ export default function DataMaster() {
                                 <button
                                     type="button"
                                     onClick={() =>
-                                        setIsKategoriModalOpen(false)
+                                        setIskategoriModalOpen(false)
                                     }
                                     className="px-4 py-2 rounded-lg border border-gray-200 text-sm"
                                 >

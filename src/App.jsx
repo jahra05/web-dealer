@@ -21,7 +21,7 @@ import SettingProfileDealer from './pages/Admin/setting/SettingProfileDealer';
 import SettingProfileAdmin from './pages/Admin/setting/SettingProfileAdmin';
 import HeroSetting from './pages/Admin/setting/HeroSetting';
 import Footer from './pages/Admin/setting/Footer';
-import DataMaster from './pages/Admin/setting/DataMaster';
+import Kategori from './pages/Admin/setting/Kategori';
 
 function App() {
   return (
@@ -46,7 +46,7 @@ function App() {
         <Route path="/admin/setting/profile-admin" element={<ProtectedRoute><SettingProfileAdmin /></ProtectedRoute>} />
         <Route path="/admin/setting/hero" element={<ProtectedRoute><HeroSetting /></ProtectedRoute>} />
         <Route path="/admin/setting/footer" element={<ProtectedRoute><Footer /></ProtectedRoute>} />
-        <Route path="/admin/setting/dataMaster" element={<ProtectedRoute><DataMaster /></ProtectedRoute>} />
+        <Route path="/admin/setting/kategori" element={<ProtectedRoute><Kategori/></ProtectedRoute>} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
       </Routes>
     </Router>

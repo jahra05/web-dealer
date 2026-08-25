@@ -50,6 +50,45 @@ const createTipe = (req, res) => {
     })
 }
 
+const updateStatusTipe = (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!status) {
+        return res.status(400).json({
+            success: false,
+            message: "Status wajib disis"
+        })
+    }
+
+    if (!['Aktif', 'Nonakrif'].includes(status)) {
+        return res.status(400).json({
+            success: false,
+            message: "status tidak valid"
+        })
+    }
+
+    const sql = ` UPDATE tipe SET status = ? WHERE id_tipe = ? `;
+
+    db.query(sql, [status, id], (err, result) => {
+        if (err) {
+            console.error("Erro update status tipe", err);
+            return res.status(500).json({
+                success: false,
+                message: "Gagal mengubha status tipe"
+            })
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "tipe berhasil di ubah"
+            })
+        }
+    })
+}
+
+
 const updateTipe = (req, res) => {
     const { id } = req.params;
     const { nama_tipe, id_kategori } = req.body;
@@ -155,5 +194,6 @@ module.exports = {
     getAllTipe,
     createTipe,
     updateTipe,
-    deleteTipe
+    deleteTipe,
+    updateStatusTipe
 }

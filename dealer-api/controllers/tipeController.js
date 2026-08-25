@@ -61,7 +61,7 @@ const updateStatusTipe = (req, res) => {
         })
     }
 
-    if (!['Aktif', 'Nonakrif'].includes(status)) {
+    if (!['Aktif', 'Nonaktif'].includes(status)) {
         return res.status(400).json({
             success: false,
             message: "status tidak valid"
@@ -130,7 +130,7 @@ const deleteTipe = (req, res) => {
 
     const sql = `
     UPDATE tipe
-    SET status = 'Nonaktif
+    SET status = 'Nonaktif'
     WHERE id_tipe = ?
     `;
 

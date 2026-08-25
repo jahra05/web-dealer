@@ -251,6 +251,7 @@ export default function Kategori() {
             await getTipe()
         } catch (error) {
             console.error(error)
+            alert("gagal ubah status")
         }
     }
 
@@ -425,7 +426,7 @@ export default function Kategori() {
                                                         >
                                                             Edit
                                                         </button>
-                                                        <button onClick={() => handleStatusTipe(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")}>
+                                                        <button onClick={() => handleStatusTipe(item.id_tipe, item.status === 'Aktif' ? "Nonaktif" : "Aktif")}>
                                                             {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
                                                         </button>
                                                     </div>

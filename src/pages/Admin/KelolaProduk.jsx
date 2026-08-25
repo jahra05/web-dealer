@@ -632,15 +632,13 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 text-sm font-medium text-slate-900 whitespace-nowrap">{item.nama_kategori}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.nama_tipe}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.tahun}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap flex items-center gap-4">
-
-
+                                            <td className="px-4 py-5 text-sm text-slate-600 whitespace-nowrap flex ">
                                                 {warna
                                                     .filter((w) => w.id_motor === item.id_motor)
                                                     .map((w) => (
-                                                        <div key={w.id_warna} className="flex items-center gap-3">
+                                                        <div key={w.id_warna}>
                                                             <div
-                                                                className="w-8 h-8 rounded-full border"
+                                                                className="w-6 h-6"
                                                                 style={{ backgroundColor: w.kode_warna }}
                                                             />
                                                         </div>
@@ -766,6 +764,7 @@ const KelolaProduk = () => {
                                         <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.nama_tipe}</p>
                                         <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.tahun}</p>
                                     </div>
+
                                     <div>
                                         <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
 
@@ -828,10 +827,27 @@ const KelolaProduk = () => {
 
                                 </div>
                                 <div>
-                                    <h3 className="mt-3 font-bold text-lg">{item.nama_motor}</h3>
+
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="mt-3 font-bold text-lg">{item.nama_motor}</h3>
+                                        <div className="flex gap-4">
+                                            <div className="flex gap-1">
+                                                {warna
+                                                    .filter((w) => w.id_motor === item.id_motor)
+                                                    .map((w) => (
+                                                        <div key={w.id_warna}>
+                                                            <div
+                                                                className="w-6 h-6 rounded-full"
+                                                                style={{ backgroundColor: w.kode_warna }}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                        </div>
+                                    </div>
                                     <p className="text-l text-gray-500 font-medium">Harga : Rp {Number(item.harga).toLocaleString("id-ID")}</p>
                                     <p className="text-sm mt-2">Stok : <span className="font-semibold">{item.stok}</span></p>
-                                    <p>{item.nama_warna}</p>
+
                                 </div>
                             </div>
                         ))}

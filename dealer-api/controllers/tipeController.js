@@ -57,7 +57,7 @@ const updateStatusTipe = (req, res) => {
     if (!status) {
         return res.status(400).json({
             success: false,
-            message: "Status wajib disis"
+            message: "Status wajib di isi"
         })
     }
 
@@ -75,13 +75,13 @@ const updateStatusTipe = (req, res) => {
             console.error("Erro update status tipe", err);
             return res.status(500).json({
                 success: false,
-                message: "Gagal mengubha status tipe"
+                message: "Gagal mengubah status tipe"
             })
         }
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                success: false,
+                success: true,
                 message: "tipe berhasil di ubah"
             })
         }

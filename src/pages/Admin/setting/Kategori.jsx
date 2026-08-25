@@ -1,6 +1,9 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import Setting from "./Setting";
 import { useEffect, useState } from "react";
+import ConfirmAlert from "../../../components/ConfirmAlert";
+import CustomAlert from "../../../components/CustomAlert";
+import { PiPlus } from "react-icons/pi";
 
 export default function Kategori() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -15,12 +18,27 @@ export default function Kategori() {
     const [editKategori, setEditKategori] = useState(null)
     const [editTipe, setEditTipe] = useState(null)
     const [selectKategori, setSelectKategori] = useState(null)
+    const [alert, setAlert] = useState(null)
+    const [page, setPage] = useState(1)
+    const rowsPerPage = 5
+
+    const [pageKategori, setPageKategori] = useState(1)
+    const rowsPerPageKategori = 5
+
+    const totalPageKategori = Math.max(1, Math.ceil(kategori.length / rowsPerPageKategori))
+    const pageKategoriItems = kategori.slice((pageKategori - 1) * rowsPerPageKategori, pageKategori * rowsPerPageKategori)
 
     const handleSelectKategori = (kategori) => {
         setSelectKategori(kategori)
     }
 
     const filterTipe = selectKategori ? tipe.filter((item) => item.id_kategori === selectKategori.id_kategori) : [];
+    const totalPages = Math.max(1, Math.ceil(filterTipe.length / rowsPerPage))
+    const pageItems = filterTipe.slice((page - 1) * rowsPerPage, page * rowsPerPage)
+
+    useEffect(() => {
+        setPage(1)
+    }, [selectKategori])
 
     const openAddTipe = () => {
         if (!selectKategori) {
@@ -72,44 +90,13 @@ export default function Kategori() {
         }))
     }
 
-    const deletKategori = async (id) => {
-        try {
-
-            const token = localStorage.getItem("token");
-
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/kategori/${id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-
-            console.log("STATUS DELETE:", response.status);
-
-            const data = await response.json();
-
-            console.log("RESPONSE DELETE:", data);
-
-            if (!response.ok) {
-                throw new Error(data.message || "Gagal menghapus kategori");
-            }
-
-            alert(data.message);
-            await getKategori();
-
-        } catch (error) {
-            console.error("ERROR MENGHAPUS KATEGORI:", error);
-            alert(error.message || "Terjadi kesalahan");
-        }
-    };
-
     const handleSubmitTipe = async (e) => {
         e.preventDefault()
         if (!tipeForm.nama_tipe.trim()) {
-            alert("Nama kategori wajib disis")
+            setAlert({
+                type: 'warning',
+                message: "Nama Tipe wajib di isi"
+            })
             return
         }
         try {
@@ -134,7 +121,10 @@ export default function Kategori() {
             if (!response.ok) {
                 throw new Error(data.message || 'gagal menyimpan tipe');
             }
-            alert(data.message)
+            setAlert({
+                type: 'error',
+                message: data.message
+            })
 
             setIsTipeModalOpen(false)
 
@@ -148,8 +138,10 @@ export default function Kategori() {
 
         } catch (error) {
             console.error("ERRO tipe", error)
-
-            alert(error.message || "terjadi kesalaahan")
+            setAlert({
+                type: 'warning',
+                message: error.message || 'Terjadi Kesalahan'
+            })
         }
     }
 
@@ -158,7 +150,10 @@ export default function Kategori() {
         e.preventDefault();
 
         if (!kategoriForm.nama_kategori.trim()) {
-            alert("Nama kategori wajib disis")
+            setAlert({
+                type: 'warning',
+                message: "Nama Kategori Wajib di isi"
+            })
             return
         }
         try {
@@ -180,11 +175,20 @@ export default function Kategori() {
             });
 
             const data = await response.json();
+            if (data.success) {
+                setAlert({
+                    type: 'success',
+                    message: "Status Tipe Berhasil diubah"
+                })
+            }
 
             if (!response.ok) {
                 throw new Error(data.message || 'gagal menyimpan kategori');
             }
-            alert(data.message)
+            setAlert({
+                type: 'success',
+                message: data.message
+            })
 
             setIskategoriModalOpen(false)
 
@@ -198,8 +202,10 @@ export default function Kategori() {
 
         } catch (error) {
             console.error("ERRO KATEGORI", error)
-
-            alert(error.message || "terjadi kesalaahan")
+            setAlert({
+                type: 'warning',
+                message: error.message || "Terjadi Kesalahan"
+            })
         }
     }
 
@@ -218,6 +224,12 @@ export default function Kategori() {
             );
 
             const data = await response.json();
+            if (data.success) {
+                setAlert({
+                    type: 'success',
+                    message: 'Status Kategori Berhasil diubah'
+                })
+            }
             if (!response.ok) {
                 throw new Error(
                     data.message || "gagal mengubah status"
@@ -227,34 +239,52 @@ export default function Kategori() {
             await getKategori()
 
         } catch (error) {
-            console.error(error)
+            setAlert({
+                type: "error",
+                message: error || "Gagal mengubah Status Kategori"
+            })
         }
 
     }
 
     const handleStatusTipe = async (id, status) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe/${id}/status`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                },
-                body: JSON.stringify({ status })
-            });
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/tipe/${id}/status`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify({ status })
+                }
+            );
+
             const data = await response.json();
+
             if (!response.ok) {
                 throw new Error(
-                    data.message || "gagal mengubha status"
-                )
+                    data.message || "Gagal mengubah status"
+                );
             }
-            await getTipe()
-        } catch (error) {
-            console.error(error)
-            alert("gagal ubah status")
-        }
-    }
 
+            await getTipe();
+
+            setAlert({
+                type: "success",
+                message: data.message || "Status tipe berhasil diubah"
+            });
+
+        } catch (error) {
+            console.error(error);
+
+            setAlert({
+                type: "error",
+                message: error.message || "Gagal mengubah status tipe"
+            });
+        }
+    };
     const getKategori = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`)
@@ -268,7 +298,10 @@ export default function Kategori() {
 
             }
         } catch (error) {
-            console.log(error)
+            setAlert({
+                type: "error",
+                message: error
+            })
         }
     }
     const getTipe = async () => {
@@ -286,9 +319,6 @@ export default function Kategori() {
         }
     }
 
-
-
-
     useEffect(() => {
         getKategori(),
             getTipe()
@@ -296,6 +326,9 @@ export default function Kategori() {
 
     return (
         <>
+            {alert && (
+                <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
+            )}
             <div className="min-h-screen w-full flex gap-2 bg-gray-50 overflow-x-hidden">
                 <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
                 <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
@@ -305,139 +338,166 @@ export default function Kategori() {
                             <RxHamburgerMenu size={24} />
                         </button>
                     </div>
-                    <div className="flex gap-6">
-                        <div className="bg-white p-4 rounded-xl w-1/2">
-                            <div className="mb-4 border-b pt-4">
-                                <p className="text-lg font-medium">Kategori</p>
-                                <p className="text-xs text-gray-600">Kelola Kategori produk</p>
-                            </div>
-                            <div className="flex items-center justify-between mb-5">
+                    <div className="flex flex-col md:flex-row gap-6 bg-white p-4 rounded-xl">
+                        <div className="bg-white shadow p-4 rounded-xl w-full">
+                            <div className="mb-6 border-b pt-4 pb-4 flex justify-between items-center">
                                 <div>
-                                    <h2 className="text-lg font-semibold">Kategori</h2>
-                                    <p className="text-sm text-gray-500">Pilih kategori untuk melihat tipe</p>
+                                    <p className="text-lg font-medium">Kategori</p>
+                                    <p className="text-xs text-gray-600">Kelola Kategori produk</p>
                                 </div>
-                                <button onClick={openAddKategori} className="px-4 py-2 rounded-lg bg-[#004A7C] text-white text-sm hover:[#00385d]">+ Tambah Kategori</button>
+                                <button onClick={openAddKategori} className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:[#00385d]"><PiPlus size={24} /></button>
                             </div>
+
                             <div className="space-y-3">
-                                {kategori.map((item) => (
+                                {pageKategoriItems.map((item) => (
                                     <div key={item.id_kategori} onClick={() => setSelectKategori(item)}
                                         className={`cursor-pointer flex items-center justify-between gap-3 border rounded-xl p-4 transition ${selectKategori?.id_kategori === item.id_kategori ? "border-[#004A7C] bg-blue-50" : "border-gray-100 hover:bg-gray-50"}`}
                                     >
-                                        <div className="flex gap-4">
-                                            <p className="font-medium text-gray-800">{item.nama_kategori}</p>
+                                        <div className="flex gap-4 items-center">
+                                            <p className="font-medium text-gray-800 text-sm">{item.nama_kategori}</p>
                                             <span className={`inline-block mt-1 px-2 py-1 rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
                                                 {item.status}
                                             </span>
                                         </div>
-                                        <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
-                                            <button onClick={() => openEditKategori(item)} className="px-3 py-2 rounded-lg border border-gray-200 text-sm hover:bg-gray-50">
+                                        <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                            <button onClick={() => openEditKategori(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] rounded-tl-lg rounded-bl-lg">
                                                 Edit
                                             </button>
-                                            <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")}>
+                                            <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
                                                 {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
                                             </button>
                                         </div>
                                     </div>
                                 ))}
                             </div>
+                            <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                                <button
+                                    onClick={() => setPageKategori((p) => Math.max(1, p - 1))}
+                                    disabled={pageKategori === 1}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${pageKategori === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Prev
+                                </button>
+                                <span className="text-sm text-slate-600">Halaman {pageKategori} / {totalPageKategori}</span>
+                                <button
+                                    onClick={() => setPageKategori((p) => Math.min(totalPageKategori, p + 1))}
+                                    disabled={pageKategori === totalPageKategori}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${pageKategori === totalPageKategori ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Next
+                                </button>
+                            </div>
                         </div>
 
-                        <div className="bg-white p-4 rounded-xl w-1/2">
+                        <div className="bg-white shadow p-4 rounded-xl w-full flex flex-col justify-between">
 
-                            <div className="mb-4 border-b py-4">
-                                <p className="text-lg font-medium">Tipe Motor</p>
-                                <p className="text-xs text-gray-600">
-                                    Kelola tipe berdasarkan kategori
-                                </p>
-                            </div>
-
-
-                            {!selectKategori ? (
-
-                                <div className="flex items-center justify-center py-20">
-                                    <p className="text-sm text-gray-500">
-                                        Pilih kategori terlebih dahulu
+                            <div>
+                                <div className="mb-4 border-b py-4">
+                                    <p className="text-lg font-medium">Tipe Motor</p>
+                                    <p className="text-xs text-gray-600">
+                                        Kelola tipe berdasarkan kategori
                                     </p>
                                 </div>
 
-                            ) : (
+                                {!selectKategori ? (
 
-                                <>
-
-                                    {/* Header tipe */}
-                                    <div className="flex items-center justify-between mb-5">
-
-                                        <div>
-                                            <h2 className="text-lg font-semibold">
-                                                {selectKategori.nama_kategori}
-                                            </h2>
-
-                                            <p className="text-sm text-gray-500">
-                                                Daftar tipe motor
-                                            </p>
-                                        </div>
-
-                                        <button
-                                            onClick={openAddTipe}
-                                            className="px-4 py-2 rounded-lg bg-[#004A7C] text-white text-sm hover:bg-[#00385d]"
-                                        >
-                                            + Tambah Tipe
-                                        </button>
+                                    <div className="flex items-center justify-center py-20">
+                                        <p className="text-sm text-gray-500">
+                                            Pilih kategori terlebih dahulu
+                                        </p>
                                     </div>
 
-                                    {/* Daftar tipe */}
-                                    <div className="space-y-3">
+                                ) : (
+                                    <>
 
-                                        {filterTipe.length === 0 ? (
+                                        {/* Header tipe */}
+                                        <div className="flex items-center justify-between mb-5">
 
-                                            <div className="text-center py-10">
+                                            <div>
+                                                <h2 className="text-lg font-semibold">
+                                                    {selectKategori.nama_kategori}
+                                                </h2>
 
-                                                <p className="text-sm text-gray-500 mb-3">
-                                                    Belum ada tipe untuk kategori ini
+                                                <p className="text-sm text-gray-500">
+                                                    Daftar tipe motor
                                                 </p>
                                             </div>
 
-                                        ) : (
+                                            <button
+                                                onClick={openAddTipe}
+                                                className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:bg-[#00385d]"
+                                            >
+                                                <PiPlus size={24} />
+                                            </button>
+                                        </div>
 
-                                            filterTipe.map((item) => (
+                                        {/* Daftar tipe */}
+                                        <div className="space-y-3">
 
-                                                <div
-                                                    key={item.id_tipe}
-                                                    className="flex items-center justify-between border border-gray-100 rounded-xl p-4 hover:bg-gray-50"
-                                                >
+                                            {pageItems.length === 0 ? (
 
-                                                    <div>
-                                                        <p className="font-medium text-gray-800">
-                                                            {item.nama_tipe}
-                                                        </p>
-                                                        <span className={`inline-block mt-1 px-2 py-1 rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-                                                            {item.status}
-                                                        </span>
+                                                <div className="text-center py-10">
 
-                                                        <p className="text-xs text-gray-500">
-                                                            {item.nama_kategori}
-                                                        </p>
-                                                    </div>
-
-                                                    <div className="flex">
-                                                        <button
-                                                            onClick={() => openEditTipe(item)}
-                                                            className="px-3 py-2 rounded-lg border border-gray-200 text-sm hover:bg-gray-100"
-                                                        >
-                                                            Edit
-                                                        </button>
-                                                        <button onClick={() => handleStatusTipe(item.id_tipe, item.status === 'Aktif' ? "Nonaktif" : "Aktif")}>
-                                                            {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
-                                                        </button>
-                                                    </div>
+                                                    <p className="text-sm text-gray-500 mb-3">
+                                                        Belum ada tipe untuk kategori ini
+                                                    </p>
                                                 </div>
-                                            ))
-                                        )}
-                                    </div>
-                                </>
-                            )}
+
+                                            ) : (
+
+                                                pageItems.map((item) => (
+
+                                                    <div
+                                                        key={item.id_tipe}
+                                                        className="flex items-center justify-between border border-gray-100 rounded-xl p-3 hover:bg-gray-50"
+                                                    >
+
+                                                        <div className="">
+                                                            <div className="flex gap-4 items-center">
+                                                                <p className="font-medium text-gray-800 text-sm">
+                                                                    {item.nama_tipe}
+                                                                </p>
+                                                                <span className={`inline-block mt-1  px-2 py-1  rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+                                                                    {item.status}
+                                                                </span>
+                                                            </div>
+
+                                                            <p className="text-xs text-gray-500">
+                                                                {item.nama_kategori}
+                                                            </p>
+                                                        </div>
+                                                        <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                                            <button onClick={() => openEditTipe(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] rounded-tl-lg rounded-bl-lg ">
+                                                                Edit
+                                                            </button>
+                                                            <button onClick={() => handleStatusTipe(item.id_tipe, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
+                                                                {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                                <button
+                                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                    disabled={page === 1}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Prev
+                                </button>
+                                <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                <button
+                                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={page === totalPages}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Next
+                                </button>
+                            </div>
                         </div>
+
                     </div>
+
                 </div>
             </div >
 

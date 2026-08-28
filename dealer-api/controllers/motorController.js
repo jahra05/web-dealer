@@ -1,5 +1,6 @@
 const db = require("../config/db");
-const cloudinary = require("../config/cloudinary")
+const cloudinary = require("../config/cloudinary");
+const { query } = require("../routes/authRoutes");
 
 const uploadToCloudinary = (fileBuffer) => {
     return new Promise((resolve, reject) => {
@@ -19,6 +20,46 @@ const uploadToCloudinary = (fileBuffer) => {
     })
 }
 
+
+const getMotorAktif = (req, res) => {
+    const sql = `
+    SELECT
+        motor.id_motor,
+        motor.nama_motor,
+        kategori.id_kategori,
+        kategori.nama_kategori,
+        tipe.id_tipe,
+        tipe.nama_tipe,
+        motor.harga,
+        motor.stok,
+        motor.tahun,
+        motor.deskripsi,
+        motor.gambar,
+        motor.status
+    FROM motor
+    JOIN kategori ON motor.id_kategori = kategori.id_kategori
+    JOIN tipe ON motor.id_tipe = tipe.id_tipe
+    WHERE motor.status = 'Aktif'
+    ORDER BY motor.id_motor DESC
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            console.err("error mengambil motor aktif:", err)
+
+            return res.status(500).json({
+                success: false,
+                message: "Gagal mengambil data motor aktif"
+            })
+        }
+        return res.json({
+            success: true,
+            message: "Data motro aktif berhasil diambil",
+            data: result
+        })
+    })
+}
 
 const getStokMenipis = (req, res) => {
     const sql = `
@@ -343,7 +384,7 @@ const deleteMotor = (req, res) => {
 
                 return res.json({
                     success: true,
-                    message: "Motor dinonaktifkan karena masih digunakan dalam data transaksi"
+                    message: "Motor dinonaktifkan karena masih digunakan dalam tabel lain "
                 });
             });
 
@@ -386,6 +427,7 @@ const deleteMotor = (req, res) => {
     });
 };
 module.exports = {
+    getMotorAktif,
     getStokMenipis,
     getAllMotor,
     getMotorID,

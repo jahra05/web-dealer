@@ -7,6 +7,7 @@ const upload = require("../middleware/upload");
 
 router.get("/stok-menipis", motorController.getStokMenipis)
 router.get("/", motorController.getAllMotor);
+router.get("/aktif", motorController.getMotorAktif);
 
 router.get("/:id", motorController.getMotorID);
 

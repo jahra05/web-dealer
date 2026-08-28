@@ -41,7 +41,7 @@ const ProductShowcase = () => {
 
   const getMotor = async () => {
     try {
-      const respose = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`);
+      const respose = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/aktif`);
       const data = await respose.json();
 
       console.log(data);

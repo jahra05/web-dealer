@@ -147,7 +147,7 @@ const createMotor = async (req, res) => {
         tahun,
         deskripsi,
     } = req.body;
-    
+
     console.log("===== UPDATE PROFILE =====");
     console.log("BODY:", req.body);
     console.log("FILE:", req.file);
@@ -286,9 +286,18 @@ const deleteMotor = (req, res) => {
             (SELECT COUNT(*)
              FROM simulasi_kredit
              WHERE id_motor = ?) AS jumlah_simulasi
+
+            (SELECT COUNT(*)
+            FROM spesifikasi_motor
+            WHERE id_motor = ? ) AS jumlah_spesifikasi
+
+            (SELECT COUNT(*)
+            FROM hero 
+            WHERE id_motor = ? ) AS jumlah_hero
+           
     `;
 
-    db.query(checkRelasi, [id, id], (err, result) => {
+    db.query(checkRelasi, [id, id, id, id], (err, result) => {
 
         if (err) {
             console.error("❌ Error cek relasi motor:", err);
@@ -303,6 +312,7 @@ const deleteMotor = (req, res) => {
         const jumlahPengajuan = result[0].jumlah_pengajuan;
         const jumlahSimulasi = result[0].jumlah_simulasi;
         const jumlahSpesifikasi = result[0].jumlahSpesifikasi
+        const jumlahHero = result[0].jumlahHero
 
         console.log("📌 Jumlah pengajuan:", jumlahPengajuan);
         console.log("📌 Jumlah simulasi:", jumlahSimulasi);
@@ -312,7 +322,7 @@ const deleteMotor = (req, res) => {
         // MOTOR MASIH DIGUNAKAN
         // ==========================================
 
-        if (jumlahPengajuan > 0 || jumlahSimulasi > 0 || jumlahSpesifikasi > 0) {
+        if (jumlahPengajuan > 0 || jumlahSimulasi > 0 || jumlahSpesifikasi > 0 || jumlahHero > 0) {
 
             const updateStatus = `
                 UPDATE motor

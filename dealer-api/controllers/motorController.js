@@ -278,23 +278,23 @@ const deleteMotor = (req, res) => {
     const { id } = req.params;
 
     const checkRelasi = `
-            (SELECT COUNT(*)
-             FROM pengajuan
-             WHERE id_motor = ?) AS jumlah_pengajuan,
+    SELECT
+        (SELECT COUNT(*)
+         FROM pengajuan
+         WHERE id_motor = ?) AS jumlah_pengajuan,
 
-            (SELECT COUNT(*)
-             FROM simulasi_kredit
-             WHERE id_motor = ?) AS jumlah_simulasi,
+        (SELECT COUNT(*)
+         FROM simulasi_kredit
+         WHERE id_motor = ?) AS jumlah_simulasi,
 
-            (SELECT COUNT(*)
-             FROM spesifikasi_motor
-             WHERE id_motor = ?) AS jumlah_spesifikasi,
+        (SELECT COUNT(*)
+         FROM spesifikasi_motor
+         WHERE id_motor = ?) AS jumlah_spesifikasi,
 
-            (SELECT COUNT(*)
-             FROM hero
-             WHERE id_motor = ?) AS jumlah_hero
-           
-    `;
+        (SELECT COUNT(*)
+         FROM hero
+         WHERE id_motor = ?) AS jumlah_hero
+`;
 
     db.query(checkRelasi, [id, id, id, id], (err, result) => {
 

@@ -7,11 +7,11 @@ import { FiRotateCcw } from 'react-icons/fi';
 const ProductShowcase = () => {
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [selectedVariant, setSelectedVariant] = useState('Semua');
-  const [selectedType, setSelectedType] = useState('Semua');
+  // const [selectedType, setSelectedType] = useState('Semua');
 
   const [bikes, setBikes] = useState([])
   const [kategori, setKategori] = useState([]);
-  const [tipe, setTipe] = useState([]);
+  // const [tipe, setTipe] = useState([]);
 
   const getTipe = async () => {
     try {
@@ -70,18 +70,18 @@ const ProductShowcase = () => {
         selectedVariant === "Semua" ||
         bike.nama_varian.toLowerCase() === selectedVariant.toLowerCase();
 
-      const matchType =
-        selectedType === "Semua" ||
-        bike.nama_tipe.toLowerCase() === selectedType.toLowerCase();
+      // const matchType =
+      //   selectedType === "Semua" ||
+      //   bike.nama_tipe.toLowerCase() === selectedType.toLowerCase();
 
-      return matchCategory && matchVariant && matchType;
+      return matchCategory && matchVariant;
     });
-  }, [bikes, selectedCategory, selectedVariant, selectedType]);
+  }, [bikes, selectedCategory, selectedVariant]);
 
   const resetFilters = () => {
     setSelectedCategory('Semua');
     setSelectedVariant('Semua');
-    setSelectedType('Semua');
+    // setSelectedType('Semua');
   };
 
   return (
@@ -98,8 +98,8 @@ const ProductShowcase = () => {
             <p className="text-gray-500 mt-2 font-medium">Temukan unit yang sesuai dengan kebutuhan Anda</p>
           </motion.div>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 flex-grow">
+          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 flex-grow">
               {/* Category Filter */}
               <div className="relative">
                 <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">
@@ -123,10 +123,16 @@ const ProductShowcase = () => {
                   ))}
                 </select>
               </div>
-
+              <button
+                onClick={resetFilters}
+                className="mt-auto sm:mb-0 bg-white border border-gray-200 text-gray-400 hover:text-blue-900 hover:border-blue-50 p-2 rounded-xl transition-all flex items-center justify-center"
+                title="Reset Filter"
+              >
+                <FiRotateCcw size={20} />
+              </button>
 
               {/* Type Filter */}
-              <div className="relative">
+              {/* <div className="relative">
                 <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Tipe Motor</label>
                 <select
                   value={selectedType}
@@ -144,16 +150,10 @@ const ProductShowcase = () => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
             </div>
 
-            <button
-              onClick={resetFilters}
-              className="mt-auto sm:mb-0 bg-white border border-gray-200 text-gray-400 hover:text-blue-900 hover:border-blue-50 p-3.5 rounded-xl transition-all flex items-center justify-center"
-              title="Reset Filter"
-            >
-              <FiRotateCcw size={20} />
-            </button>
+
           </div>
         </div>
 
@@ -171,7 +171,7 @@ const ProductShowcase = () => {
                   >
                     <div className="mb-4">
                       <h3 className="font-black text-gray-900 text-lg">{bike.nama_motor}</h3>
-                      <p className="text-xs font-bold text-gray-400">{bike.nama_tipe}</p>
+                      <p className="text-xs font-bold text-gray-400">Tipe : {bike.nama_tipe}</p>
                     </div>
 
                     <div className="mb-6 relative h-40 flex items-center justify-center">

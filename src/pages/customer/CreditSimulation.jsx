@@ -128,10 +128,10 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                 <select
                   value={selected?.id_motor || ""}
                   onChange={handleBikeChange}
-                  className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 outline-none focus:ring-4 focus:ring-primary/10 transition-all cursor-pointer mb-6"
+                  className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 outline-none focus:ring-4 focus:ring-blue-100 transition-all cursor-pointer mb-6"
                 >
                   {motorDisplay.map(bike => (
-                    <option key={bike.id_motor} value={bike.id_motor}>{bike?.nama_motor} - Rp {Number(bike.harga).toLocaleString('id-ID')}</option>
+                    <option key={bike.id_motor} value={bike.id_motor}>{bike?.nama_motor}</option>
                   ))}
                 </select>
 
@@ -144,13 +144,13 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
                     transition={{ duration: 0.3 }}
                     className="bg-white rounded-3xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden"
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-6 items-center">
                       <div className="relative group">
                         <div className="absolute inset-0 bg-blue-50/20 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
                         <img
                           src={`${selected?.gambar}`}
                           alt={selected?.nama_motor}
-                          className="relative z-10 w-full h-48 object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
+                          className="relative  w-full h-52 object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                       <div className="space-y-3">

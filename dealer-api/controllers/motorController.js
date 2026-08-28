@@ -147,7 +147,7 @@ const createMotor = async (req, res) => {
         tahun,
         deskripsi,
     } = req.body;
-    // const gambar = req.file ? req.file.filename : null;
+    
     console.log("===== UPDATE PROFILE =====");
     console.log("BODY:", req.body);
     console.log("FILE:", req.file);
@@ -302,15 +302,17 @@ const deleteMotor = (req, res) => {
 
         const jumlahPengajuan = result[0].jumlah_pengajuan;
         const jumlahSimulasi = result[0].jumlah_simulasi;
+        const jumlahSpesifikasi = result[0].jumlahSpesifikasi
 
         console.log("📌 Jumlah pengajuan:", jumlahPengajuan);
         console.log("📌 Jumlah simulasi:", jumlahSimulasi);
+        console.log("📌 Jumlah simulasi:", jumlahSpesifikasi);
 
         // ==========================================
         // MOTOR MASIH DIGUNAKAN
         // ==========================================
 
-        if (jumlahPengajuan > 0 || jumlahSimulasi > 0) {
+        if (jumlahPengajuan > 0 || jumlahSimulasi > 0 || jumlahSpesifikasi > 0) {
 
             const updateStatus = `
                 UPDATE motor

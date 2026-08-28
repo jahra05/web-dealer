@@ -19,6 +19,7 @@ const PengajuanKredit = () => {
     const [page, setPage] = useState(1)
     const [pengajuan, setPengajuan] = useState([])
     const [selectStatus, setSelectStatus] = useState("")
+    console.log("isi dari set status".selectStatus)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const rowsPerPage = 5
     const [alert, setAlert] = useState(null)
@@ -105,6 +106,7 @@ const PengajuanKredit = () => {
         })
     }
 
+    const statusOptions = [...new Set(pengajuan.map((item) => item.status))];
 
     const filter = pengajuan.filter((item) => {
         return (
@@ -169,12 +171,12 @@ const PengajuanKredit = () => {
                                 >
                                     <option value="">Semua Status</option>
 
-                                    {pengajuan.map((item) => (
+                                    {statusOptions.map((status) => (
                                         <option
-                                            key={item.id_pengajuan}
-                                            value={item.status}
+                                            key={status}
+                                            value={status}
                                         >
-                                            {item.status}
+                                            {status}
                                         </option>
                                     ))}
                                 </select>

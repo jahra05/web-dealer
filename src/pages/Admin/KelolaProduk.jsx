@@ -107,7 +107,9 @@ const KelolaProduk = () => {
         })
     }
 
+
     const deleteWarna = async (id) => {
+
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`, {
                 method: 'DELETE'
@@ -115,7 +117,12 @@ const KelolaProduk = () => {
             const data = await response.json()
 
             if (data.success) {
+                setAlert({
+                    type: "success",
+                    message: data.message || "Warna Berhasil di hapus"
+                })
                 getWarna()
+
             } else {
                 setAlert({
                     type: 'error',
@@ -125,12 +132,23 @@ const KelolaProduk = () => {
         } catch (error) {
             setAlert({
                 type: 'error',
-                message: data.message
+                message: data.message || 'Terjadi Kesalahan'
             })
         }
-        setConfirm(false)
+
     }
 
+    const handleDeleteWarna = (id) => {
+        setConfirm({
+            title: "Hapus Warna",
+            message: "Yakin ingin menghapus warna ini ? ",
+            onConfirm: async () => {
+                setConfirm(null)
+                await deleteWarna(id)
+            },
+            onCancel: () => setConfirm(null)
+        })
+    }
 
     const createWarna = async () => {
         try {
@@ -323,8 +341,12 @@ const KelolaProduk = () => {
     };
 
     const filteredProducts = products.filter((item) => {
+        console.log('isi produl', products);
+        const searchLower = search.toLowerCase().trim()
+
         const cocokSearch =
-            item.nama_motor.toLowerCase().includes(search.toLocaleLowerCase())
+            item.nama_motor.toLowerCase().includes(searchLower) || (searchLower === 'aktif' && item.status === 'Aktif') || (searchLower === 'nonaktif' && item.status === 'Nonaktif');
+
 
         const cocoKategori = selectKategori === "" || item.id_kategori == selectKategori;
         const cockWarna = selectWarna === "" || warna.some((w) => w.id_motor === item.id_motor && w.id_warna == selectWarna);
@@ -382,7 +404,6 @@ const KelolaProduk = () => {
                 closeModal();
                 resetForm();
             } else {
-                // alert(data.message);
                 setAlert({
                     type: "warning",
                     message: data.message
@@ -392,7 +413,7 @@ const KelolaProduk = () => {
             console.log(error);
             setAlert({
                 type: 'error',
-                message: "gaga; submit"
+                message: "Terjadi Kesalahan"
             })
         }
     };
@@ -423,7 +444,7 @@ const KelolaProduk = () => {
             const data = await response.json();
 
             if (data.success) {
-                setAlert({ type: 'success', message: 'Produk berhasil diupdate' })
+                setAlert({ type: 'success', message: 'Produk berhasil di update' })
 
                 getMotor()
                 closeModal()
@@ -440,43 +461,53 @@ const KelolaProduk = () => {
     }
     const handleDelet = async (id) => {
 
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/${id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            )
-            const data = await response.json();
-            console.log("STATUS", response.status)
-            console.log("RESPONE", data)
-            if (!response.ok) {
-                // throw new Error(data.message || "Gagal menghapus motor");
-                setAlert({
-                    type: 'warning',
-                    message: "Gagal Mengapus Motor"
-                })
-            }
+        setConfirm({
+            title: 'Hapus Produk',
+            message: "Yakin ingin menghapus produk ini ? ",
+            onConfirm: async () => {
+                try {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/${id}`,
+                        {
+                            method: "DELETE",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        }
+                    )
+                    const data = await response.json();
 
-            if (data.success) {
-                setAlert({
-                    type: 'success',
-                    message: "Produk berhasil dihapus"
-                })
-                // alert("produk berhasil dihapus");
-                getMotor()
-            } else {
-                setAlert({
-                    type: 'error',
-                    message: data.message
-                })
-                // alert(data.message)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+                    console.log("STATUS", response.status)
+                    console.log("RESPONE", data)
+
+                    if (!response.ok) {
+                        setAlert({
+                            type: 'warning',
+                            message: "Gagal Mengapus Motor"
+                        })
+                    }
+
+                    if (data.success) {
+                        setAlert({
+                            type: data.message.includes('dinonaktifkan') ? 'warning' : "success",
+                            message: data.message
+                        })
+                        await getMotor()
+                        return
+
+                    } else {
+                        setAlert({
+                            type: 'error',
+                            message: data.message
+                        })
+                    }
+                } catch (error) {
+                    console.log(error)
+                } finally {
+                    setConfirm(null)
+                }
+            },
+            onCancel: () => setConfirm(null)
+        })
     }
 
     const handleEdit = (item) => {
@@ -501,22 +532,6 @@ const KelolaProduk = () => {
         openModal()
     }
 
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (
-    //             dropdownContainerRef.current &&
-    //             !dropdownContainerRef.current.contains(event.target)
-    //         ) {
-    //             setOpenDrapMenu(null);
-    //         }
-    //     };
-
-    //     document.addEventListener("mousedown", handleClickOutside);
-
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden" >
             <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
@@ -632,7 +647,7 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 text-sm font-medium text-slate-900 whitespace-nowrap">{item.nama_kategori}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.nama_tipe}</td>
                                             <td className="px-4 py-4 text-sm text-slate-600 whitespace-nowrap">{item.tahun}</td>
-                                            <td className="px-4 py-5 text-sm text-slate-600 whitespace-nowrap flex ">
+                                            <td className="px-4 py-5 text-sm text-slate-600 whitespace-nowrap flex">
                                                 {warna
                                                     .filter((w) => w.id_motor === item.id_motor)
                                                     .map((w) => (
@@ -651,75 +666,44 @@ const KelolaProduk = () => {
                                                     <span className={`w-1.5 h-1.5 rounded-full ${item.status === 'Aktif' ? "bg-gray-50" : "bg-red-500"}`} />{item.status}
                                                 </span>
                                             </td>
-                                            <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                <div className="relative">
-                                                    <button
-                                                        type="button"
-                                                        onClick={() =>
-                                                            setOpenDrapMenu(
-                                                                openDrapMenu === item.id_motor
-                                                                    ? null
-                                                                    : item.id_motor
-                                                            )
-                                                        }
-                                                        className="px-2 rounded-lg hover:bg-gray-100 absolute -top-3 "
-                                                    >
-                                                        <MdMoreHoriz size={20} />
-                                                    </button>
-                                                </div>
-                                                {openDrapMenu === item.id_motor && (
-                                                    <div className="absolute right-10 top-fuul flex mt-2 w-44 bg-white z-[9999] shadow-xl  border border-gray-100 overflow-hidden">
-                                                        <div>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    console.log("KLIK KELOLA WARNA");
+                                            <td className="px-4 py-4 text-sm flex gap-2">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        handleEdit(item);
+                                                    }}
+                                                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+                                                >
+                                                    <FaEdit />
+                                                </button>
 
-                                                                    setEditWarna({
-                                                                        id_motor: item.id_motor,
-                                                                        id_warna: "",
-                                                                        nama_warna: "",
-                                                                        kode_warna: "#000000",
-                                                                    });
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        handleDelet(item.id_motor);
+                                                    }}
+                                                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+                                                >
+                                                    <MdDelete />
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        console.log("KLIK KELOLA WARNA");
 
-                                                                    setIsModalColor(true);
-                                                                    setOpenDrapMenu(null);
-                                                                }}
-                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
-                                                            >
-                                                                🎨
-                                                                <span>Kelola Warna</span>
-                                                            </button>
+                                                        setEditWarna({
+                                                            id_motor: item.id_motor,
+                                                            id_warna: "",
+                                                            nama_warna: "",
+                                                            kode_warna: "#000000",
+                                                        });
 
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    handleEdit(item);
-                                                                    setOpenDrapMenu(null);
-                                                                }}
-                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
-                                                            >
-                                                                ✏️
-                                                                <span>Edit Produk</span>
-                                                            </button>
-
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    handleDelet(item.id_motor);
-                                                                    setOpenDrapMenu(null);
-                                                                }}
-                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC]  font-semibold"
-                                                            >
-                                                                🗑️
-                                                                <span>Hapus</span>
-                                                            </button>
-                                                        </div>
-                                                        <div>
-                                                            <button className=" bg-blue-50 h-10 w-8 text-center hover:bg-[#002446] hover:text-[#F2F8FC]" onClick={() => setOpenDrapMenu(false)}>x</button>
-                                                        </div>
-                                                    </div>
-                                                )}
+                                                        setIsModalColor(true);
+                                                    }}
+                                                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+                                                >
+                                                    🎨
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
@@ -868,14 +852,9 @@ const KelolaProduk = () => {
                         </div>
                     </div>
 
-                    {confrim && (
-                        <ConfirmAlert title='Hapus' message='yakin ingin mengapus warna ini' onConfirm={deleteWarna} onCancel={() => { setConfirm(false) }} />
-                    )}
-                    {alert && (
-                        <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
-                    )}
+
                     {isModalColor && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
+                        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
                             <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
                                 <div className="px-6 py-5 border-b border-gray-100">
                                     <div className="flex items-start justify-between gap-4">
@@ -926,7 +905,7 @@ const KelolaProduk = () => {
                                                 </div>
                                                 <div>
                                                     <button onClick={() => handleEditWarna(item)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 mr-2"><FaEdit size={14} className="text-black/30 hover:text-red-700" /></button>
-                                                    <button onClick={() => deleteWarna(item.id_warna)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 "><MdDelete size={14} className="text-black/30 hover:text-red-700" /></button>
+                                                    <button onClick={() => handleDeleteWarna(item.id_warna)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 "><MdDelete size={14} className="text-black/30 hover:text-red-700" /></button>
                                                 </div>
                                             </div>
                                         ))}
@@ -1036,7 +1015,12 @@ const KelolaProduk = () => {
                             </div>
                         </div>
                     )}
-
+                    {confrim && (
+                        <ConfirmAlert title={confrim.title} message={confrim.message} onConfirm={confrim.onConfirm} onCancel={confrim.onCancel} />
+                    )}
+                    {alert && (
+                        <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
+                    )}
                 </main>
             </div >
         </div >

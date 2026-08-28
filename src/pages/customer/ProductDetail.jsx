@@ -308,11 +308,11 @@ const ProductDetail = () => {
                   <div>
                     <label className="block text-[10px] font-black text-gray-400 uppercase mb-4 tracking-widest">Pilih Tenor (Bulan)</label>
                     <div className="grid grid-cols-4 gap-3">
-                      {[12, 24, 36, 48].map((t) => (
+                      {[11, 17, 23, 29, 35].map((t) => (
                         <button
                           key={t}
                           onClick={() => setTenor(t)}
-                          className={`py-3 rounded-xl font-black transition-all text-xs ${tenor === t ? 'bg-[#00345F] text-white shadow-lg shadow-[#E6F1F7]' : 'bg-white text-gray-400 border border-gray-200 hover:border-[#006A9E]' }`}
+                          className={`py-3 rounded-xl font-black transition-all text-xs ${tenor === t ? 'bg-[#00345F] text-white shadow-lg shadow-[#E6F1F7]' : 'bg-white text-gray-400 border border-gray-200 hover:border-[#006A9E]'}`}
                         >
                           {t}
                         </button>

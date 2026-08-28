@@ -156,7 +156,7 @@ const updatStatusContact = (req, res) => {
 
         res.json({
             success: true,
-            message: "status berjasil diperbarui"
+            message: "status berhasil diperbarui"
         })
     })
 }

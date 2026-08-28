@@ -278,22 +278,21 @@ const deleteMotor = (req, res) => {
     const { id } = req.params;
 
     const checkRelasi = `
-        SELECT
             (SELECT COUNT(*)
              FROM pengajuan
              WHERE id_motor = ?) AS jumlah_pengajuan,
 
             (SELECT COUNT(*)
              FROM simulasi_kredit
-             WHERE id_motor = ?) AS jumlah_simulasi
+             WHERE id_motor = ?) AS jumlah_simulasi,
 
             (SELECT COUNT(*)
-            FROM spesifikasi_motor
-            WHERE id_motor = ? ) AS jumlah_spesifikasi
+             FROM spesifikasi_motor
+             WHERE id_motor = ?) AS jumlah_spesifikasi,
 
             (SELECT COUNT(*)
-            FROM hero 
-            WHERE id_motor = ? ) AS jumlah_hero
+             FROM hero
+             WHERE id_motor = ?) AS jumlah_hero
            
     `;
 
@@ -311,8 +310,8 @@ const deleteMotor = (req, res) => {
 
         const jumlahPengajuan = result[0].jumlah_pengajuan;
         const jumlahSimulasi = result[0].jumlah_simulasi;
-        const jumlahSpesifikasi = result[0].jumlahSpesifikasi
-        const jumlahHero = result[0].jumlahHero
+        const jumlahSpesifikasi = result[0].jumlah_spesifikasi;
+        const jumlahHero = result[0].jumlah_hero;
 
         console.log("📌 Jumlah pengajuan:", jumlahPengajuan);
         console.log("📌 Jumlah simulasi:", jumlahSimulasi);

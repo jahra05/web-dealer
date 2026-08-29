@@ -224,7 +224,7 @@ export default function AdminDashboard() {
                         <div className="flex flex-col gap-4">
                             {/* Contact Us */}
                             <div className="rounded-2xl bg-white p-4 lg:p-6 shadow-sm border border-gray-100">
-                                <h2 className="text-sm font-semibold text-gray-900 mb-4">Contact Us</h2>
+                                <h2 className="text-sm font-semibold text-gray-900 mb-4">Message</h2>
                                 <div className="space-y-4">
                                     {contactTerbaru.map((item) => (
                                         <div key={item.id_message} className="flex items-center justify-between gap-3">

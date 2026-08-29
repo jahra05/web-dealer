@@ -739,8 +739,11 @@ const KelolaProduk = () => {
                         </div>
                         {products.map((item) => (
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
-                                <div className="bg-gray-100 w-full rounded-xl h-72">
+                                <div className="bg-gray-100 w-full rounded-xl h-72 relative">
                                     <img src={item.gambar} alt={item.nama_motor} className="w-full max-w-[470px] h-72 rounded-xl object-center object-contain py-4 " />
+                                    <span className={`absolute top-2 left-2 items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium border ${item.status === 'Aktif' ? "bg-green-300 text-gray-600 border-gray-200" : "bg-red-50 text-red-600 border-red-200"}`}>
+                                        <span className={`w-1.5 h-1.5  ${item.status === 'Aktif' ? "bg-gray-50" : "bg-red-500"}`} />{item.status}
+                                    </span>
                                 </div>
                                 <div className="flex justify-between mt-2">
                                     <div className="flex gap-4">
@@ -748,8 +751,48 @@ const KelolaProduk = () => {
                                         <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.nama_tipe}</p>
                                         <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.tahun}</p>
                                     </div>
+                                    <div className="flex gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                console.log("KLIK KELOLA WARNA");
 
-                                    <div>
+                                                setEditWarna({
+                                                    id_motor: item.id_motor,
+                                                    id_warna: "",
+                                                    nama_warna: "",
+                                                    kode_warna: "#000000",
+                                                });
+
+                                                setIsModalColor(true);
+                                                setOpenDrapMenu(null);
+                                            }}
+                                            className="inline-flex h-8 w-8 text-md  items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+                                        >
+                                            🎨
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                handleEdit(item);
+                                                setOpenDrapMenu(null);
+                                            }}
+                                            className="inline-flex h-8 w-8 text-md items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+                                        >
+                                            <FaEdit />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                handleDelet(item.id_motor);
+                                                setOpenDrapMenu(null);
+                                            }}
+                                            className="inline-flex h-8 w-8 text-md  items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+                                        >
+                                            <MdDelete />
+                                        </button>
+                                    </div>
+                                    {/* <div>
                                         <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
 
                                         {openDrapMenu === item.id_motor && (
@@ -807,7 +850,7 @@ const KelolaProduk = () => {
                                                 </div>
                                             </div>
                                         )}
-                                    </div>
+                                    </div> */}
 
                                 </div>
                                 <div>

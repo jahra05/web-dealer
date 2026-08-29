@@ -15,8 +15,9 @@ const BUNGA_BY_TENOR = {
 const CreditSimulation = ({ initialBikeId = "beat" }) => {
   const [motorDisplay, setMotorDisplay] = useState([]);
   const [selected, setSelected] = useState(null);
+  console.log('selcet dp ', selected)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dp, setDp] = useState(0);
+  const [dp, setDp] = useState(500000);
   const [tenor, setTenor] = useState(11);
   const [bunga, setBunga] = useState(0);
   const [cicilan, setCicilan] = useState(0);
@@ -24,7 +25,7 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
   // Ambil semua data motor dari database
   const getAllMotor = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/aktif`);
       const data = await response.json();
 
       if (data.success && data.data.length > 0) {

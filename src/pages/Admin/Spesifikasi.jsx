@@ -270,88 +270,92 @@ const Spesifikasi = () => {
                 </div>
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
-                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
-                        <div>
-                            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Spesifikasi</h1>
-                            <p className="text-sm text-gray-500 mt-1">Kelola data spesifikasi motor.</p>
+                    {/*  */}
+                    <div className="hidden md:block">
+                        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
+                            <div>
+                                <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Spesifikasi</h1>
+                                <p className="text-sm text-gray-500 mt-1">Kelola data spesifikasi motor.</p>
+                            </div>
                         </div>
-                        <div className="flex gap-4 items-center">
-                        </div>
-                    </div>
 
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
-                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center">
-                            <p className="text-xl font-semibold text-white">Spesifikasi</p>
-                            <button
-                                type="button"
-                                onClick={openModal}
-                                className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white text-slate-700 shadow-sm transition hover:shadow-md hover:text-blue-300'>
-                                <PiPlus size={20} />
-                            </button>
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="min-w-[900px] w-full">
-                                <thead className="bg-white">
-                                    <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">nama motor</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">kapasitas mesin</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">tenaga</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">torsi</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">transmisi</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">berat</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">tinggi_jok</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">kapasita tangki</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">mesin</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white">
-                                    {pageItems.map((item) => (
-                                        <tr key={item.id_spesifikasi} className="transition hover:bg-slate-50">
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.kapasitas_mesin}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.tenaga}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.torsi}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.transmisi}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.berat}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.tinggi_jok}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.kapasitas_tengki}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.mesin}</td>
-
-                                            <td className="px-4 py-4 text-sm">
-                                                <div className="flex items-center gap-2">
-                                                    <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <MdDelete />
-                                                    </button>
-                                                    <button onClick={() => handleEdit(item)} className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <FaEdit />
-                                                    </button>
-                                                </div>
-                                            </td>
+                        <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
+                            <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center">
+                                <p className="text-xl font-semibold text-white">Spesifikasi</p>
+                                <button
+                                    type="button"
+                                    onClick={openModal}
+                                    className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white text-slate-700 shadow-sm transition hover:shadow-md hover:text-blue-300'>
+                                    <PiPlus size={20} />
+                                </button>
+                            </div>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-[900px] w-full">
+                                    <thead className="bg-white">
+                                        <tr>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">nama motor</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">kapasitas mesin</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">tenaga</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">torsi</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">transmisi</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">berat</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">tinggi_jok</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">kapasita tangki</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">mesin</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Aksi</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="px-6 py-3 flex items-center justify-end gap-3">
-                            <button
-                                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                                disabled={page === 1}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Prev</button>
-                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
-                            <button
-                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                                disabled={page === totalPages}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Next
-                            </button>
+                                    </thead>
+                                    <tbody className="bg-white">
+                                        {pageItems.map((item) => (
+                                            <tr key={item.id_spesifikasi} className="transition hover:bg-slate-50">
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.kapasitas_mesin}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.tenaga}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.torsi}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.transmisi}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.berat}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.tinggi_jok}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.kapasitas_tengki}</td>
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.mesin}</td>
+
+                                                <td className="px-4 py-4 text-sm">
+                                                    <div className="flex items-center gap-2">
+                                                        <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                                            <MdDelete />
+                                                        </button>
+                                                        <button onClick={() => handleEdit(item)} className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                                            <FaEdit />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="px-6 py-3 flex items-center justify-end gap-3">
+                                <button
+                                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                    disabled={page === 1}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Prev</button>
+                                <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                <button
+                                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={page === totalPages}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Next
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center rounded-xl">
-                            <p className="text-xl font-semibold text-white">Spesifikasi</p>
+                    <div className="md:hidden space-y-4">
+                        <div className="flex justify-between py-4">
+                            <div>
+                                <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Spesifikasi</h1>
+                                <p className="text-sm text-gray-500 mt-1">Kelola data spesifikasi motor.</p>
+                            </div>
                             <button
                                 type="button"
                                 onClick={openModal}
@@ -359,80 +363,87 @@ const Spesifikasi = () => {
                                 <PiPlus size={20} />
                             </button>
                         </div>
-                        {pageItems.map((item) => (
-                            <div className="rounded-xl border bg-white p-4 shadow-sm">
 
-                                <div className="flex gap-4">
+                        <div className="space-y-4 bg-white p-4 rounded-xl">
+                            {pageItems.map((item) => (
+                                <div className="rounded-xl border bg-white p-4 shadow-sm">
 
-                                    <div>
-                                        <p className="mb-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Motor</p>
-                                        <p className=" text-left text-xs font-semibold uppercase tracking-wider text-slate-500"> Mesin</p>
+                                    <div className="flex gap-4">
+
+                                        <div>
+                                            <p className="mb-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Motor</p>
+                                            <p className=" text-left text-xs font-semibold uppercase tracking-wider text-slate-500"> Mesin</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-black font-medium text-sm">{item.nama_motor}</p>
+                                            <p className="text-black font-medium text-sm">{item.mesin}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-black font-medium text-sm">{item.nama_motor}</p>
-                                        <p className="text-black font-medium text-sm">{item.mesin}</p>
+
+                                    <div className="flex justify-between mb-8 mt-8">
+                                        <div className="w-48 text-center p-2">
+                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tenaga</p>
+                                            <p className="text-black font-medium text-sm mt-0">{item.tenaga}</p>
+                                        </div>
+
+
+                                        <div className="w-48 text-center p-2">
+                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Bahan Bakar</p>
+                                            <p className="text-black font-medium text-sm mt-0">{item.torsi}</p>
+                                        </div>
+
+                                        <div className="w-48 text-center p-2">
+                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Transmisi</p>
+                                            <p className="text-black font-medium text-sm mt-0">{item.transmisi}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <div className="w-48 text-center p-2">
+                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Berat</p>
+                                            <p className="text-black font-medium text-sm mt-0">{item.berat}</p>
+                                        </div>
+
+                                        <div className="w-48 text-center p-2">
+                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tinggi Jok</p>
+                                            <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
+                                        </div>
+
+                                        <div className="w-48 text-center p-2">
+                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Ban</p>
+                                            <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-4 justify-between mt-6">
+                                        <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                            <span className="mr-2">Hapus</span><MdDelete />
+                                        </button>
+                                        <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
+                                            <span className="mr-2">Edit</span> <FaEdit />
+                                        </button>
                                     </div>
                                 </div>
-
-                                <div className="flex justify-between mb-8 mt-8">
-                                    <div className="w-48 text-center p-2">
-                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tenaga</p>
-                                        <p className="text-black font-medium text-sm mt-0">{item.tenaga}</p>
-                                    </div>
-
-
-                                    <div className="w-48 text-center p-2">
-                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Bahan Bakar</p>
-                                        <p className="text-black font-medium text-sm mt-0">{item.torsi}</p>
-                                    </div>
-
-                                    <div className="w-48 text-center p-2">
-                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Transmisi</p>
-                                        <p className="text-black font-medium text-sm mt-0">{item.transmisi}</p>
-                                    </div>
-                                </div>
-                                <div className="flex justify-between">
-                                    <div className="w-48 text-center p-2">
-                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Berat</p>
-                                        <p className="text-black font-medium text-sm mt-0">{item.berat}</p>
-                                    </div>
-
-                                    <div className="w-48 text-center p-2">
-                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tinggi Jok</p>
-                                        <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
-                                    </div>
-
-                                    <div className="w-48 text-center p-2">
-                                        <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Ban</p>
-                                        <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center gap-4 justify-between mt-6">
-                                    <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
-                                        <span className="mr-2">Hapus</span><MdDelete />
-                                    </button>
-                                    <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
-                                        <span className="mr-2">Edit</span> <FaEdit />
-                                    </button>
-                                </div>
+                            ))}
+                            <div className="px-6 py-3 flex items-center justify-end gap-3">
+                                <button
+                                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                    disabled={page === 1}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Prev</button>
+                                <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                <button
+                                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={page === totalPages}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Next
+                                </button>
                             </div>
-                        ))}
-                        <div className="px-6 py-3 flex items-center justify-end gap-3">
-                            <button
-                                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                                disabled={page === 1}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Prev</button>
-                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
-                            <button
-                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                                disabled={page === totalPages}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Next
-                            </button>
                         </div>
+
                     </div>
+
+
+
 
                     {isModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalOpen(false)}>

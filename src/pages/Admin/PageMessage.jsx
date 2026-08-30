@@ -180,8 +180,6 @@ const PageMessage = () => {
                             <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Message</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola pesan dan pertanyaan dari pelanggan.</p>
                         </div>
-                        <div className="flex gap-4 items-center justify-start">
-                        </div>
                     </div>
 
                     <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
@@ -265,15 +263,12 @@ const PageMessage = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] rounded-xl">
-                            <p className="text-xl font-semibold text-white">Message</p>
-                        </div>
                         {pageItems.map((item) => (
                             <div key={item.id_message} className="bg-white shadow p-4 rounded-xl">
 
                                 <button
                                     onClick={() => handleStatus(item.id_message)}
-                                    className={`px-3 py-1 rounded-md text-sm font-semibold transition ${item.status === "belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
+                                    className={`px-3 py-1 rounded-md text-sm font-semibold transition  ${item.status === "belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
                                 >
                                     {item.status === 'Belum dibaca' ? "Belum dibaca" : "Sudah Dibaca"}  </button>
 

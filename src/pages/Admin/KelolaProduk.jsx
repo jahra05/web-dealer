@@ -577,7 +577,7 @@ const KelolaProduk = () => {
                             <h1 className="text-xl lg:text-2xl font-bold text-[#00182F">Produk Motor</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola data produk motor.</p>
                         </div>
-                        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                        <div className="flex flex-row gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                             <div className="w-full sm:w-56 lg:w-72">
                                 <select
                                     value={selectKategori}
@@ -597,7 +597,7 @@ const KelolaProduk = () => {
                                 </select>
                             </div>
 
-                            <div className='flex flex-wrap gap-2'>
+                            <div className='flex gap-2'>
                                 <button onClick={handleExport} className='inline-flex items-center gap-2 h-10 px-3 rounded-full bg-white border border-blue-100 text-slate-700 transition hover:border-blue-300  hover:shadow-md focus:ring-2 focus:ring-indigo-200'>
                                     <CiFileOn size={18} />
                                     <span className="text-xs">Export</span>
@@ -735,9 +735,9 @@ const KelolaProduk = () => {
                     {/* mobile */}
 
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-6 py-4 bg-[#004A7C] rounded-xl">
+                        {/* <div className="px-6 py-4 bg-[#004A7C] rounded-xl">
                             <p className="text-xl font-semibold text-white">Produk Motor</p>
-                        </div>
+                        </div> */}
                         {products.map((item) => (
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
                                 <div className="bg-gray-100 w-full rounded-xl h-72 relative">

@@ -162,7 +162,7 @@ const PengajuanKredit = () => {
                             <p className="text-sm text-gray-500 mt-1">Kelola semua pengajuan kredit pelanggan.</p>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                        <div className="flex flex-row items-center sm:flex-row gap-3  sm:items-center">
                             <div className="flex gap-2 w-full sm:w-auto">
                                 <select
                                     value={selectStatus}
@@ -262,9 +262,9 @@ const PengajuanKredit = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C]  rounded-xl">
+                        {/* <div className="px-4 lg:px-6 py-4 bg-[#004A7C]  rounded-xl">
                             <p className="text-xl font-semibold text-white">Pengajuan Kredit</p>
-                        </div>
+                        </div> */}
                         {pageItems.map((item) => (
                             <div className="bg-white shadow p-4 rounded-xl">
                                 <div className="flex justify-between">

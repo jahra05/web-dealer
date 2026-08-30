@@ -254,7 +254,7 @@ const Testimoni = () => {
 
                 {/* <div className="mt-"> */}
                 <div className="flex-1 px-4 py-6 overflow-x-hidden mt-24">
-                    <div className="">
+                    <div className="hidden md:block">
                         <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
                         <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
                     </div>
@@ -394,9 +394,12 @@ const Testimoni = () => {
                 {/* </div> */}
 
                 {/* mobile */}
-                <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                    <div className="px-4 flex justify-between items-center lg:px-6 py-4 bg-[#004A7C] rounded-xl">
-                        <p className=" text-xl font-semibold text-white">Testimoni</p>
+                <div className="md:hidden p-4 space-y-4 mt-[-40px]">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
+                            <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
+                        </div>
                         <button
                             type="button"
                             onClick={openModal}
@@ -404,61 +407,73 @@ const Testimoni = () => {
                             <PiPlus size={20} />
                         </button>
                     </div>
-                    {pageItems.map((item) => (
-                        <div className="bg-white shadow p-4 rounded-xl">
-                            <div className="flex justify-between">
-                                <div className="flex gap-2">
-                                    <img
-                                        src={`${item.foto}`}
-                                        alt={item.nama}
-                                        className="w-14 h-14 rounded-xl object-cover border"
-                                    />
-                                    <div>
-                                        <p className="text-sm text-gray-700 font-semibold">{item.nama}</p>
-                                        <p className="text-sm text-gray-500 font-medium">{item.pekerjaan}</p>
-                                    </div>
-                                </div>
-                                <div className="flex-col mb-3">
-                                    {/* <p className="text-sm text-gray-600 mb-2">Rating</p> */}
-                                    <div className="flex text-yellow-400 mb-3">
-                                        {Array.from({ length: item.rating }).map((_, index) => (
-                                            <span key={index}>⭐</span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="mt-8">
-                                <div className="flex flex-col  mb-3">
-                                    <p className="text-sm text-gray-600 mb-2">Isi Testimoni</p>
-                                    <p className="text-sm font-medium w-[430px]">{item.isi_testimoni}</p>
-                                </div>
-
-                                <div className="flex items-center gap-4 justify-between mt-6">
-                                    <button onClick={() => handleDelete(item.id_testimoni)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
-                                        <span className="mr-2">Hapus</span><MdDelete />
-                                    </button>
-                                    <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
-                                        <span className="mr-2">Edit</span> <FaEdit />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                    <div className="px-6 py-3 flex items-center justify-end gap-3">
+                    {/* <div className="px-4 flex justify-between items-center lg:px-6 py-4 bg-[#004A7C] rounded-xl">
+                        <p className=" text-xl font-semibold text-white">Testimoni</p>
                         <button
-                            onClick={() => setPage((p) => Math.max(1, p - 1))}
-                            disabled={page === 1}
-                            className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                            Prev</button>
-                        <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
-                        <button
-                            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                            disabled={page === totalPages}
-                            className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                            Next
+                            type="button"
+                            onClick={openModal}
+                            className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 focus:ring-2 focus:ring-indigo-200'>
+                            <PiPlus size={20} />
                         </button>
+                    </div> */}
+                    <div className=" bg-white p-4 space-y-4 rounded-xl">
+                        {pageItems.map((item) => (
+                            <div className="bg-white shadow p-4 rounded-xl">
+                                <div className="flex justify-between">
+                                    <div className="flex gap-2">
+                                        <img
+                                            src={`${item.foto}`}
+                                            alt={item.nama}
+                                            className="w-14 h-14 rounded-xl object-cover border"
+                                        />
+                                        <div>
+                                            <p className="text-sm text-gray-700 font-semibold">{item.nama}</p>
+                                            <p className="text-sm text-gray-500 font-medium">{item.pekerjaan}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex-col mb-3">
+                                        {/* <p className="text-sm text-gray-600 mb-2">Rating</p> */}
+                                        <div className="flex text-yellow-400 mb-3">
+                                            {Array.from({ length: item.rating }).map((_, index) => (
+                                                <span key={index}>⭐</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8">
+                                    <div className="flex flex-col  mb-3">
+                                        <p className="text-sm text-gray-600 mb-2">Isi Testimoni</p>
+                                        <p className="text-sm font-medium w-[410px]">{item.isi_testimoni}</p>
+                                    </div>
+
+                                    <div className="flex items-center gap-4 justify-between mt-6">
+                                        <button onClick={() => handleDelete(item.id_testimoni)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                            <span className="mr-2">Hapus</span><MdDelete />
+                                        </button>
+                                        <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
+                                            <span className="mr-2">Edit</span> <FaEdit />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                        <div className="px-6 py-3 flex items-center justify-end gap-3">
+                            <button
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                disabled={page === 1}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Prev</button>
+                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                            <button
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={page === totalPages}
+                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                Next
+                            </button>
+                        </div>
                     </div>
+
                 </div>
 
             </div>

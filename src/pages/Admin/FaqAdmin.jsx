@@ -202,7 +202,7 @@ const FaqAdmin = () => {
                 </div>
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
-                    <div className="mb-4">
+                    <div className="hidden md:block mb-4">
                         <h1 className="text-xl lg:text-2xl font-bold text-gray-900">FAQ</h1>
                         <p className="text-sm text-gray-500 mt-1">Kelola FAQ dan pertanyaan pelanggan.</p>
                     </div>
@@ -299,9 +299,12 @@ const FaqAdmin = () => {
                     )}
 
                     {/* mobile */}
-                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between  items-center rounded-xl">
-                            <p className="text-xl font-semibold text-white">FAQ</p>
+                    <div className="md:hidden space-y-4">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <h1 className="text-xl lg:text-2xl font-bold text-gray-900">FAQ</h1>
+                                <p className="text-sm text-gray-500 mt-1">Kelola FAQ dan pertanyaan pelanggan.</p>
+                            </div>
                             <button
                                 type="button"
                                 onClick={() => setIsModalOpen(true)}
@@ -309,54 +312,52 @@ const FaqAdmin = () => {
                                 <PiPlus size={20} />
                             </button>
                         </div>
-                        {pageItems.map((item) => (
-                            <div className="bg-white shadow p-4 rounded-xl">
-                                {/* <div className="flex items-center gap-2">
-                                    <button onClick={() => handleDelete(item.id_faq)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                        <MdDelete />
-                                    </button>
-                                    <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                        <FaEdit />
-                                    </button>
-                                </div> */}
 
-                                <div className="mt-6">
-                                    <div className=" items-center mb-2">
-                                        <p className="text-sm text-gray-600 mb-2">Pertanyaan</p>
-                                        <p className="text-sm font-medium">{item.pertanyaan}</p>
+                        <div className="space-y-4 bg-white p-4 rounded-xl">
+
+                            {pageItems.map((item) => (
+                                <div className="bg-white shadow p-4 rounded-xl">
+
+
+                                    <div className="mt-6">
+                                        <div className=" items-center mb-2">
+                                            <p className="text-sm text-gray-600 mb-2">Pertanyaan</p>
+                                            <p className="text-sm font-medium">{item.pertanyaan}</p>
+                                        </div>
+
+                                        <div className="items-center mb-2">
+                                            <p className="text-sm text-gray-600 mb-2">Jawaban</p>
+                                            <p className="text-sm font-medium">{item.jawaban}</p>
+                                        </div>
+                                        <div className="flex items-center gap-4 justify-between mt-6">
+                                            <button onClick={() => handleDelete(item.id_faq)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                                <span className="mr-2">Hapus</span><MdDelete />
+                                            </button>
+                                            <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
+                                                <span className="mr-2">Edit</span> <FaEdit />
+                                            </button>
+                                        </div>
                                     </div>
 
-                                    <div className="items-center mb-2">
-                                        <p className="text-sm text-gray-600 mb-2">Jawaban</p>
-                                        <p className="text-sm font-medium">{item.jawaban}</p>
-                                    </div>
-                                    <div className="flex items-center gap-4 justify-between mt-6">
-                                        <button onClick={() => handleDelete(item.id_faq)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
-                                            <span className="mr-2">Hapus</span><MdDelete />
-                                        </button>
-                                        <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
-                                            <span className="mr-2">Edit</span> <FaEdit />
-                                        </button>
-                                    </div>
                                 </div>
-
+                            ))}
+                            <div className="px-6 py-3 flex items-center justify-end gap-3">
+                                <button
+                                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                    disabled={page === 1}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Prev</button>
+                                <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                <button
+                                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={page === totalPages}
+                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    Next
+                                </button>
                             </div>
-                        ))}
-                        <div className="px-6 py-3 flex items-center justify-end gap-3">
-                            <button
-                                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                                disabled={page === 1}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Prev</button>
-                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
-                            <button
-                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                                disabled={page === totalPages}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Next
-                            </button>
                         </div>
                     </div>
+
                 </main>
 
 

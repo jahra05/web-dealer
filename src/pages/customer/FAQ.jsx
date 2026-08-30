@@ -29,7 +29,9 @@ const FAQ = () => {
         <div className="grid lg:grid-cols-1 gap-12">
           {/* FAQ Accordion */}
           <div>
-            <h2 className="text-3xl font-black text-gray-900 mb-12">Pertanyaan yang Sering Diajukan</h2>
+            {/* <h2 className="text-3xl font-black text-gray-900 mb-12">Pertanyaan yang Sering Diajukan</h2> */}
+            <h2 className="text-3xl font-black text-gray-900 mb-12">FAQ</h2>
+
             <div className="space-y-4">
               {faq.map((item) => (
                 <div key={item.id_faq} className="border-b border-gray-100 last:border-0">

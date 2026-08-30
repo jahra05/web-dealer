@@ -270,41 +270,43 @@ const PageMessage = () => {
                         </div>
                         {pageItems.map((item) => (
                             <div key={item.id_message} className="bg-white shadow p-4 rounded-xl">
-                                <div className="flex justify-between items-center">
 
-                                    <button
-                                        onClick={() => handleStatus(item.id_message)}
-                                        className={`px-3 py-1 rounded-full text-sm font-semibold transition ${item.status === "belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
-                                    >
-                                        {item.status === 'Belum dibaca' ? "Belum dibaca" : "Sudah Dibaca"}  </button>
-
-                                    <button onClick={() => handleDelete(item.id_message)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                        <MdDelete />
-                                    </button>
-                                </div>
+                                <button
+                                    onClick={() => handleStatus(item.id_message)}
+                                    className={`px-3 py-1 rounded-md text-sm font-semibold transition ${item.status === "belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
+                                >
+                                    {item.status === 'Belum dibaca' ? "Belum dibaca" : "Sudah Dibaca"}  </button>
 
                                 <div className="mt-6">
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 border-b py-2">
+                                        <p className="text-sm text-gray-600">Tanggal</p>
+                                        <p className="text-sm font-medium">{new Date(item.created_at).toLocaleDateString("id-ID")}</p>
+                                    </div>
+
+                                    <div className="flex justify-between items-center mb-2 border-b py-2">
                                         <p className="text-sm text-gray-600">Nama</p>
                                         <p className="text-sm font-medium">{item.nama}</p>
                                     </div>
 
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 border-b py-2">
                                         <p className="text-sm text-gray-600">Email</p>
                                         <p className="text-sm font-medium">{item.email}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 border-b py-2">
                                         <p className="text-sm text-gray-600">Subjek</p>
                                         <p className="text-sm font-medium">{item.subjek}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 border-b py-2">
                                         <p className="text-sm text-gray-600">No Headphone</p>
                                         <p className="text-sm font-medium">{item.no_hp}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 border-b py-2">
                                         <p className="text-sm text-gray-600">Pesan</p>
                                         <p className="text-sm font-medium">{item.pesan}</p>
                                     </div>
+                                    <button onClick={() => handleDelete(item.id_message)} className="inline-flex mt-3 w-full h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                        <span className="mr-2">Hapus</span><MdDelete />
+                                    </button>
                                 </div>
 
                             </div>

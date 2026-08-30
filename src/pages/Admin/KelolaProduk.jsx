@@ -14,6 +14,7 @@ import { data } from "react-router-dom"
 import CustomAlert from "../../components/CustomAlert"
 import ConfirmAlert from "../../components/ConfirmAlert"
 import Notifikasi from "../../components/Notifikasi"
+import { CgClose } from "react-icons/cg"
 
 const KelolaProduk = () => {
     const [page, setPage] = useState(1)
@@ -741,122 +742,75 @@ const KelolaProduk = () => {
                             <div className="rounded-xl border bg-white p-4 shadow-sm">
                                 <div className="bg-gray-100 w-full rounded-xl h-72 relative">
                                     <img src={item.gambar} alt={item.nama_motor} className="w-full max-w-[470px] h-72 rounded-xl object-center object-contain py-4 " />
-                                    <span className={`absolute top-2 left-2 items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium border ${item.status === 'Aktif' ? "bg-green-300 text-gray-600 border-gray-200" : "bg-red-50 text-red-600 border-red-200"}`}>
-                                        <span className={`w-1.5 h-1.5  ${item.status === 'Aktif' ? "bg-gray-50" : "bg-red-500"}`} />{item.status}
-                                    </span>
+
+                                    <div>
+                                        <span className={`absolute top-2 left-3 items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium border ${item.status === 'Aktif' ? "bg-green-300 text-gray-600 border-gray-200" : "bg-red-50 text-red-600 border-red-200"}`}>
+                                            <span className={`w-1.5 h-1.5  ${item.status === 'Aktif' ? "bg-gray-50" : "bg-red-500"}`} />{item.status}
+                                        </span>
+
+                                        <div className="absolute top-2 right-3 ">
+                                            <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
+
+                                            {openDrapMenu === item.id_motor && (
+                                                <div className="absolute right-0 w-46 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
+                                                    <div className="flex">
+                                                        <div className="flex">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    console.log("KLIK KELOLA WARNA");
+
+                                                                    setEditWarna({
+                                                                        id_motor: item.id_motor,
+                                                                        id_warna: "",
+                                                                        nama_warna: "",
+                                                                        kode_warna: "#000000",
+                                                                    });
+
+                                                                    setIsModalColor(true);
+                                                                    setOpenDrapMenu(null);
+                                                                }}
+                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                            >
+                                                                🎨
+                                                            </button>
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    handleEdit(item);
+                                                                    setOpenDrapMenu(null);
+                                                                }}
+                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                            >
+                                                                <FaEdit />
+                                                            </button>
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    handleDelet(item.id_motor);
+                                                                    setOpenDrapMenu(null);
+                                                                }}
+                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC]  font-semibold"
+                                                            >
+                                                                <MdDelete />
+                                                            </button>
+                                                            <button className="px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] h-10 w-full text-center " onClick={() => setOpenDrapMenu(false)}><CgClose /></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex justify-between mt-2">
                                     <div className="flex gap-4">
-                                        <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.nama_kategori}</p>
-                                        <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.nama_tipe}</p>
-                                        <p className="bg-blue-50 rounded-md px-3 py-2 text-sm  text-center font-medium">{item.tahun}</p>
+                                        <p className="bg-blue-50 rounded-sm px-2 py-1 text-xs  text-center font-medium">{item.nama_kategori}</p>
+                                        <p className="bg-blue-50 rounded-md px-2 py-1 text-xs  text-center font-medium">{item.nama_tipe}</p>
+                                        <p className="bg-blue-50 rounded-md px-2 py-1 text-xs  text-center font-medium">{item.tahun}</p>
                                     </div>
-                                    <div className="flex gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                console.log("KLIK KELOLA WARNA");
-
-                                                setEditWarna({
-                                                    id_motor: item.id_motor,
-                                                    id_warna: "",
-                                                    nama_warna: "",
-                                                    kode_warna: "#000000",
-                                                });
-
-                                                setIsModalColor(true);
-                                                setOpenDrapMenu(null);
-                                            }}
-                                            className="inline-flex h-8 w-8 text-md  items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
-                                        >
-                                            🎨
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                handleEdit(item);
-                                                setOpenDrapMenu(null);
-                                            }}
-                                            className="inline-flex h-8 w-8 text-md items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
-                                        >
-                                            <FaEdit />
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                handleDelet(item.id_motor);
-                                                setOpenDrapMenu(null);
-                                            }}
-                                            className="inline-flex h-8 w-8 text-md  items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
-                                        >
-                                            <MdDelete />
-                                        </button>
-                                    </div>
-                                    {/* <div>
-                                        <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
-
-                                        {openDrapMenu === item.id_motor && (
-                                            <div className="absolute right-8  w-46 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
-                                                <div className="flex">
-                                                    <div>
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => {
-                                                                console.log("KLIK KELOLA WARNA");
-
-                                                                setEditWarna({
-                                                                    id_motor: item.id_motor,
-                                                                    id_warna: "",
-                                                                    nama_warna: "",
-                                                                    kode_warna: "#000000",
-                                                                });
-
-                                                                setIsModalColor(true);
-                                                                setOpenDrapMenu(null);
-                                                            }}
-                                                            className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
-                                                        >
-                                                            🎨
-                                                            <span>Kelola Warna</span>
-                                                        </button>
-
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => {
-                                                                handleEdit(item);
-                                                                setOpenDrapMenu(null);
-                                                            }}
-                                                            className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
-                                                        >
-                                                            ✏️
-                                                            <span>Edit Produk</span>
-                                                        </button>
-
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => {
-                                                                handleDelet(item.id_motor);
-                                                                setOpenDrapMenu(null);
-                                                            }}
-                                                            className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC]  font-semibold"
-                                                        >
-                                                            🗑️
-                                                            <span>Hapus</span>
-                                                        </button>
-                                                    </div>
-                                                    <div>
-                                                        <button className=" bg-blue-50 h-10 w-8 text-center hover:bg-[#002446] hover:text-[#F2F8FC]" onClick={() => setOpenDrapMenu(false)}>x</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div> */}
-
-                                </div>
-                                <div>
-
                                     <div className="flex items-center justify-between">
-                                        <h3 className="mt-3 font-bold text-lg">{item.nama_motor}</h3>
                                         <div className="flex gap-4">
                                             <div className="flex gap-1">
                                                 {warna
@@ -872,9 +826,11 @@ const KelolaProduk = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <p className="text-l text-gray-500 font-medium">Harga : Rp {Number(item.harga).toLocaleString("id-ID")}</p>
-                                    <p className="text-sm mt-2">Stok : <span className="font-semibold">{item.stok}</span></p>
-
+                                </div>
+                                <div>
+                                    <h3 className="mt-2 font-bold text-lg">{item.nama_motor}</h3>
+                                    <p className="text-l text-gray-500 ">Harga : <span className="font-semibold"> Rp {Number(item.harga).toLocaleString("id-ID")}</span></p>
+                                    <p className="text-sm text-gray-500 mt-1">Stok : <span className="font-semibold">{item.stok}</span></p>
                                 </div>
                             </div>
                         ))}

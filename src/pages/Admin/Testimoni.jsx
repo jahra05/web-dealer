@@ -418,14 +418,12 @@ const Testimoni = () => {
                                         <p className="text-sm text-gray-500 font-medium">{item.pekerjaan}</p>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                            <FaEdit />
-                                        </button>
-                                        <button onClick={() => handleDelete(item.id_testimoni)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                            <MdDelete />
-                                        </button>
+                                <div className="flex-col mb-3">
+                                    {/* <p className="text-sm text-gray-600 mb-2">Rating</p> */}
+                                    <div className="flex text-yellow-400 mb-3">
+                                        {Array.from({ length: item.rating }).map((_, index) => (
+                                            <span key={index}>⭐</span>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -436,13 +434,13 @@ const Testimoni = () => {
                                     <p className="text-sm font-medium w-[430px]">{item.isi_testimoni}</p>
                                 </div>
 
-                                <div className="flex-col mb-3">
-                                    <p className="text-sm text-gray-600 mb-2">Rating</p>
-                                    <div className="flex text-yellow-400 mb-3">
-                                        {Array.from({ length: item.rating }).map((_, index) => (
-                                            <span key={index}>⭐</span>
-                                        ))}
-                                    </div>
+                                <div className="flex items-center gap-4 justify-between mt-6">
+                                    <button onClick={() => handleDelete(item.id_testimoni)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                        <span className="mr-2">Hapus</span><MdDelete />
+                                    </button>
+                                    <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
+                                        <span className="mr-2">Edit</span> <FaEdit />
+                                    </button>
                                 </div>
                             </div>
                         </div>

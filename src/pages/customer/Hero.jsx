@@ -35,7 +35,7 @@ const Hero = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/6287769084385?text=Halo%20Admin%20Honda,%20saya%20tertarik%20dengan%20unit%20Honda%20Beat', '_blank');
+    window.open('https://wa.me/6287769084385?text=Halo%20Admin,%20saya%20tertarik%20dengan%20unit%20Honda.%20Saya%20ingin%20mendapatkan%20informasi%20lebih%20lanjut.', '_blank');
   };
 
   return (
@@ -115,7 +115,7 @@ const Hero = () => {
                 <p className="text-[10px] font-bold text-gray-400 uppercase leading-none">CICILAN MULAI</p>
                 <div className="flex items-baseline justify-center">
                   <span className="text-xl font-black text-gray-900">29RB</span>
-                  <span className="text-[10px] font-bold text-gray-500 ml-1">/ HARI</span>
+                  <span className="text-[10px] font-bold text-gray-500 ml-1">/ BULAN</span>
                 </div>
               </div>
             </div>

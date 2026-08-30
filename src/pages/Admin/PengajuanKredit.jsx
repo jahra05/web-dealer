@@ -291,19 +291,27 @@ const PengajuanKredit = () => {
                                 </div>
 
                                 <div className="mt-8">
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
                                         <p className="text-sm text-gray-600">Motor</p>
                                         <p className="text-sm font-medium">{item.nama_motor}</p>
                                     </div>
 
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
+                                        <p className="text-sm text-gray-600">Harga Motor</p>
+                                        <p className="text-sm font-medium">Rp. {Number(item.harga).toLocaleString('id-ID')}</p>
+                                    </div>
+
+                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
                                         <p className="text-sm text-gray-600">Alamat</p>
                                         <p className="text-sm font-medium">{item.alamat}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2">
+                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
                                         <p className="text-sm text-gray-600">Pekerjaan</p>
                                         <p className="text-sm font-medium">{item.pekerjaan}</p>
                                     </div>
+                                    <button onClick={() => handleDelete(item.id_pengajuan)} className="inline-flex mt-3 w-full h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                        <span className="mr-2">Hapus</span><MdDelete />
+                                    </button>
                                 </div>
 
                             </div>

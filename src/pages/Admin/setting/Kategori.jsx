@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import ConfirmAlert from "../../../components/ConfirmAlert";
 import CustomAlert from "../../../components/CustomAlert";
 import { PiPlus } from "react-icons/pi";
+import { MdDelete } from "react-icons/md";
 
 export default function Kategori() {
+    const token = localStorage.getItem('token')
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [kategori, setKategori] = useState([])
     const [tipe, setTipe] = useState([])
@@ -88,6 +90,69 @@ export default function Kategori() {
         setKategoriForm((prev) => ({
             ...prev, [name]: value
         }))
+    }
+    const deleteTipe = async (id) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori/${id_kategori}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.json();
+            if (!response.ok) {
+                setAlert({
+                    type: "warning",
+                    message: "Gagal mengahapus Tipe"
+                })
+                return
+            }
+            if (data.success) {
+                setAlert({
+                    type: "success",
+                    message: "Tipe berhasil dihapus"
+                })
+                getTipe()
+            }
+        } catch (error) {
+            console.error('Error menghapus tipe')
+            setAlert({
+                type: "warning",
+                message: "Terjadi kesalahan"
+            })
+        }
+    }
+
+    const deleteKategori = async (id_kategori) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori/${id_kategori}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.json();
+            if (!response.ok) {
+                setAlert({
+                    type: "warning",
+                    message: "Gagal menghapus Kategori"
+                })
+                return
+            }
+            if (data.success) {
+                setAlert({
+                    type: 'success',
+                    message: "Kategori berhasil dihapus"
+                })
+                getKategori()
+            }
+        } catch (error) {
+            console.error("Error menghapus kategori", error)
+            setAlert({
+                type: "warnig",
+                message: "Terjadi Kesalahan"
+            })
+        }
     }
 
     const handleSubmitTipe = async (e) => {
@@ -360,6 +425,7 @@ export default function Kategori() {
                                             </span>
                                         </div>
                                         <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                            <button onClick={() => deleteKategori(item.id_kategori)}><MdDelete /></button>
                                             <button onClick={() => openEditKategori(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] rounded-tl-lg rounded-bl-lg">
                                                 Edit
                                             </button>
@@ -465,6 +531,7 @@ export default function Kategori() {
                                                             </p>
                                                         </div>
                                                         <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                                            <button onClick={() => deleteTipe(item.id_tipe)}><MdDelete /></button>
                                                             <button onClick={() => openEditTipe(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] rounded-tl-lg rounded-bl-lg ">
                                                                 Edit
                                                             </button>

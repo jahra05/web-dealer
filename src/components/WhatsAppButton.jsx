@@ -7,9 +7,9 @@ const WhatsAppButton = () => {
         <p className="text-sm font-black text-gray-900">Chat WhatsApp</p>
         <div className="absolute top-full right-4 -mt-1 w-2 h-2 bg-white border-r border-b border-gray-100 rotate-45"></div>
       </div>
-      <a 
-        href="https://wa.me/6287769084385" 
-        target="_blank" 
+      <a
+        href="https://wa.me/6287769084385?text=Halo%20Admin,%20saya%20tertarik%20dengan%20unit%20Honda.%20Saya%20ingin%20mendapatkan%20informasi%20lebih%20lanjut"
+        target="_blank"
         rel="noopener noreferrer"
         className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl shadow-green-200 hover:scale-110 transition-transform active:scale-95 border-4 border-white"
       >

@@ -148,7 +148,7 @@ const ProductDetail = () => {
 
 
   const openWhatsApp = () => {
-    const message = `halo admin honda, saya tertarik dengan unit ${bike.nama_motor}`
+    const message = `halo admin, saya tertarik dengan Honda ${bike.nama_motor}. Saya ingin mengetahui informasi lebih lanjut mengenai unit tersebut`
     window.open(`https://wa.me/${infoContact.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
   };
 

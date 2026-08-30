@@ -311,14 +311,14 @@ const FaqAdmin = () => {
                         </div>
                         {pageItems.map((item) => (
                             <div className="bg-white shadow p-4 rounded-xl">
-                                <div className="flex items-center gap-2">
+                                {/* <div className="flex items-center gap-2">
                                     <button onClick={() => handleDelete(item.id_faq)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
                                         <MdDelete />
                                     </button>
                                     <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
                                         <FaEdit />
                                     </button>
-                                </div>
+                                </div> */}
 
                                 <div className="mt-6">
                                     <div className=" items-center mb-2">
@@ -329,6 +329,14 @@ const FaqAdmin = () => {
                                     <div className="items-center mb-2">
                                         <p className="text-sm text-gray-600 mb-2">Jawaban</p>
                                         <p className="text-sm font-medium">{item.jawaban}</p>
+                                    </div>
+                                    <div className="flex items-center gap-4 justify-between mt-6">
+                                        <button onClick={() => handleDelete(item.id_faq)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                            <span className="mr-2">Hapus</span><MdDelete />
+                                        </button>
+                                        <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
+                                            <span className="mr-2">Edit</span> <FaEdit />
+                                        </button>
                                     </div>
                                 </div>
 

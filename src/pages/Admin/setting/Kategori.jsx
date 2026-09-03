@@ -332,13 +332,13 @@ export default function Kategori() {
                     data.message || "Gagal mengubah status"
                 );
             }
-
-            await getTipe();
-
+            console.log("GET TIPE SELESAI");
             setAlert({
                 type: "success",
                 message: data.message || "Status tipe berhasil diubah"
             });
+            await getTipe();
+
 
         } catch (error) {
             console.error(error);
@@ -349,6 +349,7 @@ export default function Kategori() {
             });
         }
     };
+
     const getKategori = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`)
@@ -372,9 +373,12 @@ export default function Kategori() {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe`)
             const data = await response.json();
+            console.log("DATA STATUS TIPE:", data);
+
             console.log(data)
 
             if (data.success) {
+                console.log("SET TIPE:", data.data);
                 setTipe(data.data)
             }
 

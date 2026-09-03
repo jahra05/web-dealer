@@ -190,7 +190,7 @@ const deleteTipe = (req, res) => {
                         message: "Tipe tidak ditemukan"
                     })
                 }
-                res.json({
+                return res.json({
                     success: true,
                     message: "tipe berhasi dihapus"
                 })

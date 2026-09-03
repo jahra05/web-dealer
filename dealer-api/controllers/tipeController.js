@@ -81,10 +81,15 @@ const updateStatusTipe = (req, res) => {
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                success: true,
-                message: "tipe berhasil di ubah"
+                success: false,
+                message: "tipe tidak ditemukan"
             })
         }
+
+        return req.json({
+            success: true,
+            message: "Status tipe berhasil diubah"
+        })
     })
 }
 
@@ -118,7 +123,7 @@ const updateTipe = (req, res) => {
             });
         }
 
-        res.json({
+        return res.json({
             success: true,
             message: "Tipe berhasil diupdate"
         });
@@ -227,7 +232,7 @@ const updateVarian = (req, res) => {
             });
         }
 
-        res.json({
+        return res.json({
             success: true,
             message: "Varian berhasil diupdate"
         });

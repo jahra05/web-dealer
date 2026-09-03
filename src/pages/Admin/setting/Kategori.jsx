@@ -93,7 +93,7 @@ export default function Kategori() {
     }
     const deleteTipe = async (id) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori/${id_kategori}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe/${id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -233,7 +233,6 @@ export default function Kategori() {
                 headers: {
                     "Content-Type": "application/json",
 
-                    // kalau verifyToken membaca token dari Authorization
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify(kategoriForm)

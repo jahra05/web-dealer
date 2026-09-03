@@ -128,31 +128,77 @@ const updateTipe = (req, res) => {
 const deleteTipe = (req, res) => {
     const { id } = req.params
 
-    const sql = `
-    UPDATE tipe
-    SET status = 'Nonaktif'
-    WHERE id_tipe = ?
+    const checkRelasiTipe = `
+            SELECT COUNT(*) AS jumlah_motor
+            FROM motor
+            WHERE id_tipe = ? 
     `;
 
-    db.query(sql, [id], (err, result) => {
+    db.query(checkRelasiTipe, [id], (err, result) => {
         if (err) {
+            console.error("error cek relasi motor", err)
+
             return res.status(500).json({
                 success: false,
-                message: "Gagal mengapus tipe"
+                message: "Gagal mengecek data motor",
+                err: err.message
             })
         }
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Tipe tidak ditemukan"
+        const jumlahMotor = result[0].jumlah_motor
+
+        if (jumlahMotor > 0) {
+
+            const updateStatus = `
+                UPDATE tipe
+                SET status = 'Nonaktif'
+                WHERE id_tipe = ?
+            `;
+            db.query(updateStatus, [id], (err, result) => {
+                if (err) {
+                    console.error("❌ Error menonaktifkan tipe:", err);
+
+                    return res.status(500).json({
+                        success: false,
+                        message: "Gagal menonaktifkan tipe",
+                        error: err.message
+                    });
+                }
+
+                return res.json({
+                    success: true,
+                    message: "tipe dinonaktifkan karena masih digunakan dalam tabel lain "
+                });
+            })
+        } else {
+            const sql = `
+                DELETE FROM tipe
+                WHERE id_tipe = ?
+                `;
+
+            db.query(sql, [id], (err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        success: false,
+                        message: "Gagal mengapus tipe"
+                    })
+                }
+
+                if (result.affectedRows === 0) {
+                    return res.status(404).json({
+                        success: false,
+                        message: "Tipe tidak ditemukan"
+                    })
+                }
+                res.json({
+                    success: true,
+                    message: "tipe berhasi dihapus"
+                })
             })
         }
-        res.json({
-            success: true,
-            message: "tipe berhasi dihapus"
-        })
     })
+
+
 }
 
 const updateVarian = (req, res) => {

@@ -144,30 +144,76 @@ const deleteKategori = (req, res) => {
 
     const { id_kategori } = req.params;
 
-    const sql = "DELETE FROM kategori WHERE id_kategori = ?";
+    const checkRelasiKategori = `
+        SELECT COUNT(*) AS jumlah_tipe
+        FROM tipe
+        WHERE id_kategori = ? 
+    `;
 
-    db.query(sql, [id_kategori], (err, result) => {
-
+    db.query(checkRelasiKategori, [id_kategori], (err, result) => {
         if (err) {
+            console.error("Erro cek relasi tipe", err)
+
             return res.status(500).json({
                 success: false,
-                message: "Gagal menghapus kategori"
-            });
+                message: "Gagal mengecek data motor",
+                err: err.message
+            })
         }
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Kategori tidak ditemukan"
+        const jumlah_tipe = result[0].jumlah_tipe
+
+        if (jumlah_tipe > 0) {
+            const updateStatus = `
+                UPDATE kategori
+                SET status = 'Nonaktif'
+                WHERE id_kategori = ? 
+            `;
+
+            db.query(updateStatus, [id_kategori], (err, result) => {
+                if (err) {
+                    console.error("error menonaktifkan tipe", err);
+
+                    return res.status(500).json({
+                        success: false,
+                        message: "gagal menonaktifkan tipe",
+                        error: err.message
+                    })
+                }
+                return res.json({
+                    success: true,
+                    message: "kategori dinonktifkan karean masih di gunakan"
+                })
+            })
+        } else {
+            const sql = "DELETE FROM kategori WHERE id_kategori = ?";
+
+            db.query(sql, [id_kategori], (err, result) => {
+
+                if (err) {
+                    return res.status(500).json({
+                        success: false,
+                        message: "Gagal menghapus kategori"
+                    });
+                }
+
+                if (result.affectedRows === 0) {
+                    return res.status(404).json({
+                        success: false,
+                        message: "Kategori tidak ditemukan"
+                    });
+                }
+
+                res.status(200).json({
+                    success: true,
+                    message: "Kategori berhasil dihapus"
+                });
+
             });
         }
+    })
 
-        res.status(200).json({
-            success: true,
-            message: "Kategori berhasil dihapus"
-        });
 
-    });
 
 };
 

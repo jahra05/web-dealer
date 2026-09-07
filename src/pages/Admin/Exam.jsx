@@ -6,6 +6,7 @@ import { MdNotificationsNone } from "react-icons/md"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
+import { BiChevronDown } from "react-icons/bi"
 
 const MONTHS = [
     { value: "1", label: "Januari" },
@@ -35,12 +36,13 @@ const Exam = () => {
     const [tahun, setTahun] = useState(CURRENT_YEAR);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeLaporan, setActiveLaporan] = useState('produk')
+    const [open, setOpen] = useState(false)
 
     const laporanMenu = [
         { key: 'produk', label: "Laporan Produk" },
         { key: 'pengajuanKredit', label: "Pengajuan Kredit" },
-        { key: 'contact', label: "Laporan Message" },
-        { key: 'testimoni', label: "Laporan Testimoni" },
+        // { key: 'contact', label: "Laporan Message" },
+        // { key: 'testimoni', label: "Laporan Testimoni" },
     ]
 
     // Panggil API laporan dengan parameter filter
@@ -173,12 +175,12 @@ const Exam = () => {
     // ── Render helpers ──
 
     const renderFilterSelects = () => (
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-col ">
             {/* Periode select */}
             <select
                 value={periode}
                 onChange={handlePeriodeChange}
-                className="h-10 px-4 rounded-full bg-white border border-white/20 text-sm text-gray-700"
+                className="h-10 px-4  border-b border-white/20 text-sm bg-[#004A7C] hover:border-b-white transition-all text-white outline-none "
             >
                 <option value="semua">Semua Data</option>
                 <option value="bulanan">Bulanan</option>
@@ -190,7 +192,7 @@ const Exam = () => {
                 <select
                     value={bulan}
                     onChange={(e) => setBulan(e.target.value)}
-                    className="h-10 px-3 rounded-full bg-white border border-white/20 text-sm text-gray-700"
+                    className="h-10 px-3  border-b border-white/20 text-sm bg-[#004A7C] hover:border-b-white transition-all  text-white outline-none"
                 >
                     {MONTHS.map((m) => (
                         <option key={m.value} value={m.value}>{m.label}</option>
@@ -203,7 +205,7 @@ const Exam = () => {
                 <select
                     value={tahun}
                     onChange={(e) => setTahun(Number(e.target.value))}
-                    className="h-10 px-3 rounded-full bg-white border border-white/20 text-sm text-gray-700"
+                    className="h-10 px-3  border-b border-white/20 text-sm bg-[#004A7C] hover:border-b-white transition-all  text-white outline-none"
                 >
                     {YEARS.map((y) => (
                         <option key={y} value={y}>{y}</option>
@@ -232,9 +234,8 @@ const Exam = () => {
 
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
-            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
                     <div className="flex items-center justify-between gap-3 p-4">
 
                         <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -251,25 +252,18 @@ const Exam = () => {
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <UserMenuDropdwn />
                             <Notifikasi />
+                            <UserMenuDropdwn />
                         </div>
 
                     </div>
-                </div>
+                </div> */}
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
-                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
+                    <div className="flex lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
                         <div>
-                            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Laporan & Export</h1>
+                            <h1 className="text-xl lg:text-2xl font-bold text-gray-900" >{laporanMenu.find((item) => item.key === tab)?.label}</h1>
                             <p className="text-sm text-gray-500 mt-1">Export data dan laporan.</p>
-                        </div>
-                        <div className="flex text-center gap-2">
-                            {laporanMenu.map((item) => (
-                                <button key={item.key} onClick={() => { setActiveLaporan(item.key); getLaporan(item.key) }}
-                                    className={`px-3 py-2  text-l font-semibold transition ${activeLaporan === item.key ? 'border-b-[#00203b] border-b-2 transition text-black' : " hover:border-b-2 text-black"
-                                        }`} > {item.label}</button>
-                            ))}
                         </div>
                     </div>
 
@@ -277,11 +271,31 @@ const Exam = () => {
                         {/* ── Tab: Produk ── */}
                         {tab === "produk" && (
                             <div className="mt-0 overflow-hidden rounded-2xl bg-white shadow-sm">
-                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-xl font-semibold text-white">Laporan Produk</p>
+                                <div className="flex flex-col justify-end sm:flex-row items-start sm:items-center  gap-3 bg-[#004A7C] px-6 py-4">
+
+                                    <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
+                                        <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
+                                            Laporan <BiChevronDown />
+                                        </button>
+
+                                        {open && (
+                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white rounded-lg shadow-lg border border-gray-100 p-1">
+                                                {laporanMenu.map((item) => (
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
+                                                        setActiveLaporan(item.key),
+                                                            getLaporan(item.key),
+                                                            setOpen(false)
+                                                    }
+
+                                                    }>{item.label}</button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2  border-b border-white/20 hover:border-b-white text-white px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -328,11 +342,31 @@ const Exam = () => {
                         {/* ── Tab: Pengajuan Kredit ── */}
                         {tab === "pengajuanKredit" && (
                             <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-                                <div className="flex items-center justify-between bg-[#004A7C] px-6 py-4">
-                                    <p className="text-xl font-semibold text-white">Laporan Pengajuan</p>
+                                <div className="flex flex-col justify-end sm:flex-row items-start sm:items-center  gap-3 bg-[#004A7C] px-6 py-4">
+
+                                    <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
+                                        <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
+                                            Laporan <BiChevronDown />
+                                        </button>
+
+                                        {open && (
+                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white  rounded-lg shadow-lg border border-gray-100 p-1">
+                                                {laporanMenu.map((item) => (
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
+                                                        setActiveLaporan(item.key),
+                                                            getLaporan(item.key),
+                                                            setOpen(false)
+                                                    }
+
+                                                    }>{item.label}</button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <div className="flex items-center gap-2 flex-wrap">
                                         {renderFilterSelects()}
-                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
+                                        <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2  border-b border-white/20 hover:border-b-white text-white px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
                                             <span className="text-xs">Export</span>
                                         </button>
@@ -458,8 +492,27 @@ const Exam = () => {
                         {/* ── Tab: Produk ── */}
                         {tab === "produk" && (
                             <div className=" rounded-xl bg-white shadow p-4">
-                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-xl font-semibold text-white">Laporan Produk Motor</p>
+                                <div className="flex  rounded-xl sm:flex-row  sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
+
+                                    <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
+                                        <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
+                                            Laporan <BiChevronDown />
+                                        </button>
+
+                                        {open && (
+                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white rounded-lg shadow-lg border border-gray-100 p-1">
+                                                {laporanMenu.map((item) => (
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
+                                                        setActiveLaporan(item.key),
+                                                            getLaporan(item.key),
+                                                            setOpen(false)
+                                                    }
+
+                                                    }>{item.label}</button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                     <div className="flex  items-center gap-2">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">

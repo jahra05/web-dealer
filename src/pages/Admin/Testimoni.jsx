@@ -214,11 +214,10 @@ const Testimoni = () => {
     }, [page, totalPages])
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
-            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
                 {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
-                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
                     <div className="flex items-center justify-between gap-3 p-4">
 
                         <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -245,16 +244,16 @@ const Testimoni = () => {
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <UserMenuDropdwn />
                             <Notifikasi />
+                            <UserMenuDropdwn />
                         </div>
 
                     </div>
-                </div>
+                </div> */}
 
                 {/* <div className="mt-"> */}
                 <div className="flex-1 px-4 py-6 overflow-x-hidden mt-24">
-                    <div className="hidden md:block">
+                    <div className="hidden md:block mb-4">
                         <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
                         <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
                     </div>
@@ -396,7 +395,7 @@ const Testimoni = () => {
                 {/* mobile */}
                 <div className="md:hidden p-4 space-y-4 mt-[-40px]">
                     <div className="flex justify-between items-center">
-                        <div>
+                        <div className="mb-4">
                             <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
                         </div>
@@ -407,15 +406,6 @@ const Testimoni = () => {
                             <PiPlus size={20} />
                         </button>
                     </div>
-                    {/* <div className="px-4 flex justify-between items-center lg:px-6 py-4 bg-[#004A7C] rounded-xl">
-                        <p className=" text-xl font-semibold text-white">Testimoni</p>
-                        <button
-                            type="button"
-                            onClick={openModal}
-                            className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 focus:ring-2 focus:ring-indigo-200'>
-                            <PiPlus size={20} />
-                        </button>
-                    </div> */}
                     <div className=" bg-white p-4 space-y-4 rounded-xl">
                         {pageItems.map((item) => (
                             <div className="bg-white shadow p-4 rounded-xl">
@@ -432,7 +422,6 @@ const Testimoni = () => {
                                         </div>
                                     </div>
                                     <div className="flex-col mb-3">
-                                        {/* <p className="text-sm text-gray-600 mb-2">Rating</p> */}
                                         <div className="flex text-yellow-400 mb-3">
                                             {Array.from({ length: item.rating }).map((_, index) => (
                                                 <span key={index}>⭐</span>
@@ -444,7 +433,7 @@ const Testimoni = () => {
                                 <div className="mt-8">
                                     <div className="flex flex-col  mb-3">
                                         <p className="text-sm text-gray-600 mb-2">Isi Testimoni</p>
-                                        <p className="text-sm font-medium w-[410px]">{item.isi_testimoni}</p>
+                                        <p className="text-sm font-medium w-full">{item.isi_testimoni}</p>
                                     </div>
 
                                     <div className="flex items-center gap-4 justify-between mt-6">

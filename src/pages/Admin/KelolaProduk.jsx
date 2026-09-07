@@ -535,10 +535,8 @@ const KelolaProduk = () => {
 
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden" >
-            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20  bg-gray-50 border-b border-gray-100">
                     <div className="flex items-center justify-between gap-3 p-4">
 
                         <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -565,12 +563,12 @@ const KelolaProduk = () => {
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <UserMenuDropdwn />
                             <Notifikasi />
+                            <UserMenuDropdwn />
                         </div>
 
                     </div>
-                </div>
+                </div> */}
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <div className="flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center mb-4">
                         <div>
@@ -582,7 +580,7 @@ const KelolaProduk = () => {
                                 <select
                                     value={selectKategori}
                                     onChange={(e) => setSelectKategori(e.target.value)}
-                                    className="w-full h-10 px-4 rounded-full bg-white border border-blue-100 text-sm"
+                                    className="w-full h-10 px-4 rounded-full bg-white border border-blue-100 text-sm outline-none focus:outline-none focus:ring-0 focus:border-blue-100"
                                 >
                                     <option value="">Semua Kategori</option>
 
@@ -638,6 +636,8 @@ const KelolaProduk = () => {
                                             <td className="px-4 py-4 whitespace-nowrap">
                                                 <div className="flex items-center w-10 h-10 ">
                                                     <img
+
+                                                        // src={`${import.meta.env.VITE_API_URL}${item.gambar}`}
                                                         src={item.gambar}
                                                         alt={item.nama_motor}
                                                         className="h-10 w-10 object-cover"

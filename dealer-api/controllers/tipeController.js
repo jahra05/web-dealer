@@ -86,9 +86,9 @@ const updateStatusTipe = (req, res) => {
             })
         }
 
-        return req.json({
+        res.json({
             success: true,
-            message: "Status tipe berhasil diubah"
+            message: "tipe berhasil diubah"
         })
     })
 }

@@ -128,11 +128,10 @@ const PengajuanKredit = () => {
 
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
-            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
                 {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
-                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
                     <div className="flex items-center justify-between gap-3 p-4">
 
                         <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -149,12 +148,12 @@ const PengajuanKredit = () => {
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <UserMenuDropdwn />
                             <Notifikasi />
+                            <UserMenuDropdwn />
                         </div>
 
                     </div>
-                </div>
+                </div> */}
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
                         <div>
@@ -167,7 +166,7 @@ const PengajuanKredit = () => {
                                 <select
                                     value={selectStatus}
                                     onChange={(e) => setSelectStatus(e.target.value)}
-                                    className="w-full sm:w-56 lg:w-72 h-10 px-4 rounded-full bg-white border border-blue-100 text-sm"
+                                    className="w-full sm:w-56 lg:w-72 h-10 px-4 rounded-full bg-white border border-blue-100 text-sm outline-none focus:outline-none focus:ring-0 focus:border-blue-100"
                                 >
                                     <option value="">Semua Status</option>
 

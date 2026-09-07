@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaMotorcycle, FaFileShield, FaClipboardList } from 'react-icons/fa6';
 import { MdQuiz } from 'react-icons/md';
-import { BiBarChart, BiBox, BiCalculator, BiKey, BiMessageAdd, BiMessageSquare, BiUser } from 'react-icons/bi';
+import { BiArrowBack, BiBarChart, BiBox, BiCalculator, BiKey, BiMessageAdd, BiMessageSquare, BiUser } from 'react-icons/bi';
 import { SiPrek } from 'react-icons/si';
 import { CgComment, CgCreditCard } from 'react-icons/cg';
 import { IoBagCheckOutline } from 'react-icons/io5';
-import { LuCircleHelp, LuLayoutDashboard, LuMessageCircleHeart } from 'react-icons/lu';
+import { LuCircleHelp, LuLayoutDashboard, LuMessageCircleHeart, LuPanelLeftClose } from 'react-icons/lu';
 import { FiFileText } from 'react-icons/fi';
 import { BarChart } from 'recharts';
 import { CiSettings } from 'react-icons/ci';
@@ -58,7 +58,7 @@ const NAV_ITEMS = [
 ];
 
 
-const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
+const AdminNavbar = ({ sidebar, setSidebar, isOpen = false, onClose = () => { } }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [navLogo, setNavLogo] = useState([])
@@ -85,18 +85,24 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
 
   return (
     <>
-      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100">
-        <div className="p-4">
-          <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
-            <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
-              <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-14 h-14' />
-              
-            </div>
-            <div className="leading-tight min-w-0">
-              <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
-              <p className="text-[10px] text-gray-500">{navLogo.title}</p>
-            </div>
-          </Link>
+      <aside className={`${sidebar ? 'w-20 flex justify-center items-center text-center' : 'w-64'} hidden lg:flex lg:flex-col lg:flex-shrink-0 bg-white border-r border-gray-100`}>
+
+        <div className='flex items-center '>
+          <div className={sidebar ? 'hidden' : 'block p-4'}>
+            <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
+              <div className="w-8 h-8 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
+                <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-8 h-8' />
+
+              </div>
+              <div className="leading-tight min-w-0">
+                <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
+                <p className="text-[9px] text-gray-500">{navLogo.title}</p>
+              </div>
+            </Link>
+          </div>
+          <button onClick={() => setSidebar(!sidebar)} className=" px-4 py-3 mt-3 text-gray-400">
+            <LuPanelLeftClose size={20} />
+          </button>
         </div>
 
         <nav className="flex-1 px-3 py-2 overflow-y-auto">
@@ -104,7 +110,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
             <div key={group.title} className="mb-5">
 
               {/* Judul kelompok */}
-              <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">
+              <p className={sidebar ? 'hidden' : " block px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400"}>
                 {group.title}
               </p>
 
@@ -129,7 +135,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
                   font-semibold text-sm
                   transition-all duration-200
                   ${isActive
-                            ? "bg-[#004A7C] text-[#E6F1F7]"
+                            ? "bg-[#004A7C] text-[#E6F1F7] "
                             : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
                           }
                 `}
@@ -140,7 +146,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
                           className="flex-shrink-0"
                         />
 
-                        <span>{item.label}</span>
+                        <span className={sidebar ? 'hidden' : 'block'}>{item.label}</span>
                       </Link>
                     </li>
                   );
@@ -150,7 +156,7 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
             </div>
           ))}
         </nav>
-      </aside>
+      </aside >
 
       <div className={`lg:hidden ${isOpen ? 'visible' : 'invisible'}`}>
         <div
@@ -165,12 +171,12 @@ const AdminNavbar = ({ isOpen = false, onClose = () => { } }) => {
         >
           <div className="flex items-center justify-between p-4 border-b border-gray-100">
             <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
-              <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
-                <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-18 h-16 bg-white rounded-full' />
+              <div className="w-8 h-8 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
+                <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-8 h-8 bg-white rounded-full' />
               </div>
               <div className="leading-tight min-w-0">
                 <h2 className="text-lg font-bold text-gray-900 truncate">{navLogo.nama_dealer}</h2>
-                <p className="text-[10px] text-gray-500">{navLogo.title}</p>
+                <p className="text-[9px] text-gray-500">{navLogo.title}</p>
               </div>
             </Link>
             <button

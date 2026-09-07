@@ -327,16 +327,19 @@ export default function Kategori() {
 
             const data = await response.json();
 
+            if (data.success) {
+                setAlert({
+                    type: "success",
+                    message: data.message || "Status tipe berhasil diubah"
+                });
+            }
+
             if (!response.ok) {
                 throw new Error(
                     data.message || "Gagal mengubah status"
                 );
             }
-            console.log("GET TIPE SELESAI");
-            setAlert({
-                type: "success",
-                message: data.message || "Status tipe berhasil diubah"
-            });
+
             await getTipe();
 
 
@@ -397,179 +400,184 @@ export default function Kategori() {
             {alert && (
                 <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
             )}
-            <div className="min-h-screen w-full flex gap-2 bg-gray-50 overflow-x-hidden">
-                <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-                <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                    <div className="flex items-center justify-between px-0 py-4">
-                        <button className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors bg-white shadow-sm"
-                            onClick={() => setIsSidebarOpen(prev => !prev)}>
-                            <RxHamburgerMenu size={24} />
-                        </button>
-                    </div>
-                    <div className="flex flex-col md:flex-row gap-6 bg-white p-4 rounded-xl">
-                        <div className="bg-white shadow p-4 rounded-xl w-full">
-                            <div className="mb-6 border-b pt-4 pb-4 flex justify-between items-center">
-                                <div>
-                                    <p className="text-lg font-medium">Kategori</p>
-                                    <p className="text-xs text-gray-600">Kelola Kategori produk</p>
-                                </div>
-                                <button onClick={openAddKategori} className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:[#00385d]"><PiPlus size={24} /></button>
-                            </div>
-
-                            <div className="space-y-3">
-                                {pageKategoriItems.map((item) => (
-                                    <div key={item.id_kategori} onClick={() => setSelectKategori(item)}
-                                        className={`cursor-pointer flex items-center justify-between gap-3 border rounded-xl p-4 transition ${selectKategori?.id_kategori === item.id_kategori ? "border-[#004A7C] bg-blue-50" : "border-gray-100 hover:bg-gray-50"}`}
-                                    >
-                                        <div className="flex gap-4 items-center">
-                                            <p className="font-medium text-gray-800 text-sm">{item.nama_kategori}</p>
-                                            <span className={`inline-block mt-1 px-2 py-1 rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-                                                {item.status}
-                                            </span>
-                                        </div>
-                                        <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
-                                            <button onClick={() => deleteKategori(item.id_kategori)}><MdDelete /></button>
-                                            <button onClick={() => openEditKategori(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] rounded-tl-lg rounded-bl-lg">
-                                                Edit
-                                            </button>
-                                            <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
-                                                {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
-                                <button
-                                    onClick={() => setPageKategori((p) => Math.max(1, p - 1))}
-                                    disabled={pageKategori === 1}
-                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${pageKategori === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                    Prev
-                                </button>
-                                <span className="text-sm text-slate-600">Halaman {pageKategori} / {totalPageKategori}</span>
-                                <button
-                                    onClick={() => setPageKategori((p) => Math.min(totalPageKategori, p + 1))}
-                                    disabled={pageKategori === totalPageKategori}
-                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${pageKategori === totalPageKategori ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                    Next
-                                </button>
-                            </div>
+            <div className=" mt-4 p-4 flex flex-col overflow-x-hidden">
+                <h2 className="px-2 text-xl font-medium">Setting</h2>
+                <div className="flex w-full mt-4 bg-white p-4  rounded-xl">
+                    <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+                    <div className=" w-full min-w-0 flex flex-col  overflow-x-hidden z-10">
+                        <div className="mb-4 border-b border-gray-100 py-4 ml-4">
+                            <p className="text-lg font-medium">Profil Delaer</p>
+                            <p className="text-xs text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa, accusantium?</p>
                         </div>
 
-                        <div className="bg-white shadow p-4 rounded-xl w-full flex flex-col justify-between">
+                        <div className="flex flex-col md:flex-row gap-6 bg-white p-4 rounded-xl">
 
-                            <div>
-                                <div className="mb-4 border-b py-4">
-                                    <p className="text-lg font-medium">Tipe Motor</p>
-                                    <p className="text-xs text-gray-600">
-                                        Kelola tipe berdasarkan kategori
-                                    </p>
+                            <div className="bg-white shadow p-4 rounded-xl w-full">
+                                <div className="mb-6 border-b pt-4 pb-4 flex justify-between items-center">
+                                    <div>
+                                        <p className="text-lg font-medium">Kategori</p>
+                                        <p className="text-xs text-gray-600">Kelola Kategori produk</p>
+                                    </div>
+                                    <button onClick={openAddKategori} className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:[#00385d]"><PiPlus size={24} /></button>
                                 </div>
 
-                                {!selectKategori ? (
+                                <div className="space-y-3">
+                                    {pageKategoriItems.map((item) => (
+                                        <div key={item.id_kategori} onClick={() => setSelectKategori(item)}
+                                            className={`cursor-pointer flex items-center justify-between gap-3 border rounded-xl p-4 transition ${selectKategori?.id_kategori === item.id_kategori ? "border-[#004A7C] bg-blue-50" : "border-gray-100 hover:bg-gray-50"}`}
+                                        >
+                                            <div className="flex gap-4 items-center">
+                                                <p className="font-medium text-gray-800 text-sm">{item.nama_kategori}</p>
+                                                <span className={`inline-block mt-1 px-2 py-1 rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+                                                    {item.status}
+                                                </span>
+                                            </div>
+                                            <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                                <button onClick={() => deleteKategori(item.id_kategori)} className="px-2 py-1 w-full rounded-tl-lg rounded-bl-lg"><MdDelete /></button>
+                                                <button onClick={() => openEditKategori(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] ">
+                                                    Edit
+                                                </button>
+                                                <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
+                                                    {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                                    <button
+                                        onClick={() => setPageKategori((p) => Math.max(1, p - 1))}
+                                        disabled={pageKategori === 1}
+                                        className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${pageKategori === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                        Prev
+                                    </button>
+                                    <span className="text-sm text-slate-600">Halaman {pageKategori} / {totalPageKategori}</span>
+                                    <button
+                                        onClick={() => setPageKategori((p) => Math.min(totalPageKategori, p + 1))}
+                                        disabled={pageKategori === totalPageKategori}
+                                        className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${pageKategori === totalPageKategori ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
 
-                                    <div className="flex items-center justify-center py-20">
-                                        <p className="text-sm text-gray-500">
-                                            Pilih kategori terlebih dahulu
+                            <div className="bg-white shadow p-4 rounded-xl w-full flex flex-col justify-between">
+
+                                <div>
+                                    <div className="mb-4 border-b py-4">
+                                        <p className="text-lg font-medium">Tipe Motor</p>
+                                        <p className="text-xs text-gray-600">
+                                            Kelola tipe berdasarkan kategori
                                         </p>
                                     </div>
 
-                                ) : (
-                                    <>
+                                    {!selectKategori ? (
 
-                                        {/* Header tipe */}
-                                        <div className="flex items-center justify-between mb-5">
-
-                                            <div>
-                                                <h2 className="text-lg font-semibold">
-                                                    {selectKategori.nama_kategori}
-                                                </h2>
-
-                                                <p className="text-sm text-gray-500">
-                                                    Daftar tipe motor
-                                                </p>
-                                            </div>
-
-                                            <button
-                                                onClick={openAddTipe}
-                                                className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:bg-[#00385d]"
-                                            >
-                                                <PiPlus size={24} />
-                                            </button>
+                                        <div className="flex items-center justify-center py-20">
+                                            <p className="text-sm text-gray-500">
+                                                Pilih kategori terlebih dahulu
+                                            </p>
                                         </div>
 
-                                        {/* Daftar tipe */}
-                                        <div className="space-y-3">
+                                    ) : (
+                                        <>
 
-                                            {pageItems.length === 0 ? (
+                                            {/* Header tipe */}
+                                            <div className="flex items-center justify-between mb-5">
 
-                                                <div className="text-center py-10">
+                                                <div>
+                                                    <h2 className="text-lg font-semibold">
+                                                        {selectKategori.nama_kategori}
+                                                    </h2>
 
-                                                    <p className="text-sm text-gray-500 mb-3">
-                                                        Belum ada tipe untuk kategori ini
+                                                    <p className="text-sm text-gray-500">
+                                                        Daftar tipe motor
                                                     </p>
                                                 </div>
 
-                                            ) : (
+                                                <button
+                                                    onClick={openAddTipe}
+                                                    className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:bg-[#00385d]"
+                                                >
+                                                    <PiPlus size={24} />
+                                                </button>
+                                            </div>
 
-                                                pageItems.map((item) => (
+                                            {/* Daftar tipe */}
+                                            <div className="space-y-3">
 
-                                                    <div
-                                                        key={item.id_tipe}
-                                                        className="flex items-center justify-between border border-gray-100 rounded-xl p-3 hover:bg-gray-50"
-                                                    >
+                                                {pageItems.length === 0 ? (
 
-                                                        <div className="">
-                                                            <div className="flex gap-4 items-center">
-                                                                <p className="font-medium text-gray-800 text-sm">
-                                                                    {item.nama_tipe}
-                                                                </p>
-                                                                <span className={`inline-block mt-1  px-2 py-1  rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-                                                                    {item.status}
-                                                                </span>
-                                                            </div>
+                                                    <div className="text-center py-10">
 
-                                                            <p className="text-xs text-gray-500">
-                                                                {item.nama_kategori}
-                                                            </p>
-                                                        </div>
-                                                        <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
-                                                            <button onClick={() => deleteTipe(item.id_tipe)}><MdDelete /></button>
-                                                            <button onClick={() => openEditTipe(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] rounded-tl-lg rounded-bl-lg ">
-                                                                Edit
-                                                            </button>
-                                                            <button onClick={() => handleStatusTipe(item.id_tipe, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
-                                                                {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
-                                                            </button>
-                                                        </div>
+                                                        <p className="text-sm text-gray-500 mb-3">
+                                                            Belum ada tipe untuk kategori ini
+                                                        </p>
                                                     </div>
-                                                ))
-                                            )}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                            <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
-                                <button
-                                    onClick={() => setPage((p) => Math.max(1, p - 1))}
-                                    disabled={page === 1}
-                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                    Prev
-                                </button>
-                                <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
-                                <button
-                                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                                    disabled={page === totalPages}
-                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                    Next
-                                </button>
+
+                                                ) : (
+
+                                                    pageItems.map((item) => (
+
+                                                        <div
+                                                            key={item.id_tipe}
+                                                            className="flex items-center justify-between border border-gray-100 rounded-xl p-3 hover:bg-gray-50"
+                                                        >
+
+                                                            <div className="">
+                                                                <div className="flex gap-4 items-center">
+                                                                    <p className="font-medium text-gray-800 text-sm">
+                                                                        {item.nama_tipe}
+                                                                    </p>
+                                                                    <span className={`inline-block mt-1  px-2 py-1  rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+                                                                        {item.status}
+                                                                    </span>
+                                                                </div>
+
+                                                                <p className="text-xs text-gray-500">
+                                                                    {item.nama_kategori}
+                                                                </p>
+                                                            </div>
+                                                            <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                                                <button onClick={() => deleteTipe(item.id_tipe)} className="w-full px-2 py-1 rounded-tl-lg rounded-bl-lg  "><MdDelete /></button>
+                                                                <button onClick={() => openEditTipe(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] ">
+                                                                    Edit
+                                                                </button>
+                                                                <button onClick={() => handleStatusTipe(item.id_tipe, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
+                                                                    {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                )}
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                                <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                                    <button
+                                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                        disabled={page === 1}
+                                        className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                        Prev
+                                    </button>
+                                    <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                    <button
+                                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                        disabled={page === totalPages}
+                                        className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                        Next
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
-            </div >
+
+
+            </div>
+            {/* </div > */}
 
             {isTipeModalOpen && (
                 <div

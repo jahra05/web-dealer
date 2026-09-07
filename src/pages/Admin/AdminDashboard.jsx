@@ -11,7 +11,6 @@ import NotificationModal from '../../components/NotificationModal';
 import Notifikasi from '../../components/Notifikasi';
 
 export default function AdminDashboard() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [dashboard, setDashboard] = useState({
         total_produk: 0,
         total_pengajuan: 0,
@@ -57,12 +56,10 @@ export default function AdminDashboard() {
 
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
-            <AdminNavbar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-
             {/* Main content area */}
-            <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
+            {/* <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden"> */}
                 {/* Header */}
-                <div className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-gray-50 border-b border-gray-100">
+                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
                     <div className="flex items-center justify-between gap-3 p-4">
 
                         <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -76,12 +73,12 @@ export default function AdminDashboard() {
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <UserMenuDropdwn />
                             <Notifikasi />
+                            <UserMenuDropdwn />
                         </div>
 
                     </div>
-                </div>
+                </div> */}
 
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
@@ -272,6 +269,6 @@ export default function AdminDashboard() {
                     </div>
                 </main>
             </div>
-        </div>
+        // </div>
     );
 }

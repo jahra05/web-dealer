@@ -194,10 +194,15 @@ const createMotor = async (req, res) => {
     console.log("FILE:", req.file);
     console.log("FILE BUFFER:", req.file?.buffer?.length);
     let gambar = null;
+
     if (req.file) {
         const result = await uploadToCloudinary(req.file.buffer);
         gambar = result.secure_url
     }
+
+    // if (req.file) {
+    //     gambar = `/uploads/${req.file.filename}`;
+    // }
     const sql = `
     INSERT INTO motor
     (
@@ -259,10 +264,16 @@ const updateMotor = async (req, res) => {
         deskripsi,
     } = req.body;
     let gambar = req.body.gambar;
+
+    // if (req.file) {
+    //     gambar = `/uploads/${req.file.filename}`;
+    // }
+
     if (req.file) {
         const result = await uploadToCloudinary(req.file.buffer);
         gambar = result.secure_url
     }
+
     const sql = `
     UPDATE motor
     SET

@@ -28,32 +28,69 @@ export default function Setting({ isOpen, onClose }) {
     }, [])
 
     const navSetting = [
-        {
-            title: "PROFILE", items: [
-                { path: "/admin/setting/profile-admin", label: "Profile Admin" },
-                { path: "/admin/setting/profile-dealer", label: "profile Dealer" },
+        { path: "/admin/setting/profile-admin", label: "Profile Admin" },
+        { path: "/admin/setting/profile-dealer", label: "profile Dealer" },
 
-            ]
-        },
-        {
-            title: "TAMPILAN", items: [
-                { path: "/admin/setting/hero", label: "Hero" },
-                { path: "/admin/setting/footer", label: "Footer" },
+        { path: "/admin/setting/hero", label: "Hero" },
+        { path: "/admin/setting/footer", label: "Footer" },
 
-            ]
-        },
-        {
-            title: "KATEGORI & TIPE", items: [
-                { path: "/admin/setting/kategori", label: "Kategori & Tipe" },
+        { path: "/admin/setting/kategori", label: "Kategori & Tipe" },
 
-            ]
-        }
     ]
+
+    // const navSetting = [
+    //     {
+    //         title: "PROFILE", items: [
+    //             { path: "/admin/setting/profile-admin", label: "Profile Admin" },
+    //             { path: "/admin/setting/profile-dealer", label: "profile Dealer" },
+
+    //         ]
+    //     },
+    //     {
+    //         title: "TAMPILAN", items: [
+    //             { path: "/admin/setting/hero", label: "Hero" },
+    //             { path: "/admin/setting/footer", label: "Footer" },
+
+    //         ]
+    //     },
+    //     {
+    //         title: "KATEGORI & TIPE", items: [
+    //             { path: "/admin/setting/kategori", label: "Kategori & Tipe" },
+
+    //         ]
+    //     }
+    // ]
 
     return (
         <>
+            <div className="bg-white w-52 border-r border-gray-100 " >
+                <div className="flex flex-col gap-8 text-sm ">
+
+                    {navSetting.map((item) => {
+                        const isActive = location.pathname === item.path
+                        return (
+                            <Link to={item.path} className={` w-full rounded-xl p-2  text-sm  font-semibold transition-all duration-200 
+                            ${isActive
+                                    ? "text-[#001323]"
+                                    : "text-gray-500  hover:text-[#0054a2]"
+                                }`}
+                            >
+                                {item.label}
+                            </Link>
+                        )
+                    })}
+                </div>
+            </div>
+            {/* <div className="z-40 flex gap-10 bg-white px-10 py-2 w-[720px] text-sm rounded-lg">
+
+                {navSetting.map((item) => (
+                    <Link to={item.path}>
+                        {item.label}
+                    </Link>
+                ))}
+            </div> */}
             {/* DESKTOP */}
-            <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100 sticky top-0 h-screen rounded-lg">
+            {/* <aside className="hidden lg:flex lg:flex-col z-40 lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100 sticky top-0 h-screen px-4">
                 <div className="p-4 border-b border-gray-100">
                     <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
                         <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
@@ -89,10 +126,10 @@ export default function Setting({ isOpen, onClose }) {
                         </div>
                     ))}
                 </nav>
-            </aside>
+            </aside> */}
 
             {/* MOBILE */}
-            <div className={`lg:hidden ${isOpen ? 'visible' : 'invisible'}`}>
+            {/* <div className={`lg:hidden ${isOpen ? 'visible' : 'invisible'}`}>
                 <div
                     className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                     onClick={onClose}
@@ -130,7 +167,7 @@ export default function Setting({ isOpen, onClose }) {
                         ))}
                     </nav>
                 </aside>
-            </div>
+            </div> */}
         </>
 
     )

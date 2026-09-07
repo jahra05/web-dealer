@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import ScrollToTop from './components/ScrollToTop';
 import Login from './pages/Admin/Login';
+import AdminLayout from './layouts/AdminLayout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import KelolaProduk from './pages/Admin/KelolaProduk';
 import PengajuanKredit from './pages/Admin/PengajuanKredit';
@@ -29,25 +30,37 @@ function App() {
       <ScrollToTop />
       <Toaster position="top-center" />
       <Routes>
+        {/* Public routes */}
         <Route path="/admin/login" element={<Login />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/admin/dashboard" element={<ProtectedRoute> <AdminDashboard /></ProtectedRoute>} />
-        <Route path="/admin/kelolaProduk" element={<ProtectedRoute><KelolaProduk /></ProtectedRoute>} />
-        <Route path="/admin/spesifikasi" element={<ProtectedRoute><Spesifikasi /></ProtectedRoute>} />
-        <Route path="/admin/pengajuanKredit" element={<ProtectedRoute> <PengajuanKredit /> </ProtectedRoute>} />
-        {/* <Route path="/admin/simulasiKredit" element={<ProtectedRoute> <SimulasiKredit /> </ProtectedRoute>} /> */}
-        <Route path="/admin/pagemessage" element={<ProtectedRoute><PageMessage /></ProtectedRoute>} />
-        <Route path="/admin/testimoni" element={<ProtectedRoute><Testimoni /></ProtectedRoute>} />
-        <Route path="/admin/faq" element={<ProtectedRoute><FaqAdmin /></ProtectedRoute>} />
-        <Route path="/admin/exam" element={<ProtectedRoute><Exam /></ProtectedRoute>} />
-        <Route path="/admin/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
         <Route path="/admin/forgatPassword" element={<PageForgatPassword />} />
-        <Route path="/admin/setting/profile-dealer" element={<ProtectedRoute><SettingProfileDealer /></ProtectedRoute>} />
-        <Route path="/admin/setting/profile-admin" element={<ProtectedRoute><SettingProfileAdmin /></ProtectedRoute>} />
-        <Route path="/admin/setting/hero" element={<ProtectedRoute><HeroSetting /></ProtectedRoute>} />
-        <Route path="/admin/setting/footer" element={<ProtectedRoute><Footer /></ProtectedRoute>} />
-        <Route path="/admin/setting/kategori" element={<ProtectedRoute><Kategori/></ProtectedRoute>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
+
+        {/* Admin routes grouped under AdminLayout */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="kelolaProduk" element={<KelolaProduk />} />
+          <Route path="spesifikasi" element={<Spesifikasi />} />
+          <Route path="pengajuanKredit" element={<PengajuanKredit />} />
+          {/* <Route path="simulasiKredit" element={<SimulasiKredit />} /> */}
+          <Route path="pagemessage" element={<PageMessage />} />
+          <Route path="testimoni" element={<Testimoni />} />
+          <Route path="faq" element={<FaqAdmin />} />
+          <Route path="exam" element={<Exam />} />
+          <Route path="setting" element={<Setting />} />
+          <Route path="setting/profile-dealer" element={<SettingProfileDealer />} />
+          <Route path="setting/profile-admin" element={<SettingProfileAdmin />} />
+          <Route path="setting/hero" element={<HeroSetting />} />
+          <Route path="setting/footer" element={<Footer />} />
+          <Route path="setting/kategori" element={<Kategori />} />
+        </Route>
       </Routes>
     </Router>
   );

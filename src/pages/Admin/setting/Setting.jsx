@@ -63,16 +63,16 @@ export default function Setting({ isOpen, onClose }) {
 
     return (
         <>
-            <div className="bg-white w-52 border-r border-gray-100 " >
-                <div className="flex flex-col gap-8 text-sm ">
+            <div className="bg-white w-full border-b border-gray-100 px-8" >
+                <div className="flex md:gap-10 pb-4 px-2 items-center">
 
                     {navSetting.map((item) => {
                         const isActive = location.pathname === item.path
                         return (
-                            <Link to={item.path} className={` w-full rounded-xl p-2  text-sm  font-semibold transition-all duration-200 
+                            <Link to={item.path} className={` w-fit rounded-lg p-2  text-sm  font-semibold transition-all duration-200 
                             ${isActive
-                                    ? "text-[#001323]"
-                                    : "text-gray-500  hover:text-[#0054a2]"
+                                    ? "text-[#001323] border-2 border-[#001323]"
+                                    : "text-gray-500 "
                                 }`}
                             >
                                 {item.label}
@@ -81,6 +81,32 @@ export default function Setting({ isOpen, onClose }) {
                     })}
                 </div>
             </div>
+
+            <div className="md:hidden" >
+                <div className="flex flex-col gap-2 text-sm  ">
+
+                    {/* {navSetting.map((group) => (
+                        <div key={group.title} className="mb-5">
+                            <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">{group.title}</p>
+                            <ul className="space-y-1 bg-white">
+                                {group.items.map((item) => {
+                                    const isActive = location.pathname === item.path
+
+                                    return (
+                                        <li key={item.path} className="list-none">
+                                            <Link to={item.path} onClick={onClose} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
+                                                ? ""
+                                                : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
+                                                }`}>{item.label} </Link>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    ))} */}
+                </div>
+            </div>
+
             {/* <div className="z-40 flex gap-10 bg-white px-10 py-2 w-[720px] text-sm rounded-lg">
 
                 {navSetting.map((item) => (

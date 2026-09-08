@@ -3,6 +3,8 @@ import Setting from "./Setting";
 import CustomAlert from "../../../components/CustomAlert";
 import ConfirmAlert from "../../../components/ConfirmAlert";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
+import { BiChevronLeft } from "react-icons/bi";
 
 export default function HeroSetting() {
     const [hero, setHero] = useState([]);
@@ -11,7 +13,7 @@ export default function HeroSetting() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [alert, setAlert] = useState(null)
     const [confirm, setConfirm] = useState(null)
-
+    const navigate = useNavigate()
 
     const token = localStorage.getItem("token");
 
@@ -149,44 +151,46 @@ export default function HeroSetting() {
     return (
         <>
             <div className=" mt-4 p-4 flex flex-col overflow-x-hidden">
-                <h2 className="px-2 text-xl font-medium">Setting</h2>
-                <div className="flex w-full mt-4 bg-white p-4  rounded-xl">
+                <h3 className="text-xl font-medium hidden min-[1010px]:block">Pengaturan</h3>
+                <button onClick={() => navigate('/admin/dashboard')} className="w-32 ml-4 p-1 text-lg min-[1010px]:hidden flex items-center "> <BiChevronLeft size={28} />Setting</button>
+                <div className="flex flex-col w-full mt-4 bg-white p-4  rounded-xl">
                     <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
                     <div className=" w-full min-w-0 flex flex-col  overflow-x-hidden z-10">
                         <div className="bg-white p-4 rounded-xl w-full mb-4">
-                            <div className="mb-4 border-b border-gray-100 py-4">
-                                <p className="text-lg font-medium"> Pilih Produk Hero</p>
-                                <p className="text-xs text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa, accusantium?</p>
-                            </div>
-                            <div className="flex flex-col md:flex-row gap-3">
-                                <select
-                                    value={select}
-                                    onChange={(e) => setSelect(e.target.value)}
-                                    className="border border-blue-100 rounded-xl px-4 py-3"
-                                >
-                                    <option value="">
-                                        -- Pilih Motor --
-                                    </option>
+                            <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <h2 className="text-lg font-bold mb-4">
+                                    Hero Saat Ini
+                                </h2>
+                                <div className="flex flex-col md:flex-row gap-3">
+                                    <select
+                                        value={select}
+                                        onChange={(e) => setSelect(e.target.value)}
+                                        className="border border-blue-100 rounded-xl px-4 py-3"
+                                    >
+                                        <option value="">
+                                            -- Pilih Motor --
+                                        </option>
 
-                                    {motor
-                                        .filter((item) => item.status === "Aktif")
-                                        .map((item) => (
-                                            <option
-                                                key={item.id_motor}
-                                                value={item.id_motor}
-                                            >
-                                                {item.nama_motor}
-                                            </option>
-                                        ))}
-                                </select>
+                                        {motor
+                                            .filter((item) => item.status === "Aktif")
+                                            .map((item) => (
+                                                <option
+                                                    key={item.id_motor}
+                                                    value={item.id_motor}
+                                                >
+                                                    {item.nama_motor}
+                                                </option>
+                                            ))}
+                                    </select>
 
-                                <button
-                                    onClick={createHero}
-                                    className="bg-[#002446] text-white px-5 py-3 rounded-xl font-semibold"
-                                >
-                                    Jadikan Hero
-                                </button>
+                                    <button
+                                        onClick={createHero}
+                                        className="bg-[#002446] text-white px-5 py-3 rounded-xl font-semibold"
+                                    >
+                                        Jadikan Hero
+                                    </button>
 
+                                </div>
                             </div>
 
 
@@ -194,14 +198,12 @@ export default function HeroSetting() {
                             {hero.length > 0 && (
                                 <div className="mt-6">
 
-                                    <h2 className="text-lg font-bold mb-4">
-                                        Hero Saat Ini
-                                    </h2>
+
 
                                     {hero.map((item) => (
                                         <div
                                             key={item.id_hero}
-                                            className="border rounded-2xl p-4 flex flex-col md:flex-row gap-8"
+                                            className=" p-4 flex flex-col md:flex-row gap-8"
                                         >
 
                                             {/* GAMBAR */}

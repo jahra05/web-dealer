@@ -1,12 +1,15 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import Setting from "./Setting";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ConfirmAlert from "../../../components/ConfirmAlert";
 import CustomAlert from "../../../components/CustomAlert";
 import { PiPlus } from "react-icons/pi";
+import { BiChevronLeft } from "react-icons/bi"
 import { MdDelete } from "react-icons/md";
 
 export default function Kategori() {
+    const navigate = useNavigate()
     const token = localStorage.getItem('token')
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [kategori, setKategori] = useState([])
@@ -23,7 +26,6 @@ export default function Kategori() {
     const [alert, setAlert] = useState(null)
     const [page, setPage] = useState(1)
     const rowsPerPage = 5
-
     const [pageKategori, setPageKategori] = useState(1)
     const rowsPerPageKategori = 5
 
@@ -401,18 +403,13 @@ export default function Kategori() {
                 <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
             )}
             <div className=" mt-4 p-4 flex flex-col overflow-x-hidden">
-                <h2 className="px-2 text-xl font-medium">Setting</h2>
-                <div className="flex w-full mt-4 bg-white p-4  rounded-xl">
+                <button onClick={() => navigate('/admin/dashboard')} className="w-32 ml-4 p-1 text-lg flex items-center "> <BiChevronLeft size={28} />Setting</button>
+                <div className="flex flex-col w-full mt-4 bg-white p-4  rounded-xl">
                     <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
                     <div className=" w-full min-w-0 flex flex-col  overflow-x-hidden z-10">
-                        <div className="mb-4 border-b border-gray-100 py-4 ml-4">
-                            <p className="text-lg font-medium">Profil Delaer</p>
-                            <p className="text-xs text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa, accusantium?</p>
-                        </div>
-
                         <div className="flex flex-col md:flex-row gap-6 bg-white p-4 rounded-xl">
 
-                            <div className="bg-white shadow p-4 rounded-xl w-full">
+                            <div className="bg-white p-4 w-full">
                                 <div className="mb-6 border-b pt-4 pb-4 flex justify-between items-center">
                                     <div>
                                         <p className="text-lg font-medium">Kategori</p>
@@ -460,9 +457,9 @@ export default function Kategori() {
                                     </button>
                                 </div>
                             </div>
+                            <div className="border-r border-gray-100"></div>
 
-                            <div className="bg-white shadow p-4 rounded-xl w-full flex flex-col justify-between">
-
+                            <div className="bg-white p-4  w-full flex flex-col justify-between">
                                 <div>
                                     <div className="mb-4 border-b py-4">
                                         <p className="text-lg font-medium">Tipe Motor</p>

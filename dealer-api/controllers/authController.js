@@ -34,6 +34,7 @@ const login = async (req, res) => {
         console.log("Password yang diinput:", password);
 
         const isMatch = await bcrypt.compare(password, user.password)
+        console.log("hasil bcrypt", isMatch)
         // Password salah
         if (!isMatch) {
             return res.status(401).json({

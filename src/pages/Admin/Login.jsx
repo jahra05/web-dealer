@@ -89,7 +89,9 @@ const Login = () => {
 
 
 
-                        <div className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 ">
+                        <form className="w-full sm:max-w-[400px] flex flex-col gap-8 mt-24 " onSubmit={
+                            handleSubmit
+                        }>
                             <div>
                                 <h2 className="text-4xl font-bold  text-white items-center">Admin Login</h2>
                                 <p className='text-gray-300'>Welcome back! Please login first</p>
@@ -99,7 +101,7 @@ const Login = () => {
                                 <label className="block mb-2 text-sm font-medium text-white">Email</label>
                                 <div className='border-b-white relative '>
                                     <FaUser className="absolute left-4 top-6 text-gray-300" />
-                                    <input type="email" placeholder='Email' title="Email" value={email} onChange={(e) => setEmail(e.target.value)}
+                                    <input type="email" placeholder='Email' autoComplete="email" title="Email" value={email} onChange={(e) => setEmail(e.target.value)}
                                         className="mt-2 w-full rounded-xl bg-white/10 border border-white/20 px-10 py-3 text-white placeholder-gray-300 
                                         focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 truncate-placeholder" />
                                 </div>
@@ -109,23 +111,19 @@ const Login = () => {
                                 <label className="block mb-2 text-sm font-medium text-white">Password</label>
                                 <div className='border-b-white relative '>
                                     <FaLock className="absolute left-4 top-6 text-gray-300" />
-                                    <input type="password" placeholder='Password' title="Password" value={password} onChange={(e) => setPassword(e.target.value)}
+                                    <input type="password" placeholder='Password' autoComplete='current-password' title="Password" value={password} onChange={(e) => setPassword(e.target.value)}
                                         className="mt-2 w-full rounded-xl bg-white/10 border border-white/20 px-10 py-3 text-white placeholder-gray-300 
                                         focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 truncate-placeholder" />
                                 </div>
                             </div>
                             <div>
                                 <button className='text-white text-sm hover:underline' onClick={() => navigate("/admin/forgatPassword")}>Forgot Password ? </button>
-                                <button onClick={
-                                    handleSubmit
-                                } type="submit" className="w-full mt-2 py-3 rounded-xl bg-[#002446] font-semibold text-white transition-all duration-300 
+                                <button type="submit" className="w-full mt-2 py-3 rounded-xl bg-[#002446] font-semibold text-white transition-all duration-300 
                             hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95" >Login</button>
                             </div>
 
 
-                            <div>
-                            </div>
-                        </div>
+                        </form>
                         {alert && (
                             <CustomAlert type={alert.type} message={alert.message} onClose={() => { setAlert(null); setEmail(""); setPassword("") }} />
                         )}

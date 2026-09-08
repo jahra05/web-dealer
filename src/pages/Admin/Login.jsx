@@ -117,7 +117,7 @@ const Login = () => {
                                 </div>
                             </div>
                             <div>
-                                <button className='text-white text-sm hover:underline' onClick={() => navigate("/admin/forgatPassword")}>Forgot Password ? </button>
+                                <button type='button' className='text-white text-sm hover:underline' onClick={() => navigate("/admin/forgatPassword")}>Forgot Password ? </button>
                                 <button type="submit" className="w-full mt-2 py-3 rounded-xl bg-[#002446] font-semibold text-white transition-all duration-300 
                             hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95" >Login</button>
                             </div>

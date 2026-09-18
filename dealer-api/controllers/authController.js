@@ -9,10 +9,16 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const login = async (req, res) => {
     const { email, password } = req.body;
+
+    console.log("EMAIL:", email);
+    console.log("PASSWORD INPUT:", password);
+
     console.log("Email yg laogin ", email)
     const sql = "SELECT * FROM user WHERE email = ?";
 
     db.query(sql, [email], async (err, results) => {
+
+        console.log("HASIL QUERY:", results);
 
         if (err) {
             return res.status(500).json({
@@ -34,6 +40,9 @@ const login = async (req, res) => {
         console.log("Password yang diinput:", password);
 
         const isMatch = await bcrypt.compare(password, user.password)
+        console.log("PASSWORD DB:", user.password);
+        console.log("PASSWORD INPUT:", password);
+        console.log("BCRYPT:", isMatch);
         console.log("hasil bcrypt", isMatch)
         // Password salah
         if (!isMatch) {

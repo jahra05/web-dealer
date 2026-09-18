@@ -12,6 +12,9 @@ import ConfirmAlert from "../../components/ConfirmAlert"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import { RxHamburgerMenu } from "react-icons/rx"
 import Notifikasi from "../../components/Notifikasi"
+import { motion } from 'framer-motion'
+
+
 
 const Spesifikasi = () => {
     const [page, setPage] = useState(1);
@@ -234,51 +237,24 @@ const Spesifikasi = () => {
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
                 {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
                 {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
-                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
-                    <div className="flex items-center justify-between gap-3 p-4">
-
-                        <div className="flex items-center gap-4 w-full sm:w-auto">
-
-                            <button
-                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                                onClick={() => setIsSidebarOpen(prev => !prev)}
-                            >
-                                <RxHamburgerMenu size={24} />
-                            </button>
-
-                            <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm">
-                                <BiSearch size={20} />
-
-                                <input
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    type="search"
-                                    className="h-8 w-full outline-none rounded-full text-sm"
-                                    placeholder="Search"
-                                />
-                            </div>
-
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <Notifikasi />
-                            <UserMenuDropdwn />
-                        </div>
-
-                    </div>
-                </div> */}
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
-                    {/*  */}
                     <div className="hidden md:block">
-                        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
+                        <motion.div
+                            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                            className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
                             <div>
                                 <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Spesifikasi</h1>
                                 <p className="text-sm text-gray-500 mt-1">Kelola data spesifikasi motor.</p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
+                        <motion.div
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                            className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100">
                             <div className="px-4 lg:px-6 py-4 bg-[#004A7C] flex justify-between items-center">
                                 <p className="text-xl font-semibold text-white">Spesifikasi</p>
                                 <button
@@ -346,97 +322,207 @@ const Spesifikasi = () => {
                                     Next
                                 </button>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
+                    {/* mobile */}
                     <div className="md:hidden space-y-4">
-                        <div className="flex justify-between py-4">
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                                duration: 0.6,
+                                ease: [0.16, 1, 0.3, 1]
+                            }}
+                            className="flex justify-between py-4">
                             <div>
-                                <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Spesifikasi</h1>
+                                <h1 className="text-xl font-bold text-gray-900">Spesifikasi</h1>
                                 <p className="text-sm text-gray-500 mt-1">Kelola data spesifikasi motor.</p>
                             </div>
                             <button
                                 type="button"
                                 onClick={openModal}
-                                className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50'>
+                                className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50">
                                 <PiPlus size={20} />
                             </button>
-                        </div>
+                        </motion.div>
+                        <div className="space-y-4">
 
-                        <div className="space-y-4 bg-white p-4 rounded-xl">
-                            {pageItems.map((item) => (
-                                <div className="rounded-xl border bg-white p-4 shadow-sm">
+                            {pageItems.map((item, index) => (
 
-                                    <div className="flex gap-4">
+                                <motion.div
+                                    key={item.id_spesifikasi}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                        duration: 0.65,
+                                        delay: index * 0.07,
+                                        ease: [0.16, 1, 0.3, 1],
+                                    }}
+                                    className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
+                                >
 
-                                        <div>
-                                            <p className="mb-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Motor</p>
-                                            <p className=" text-left text-xs font-semibold uppercase tracking-wider text-slate-500"> Mesin</p>
+                                    {/* MOTOR + MESIN */}
+                                    <div className="flex gap-5">
+
+                                        <div className="space-y-2 shrink-0">
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                                Motor
+                                            </p>
+
+                                            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                                Mesin
+                                            </p>
                                         </div>
-                                        <div>
-                                            <p className="text-black font-medium text-sm">{item.nama_motor}</p>
-                                            <p className="text-black font-medium text-sm">{item.mesin}</p>
+
+                                        <div className="space-y-2 min-w-0">
+                                            <p className="text-sm font-semibold text-gray-900 truncate">
+                                                {item.nama_motor}
+                                            </p>
+
+                                            <p className="text-sm font-medium text-gray-700">
+                                                {item.mesin}
+                                            </p>
                                         </div>
+
                                     </div>
 
-                                    <div className="flex justify-between mb-8 mt-8">
-                                        <div className="w-48 text-center p-2">
-                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tenaga</p>
-                                            <p className="text-black font-medium text-sm mt-0">{item.tenaga}</p>
+
+                                    {/* SPESIFIKASI */}
+                                    <div className="grid grid-cols-3 gap-2 mt-8">
+
+                                        <div className="text-center">
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                                                Tenaga
+                                            </p>
+
+                                            <p className="text-sm font-medium text-gray-900 mt-2">
+                                                {item.tenaga}
+                                            </p>
                                         </div>
 
 
-                                        <div className="w-48 text-center p-2">
-                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Bahan Bakar</p>
-                                            <p className="text-black font-medium text-sm mt-0">{item.torsi}</p>
+                                        <div className="text-center">
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                                                Bahan Bakar
+                                            </p>
+
+                                            <p className="text-sm font-medium text-gray-900 mt-2">
+                                                {item.torsi}
+                                            </p>
                                         </div>
 
-                                        <div className="w-48 text-center p-2">
-                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Transmisi</p>
-                                            <p className="text-black font-medium text-sm mt-0">{item.transmisi}</p>
+
+                                        <div className="text-center">
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                                                Transmisi
+                                            </p>
+
+                                            <p className="text-sm font-medium text-gray-900 mt-2">
+                                                {item.transmisi}
+                                            </p>
                                         </div>
+
+
+                                        <div className="text-center mt-5">
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                                                Berat
+                                            </p>
+
+                                            <p className="text-sm font-medium text-gray-900 mt-2">
+                                                {item.berat}
+                                            </p>
+                                        </div>
+
+
+                                        <div className="text-center mt-5">
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                                                Tinggi Jok
+                                            </p>
+
+                                            <p className="text-sm font-medium text-gray-900 mt-2">
+                                                {item.tinggi_jok}
+                                            </p>
+                                        </div>
+
+
+                                        <div className="text-center mt-5">
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                                                Ban
+                                            </p>
+
+                                            <p className="text-sm font-medium text-gray-900 mt-2">
+                                                {item.tinggi_jok}
+                                            </p>
+                                        </div>
+
                                     </div>
-                                    <div className="flex justify-between">
-                                        <div className="w-48 text-center p-2">
-                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Berat</p>
-                                            <p className="text-black font-medium text-sm mt-0">{item.berat}</p>
-                                        </div>
 
-                                        <div className="w-48 text-center p-2">
-                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Tinggi Jok</p>
-                                            <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
-                                        </div>
 
-                                        <div className="w-48 text-center p-2">
-                                            <p className=" px-4 py-3  text-xs font-semibold uppercase tracking-wider text-slate-500">Ban</p>
-                                            <p className="text-black font-medium text-sm mt-0">{item.tinggi_jok}</p>
-                                        </div>
-                                    </div>
+                                    {/* BUTTON */}
+                                    <div className="flex gap-3 mt-7">
 
-                                    <div className="flex items-center gap-4 justify-between mt-6">
-                                        <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
-                                            <span className="mr-2">Hapus</span><MdDelete />
+                                        <button
+                                            onClick={() => handleDelete(item.id_spesifikasi)}
+                                            className="inline-flex h-10 flex-1 items-center justify-center text-sm bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]"
+                                        >
+                                            <span className="mr-2">
+                                                Hapus
+                                            </span>
+
+                                            <MdDelete />
                                         </button>
-                                        <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
-                                            <span className="mr-2">Edit</span> <FaEdit />
+
+
+                                        <button
+                                            onClick={() => handleEdit(item)}
+                                            className="inline-flex h-10 flex-1 items-center justify-center rounded-md bg-white text-black border border-[#004A7C] transition hover:bg-slate-50"
+                                        >
+                                            <span className="mr-2">
+                                                Edit
+                                            </span>
+
+                                            <FaEdit />
                                         </button>
+
                                     </div>
-                                </div>
+
+                                </motion.div>
+
                             ))}
-                            <div className="px-6 py-3 flex items-center justify-end gap-3">
+
+
+                            {/* PAGINATION */}
+                            <div className="px-1 py-3 flex items-center justify-between gap-3">
+
                                 <button
                                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                                     disabled={page === 1}
-                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                    Prev</button>
-                                <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                    className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1
+                                        ? "text-slate-400 bg-slate-100"
+                                        : "text-slate-700 bg-white border border-slate-200"
+                                        }`}
+                                >
+                                    Prev
+                                </button>
+
+                                <span className="text-sm text-slate-600">
+                                    {page} / {totalPages}
+                                </span>
+
                                 <button
                                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                     disabled={page === totalPages}
-                                    className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                    className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages
+                                        ? "text-slate-400 bg-slate-100"
+                                        : "text-slate-700 bg-white border border-slate-200"
+                                        }`}
+                                >
                                     Next
                                 </button>
+
                             </div>
+
                         </div>
 
                     </div>
@@ -444,88 +530,90 @@ const Spesifikasi = () => {
 
 
 
-                    {isModalOpen && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalOpen(false)}>
-                            <div className="w-full max-w-lg lg:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
-                                <form onSubmit={handleCreateSpesifikasi}>
-                                    {/* Header */}
-                                    <div className="px-6 py-5 border-b border-gray-100">
-                                        <div className="flex items-start justify-between gap-4">
-                                            <div>
-                                                <h2 className="text-lg font-bold text-gray-900">{isEdit ? 'Edit Spesifikasi' : 'Tambah Spesifikasi'}</h2>
-                                                <p className="mt-0.5 text-sm text-gray-500">Kelola data spesifikasi motor.</p>
+                    {
+                        isModalOpen && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalOpen(false)}>
+                                <div className="w-full max-w-lg lg:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                                    <form onSubmit={handleCreateSpesifikasi}>
+                                        {/* Header */}
+                                        <div className="px-6 py-5 border-b border-gray-100">
+                                            <div className="flex items-start justify-between gap-4">
+                                                <div>
+                                                    <h2 className="text-lg font-bold text-gray-900">{isEdit ? 'Edit Spesifikasi' : 'Tambah Spesifikasi'}</h2>
+                                                    <p className="mt-0.5 text-sm text-gray-500">Kelola data spesifikasi motor.</p>
+                                                </div>
+                                                <button type="button" onClick={() => setIsModalOpen(false)} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">✕</button>
                                             </div>
-                                            <button type="button" onClick={() => setIsModalOpen(false)} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">✕</button>
                                         </div>
-                                    </div>
 
-                                    {/* Body */}
-                                    <div className="px-6 py-5 grid gap-4 md:grid-cols-2">
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Pilih Motor</label>
-                                            <select name="id_motor" value={formData.id_motor} onChange={handleChange}
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
-                                                <option value="">Pilih Motor</option>
-                                                {motor.map((item) => (
-                                                    <option key={item.id_motor} value={item.id_motor}>{item.nama_motor}</option>
-                                                ))}
-                                            </select>
+                                        {/* Body */}
+                                        <div className="px-6 py-5 grid gap-4 md:grid-cols-2">
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Pilih Motor</label>
+                                                <select name="id_motor" value={formData.id_motor} onChange={handleChange}
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
+                                                    <option value="">Pilih Motor</option>
+                                                    {motor.map((item) => (
+                                                        <option key={item.id_motor} value={item.id_motor}>{item.nama_motor}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Mesin</label>
+                                                <input type="text" name="kapasitas_mesin" value={formData.kapasitas_mesin} onChange={handleChange} placeholder="Kapasitas mesin" title="Kapasitas mesin"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Tenaga</label>
+                                                <input type="text" name="tenaga" value={formData.tenaga} onChange={handleChange} placeholder="Tenaga" title="Tenaga"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Torsi</label>
+                                                <input type="text" name="torsi" value={formData.torsi} onChange={handleChange} placeholder="Torsi" title="Torsi"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Transmisi</label>
+                                                <input type="text" name="transmisi" value={formData.transmisi} onChange={handleChange} placeholder="Transmisi" title="Transmisi"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Berat</label>
+                                                <input type="text" name="berat" value={formData.berat} onChange={handleChange} placeholder="Berat" title="Berat"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Tinggi Jok</label>
+                                                <input type="text" name="tinggi_jok" value={formData.tinggi_jok} onChange={handleChange} placeholder="Tinggi Jok" title="Tinggi Jok"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Tangki</label>
+                                                <input type="text" name="kapasitas_tengki" value={formData.kapasitas_tengki} onChange={handleChange} placeholder="Kapasitas Tangki" title="Kapasitas Tangki"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Mesin</label>
+                                                <input type="text" name="mesin" value={formData.mesin} onChange={handleChange} placeholder="Mesin" title="Mesin"
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                            </div>
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Mesin</label>
-                                            <input type="text" name="kapasitas_mesin" value={formData.kapasitas_mesin} onChange={handleChange} placeholder="Kapasitas mesin" title="Kapasitas mesin"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Tenaga</label>
-                                            <input type="text" name="tenaga" value={formData.tenaga} onChange={handleChange} placeholder="Tenaga" title="Tenaga"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Torsi</label>
-                                            <input type="text" name="torsi" value={formData.torsi} onChange={handleChange} placeholder="Torsi" title="Torsi"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Transmisi</label>
-                                            <input type="text" name="transmisi" value={formData.transmisi} onChange={handleChange} placeholder="Transmisi" title="Transmisi"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Berat</label>
-                                            <input type="text" name="berat" value={formData.berat} onChange={handleChange} placeholder="Berat" title="Berat"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Tinggi Jok</label>
-                                            <input type="text" name="tinggi_jok" value={formData.tinggi_jok} onChange={handleChange} placeholder="Tinggi Jok" title="Tinggi Jok"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Tangki</label>
-                                            <input type="text" name="kapasitas_tengki" value={formData.kapasitas_tengki} onChange={handleChange} placeholder="Kapasitas Tangki" title="Kapasitas Tangki"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Mesin</label>
-                                            <input type="text" name="mesin" value={formData.mesin} onChange={handleChange} placeholder="Mesin" title="Mesin"
-                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                        </div>
-                                    </div>
 
-                                    {/* Footer */}
-                                    <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
-                                        <button type="button" onClick={() => setIsModalOpen(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                        <button type="submit" className="rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F]">{isEdit ? 'Update' : 'Simpan'}</button>
-                                    </div>
-                                </form>
+                                        {/* Footer */}
+                                        <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
+                                            <button type="button" onClick={() => setIsModalOpen(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
+                                            <button type="submit" className="rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#00182F]">{isEdit ? 'Update' : 'Simpan'}</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )
+                    }
 
-                </main>
-            </div>
-        </div>
+                </main >
+            </div >
+        </div >
 
     )
 }

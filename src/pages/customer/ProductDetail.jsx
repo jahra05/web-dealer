@@ -156,13 +156,14 @@ const ProductDetail = () => {
   return (
     <section className="bg-white py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <button
+        <motion.button initial={{ opacity: 0, x: -2 }}
+          animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           onClick={() => navigate('/')}
           className="mb-8 flex items-center space-x-2 text-gray-400 hover:text-[#00345F] font-bold transition-colors group"
         >
           <MdOutlineKeyboardArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           <span>Kembali ke Daftar Motor</span>
-        </button>
+        </motion.button>
 
         <div className="lg:grid lg:grid-cols-2 lg:gap-16">
           {/* Left Column: Image and Specs */}
@@ -170,7 +171,8 @@ const ProductDetail = () => {
             <div className="bg-gray-50 rounded-[40px] p-8 md:p-12 mb-8 flex items-center justify-center relative overflow-hidden border border-gray-100 min-h-[300px] md:min-h-[500px]">
               <div className="absolute inset-0 bg-gradient-to-br from-[#F2F8FC] to-transparent"></div>
               <AnimatePresence mode="wait">
-                <motion.img
+                <motion.img initial={{ opacity: 0, scale: 0.8, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                   src={`${bike.gambar}`}
                   alt={bike.nama_motor}
                   className="w-full h-auto drop-shadow-2xl relative z-10 object-contain max-h-[400px]"
@@ -178,7 +180,10 @@ const ProductDetail = () => {
               </AnimatePresence>
             </div>
 
-            <h4 className="font-black text-gray-900 mb-6 uppercase tracking-wider text-sm">Spesifikasi Utama</h4>
+            <motion.h4
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="font-black text-gray-900 mb-6 uppercase tracking-wider text-sm">Spesifikasi Utama</motion.h4>
             {spek.map((item) => (
               <div key={item.id_speksifikasi} className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
@@ -229,7 +234,8 @@ const ProductDetail = () => {
           </div>
 
           {/* Right Column: Info and Simulation Summary */}
-          <div className="mt-12 lg:mt-0">
+          <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }} className="mt-12 lg:mt-0">
             <div className="mb-10">
               <span className="inline-block px-3 py-1 rounded bg-blue-50 text-[#004A7C] text-[10px] font-black mb-4 uppercase tracking-widest">UNIT TERSEDIA</span>
               <h2 className="text-4xl md:text-5xl font-black text-[#00182F] mb-3">{bike.nama_motor} <span className="text-[#00182F">{bike.type}</span></h2>
@@ -239,7 +245,10 @@ const ProductDetail = () => {
               </p>
 
               <div className="mb-10">
-                <div className="flex flex-wrap gap-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-wrap gap-4">
                   {warna.map((item) => (
                     <div
                       key={item.id_warna}
@@ -255,7 +264,7 @@ const ProductDetail = () => {
                     </div>
                   ))}
 
-                </div>
+                </motion.div>
               </div>
 
               <div className="flex flex-wrap gap-4">
@@ -276,7 +285,10 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <div className="bg-gray-50 border border-gray-100 rounded-[40px] p-8 md:p-10 shadow-sm relative overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-gray-50 border border-gray-100 rounded-[40px] p-8 md:p-10 shadow-sm relative overflow-hidden">
               <div id="simulasi" className="relative z-10">
                 <div className="flex justify-between items-end mb-8">
                   <div>
@@ -347,10 +359,10 @@ const ProductDetail = () => {
 
                 <p className="text-[10px] text-gray-400 mt-6 italic">*Harga di atas adalah estimasi simulasi dan dapat berubah sewaktu-waktu sesuai kebijakan dealer.</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </div >
 
       <LeadModal
         isOpen={isModalOpen}
@@ -358,7 +370,7 @@ const ProductDetail = () => {
         bike={bike}
         tenor={tenor}
       />
-    </section>
+    </section >
   );
 };
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaFilter } from 'react-icons/fa6';
 import { FiRotateCcw } from 'react-icons/fi';
+import SectionReveal from '../../components/SectionReveal';
 
 const ProductShowcase = () => {
   const [selectedCategory, setSelectedCategory] = useState('Semua');
@@ -85,54 +86,58 @@ const ProductShowcase = () => {
   };
 
   return (
-    <section id="produk" className="bg-gray-50 py-20 rounded-[40px]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex-shrink-0"
-          >
-            <h2 className="text-3xl font-black text-gray-900">Pilih Motor Honda Favoritmu</h2>
-            <p className="text-gray-500 mt-2 font-medium">Temukan unit yang sesuai dengan kebutuhan Anda</p>
-          </motion.div>
+    <SectionReveal>
+      <section id="produk" className="bg-gray-50 py-20 rounded-[40px]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="flex-shrink-0"
+            >
+              <h2 className="text-3xl font-black text-gray-900">Pilih Motor Honda Favoritmu</h2>
+              <p className="text-gray-500 mt-2 font-medium">Temukan unit yang sesuai dengan kebutuhan Anda</p>
+            </motion.div>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto ">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 flex-grow">
-              {/* Category Filter */}
-              <div className="relative">
-                <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">
-                  Kategori
-                </label>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 flex-grow">
+                {/* Category Filter */}
+                <div className="relative">
+                  <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">
+                    Kategori
+                  </label>
 
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2"
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2"
+                  >
+                    <option value="Semua">Semua</option>
+
+                    {kategori.map((item) => (
+                      <option
+                        key={item.id_kategori}
+                        value={item.nama_kategori}
+                      >
+                        {item.nama_kategori}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <button
+                  onClick={resetFilters}
+                  className="mt-auto sm:mb-0 bg-white border border-gray-200 text-gray-400 hover:text-blue-900 hover:border-blue-50 p-2 rounded-xl transition-all flex items-center justify-center"
+                  title="Reset Filter"
                 >
-                  <option value="Semua">Semua</option>
+                  <FiRotateCcw size={20} />
+                </button>
 
-                  {kategori.map((item) => (
-                    <option
-                      key={item.id_kategori}
-                      value={item.nama_kategori}
-                    >
-                      {item.nama_kategori}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <button
-                onClick={resetFilters}
-                className="mt-auto sm:mb-0 bg-white border border-gray-200 text-gray-400 hover:text-blue-900 hover:border-blue-50 p-2 rounded-xl transition-all flex items-center justify-center"
-                title="Reset Filter"
-              >
-                <FiRotateCcw size={20} />
-              </button>
-
-              {/* Type Filter */}
-              {/* <div className="relative">
+                {/* Type Filter */}
+                {/* <div className="relative">
                 <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Tipe Motor</label>
                 <select
                   value={selectedType}
@@ -151,78 +156,89 @@ const ProductShowcase = () => {
                   ))}
                 </select>
               </div> */}
-            </div>
 
+
+              </div>
+            </motion.div>
 
           </div>
-        </div>
 
-        <div className="relative min-h-[400px]">
-          <>
-            {filteredBikes.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {filteredBikes.map((bike, index) => (
-                  <motion.div
-                    key={bike.id_motor}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.15 }}
-                    className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-xl transition-shadow group flex flex-col"
-                  >
-                    <div className="mb-4">
-                      <h3 className="font-black text-gray-900 text-lg">{bike.nama_motor}</h3>
-                      <p className="text-xs font-bold text-gray-400">Tipe : {bike.nama_tipe}</p>
-                    </div>
-
-                    <div className="mb-6 relative h-40 flex items-center justify-center">
-                      <img src={
-                        bike.gambar
-                          ? `${bike.gambar}`
-                          : "/no-image.png"
-                      } alt={bike.nama_motor} className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform" />
-                    </div>
-
-                    <div className="mb-6 mt-auto">
-                      <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">harga</p>
-                      <p className="text-gray-900 font-black">
-                        Rp {Number(bike.harga).toLocaleString("id-ID")}
-                      </p>
-                    </div>
-
-                    <Link
-                      to={`/product/${bike.id_motor}`}
-                      className="w-full bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold py-3 rounded-xl border border-gray-200 transition-colors text-center block"
+          <div className="relative min-h-[400px]">
+            <>
+              {filteredBikes.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {filteredBikes.map((bike, index) => (
+                    <motion.div
+                      key={bike.id_motor}
+                      initial={{ opacity: 0, y: 40, scale: 0.97 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.15 }}
+                      // animate={{ opacity: 1 }}
+                      transition={{ duration: 0.6, delay: index + 0.05, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={{
+                        y: -6, transition: {
+                          duration: 0.2,
+                          // ease: "easeOut"
+                        }
+                      }}
+                      className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-xl transition-shadow group flex flex-col"
                     >
-                      Lihat Detail
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+                      <div className="mb-4">
+                        <h3 className="font-black text-gray-900 text-lg">{bike.nama_motor}</h3>
+                        <p className="text-xs font-bold text-gray-400">Tipe : {bike.nama_tipe}</p>
+                      </div>
 
+                      <div className="mb-6 relative h-40 flex items-center justify-center">
+                        <motion.img initial={{ opacity: 0, scale: 0.88 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, delay: index * 0.08 + 0.15, ease: [0.16, 1, 0.3, 1] }}
+                          whileHover={{ scale: 1.06 }} src={
+                            bike.gambar
+                              ? `${bike.gambar}`
+                              : "/no-image.png"
+                          } alt={bike.nama_motor} className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform" />
+                      </div>
 
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-gray-200"
-              >
-                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 mb-4">
-                  <FaFilter size={32} />
+                      <div className="mb-6 mt-auto">
+                        <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">harga</p>
+                        <p className="text-gray-900 font-black">
+                          Rp {Number(bike.harga).toLocaleString("id-ID")}
+                        </p>
+                      </div>
+
+                      <Link
+                        to={`/product/${bike.id_motor}`}
+                        className="w-full bg-gray-50 hover:bg-gray-100 text-gray-900 font-bold py-3 rounded-xl border border-gray-200 transition-colors text-center block"
+                      >
+                        Lihat Detail
+                      </Link>
+                    </motion.div>
+                  ))}
                 </div>
-                <h3 className="text-xl font-black text-gray-900">Tidak ada motor yang cocok</h3>
-                <p className="text-gray-500 mt-2">Coba ubah filter atau reset pencarian Anda.</p>
-                <button
-                  onClick={resetFilters}
-                  className="mt-6 text-primary font-bold hover:underline"
+
+
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-gray-200"
                 >
-                  Reset Semua Filter
-                </button>
-              </motion.div>
-            )}
-          </>
+                  <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 mb-4">
+                    <FaFilter size={32} />
+                  </div>
+                  <h3 className="text-xl font-black text-gray-900">Tidak ada motor yang cocok</h3>
+                  <p className="text-gray-500 mt-2">Coba ubah filter atau reset pencarian Anda.</p>
+                  <button
+                    onClick={resetFilters}
+                    className="mt-6 text-primary font-bold hover:underline"
+                  >
+                    Reset Semua Filter
+                  </button>
+                </motion.div>
+              )}
+            </>
+          </div>
         </div>
-      </div>
-    </section >
+      </section >
+    </SectionReveal>
   );
 };
 

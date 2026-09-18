@@ -14,6 +14,8 @@ import { exportExcel } from "../../utils/export/exportExcel"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
+import { motion } from 'framer-motion'
+
 
 const PengajuanKredit = () => {
     const [page, setPage] = useState(1)
@@ -24,6 +26,7 @@ const PengajuanKredit = () => {
     const rowsPerPage = 5
     const [alert, setAlert] = useState(null)
     const [confirm, setConfirm] = useState(null)
+
 
     const handleDelete = async (id) => {
         setConfirm({
@@ -156,10 +159,13 @@ const PengajuanKredit = () => {
                 </div> */}
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        >
                             <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Pengajuan Kredit</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola semua pengajuan kredit pelanggan.</p>
-                        </div>
+                        </motion.div>
 
                         <div className="flex flex-row items-center sm:flex-row gap-3  sm:items-center">
                             <div className="flex gap-2 w-full sm:w-auto">
@@ -190,7 +196,11 @@ const PengajuanKredit = () => {
                         </div>
                     </div>
 
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] ">
                             <p className="text-xl font-semibold text-white">Pengajuan Kredit</p>
                         </div>
@@ -257,16 +267,22 @@ const PengajuanKredit = () => {
                                 Next
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* mobile */}
-                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        {/* <div className="px-4 lg:px-6 py-4 bg-[#004A7C]  rounded-xl">
-                            <p className="text-xl font-semibold text-white">Pengajuan Kredit</p>
-                        </div> */}
-                        {pageItems.map((item) => (
-                            <div className="bg-white shadow p-4 rounded-xl">
-                                <div className="flex justify-between">
+                    <div className="md:hidden space-y-4">
+
+                        {pageItems.map((item, index) => (
+                            <motion.div key={item.id_pengajuan}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.65,
+                                    delay: index * 0.07,
+                                    ease: [0.16, 1, 0.3, 1]
+                                }}
+                                className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                                <div className="grid grid-cols-[90px_1fr] gap-3">
                                     <div className="flex gap-2">
                                         <p className="bg-blue-100 text-blue-500 w-14 h-14 text-center py-3 text-2xl uppercase font-medium rounded-xl">{item.nama.charAt(0).toUpperCase()}</p>
                                         <div>
@@ -290,21 +306,21 @@ const PengajuanKredit = () => {
                                 </div>
 
                                 <div className="mt-8">
-                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Motor</p>
                                         <p className="text-sm font-medium">{item.nama_motor}</p>
                                     </div>
 
-                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Harga Motor</p>
                                         <p className="text-sm font-medium">Rp. {Number(item.harga).toLocaleString('id-ID')}</p>
                                     </div>
 
-                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Alamat</p>
                                         <p className="text-sm font-medium">{item.alamat}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2 py-2 border-b">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Pekerjaan</p>
                                         <p className="text-sm font-medium">{item.pekerjaan}</p>
                                     </div>
@@ -313,26 +329,41 @@ const PengajuanKredit = () => {
                                     </button>
                                 </div>
 
-                            </div>
+                            </motion.div>
                         ))}
-                        <div className="px-4 lg:px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                        <div className="px-1 py-3 flex items-center justify-between gap-3">
+
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                                 disabled={page === 1}
-                                className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100 cursor-not-allowed' : 'text-slate-700 bg-white border border-slate-200 hover:bg-slate-50'}`}>
-                                Prev</button>
-                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1
+                                    ? "text-slate-400 bg-slate-100"
+                                    : "text-slate-700 bg-white border border-slate-200"
+                                    }`}
+                            >
+                                Prev
+                            </button>
+
+                            <span className="text-sm text-slate-600">
+                                {page} / {totalPages}
+                            </span>
+
                             <button
                                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                 disabled={page === totalPages}
-                                className={`inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100 cursor-not-allowed' : 'text-slate-700 bg-white border border-slate-200 hover:bg-slate-50'}`}>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages
+                                    ? "text-slate-400 bg-slate-100"
+                                    : "text-slate-700 bg-white border border-slate-200"
+                                    }`}
+                            >
                                 Next
                             </button>
+
                         </div>
                     </div>
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
 
     )
 }

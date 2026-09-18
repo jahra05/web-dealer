@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaCalculator, FaCheckCircle } from 'react-icons/fa';
 import { FaBasketShopping } from 'react-icons/fa6';
 import LeadModal from '../../components/LeadModal';
+import SectionReveal from '../../components/SectionReveal';
 
 const BUNGA_BY_TENOR = {
   11: 2.5,
@@ -114,179 +115,233 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
   }
 
   return (
-    <section id="simulasi-kredit" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">Simulasi Kredit</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto">Hitung estimasi cicilan bulanan Anda dengan mudah dan transparan.</p>
-        </div>
+    <SectionReveal>
+      <section id="simulasi-kredit" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1]
+            }}
+            className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">Simulasi Kredit</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">Hitung estimasi cicilan bulanan Anda dengan mudah dan transparan.</p>
+          </motion.div>
 
-        <div className="bg-gray-50 rounded-[40px] p-8 md:p-12 shadow-sm border border-gray-100 lg:grid lg:grid-cols-2 lg:gap-16 items-start">
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <div>
-                <label className="block text-xs font-black text-gray-400 uppercase mb-3 tracking-widest">Pilih Motor</label>
-                <select
-                  value={selected?.id_motor || ""}
-                  onChange={handleBikeChange}
-                  className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 outline-none focus:ring-4 focus:ring-blue-100 transition-all cursor-pointer mb-6"
-                >
-                  {motorDisplay.map(bike => (
-                    <option key={bike.id_motor} value={bike.id_motor}>{bike?.nama_motor}</option>
-                  ))}
-                </select>
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selected.id_motor}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-white rounded-3xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden"
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-1 gap-6 items-center">
-                      <div className="relative group">
-                        <div className="absolute inset-0 bg-blue-50/20 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
-                        <img
-                          src={`${selected?.gambar}`}
-                          alt={selected?.nama_motor}
-                          className="relative  w-full h-52 object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <h3 className="text-2xl font-black text-[#00182F] leading-tight">{selected.nama_motor}</h3>
-                        <p className="text-xl font-black text-[#006A9E]">Rp {Number(selected.harga).toLocaleString("id-ID")}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              <div>
-                <div className="flex justify-between mb-3">
-                  <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">Jumlah DP (Uang Muka)</label>
-                  <span className="text-[#006A9E] font-black">
-                    Rp {dp.toLocaleString("id-ID")}
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min={500000}
-                  max={Number(selected?.harga) * 0.8}
-                  step={100000}
-                  value={dp}
-                  onChange={(e) => setDp(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#002446]"
-                />
-                <div className="flex justify-between mt-2 text-[10px] font-bold text-gray-400">
-                  <span>Rp 500rb</span>
-                  <span>80% Harga Motor</span>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-black text-gray-400 uppercase mb-3 tracking-widest">Tenor (Jangka Waktu)</label>
-                <div className="grid grid-cols-5 gap-2 md:gap-3">
-                  {[11, 17, 23, 29, 35].map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => handleTenorChange(t)}
-                      className={`py-4 rounded-2xl font-black transition-all text-sm ${tenor === t
-                        ? "bg-[#00345F] text-white shadow-lg shadow-[#E6F1F7]"
-                        : "bg-white text-gray-400 border border-gray-200 hover:border-[#006A9E]"
-                        }`}
-                    >
-                      {t}
-                      <span className="block text-[10px] uppercase opacity-60">Bulan</span>
-                    </button>
-                  ))}
-                </div>
-                {/* Info bunga */}
-                <p className="mt-2 text-xs text-gray-400">
-                  Bunga: <span className="font-bold text-gray-600">{bunga}%</span> per tahun
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 lg:mt-0 lg:sticky lg:top-24">
+          <div className="bg-gray-50 rounded-[40px] p-8 md:p-12 shadow-sm border border-gray-100 lg:grid lg:grid-cols-2 lg:gap-16 items-start">
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-[32px] p-8 md:p-10 shadow-xl shadow-gray-200/50 border border-gray-100 relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 blur-3xl opacity-50"></div>
-
-              <div className="relative z-10">
-                <div className="flex items-center space-x-3 mb-8">
-                  <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-[#002446]">
-                    <FaCalculator size={24} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Hasil Simulasi</p>
-                    <h4 className="text-xl font-black text-gray-900">Estimasi Cicilan</h4>
-                  </div>
-                </div>
-
-                <div className="space-y-4 mb-8">
-                  <div className="flex justify-between items-center py-3 border-b border-gray-50">
-                    <span className="text-gray-500 font-medium">Harga Motor</span>
-                    <span className="text-gray-900 font-bold">Rp {Number(selected.harga).toLocaleString("id-ID")}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-gray-50">
-                    <span className="text-gray-500 font-medium">Uang Muka (DP)</span>
-                    <span className="font-bold text-green-600">-  Rp {dp.toLocaleString("id-ID")}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-gray-50">
-                    <span className="text-gray-500 font-medium">Total Pinjaman</span>
-                    <span className="text-gray-900 font-bold">Rp {(Number(selected.harga) - dp).toLocaleString("id-ID")}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-gray-50">
-                    <span className="text-gray-500 font-medium">Tenor</span>
-                    <span className="text-gray-900 font-bold">{tenor} Bulan</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3">
-                    <span className="text-gray-500 font-medium">Bunga</span>
-                    <span className="text-gray-900 font-bold">{bunga}% / tahun</span>
-                  </div>
-                </div>
-
-                <div className="bg-[#002446] rounded-3xl p-6 text-white text-center shadow-lg shadow-[#E6F1F7]">
-                  <p className="text-xs font-bold text-white/70 uppercase mb-1">Cicilan Per Bulan</p>
-                  <h3 className="text-4xl font-black mb-1">Rp {cicilan.toLocaleString("id-ID")}</h3>
-                  <p className="text-[10px] italic text-white/50">*Harga belum termasuk asuransi & biaya admin</p>
-                </div>
-
-                <div className="mt-8">
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="w-full bg-[#002446] hover:bg-[#00345F] text-white px-6 py-2.5 rounded-lg font-bold flex justify-center items-center space-x-2 transition-colors active:scale-95 shadow-lg shadow-[#E6F1F7]"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.9,
+                delay: 0.1,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              className="space-y-8">
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase mb-3 tracking-widest">Pilih Motor</label>
+                  <select
+                    value={selected?.id_motor || ""}
+                    onChange={handleBikeChange}
+                    className="w-full bg-white border border-gray-200 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 outline-none focus:ring-4 focus:ring-blue-100 transition-all cursor-pointer mb-6"
                   >
-                    <FaBasketShopping size={18} />
-                    <span className="hidden sm:inline">Ajukan Kredit</span>
-                  </button>
+                    {motorDisplay.map(bike => (
+                      <option key={bike.id_motor} value={bike.id_motor}>{bike?.nama_motor}</option>
+                    ))}
+                  </select>
+
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={selected.id_motor}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-white rounded-3xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden"
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-1 gap-6 items-center">
+                        <div className="relative group">
+                          <div className="absolute inset-0 bg-blue-50/20 rounded-2xl scale-95 group-hover:scale-100 transition-transform duration-500"></div>
+                          <img
+                            src={`${selected?.gambar}`}
+                            alt={selected?.nama_motor}
+                            className="relative  w-full h-52 object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <h3 className="text-2xl font-black text-[#00182F] leading-tight">{selected.nama_motor}</h3>
+                          <p className="text-xl font-black text-[#006A9E]">Rp {Number(selected.harga).toLocaleString("id-ID")}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
 
-                <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} bike={selected} />
+                <div>
+                  <div className="flex justify-between mb-3">
+                    <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">Jumlah DP (Uang Muka)</label>
+                    <span className="text-[#006A9E] font-black">
+                      Rp {dp.toLocaleString("id-ID")}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min={500000}
+                    max={Number(selected?.harga) * 0.8}
+                    step={100000}
+                    value={dp}
+                    onChange={(e) => setDp(Number(e.target.value))}
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#002446]"
+                  />
+                  <div className="flex justify-between mt-2 text-[10px] font-bold text-gray-400">
+                    <span>Rp 500rb</span>
+                    <span>80% Harga Motor</span>
+                  </div>
+                </div>
 
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2 text-green-600">
-                    <FaCheckCircle size={16} />
-                    <span className="text-[10px] font-bold uppercase tracking-wider">Proses 1 Hari Cair</span>
+                <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase mb-3 tracking-widest">Tenor (Jangka Waktu)</label>
+                  <div className="grid grid-cols-5 gap-2 md:gap-3">
+                    {[11, 17, 23, 29, 35].map((t) => (
+                      <button
+                        key={t}
+                        onClick={() => handleTenorChange(t)}
+                        className={`py-4 rounded-2xl font-black transition-all text-sm ${tenor === t
+                          ? "bg-[#00345F] text-white shadow-lg shadow-[#E6F1F7]"
+                          : "bg-white text-gray-400 border border-gray-200 hover:border-[#006A9E]"
+                          }`}
+                      >
+                        {t}
+                        <span className="block text-[10px] uppercase opacity-60">Bulan</span>
+                      </button>
+                    ))}
                   </div>
-                  <div className="flex items-center space-x-2 text-green-600">
-                    <FaCheckCircle size={16} />
-                    <span className="text-[10px] font-bold uppercase tracking-wider">Bunga Sangat Ringan</span>
-                  </div>
+                  {/* Info bunga */}
+                  <p className="mt-2 text-xs text-gray-400">
+                    Bunga: <span className="font-bold text-gray-600">{bunga}%</span> per tahun
+                  </p>
                 </div>
               </div>
             </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.9,
+                delay: 0.2,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              className="mt-12 lg:mt-0 lg:sticky lg:top-24">
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-[32px] p-8 md:p-10 shadow-xl shadow-gray-200/50 border border-gray-100 relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 blur-3xl opacity-50"></div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center space-x-3 mb-8">
+                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-[#002446]">
+                      <FaCalculator size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Hasil Simulasi</p>
+                      <h4 className="text-xl font-black text-gray-900">Estimasi Cicilan</h4>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="flex justify-between items-center py-3 border-b border-gray-50">
+                      <span className="text-gray-500 font-medium">Harga Motor</span>
+                      <span className="text-gray-900 font-bold">Rp {Number(selected.harga).toLocaleString("id-ID")}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-gray-50">
+                      <span className="text-gray-500 font-medium">Uang Muka (DP)</span>
+                      <span className="font-bold text-green-600">-  Rp {dp.toLocaleString("id-ID")}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-gray-50">
+                      <span className="text-gray-500 font-medium">Total Pinjaman</span>
+                      <span className="text-gray-900 font-bold">Rp {(Number(selected.harga) - dp).toLocaleString("id-ID")}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-gray-50">
+                      <span className="text-gray-500 font-medium">Tenor</span>
+                      <span className="text-gray-900 font-bold">{tenor} Bulan</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3">
+                      <span className="text-gray-500 font-medium">Bunga</span>
+                      <span className="text-gray-900 font-bold">{bunga}% / tahun</span>
+                    </div>
+                  </div>
+
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      scale: 0.92,
+                      y: 15
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      scale: 1,
+                      y: 0
+                    }}
+                    viewport={{
+                      once: true,
+                      amount: 0.5
+                    }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 0.45,
+                      ease: [0.16, 1, 0.3, 1]
+                    }}
+                    className="bg-[#002446] rounded-3xl p-6 text-white text-center shadow-lg shadow-[#E6F1F7]">
+                    <p className="text-xs font-bold text-white/70 uppercase mb-1">Cicilan Per Bulan</p>
+                    <h3 className="text-4xl font-black mb-1">Rp {cicilan.toLocaleString("id-ID")}</h3>
+                    <p className="text-[10px] italic text-white/50">*Harga belum termasuk asuransi & biaya admin</p>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{
+                      duration: 0.6,
+                      delay: 0.55,
+                      ease: [0.16, 1, 0.3, 1]
+                    }}
+                    className="mt-8">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="w-full bg-[#002446] hover:bg-[#00345F] text-white px-6 py-2.5 rounded-lg font-bold flex justify-center items-center space-x-2 transition-colors active:scale-95 shadow-lg shadow-[#E6F1F7]"
+                    >
+                      <FaBasketShopping size={18} />
+                      <span className="hidden sm:inline">Ajukan Kredit</span>
+                    </button>
+                  </motion.div>
+
+                  <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} bike={selected} />
+
+                  <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-center space-x-2 text-green-600">
+                      <FaCheckCircle size={16} />
+                      <span className="text-[10px] font-bold uppercase tracking-wider">Proses 1 Hari Cair</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-green-600">
+                      <FaCheckCircle size={16} />
+                      <span className="text-[10px] font-bold uppercase tracking-wider">Bunga Sangat Ringan</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
-      </div>
-    </section>
+      </section >
+    </SectionReveal>
   );
 };
 

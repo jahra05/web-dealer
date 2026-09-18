@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react"
-import { defaultEasing } from "framer-motion"
+import { AnimatePresence, defaultEasing } from "framer-motion"
 import AdminNavbar from "../../components/AdminNavbar"
 import NavTop from "../../components/NavTop"
 import { BiExport, BiSearch, BiUpArrow } from "react-icons/bi"
@@ -15,6 +15,7 @@ import CustomAlert from "../../components/CustomAlert"
 import ConfirmAlert from "../../components/ConfirmAlert"
 import Notifikasi from "../../components/Notifikasi"
 import { CgClose } from "react-icons/cg"
+import { motion } from 'framer-motion'
 
 const KelolaProduk = () => {
     const [page, setPage] = useState(1)
@@ -571,10 +572,13 @@ const KelolaProduk = () => {
                 </div> */}
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <div className="flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center mb-4">
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        >
                             <h1 className="text-xl lg:text-2xl font-bold text-[#00182F">Produk Motor</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola data produk motor.</p>
-                        </div>
+                        </motion.div>
                         <div className="flex flex-row gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                             <div className="w-full sm:w-56 lg:w-72">
                                 <select
@@ -610,11 +614,17 @@ const KelolaProduk = () => {
                         </div>
                     </div>
                     {/* Desktop */}
-                    <div className="mt-4 overflow-hidden bg-white shadow-sm rounded-2xl border border-slate-100 hidden md:block">
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="mt-4 overflow-hidden bg-white shadow-sm rounded-2xl border border-slate-100 hidden md:block">
                         <div className="px-6 py-4 bg-[#004A7C]">
                             <p className="text-xl font-semibold text-white">Produk</p>
                         </div>
-                        <div className="overflow-x-auto">
+                        <div
+
+                            className="overflow-x-auto">
                             <table className="min-w-[720px] w-full overflow-auto">
                                 <thead className="bg-white">
                                     <tr>
@@ -728,33 +738,68 @@ const KelolaProduk = () => {
                                 Next
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
 
 
 
                     {/* mobile */}
 
-                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        {/* <div className="px-6 py-4 bg-[#004A7C] rounded-xl">
-                            <p className="text-xl font-semibold text-white">Produk Motor</p>
-                        </div> */}
-                        {products.map((item) => (
-                            <div className="rounded-xl border bg-white p-4 shadow-sm">
-                                <div className="bg-gray-100 w-full rounded-xl h-72 relative">
-                                    <img src={item.gambar} alt={item.nama_motor} className="w-full max-w-[470px] h-72 rounded-xl object-center object-contain py-4 " />
+                    <div className="md:hidden space-y-4">
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                                direction: 0.6,
+                                ease: [0.16, 1, 0.3, 1]
+                            }} >
 
-                                    <div>
-                                        <span className={`absolute top-2 left-3 items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium border ${item.status === 'Aktif' ? "bg-green-300 text-gray-600 border-gray-200" : "bg-red-50 text-red-600 border-red-200"}`}>
-                                            <span className={`w-1.5 h-1.5  ${item.status === 'Aktif' ? "bg-gray-50" : "bg-red-500"}`} />{item.status}
-                                        </span>
 
-                                        <div className="absolute top-2 right-3 ">
-                                            <button onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20} /></button>
+                            <div className="space-y-4">
+                                {products.map((item, index) => (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                            duration: 0.65,
+                                            delay: index * 0.07,
+                                            ease: [0.16, 1, 0.3, 1]
+                                        }}
+                                        className="rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
+                                        <div className="relative h-52 w-full overflow-hidden rounded-xl bg-gray-100">
+                                            <motion.img
+                                                initial={{ opacity: 0, scale: 0.02 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{
+                                                    duration: 0.7,
+                                                    delay: index * 0.07 + 0.08,
+                                                    ease: [0.16, 1, 0.3, 1]
+                                                }}
+                                                src={`${import.meta.env.VITE_API_URL}${item.gambar}`}
+                                                // src={item.gambar}
+                                                alt={item.nama_motor} className="h-full w-full object-contain" />
 
-                                            {openDrapMenu === item.id_motor && (
-                                                <div className="absolute right-0 w-46 bg-slate-50  shadow-xl rounded-sm flex flex-col gap-2 ">
-                                                    <div className="flex">
-                                                        <div className="flex">
+                                            {/* <div> */}
+                                            <span className={`absolute top-3 left-3 rounded-md px-3 py-1 text-xs font-medium ${item.status === 'Aktif' ? "bg-green-300 text-gray-700" : "bg-red-100 text-red-600"
+                                                }`} >{item.status}</span>
+
+                                            <div className="absolute top-3 right-3 ">
+                                                <button type="button" onClick={() => setOpenDrapMenu(openDrapMenu === item.id_motor ? null : item.id_motor)}><MdMoreHoriz size={20}
+                                                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-sm"
+                                                />
+                                                </button>
+
+                                                <AnimatePresence>
+                                                    {openDrapMenu === item.id_motor && (
+                                                        <motion.div
+                                                            initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                                                            animate={{ opacity: 1, scale: 0.95, y: -5 }}
+                                                            transition={{
+                                                                duration: 0.2,
+                                                                ease: [0.16, 1, 0.3, 1]
+                                                            }}
+                                                            className="absolute right-0 top-10 z-20 w-44 overflow-hidden rounded-xl bg-white shadow-lg border border-gray-100">
+                                                            {/* < div className="flex"> */}
+                                                            {/* <div className="flex"> */}
                                                             <button
                                                                 type="button"
                                                                 onClick={() => {
@@ -770,9 +815,11 @@ const KelolaProduk = () => {
                                                                     setIsModalColor(true);
                                                                     setOpenDrapMenu(null);
                                                                 }}
-                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                                className="flex w-full items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
                                                             >
                                                                 🎨
+
+                                                                <span>Kelola Warna</span>
                                                             </button>
 
                                                             <button
@@ -781,9 +828,11 @@ const KelolaProduk = () => {
                                                                     handleEdit(item);
                                                                     setOpenDrapMenu(null);
                                                                 }}
-                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] font-semibold"
+                                                                className="flex w-full items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
                                                             >
+
                                                                 <FaEdit />
+                                                                <span>Edit</span>
                                                             </button>
 
                                                             <button
@@ -792,235 +841,259 @@ const KelolaProduk = () => {
                                                                     handleDelet(item.id_motor);
                                                                     setOpenDrapMenu(null);
                                                                 }}
-                                                                className="flex w-full text-sm h-10 items-center px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC]  font-semibold"
+                                                                className="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50"
                                                             >
                                                                 <MdDelete />
+                                                                <span>Hapus</span>
                                                             </button>
-                                                            <button className="px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] h-10 w-full text-center " onClick={() => setOpenDrapMenu(false)}><CgClose /></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
+                                                            {/* <button className="px-4 gap-2 text-[#002446] hover:bg-[#F2F8FC] h-10 w-full text-center " onClick={() => setOpenDrapMenu(false)}><CgClose /></button> */}
+                                                            {/* </div> */}
+                                                            {/* </div> */}
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                            {/* </div> */}
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="flex justify-between mt-2">
-                                    <div className="flex gap-4">
-                                        <p className="bg-blue-50 rounded-sm px-2 py-1 text-xs  text-center font-medium">{item.nama_kategori}</p>
-                                        <p className="bg-blue-50 rounded-md px-2 py-1 text-xs  text-center font-medium">{item.nama_tipe}</p>
-                                        <p className="bg-blue-50 rounded-md px-2 py-1 text-xs  text-center font-medium">{item.tahun}</p>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex gap-4">
-                                            <div className="flex gap-1">
-                                                {warna
-                                                    .filter((w) => w.id_motor === item.id_motor)
-                                                    .map((w) => (
-                                                        <div key={w.id_warna}>
-                                                            <div
-                                                                className="w-6 h-6 rounded-full"
-                                                                style={{ backgroundColor: w.kode_warna }}
-                                                            />
-                                                        </div>
-                                                    ))}
+                                        <div className="mt-3 flex flex-wrap gap-2">
+                                            <span className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-medium text-gray-700">
+                                                {item.nama_kategori}
+                                            </span>
+                                            <span className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-medium text-gray-700">
+                                                {item.nama_tipe}
+                                            </span>
+                                            <span className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-medium text-gray-700">
+                                                {item.tahun}
+                                            </span>
+                                        </div>
+                                        <div className="mt-3">
+                                            <h3 className="text-lg font-bold text-gray-900">{item.nama_motor}</h3>
+                                            <p className="mt-1 text-sm text-gray-500">Harga : <span className="ml-1 text-gray-700 font-semibold"> Rp {Number(item.harga).toLocaleString("id-ID")}</span></p>
+                                            <div className="mt-2 flex items-center justify-between">
+                                                <p className="text-sm text-gray-500">Stok: <span className="ml-1 font-semibold text-gray-700">
+                                                    {item.stok}
+                                                </span></p>
+                                                <div className="flex gap-1.5">
+                                                    {warna
+                                                        .filter((w) => w.id_motor === item.id_motor)
+                                                        .map((w) => (
+                                                            <div key={w.id_warna}>
+                                                                <div
+                                                                    className="h-5 w-5 rounded-full border border-gray-200"
+                                                                    style={{
+                                                                        backgroundColor: w.kode_warna,
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        ))}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 className="mt-2 font-bold text-lg">{item.nama_motor}</h3>
-                                    <p className="text-l text-gray-500 ">Harga : <span className="font-semibold"> Rp {Number(item.harga).toLocaleString("id-ID")}</span></p>
-                                    <p className="text-sm text-gray-500 mt-1">Stok : <span className="font-semibold">{item.stok}</span></p>
-                                </div>
+                                    </motion.div>
+                                ))}
                             </div>
-                        ))}
-                        <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                        </motion.div>
+
+
+                        <div className="flex items-center justify-between px-1 py-3">
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                                 disabled={page === 1}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium 
+                                ${page === 1 ? 'text-gray-400 bg-gray-100' : 'text-gray-700 bg-white border border-gray-200'}`}>
                                 Prev
                             </button>
-                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                            <span className="text-sm text-gray-600"> {page} / {totalPages}</span>
                             <button
                                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                 disabled={page === totalPages}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium ${page === totalPages
+                                    ? "bg-gray-100 text-gray-400"
+                                    : "border border-gray-200 bg-white text-gray-700"
+                                    }`}>
                                 Next
                             </button>
                         </div>
                     </div>
 
 
-                    {isModalColor && (
-                        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
-                            <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
-                                <div className="px-6 py-5 border-b border-gray-100">
-                                    <div className="flex items-start justify-between gap-4">
-                                        <div>
-                                            <h2 className="text-lg font-bold text-gray-900">Tambah Produk</h2>
-                                            <p className="mt-0.5 text-sm text-gray-500">Isi color motor untuk ditampilkan di katalog.</p>
-                                        </div>
-                                        <button type="button" onClick={() => setIsModalColor(false)} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">✕</button>
-                                    </div>
-                                </div>
-
-                                <div className="px-6 py-8 grid gap-4 md:grid-cols-2 border-b border-gray-100 ">
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Nama Color</label>
-                                        <input
-                                            value={editWarna.nama_warna}
-                                            onChange={(e) =>
-                                                setEditWarna({
-                                                    ...editWarna,
-                                                    nama_warna: e.target.value
-                                                })
-                                            }
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
-                                        <input
-                                            type="color"
-                                            value={editWarna.kode_warna}
-                                            onChange={(e) =>
-                                                setEditWarna({
-                                                    ...editWarna,
-                                                    kode_warna: e.target.value
-                                                })
-                                            }
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="px-6 py-5 grid gap-1 md:grid-cols-1">
-                                    <label className="block text-sm font-medium text-gray-700">List Color</label>
-                                    <div className="md:col-span-1 ">
-                                        {warna.filter((item) => item.id_motor === editWarna.id_motor).map((item) => (
-                                            <div key={item.id_warna} className="flex  justify-between items-center">
-                                                <div className="flex gap-3">
-                                                    <div className="w-6 h-6 rounded-full" style={{ backgroundColor: item.kode_warna }} />
-                                                    <span>{item.nama_warna}</span>
-                                                </div>
-                                                <div>
-                                                    <button onClick={() => handleEditWarna(item)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 mr-2"><FaEdit size={14} className="text-black/30 hover:text-red-700" /></button>
-                                                    <button onClick={() => handleDeleteWarna(item.id_warna)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 "><MdDelete size={14} className="text-black/30 hover:text-red-700" /></button>
-                                                </div>
+                    {
+                        isModalColor && (
+                            <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalColor(false)} >
+                                <div className="w-full max-w-lg lg:max-w-md max-h[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                                    <div className="px-6 py-5 border-b border-gray-100">
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div>
+                                                <h2 className="text-lg font-bold text-gray-900">Tambah Produk</h2>
+                                                <p className="mt-0.5 text-sm text-gray-500">Isi color motor untuk ditampilkan di katalog.</p>
                                             </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
-                                    <button type="button" onClick={() => setIsModalColor(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                    <button type="button" onClick={() => editWarna.id_warna ? updateWarna() : createWarna()} className="rounded-full bg-[#002446]  hover:bg-[#00182F] px-5 py-2.5 text-sm font-medium text-white transition ">
-                                        {editWarna.id_warna ? "Update" : "Tambah"}
-                                    </button>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    )}
-
-                    {isModalOpen && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={closeModal}>
-                            <div className="w-full max-w-lg lg:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
-                                {/* Header */}
-                                <div className="px-6 py-5 border-b border-gray-100">
-                                    <div className="flex items-start justify-between gap-4">
-                                        <div>
-                                            <h2 className="text-lg font-bold text-gray-900">{isEdit ? 'Edit Produk' : 'Tambah Produk'}</h2>
-                                            <p className="mt-0.5 text-sm text-gray-500">Isi data motor untuk ditampilkan di katalog.</p>
+                                            <button type="button" onClick={() => setIsModalColor(false)} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">✕</button>
                                         </div>
-                                        <button type="button" onClick={closeModal} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">✕</button>
                                     </div>
+
+                                    <div className="px-6 py-8 grid gap-4 md:grid-cols-2 border-b border-gray-100 ">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Nama Color</label>
+                                            <input
+                                                value={editWarna.nama_warna}
+                                                onChange={(e) =>
+                                                    setEditWarna({
+                                                        ...editWarna,
+                                                        nama_warna: e.target.value
+                                                    })
+                                                }
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                                            <input
+                                                type="color"
+                                                value={editWarna.kode_warna}
+                                                onChange={(e) =>
+                                                    setEditWarna({
+                                                        ...editWarna,
+                                                        kode_warna: e.target.value
+                                                    })
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="px-6 py-5 grid gap-1 md:grid-cols-1">
+                                        <label className="block text-sm font-medium text-gray-700">List Color</label>
+                                        <div className="md:col-span-1 ">
+                                            {warna.filter((item) => item.id_motor === editWarna.id_motor).map((item) => (
+                                                <div key={item.id_warna} className="flex  justify-between items-center">
+                                                    <div className="flex gap-3">
+                                                        <div className="w-6 h-6 rounded-full" style={{ backgroundColor: item.kode_warna }} />
+                                                        <span>{item.nama_warna}</span>
+                                                    </div>
+                                                    <div>
+                                                        <button onClick={() => handleEditWarna(item)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 mr-2"><FaEdit size={14} className="text-black/30 hover:text-red-700" /></button>
+                                                        <button onClick={() => handleDeleteWarna(item.id_warna)} className="bg-slate-100 px-2 py-2 rounded-full text-center mb-2 "><MdDelete size={14} className="text-black/30 hover:text-red-700" /></button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
+                                        <button type="button" onClick={() => setIsModalColor(false)} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
+                                        <button type="button" onClick={() => editWarna.id_warna ? updateWarna() : createWarna()} className="rounded-full bg-[#002446]  hover:bg-[#00182F] px-5 py-2.5 text-sm font-medium text-white transition ">
+                                            {editWarna.id_warna ? "Update" : "Tambah"}
+                                        </button>
+                                    </div>
+
                                 </div>
 
-                                {/* Body */}
-                                <div className="px-6 py-5 grid gap-4 md:grid-cols-2">
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Nama Motor</label>
-                                        <input type="text" name="nama_motor" value={formData.nama_motor} onChange={handleChangeData}
-                                            placeholder="Nama Motor" title="Nama Motor" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-                                        <select name="id_kategori" value={formData.id_kategori} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
-                                            <option value="">Pilih Kategori</option>
-                                            {kategori.map((item) => (
-                                                <option key={item.id_kategori} value={item.id_kategori}>{item.nama_kategori}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Tipe</label>
-                                        <select name="id_tipe" value={formData.id_tipe} onChange={handleChangeData}
-                                            className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
-                                            <option value="">Pilih Tipe</option>
-                                            {tipe.map((item) => (
-                                                <option key={item.id_tipe} value={item.id_tipe}>{item.nama_tipe}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Harga</label>
-                                        <input type="text" name="harga" value={Number(formData.harga || 0).toLocaleString("id-ID")} onChange={handleChangeData}
-                                            placeholder="Harga (angka)" title="Harga" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
-                                        <input type="number" name="tahun" value={formData.tahun} onChange={handleChangeData}
-                                            placeholder="Tahun" title="Tahun" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Stok</label>
-                                        <input type="text" name="stok" value={formData.stok} onChange={handleChangeData}
-                                            placeholder="Stok" title="Stok" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
-                                        <textarea maxLength={200} rows={4} type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
-                                            placeholder="Deskripsi singkat" title="Deskripsi" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 " />
-                                    </div>
-                                    <div className="">
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
-                                        <input accept="image/jpeg,image/png,image/webp" onChange={(e) => {
-                                            const file = e.target.files[0]
-                                            if (!file) return
+                            </div>
+                        )
+                    }
 
-                                            const maxSize = 5 * 1024 * 1024
-
-                                            if (file.size > maxSize) {
-                                                setAlert({
-                                                    type: "warning",
-                                                    message: "Ukuran gambar maksimal 5 mb"
-                                                })
-                                                e.target.value = ""
-                                                return
-                                            }
-                                            setFormData({ ...formData, gambar: file })
-                                        }}
-                                            type="file" title="Pilih gambar produk" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-[#002446] hover:file:bg-[#E6F1F7]" />
+                    {
+                        isModalOpen && (
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={closeModal}>
+                                <div className="w-full max-w-lg lg:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                                    {/* Header */}
+                                    <div className="px-6 py-5 border-b border-gray-100">
+                                        <div className="flex items-start justify-between gap-4">
+                                            <div>
+                                                <h2 className="text-lg font-bold text-gray-900">{isEdit ? 'Edit Produk' : 'Tambah Produk'}</h2>
+                                                <p className="mt-0.5 text-sm text-gray-500">Isi data motor untuk ditampilkan di katalog.</p>
+                                            </div>
+                                            <button type="button" onClick={closeModal} className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">✕</button>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Footer */}
-                                <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
-                                    <button type="button" onClick={closeModal} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
-                                    <button type="button" onClick={isEdit ? updateMotor : handleSubmit} className="rounded-full bg-[#002446]  hover:bg-[#00182F] px-5 py-2.5 text-sm font-medium text-white transition">{isEdit ? 'Update' : 'Simpan'}</button>
+                                    {/* Body */}
+                                    <div className="px-6 py-5 grid gap-4 md:grid-cols-2">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Nama Motor</label>
+                                            <input type="text" name="nama_motor" value={formData.nama_motor} onChange={handleChangeData}
+                                                placeholder="Nama Motor" title="Nama Motor" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+                                            <select name="id_kategori" value={formData.id_kategori} onChange={handleChangeData}
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
+                                                <option value="">Pilih Kategori</option>
+                                                {kategori.map((item) => (
+                                                    <option key={item.id_kategori} value={item.id_kategori}>{item.nama_kategori}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Tipe</label>
+                                            <select name="id_tipe" value={formData.id_tipe} onChange={handleChangeData}
+                                                className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100">
+                                                <option value="">Pilih Tipe</option>
+                                                {tipe.map((item) => (
+                                                    <option key={item.id_tipe} value={item.id_tipe}>{item.nama_tipe}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Harga</label>
+                                            <input type="text" name="harga" value={Number(formData.harga || 0).toLocaleString("id-ID")} onChange={handleChangeData}
+                                                placeholder="Harga (angka)" title="Harga" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
+                                            <input type="number" name="tahun" value={formData.tahun} onChange={handleChangeData}
+                                                placeholder="Tahun" title="Tahun" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Stok</label>
+                                            <input type="text" name="stok" value={formData.stok} onChange={handleChangeData}
+                                                placeholder="Stok" title="Stok" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
+                                            <textarea maxLength={200} rows={4} type="text" name="deskripsi" value={formData.deskripsi} onChange={handleChangeData}
+                                                placeholder="Deskripsi singkat" title="Deskripsi" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 " />
+                                        </div>
+                                        <div className="">
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
+                                            <input accept="image/jpeg,image/png,image/webp" onChange={(e) => {
+                                                const file = e.target.files[0]
+                                                if (!file) return
+
+                                                const maxSize = 5 * 1024 * 1024
+
+                                                if (file.size > maxSize) {
+                                                    setAlert({
+                                                        type: "warning",
+                                                        message: "Ukuran gambar maksimal 5 mb"
+                                                    })
+                                                    e.target.value = ""
+                                                    return
+                                                }
+                                                setFormData({ ...formData, gambar: file })
+                                            }}
+                                                type="file" title="Pilih gambar produk" className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-[#002446] hover:file:bg-[#E6F1F7]" />
+                                        </div>
+                                    </div>
+
+                                    {/* Footer */}
+                                    <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
+                                        <button type="button" onClick={closeModal} className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Batal</button>
+                                        <button type="button" onClick={isEdit ? updateMotor : handleSubmit} className="rounded-full bg-[#002446]  hover:bg-[#00182F] px-5 py-2.5 text-sm font-medium text-white transition">{isEdit ? 'Update' : 'Simpan'}</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
-                    {confrim && (
-                        <ConfirmAlert title={confrim.title} message={confrim.message} onConfirm={confrim.onConfirm} onCancel={confrim.onCancel} />
-                    )}
-                    {alert && (
-                        <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
-                    )}
-                </main>
+                        )
+                    }
+                    {
+                        confrim && (
+                            <ConfirmAlert title={confrim.title} message={confrim.message} onConfirm={confrim.onConfirm} onCancel={confrim.onCancel} />
+                        )
+                    }
+                    {
+                        alert && (
+                            <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
+                        )
+                    }
+                </main >
             </div >
         </div >
 

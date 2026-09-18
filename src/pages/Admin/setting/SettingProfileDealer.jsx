@@ -88,80 +88,88 @@ export default function SettingProfileDealer() {
     }, [])
 
     return (
-        <div>
-            <div className=" mt-4 p-4 flex flex-col overflow-x-hidden">
-                <h3 className="text-xl font-medium hidden min-[1010px]:block">Pengaturan</h3>
-                <button onClick={() => navigate('/admin/dashboard')} className="w-32 ml-4 p-1 text-lg min-[1010px]:hidden flex items-center "> <BiChevronLeft size={28} />Setting</button>
-                <div className="flex flex-col w-full mt-4 bg-white p-4  rounded-xl">
-                    <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-                    <div className=" w-full min-w-0 flex flex-col  overflow-x-hidden z-10">
-                        {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
-                        <div className="bg-white p-4 rounded-xl w-full lg:mx-0 mb-4 mt-0 lg:mt-0">
-                            <div className="flex  flex-col gap-4">
-                                <div className="flex flex-col border-b border-gray-100 p-4">
-                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                                        <div className="flex flex-col sm:flex-row items-center gap-4">
-                                            <div className="w-32">
-                                                <div className="w-32 h-32">
-                                                    <img src={
-                                                        logo
-                                                            ? URL.createObjectURL(logo)
-                                                            : `${footer.logo}`
-                                                    } className="w-32 h-32 rounded-full object-cover" />
-                                                </div>
-                                                <div className="-mt-10">
-                                                    <label htmlFor="logo" className="ml-32 -mt-2 w-8 h-8 flex items-center justify-center rounded-full bg-[#002446] text-[#F2F8FC] cursor-pointer hover:bg-[#00182F] hover:text-white shadow-md z-10"> <BiEdit size={20} />
-                                                    </label></div>
-                                            </div>
-                                            <input id="logo" type="file" accept="image/*" onChange={handlelogoFooter} className="hidden" />
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <button onClick={updateLogo} className="bg-[#002446] text-[#F2F8FC] rounded-md p-2  text-sm font-medium hover:scale-[1.02] hover:shadow-xl active:scale-95 transition-all">update</button>
-                                        </div>
-                                    </div>
-                                </div>
+        <div className=" mt-4 p-4 flex flex-col overflow-x-hidden">
+            <h3 className="text-xl font-medium hidden min-[1010px]:block">Pengaturan</h3>
+            <button onClick={() => navigate('/admin/dashboard')} className="w-32 ml-4 p-1 text-lg min-[1010px]:hidden flex items-center "> <BiChevronLeft size={28} />Setting</button>
+            <div className="flex flex-col w-full mt-4 md:bg-white p-4  rounded-xl">
+                <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-                                <div className="flex flex-col gap-4 p-4">
-                                    <div className="flex flex-col md:flex-row gap-10">
-                                        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
-                                            <div>
-                                                <p className="text-gray-400 w-32 text-sm font-medium mb-2">Nama Delaer</p>
-                                                <input type="text" name="nama_dealer" value={footer.nama_dealer} onChange={handleFooter} placeholder="Nama Dealer" title="Nama Dealer" className="bg-white/10 border border-gray-200 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
+                <div className=" w-full min-w-0 flex flex-col  overflow-x-hidden z-10  ">
+                    {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+                    <div className="bg-white p-4  w-full lg:mx-0 mb-4 mt-0 lg:mt-0 rounded-xl">
+                        <main className=" px-4 pb-6 overflow-x-hidden">
+                            <div className="flex flex-col md:flex-row gap-6 lg:gap-10 mt-6 md:mt-10">
+                                <div className="flex-1 flex-col border-b md:border-b-0 md:border-r  md:pr-10 md:pb-0 pb-4 border-gray-200 gap-5 w-full md:flex-1 bg-white md:bg-transparent md:rounded-none p-1 md:p-0">
+                                    <div className="md:hidden">
+                                        <h3 className="text-base font-semibold text-[#001323]">Profile Dealer</h3>
+                                        <p className="text-xs text-gray-400 mt-1">Kelola informasi Dealer</p>
+                                    </div>
+                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mt-4  pb-5 border-b border-gray-100">
+                                        <div className="flex items-center gap-4">
+                                            <div className="relative">
+                                                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden 
+                                                                border border-gray-200 bg-gray-50">
+                                                    <img src={logo ? URL.createObjectURL(logo) : `${footer.logo}`}
+                                                        className="w-full h-full object-cover" alt="Profile" />
+                                                </div>
+                                                <label htmlFor="logo" className="absolute ring-0 bottom-0 w-8 h-8 flex items-center justify-center rounded-full bg-[#00182F] text-white cursor-pointer hover:bg-[#00182F] shadow-md transition-all duration-200">
+                                                    <BiEdit size={17} />
+                                                </label>
                                             </div>
-                                            <div>
-                                                <p className="text-gray-600 w-32 text-sm font-medium mb-2">Sub Title</p>
-                                                <input type="text" name="title" value={footer.title} onChange={handleFooter} placeholder="Sub Title" title="Sub Title" className="bg-white/10 border border-gray-200 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
+                                            <div className="hidden sm:block">
+                                                <p className="text-sm font-semibold text-[#001323]">Foto Profile</p>
+                                                <p className="text-xs text-gray-400 mt-1">
+                                                    Gunakan foto terbaik Anda
+                                                </p>
                                             </div>
                                         </div>
-                                        <div className="border-r border-gray-100"></div>
-                                        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 w-full">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                                                <div>
-                                                    <p className="text-gray-400 w-32 text-sm font-medium mb-2">jam_sabtu</p>
-                                                    <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Jam Operasional (Sabtu)" title="Jam Operasional (Sabtu)" className="bg-white/10 border border-gray-200 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                                </div>
-                                                <div>
-                                                    <p className="text-gray-400 w-32 text-sm font-medium mb-2">jam_senin_jumat</p>
-                                                    <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Jam Operasional (Senin-Jumat)" title="Jam Operasional (Senin-Jumat)" className="bg-white/10 border border-gray-200 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p className="text-gray-400 w-32 text-sm font-medium mb-2">Alamat</p>
-                                                <textarea type="text" name="alamat" value={footer.alamat} onChange={handleFooter} placeholder="Alamat" title="Alamat" className="bg-white/10 border border-gray-200 p-2 placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 rounded-xl w-full text-sm truncate-placeholder" />
-                                            </div>
+                                        <button onClick={updateLogo}
+                                            className="w-full sm:w-auto bg-[#002446] text-white rounded-xl px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:bg-[#00182F] active:scale-95">Simpan Foto</button>
+                                    </div>
+                                    <input id="logo" type="file" accept="image/*" onChange={handlelogoFooter} className="hidden" />
+                                    <div className="grid grid-cols-1 gap-5 mt-6">
+                                        <div>
+                                            <label className="block text-gray-500 text-sm font-medium mb-2">Nama Dealer</label>
+                                            <input name="nama_dealer" value={footer.nama_dealer} onChange={handleFooter}
+                                                type="text" placeholder="Nama Dealer" title="Nama Dealer" className="bg-white border border-gray-200 p-3 rounded-xl w-full text-sm text-[#001323] placeholder-gray-300
+                                             focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 transition-all" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-gray-500 text-sm font-medium mb-2">Sub Title</label>
+                                            <input type="text" name="title" value={footer.title} onChange={handleFooter} placeholder="Sub Title" title="Sub Title" className="bg-white border border-gray-200 p-3 rounded-xl w-full text-sm text-[#001323] placeholder-gray-300
+                                               focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 transition-all" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-gray-500 text-sm font-medium mb-2">jam_sabtu</label>
+                                            <input type="text" name="jam_sabtu" value={footer.jam_sabtu} onChange={handleFooter} placeholder="Jam Operasional (Sabtu)" title="Jam Operasional (Sabtu)"
+                                                className="bg-white border border-gray-200 p-3 rounded-xl w-full text-sm text-[#001323] placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 transition-all" />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-gray-500 text-sm font-medium mb-2">jam_senin_jumat</label>
+                                            <input type="text" name="jam_senin_jumat" value={footer.jam_senin_jumat} onChange={handleFooter} placeholder="Jam Operasional (Senin-Jumat)" title="Jam Operasional (Senin-Jumat)"
+                                                className="bg-white border border-gray-200 p-3 rounded-xl w-full text-sm text-[#001323] placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 transition-all"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-gray-500 text-sm font-medium mb-2">Alamat</label>
+                                            <textarea type="text" name="alamat" value={footer.alamat} onChange={handleFooter} placeholder="Alamat" title="Alamat"
+                                                className="bg-white border border-gray-200 p-3 rounded-xl w-full text-sm text-[#001323] placeholder-gray-300 focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 transition-all"
+                                            />
                                         </div>
                                     </div>
-                                    <button onClick={updateFooter} className="w-28 bg-[#002446] text-[#F2F8FC]  px-8 p-2 rounded-xl font-medium transition-all text-center text-sm duration-300 hover:bg-[#00182F] hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center mt-10">Update</button>
+                                    <div className="mt-1">
+                                        <button onClick={updateFooter}
+                                            className="w-full sm:w-auto bg-[#002446] text-white rounded-xl px-5 mt-4 py-2.5 text-sm font-medium transition-all duration-300 hover:bg-[#00182F] active:scale-95">Simpan Perubahan</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </main>
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-
+            </div >
+        </div >
 
     )
 }

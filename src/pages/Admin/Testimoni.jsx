@@ -12,6 +12,7 @@ import ConfirmAlert from "../../components/ConfirmAlert"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
+import { motion } from 'framer-motion'
 
 const Testimoni = () => {
     const [page, setPage] = useState(1);
@@ -253,11 +254,18 @@ const Testimoni = () => {
 
                 {/* <div className="mt-"> */}
                 <div className="flex-1 px-4 py-6 overflow-x-hidden mt-24">
-                    <div className="hidden md:block mb-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="hidden md:block mb-4">
                         <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
                         <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
-                    </div>
-                    <div className="overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 flex justify-between bg-[#004A7C] items-center">
                             <p className="text-xl font-semibold text-white">Testimoni</p>
                             <button
@@ -327,7 +335,7 @@ const Testimoni = () => {
                                 Next
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {isModalOpen && (
                         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6" onClick={() => setIsModalOpen(false)}>
@@ -393,73 +401,115 @@ const Testimoni = () => {
                 {/* </div> */}
 
                 {/* mobile */}
-                <div className="md:hidden p-4 space-y-4 mt-[-40px]">
-                    <div className="flex justify-between items-center">
-                        <div className="mb-4">
-                            <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Testimoni</h1>
+                <div className="md:hidden p-4 space-y-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: 0.6,
+                            ease: [0.16, 1, 0.3, 1]
+                        }}
+                        className="flex justify-between items-center">
+                        <div>
+                            <h1 className="text-xl font-bold text-gray-900">Testimoni</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola data testimoni pelanggan.</p>
                         </div>
                         <button
                             type="button"
                             onClick={openModal}
-                            className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50 focus:ring-2 focus:ring-indigo-200'>
-                            <PiPlus size={20} />
+                            className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50">
                         </button>
-                    </div>
-                    <div className=" bg-white p-4 space-y-4 rounded-xl">
-                        {pageItems.map((item) => (
-                            <div className="bg-white shadow p-4 rounded-xl">
-                                <div className="flex justify-between">
-                                    <div className="flex gap-2">
+                    </motion.div>
+                    <div className="space-y-4">
+                        {pageItems.map((item, index) => (
+                            <motion.div
+                                key={item.id_testimoni}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.65,
+                                    delay: index * 0.07,
+                                    ease: [0.16, 1, 0.3, 1]
+                                }}
+                                className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+
+                                <div className="flex items-start gap-3 justify-between">
+                                    <div className="flex gap-3 min-w-0">
                                         <img
                                             src={`${item.foto}`}
                                             alt={item.nama}
-                                            className="w-14 h-14 rounded-xl object-cover border"
+                                            className="w-14 h-14 rounded-xl object-cover border border-gray-200 shrink-0"
                                         />
-                                        <div>
-                                            <p className="text-sm text-gray-700 font-semibold">{item.nama}</p>
-                                            <p className="text-sm text-gray-500 font-medium">{item.pekerjaan}</p>
+                                        <div className="min-w-0">
+                                            <p className="text-sm text-gray-800 font-semibold truncate">
+                                                {item.nama}
+                                            </p>
+
+                                            <p className="text-sm text-gray-500 font-medium truncate">
+                                                {item.pekerjaan}
+                                            </p>
                                         </div>
                                     </div>
-                                    <div className="flex-col mb-3">
-                                        <div className="flex text-yellow-400 mb-3">
-                                            {Array.from({ length: item.rating }).map((_, index) => (
-                                                <span key={index}>⭐</span>
-                                            ))}
-                                        </div>
+                                    <div className="flex shrink-0">
+                                        {Array.from({ length: item.rating }).map((_, index) => (
+                                            <span
+                                                key={index}
+                                                className="text-base leading-none"
+                                            >
+                                                ⭐
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
 
-                                <div className="mt-8">
-                                    <div className="flex flex-col  mb-3">
+                                <div className="mt-7">
+                                    <div className="text-sm text-gray-600 mb-2">
                                         <p className="text-sm text-gray-600 mb-2">Isi Testimoni</p>
-                                        <p className="text-sm font-medium w-full">{item.isi_testimoni}</p>
+
+                                        <p className="text-sm font-medium text-gray-800 leading-relaxed break-words">
+                                            {item.isi_testimoni}
+                                        </p>
                                     </div>
 
-                                    <div className="flex items-center gap-4 justify-between mt-6">
-                                        <button onClick={() => handleDelete(item.id_testimoni)} className="inline-flex h-10 flex-1 items-center justify-center text-sm  bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
+                                    <div className="flex gap-3 mt-6">
+                                        <button onClick={() => handleDelete(item.id_testimoni)} className="inline-flex h-10 flex-1 items-center justify-center text-sm bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]">
                                             <span className="mr-2">Hapus</span><MdDelete />
                                         </button>
-                                        <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center  rounded-md bg-white text-black border border-[#004A7C] transition">
+                                        <button onClick={() => handleEdit(item)} className="inline-flex h-10 flex-1 items-center justify-center rounded-md bg-white text-black border border-[#004A7C] transition hover:bg-slate-50">
                                             <span className="mr-2">Edit</span> <FaEdit />
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
-                        <div className="px-6 py-3 flex items-center justify-end gap-3">
+                        <div className="px-1 py-3 flex items-center justify-between gap-3">
+
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                                 disabled={page === 1}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Prev</button>
-                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1
+                                    ? "text-slate-400 bg-slate-100"
+                                    : "text-slate-700 bg-white border border-slate-200"
+                                    }`}
+                            >
+                                Prev
+                            </button>
+
+                            <span className="text-sm text-slate-600">
+                                {page} / {totalPages}
+                            </span>
+
                             <button
                                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                 disabled={page === totalPages}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages
+                                    ? "text-slate-400 bg-slate-100"
+                                    : "text-slate-700 bg-white border border-slate-200"
+                                    }`}
+                            >
                                 Next
                             </button>
+
                         </div>
                     </div>
 

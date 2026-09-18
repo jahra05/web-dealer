@@ -12,9 +12,9 @@ const db = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
 
-    ssl: {
-        rejectUnauthorized: false
-    }
+    // ssl: {
+    //     rejectUnauthorized: false
+    // }
 });
 
 db.query("SELECT 1", (err) => {

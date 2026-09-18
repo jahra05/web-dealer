@@ -153,19 +153,24 @@ export default function HeroSetting() {
             <div className=" mt-4 p-4 flex flex-col overflow-x-hidden">
                 <h3 className="text-xl font-medium hidden min-[1010px]:block">Pengaturan</h3>
                 <button onClick={() => navigate('/admin/dashboard')} className="w-32 ml-4 p-1 text-lg min-[1010px]:hidden flex items-center "> <BiChevronLeft size={28} />Setting</button>
-                <div className="flex flex-col w-full mt-4 bg-white p-4  rounded-xl">
+                <div className="flex flex-col w-full mt-4 md:bg-white p-4  rounded-xl">
                     <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-                    <div className=" w-full min-w-0 flex flex-col  overflow-x-hidden z-10">
-                        <div className="bg-white p-4 rounded-xl w-full mb-4">
-                            <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                                <h2 className="text-lg font-bold mb-4">
-                                    Hero Saat Ini
-                                </h2>
-                                <div className="flex flex-col md:flex-row gap-3">
+                    <div className=" w-full min-w-0 flex flex-col   overflow-x-hidden z-10">
+                        <div className="bg-white p-6 rounded-xl w-full mb-4">
+
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-gray-100 pb-5">
+                                <div>
+                                    <h2 className="text-lg font-bold text-[#001323]">
+                                        Hero Saat Ini
+                                    </h2>
+                                    <p className="text-xs text-gray-400 mt-1 md:hidden">Pilih motor yang ingin ditampilkan sebagai hero</p>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                                     <select
                                         value={select}
                                         onChange={(e) => setSelect(e.target.value)}
-                                        className="border border-blue-100 rounded-xl px-4 py-3"
+                                        className="border border-blue-100 rounded-xl px-4 py-3 w-full md:w-56 text-sm bg-white focus:outline-none focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100"
                                     >
                                         <option value="">
                                             -- Pilih Motor --
@@ -185,7 +190,7 @@ export default function HeroSetting() {
 
                                     <button
                                         onClick={createHero}
-                                        className="bg-[#002446] text-white px-5 py-3 rounded-xl font-semibold"
+                                        className="bg-[#002446] text-white px-5 py-3 rounded-xl font-semibold text-sm w-full md:w-auto whitespace-nowrap transition-all duration-300 hover:bg-[#00182F] active:scale-95"
                                     >
                                         Jadikan Hero
                                     </button>
@@ -203,14 +208,14 @@ export default function HeroSetting() {
                                     {hero.map((item) => (
                                         <div
                                             key={item.id_hero}
-                                            className=" p-4 flex flex-col md:flex-row gap-8"
+                                            className="mt-5 p-3 md:p-4 flex flex-col md:flex-row gap-5 border-b border-gray-100 last:border-b-0"
                                         >
 
                                             {/* GAMBAR */}
                                             <img
                                                 src={item.gambar}
                                                 alt={item.nama_motor}
-                                                className="w-50 h-50 md:w-48 md:h-40 object-cover rounded-xl"
+                                                className="w-full h-48 sm:h-56 md:w-48 md:h-48 object-cover rounded-xl"
                                             />
 
                                             {/* DATA MOTOR */}
@@ -224,20 +229,22 @@ export default function HeroSetting() {
                                                     {item.nama_motor}
                                                 </h3>
 
-                                                <p className="text-sm text-gray-500">
+                                                <p className="text-sm text-gray-500 mt-1">
                                                     {item.nama_kategori} • {item.nama_tipe}
                                                 </p>
+                                                <div className="mt-3 space-y-1">
+                                                    <p className="text-sm text-gray-600">
+                                                        Tenaga Motor:  {item.tenaga}
+                                                    </p>
 
-                                                <p className="text-sm text-gray-600 mt-2">
-                                                    Tenaga Motor:  {item.tenaga}
-                                                </p>
-                                                <p className="text-sm text-gray-600 mt-2">
-                                                    Mesin Motor:  {item.mesin}
-                                                </p>
-                                                <p className="text-sm text-gray-600 mt-2">
-                                                    Berat Motor: {item.berat}
-                                                </p>
-                                                <button onClick={() => deleteHero(item.id_hero)} className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-semibold">hapus</button>
+                                                    <p className="text-sm text-gray-600">
+                                                        Mesin Motor:  {item.mesin}
+                                                    </p>
+                                                    <p className="text-sm text-gray-600">
+                                                        Berat Motor: {item.berat}
+                                                    </p>
+                                                </div>
+                                                <button onClick={() => deleteHero(item.id_hero)} className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 active:scale95">Hapus hero</button>
                                             </div>
 
                                         </div>

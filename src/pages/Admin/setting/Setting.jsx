@@ -63,17 +63,19 @@ export default function Setting({ isOpen, onClose }) {
 
     return (
         <>
-            <div className="bg-white w-full border-b border-gray-100 px-8" >
-                <div className="flex md:gap-10 pb-4 px-2 items-center">
+            <div className="bg-white w-full" >
 
+                {/* Dekstop */}
+                <div className="hidden md:flex gap-8 px-8 pb-4 pt-2 items-center">
                     {navSetting.map((item) => {
                         const isActive = location.pathname === item.path
                         return (
-                            <Link to={item.path} className={` w-fit rounded-lg p-2  text-sm  font-semibold transition-all duration-200 
+                            <Link to={item.path}
+                                className={` whitespace-nowrap rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-200
                             ${isActive
-                                    ? "text-[#001323] border-2 border-[#001323]"
-                                    : "text-gray-500 "
-                                }`}
+                                        ? "text-[#001323] border-2 border-[#001323]"
+                                        : "text-gray-500 hover:text-[#001323] "
+                                    }`}
                             >
                                 {item.label}
                             </Link>
@@ -82,118 +84,21 @@ export default function Setting({ isOpen, onClose }) {
                 </div>
             </div>
 
-            <div className="md:hidden" >
-                <div className="flex flex-col gap-2 text-sm  ">
+            <div className="md:hidden overflow-x-auto scrollbar-hide" >
+                <div className="flex flex-center gap-2 px-4 py-3 w-max">
 
-                    {/* {navSetting.map((group) => (
-                        <div key={group.title} className="mb-5">
-                            <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">{group.title}</p>
-                            <ul className="space-y-1 bg-white">
-                                {group.items.map((item) => {
-                                    const isActive = location.pathname === item.path
-
-                                    return (
-                                        <li key={item.path} className="list-none">
-                                            <Link to={item.path} onClick={onClose} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
-                                                ? ""
-                                                : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
-                                                }`}>{item.label} </Link>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
-                        </div>
-                    ))} */}
+                    {navSetting.map((item) => {
+                        const isActive = location.pathname === item.path
+                        return (
+                            <Link key={item.path} to={item.path} className={`whitespace-nowrap rounded-lg px-3 py-2
+                            text-xs font-semibold transition-all duration-200 ${isActive
+                                    ? "text-[#001323] border-2 border-[#001323] bg-white" : "text-gray-500 hover:text-[#001323]"
+                                }`}>{item.label}</Link>
+                        )
+                    })}
                 </div>
             </div>
 
-            {/* <div className="z-40 flex gap-10 bg-white px-10 py-2 w-[720px] text-sm rounded-lg">
-
-                {navSetting.map((item) => (
-                    <Link to={item.path}>
-                        {item.label}
-                    </Link>
-                ))}
-            </div> */}
-            {/* DESKTOP */}
-            {/* <aside className="hidden lg:flex lg:flex-col z-40 lg:w-64 lg:flex-shrink-0 bg-white border-r border-gray-100 sticky top-0 h-screen px-4">
-                <div className="p-4 border-b border-gray-100">
-                    <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
-                        <div className="w-14 h-14 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
-                            <img src={settingInfo.logo} alt={settingInfo.nama_dealer} className='w-14 h-14 bg-white rounded-full' />
-                        </div>
-                        <div className="leading-tight min-w-0">
-                            <h2 className="text-lg font-bold text-gray-900 truncate">{settingInfo.nama_dealer}</h2>
-                            <p className="text-[10px] text-gray-500">{settingInfo.title}</p>
-                        </div>
-                    </Link>
-                </div>
-                <nav className="flex-1 px-3 py-2 overflow-y-auto">
-                    <p className="px-3 mb-4 text-[13px] font-semibold tracking-wider text-gray-400">
-                        PENGATURAN
-                    </p>
-                    {navSetting.map((group) => (
-                        <div key={group.title} className="mb-5">
-                            <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">{group.title}</p>
-                            <ul className="space-y-1">
-                                {group.items.map((item) => {
-                                    const isActive = location.pathname === item.path
-
-                                    return (
-                                        <li key={item.path} className="list-none">
-                                            <Link to={item.path} onClick={onClose} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
-                                                ? "bg-[#002446] text-[#F2F8FC]"
-                                                : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
-                                                }`}>{item.label}</Link>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
-                        </div>
-                    ))}
-                </nav>
-            </aside> */}
-
-            {/* MOBILE */}
-            {/* <div className={`lg:hidden ${isOpen ? 'visible' : 'invisible'}`}>
-                <div
-                    className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-                    onClick={onClose}
-                />
-
-                <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                    <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                        <Link to="/admin/dashboard" onClick={onClose} className="flex items-center gap-2">
-                            <img src={settingInfo.logo} alt={settingInfo.nama_dealer} className="w-16 h-16 rounded-full object-cover" />
-                        </Link>
-                        <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors" aria-label="Close sidebar">x</button>
-                    </div>
-                    <nav className="flex-1 px-3 py-2 overflow-y-auto">
-                        <p className="px-3 mb-4 text-[13px] font-semibold tracking-wider text-gray-400">
-                            PENGATURAN
-                        </p>
-                        {navSetting.map((group) => (
-                            <div key={group.title} className="mb-5">
-                                <p className="px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400">{group.title}</p>
-                                <ul className="space-y-1">
-                                    {group.items.map((item) => {
-                                        const isActive = location.pathname === item.path
-
-                                        return (
-                                            <li key={item.path} className="list-none">
-                                                <Link to={item.path} onClick={onClose} className={`flex items-center px-4 py-3 w-full rounded-xl text-sm font-semibold transition-all duration-200 ${isActive
-                                                    ? "bg-[#002446] text-[#F2F8FC]"
-                                                    : "text-gray-700 hover:bg-[#F2F8FC] hover:text-[#002446]"
-                                                    }`}>{item.label}</Link>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            </div>
-                        ))}
-                    </nav>
-                </aside>
-            </div> */}
         </>
 
     )

@@ -13,6 +13,7 @@ import { CgRead } from "react-icons/cg"
 import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
+import { motion } from 'framer-motion'
 
 const PageMessage = () => {
     const [page, setPage] = useState(1)
@@ -171,14 +172,21 @@ const PageMessage = () => {
                 </div> */}
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
-                    <div className="mb-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="mb-4">
                         <div>
                             <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Message</h1>
                             <p className="text-sm text-gray-500 mt-1">Kelola pesan dan pertanyaan dari pelanggan.</p>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="mt-4 overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hidden md:block">
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] ">
                             <p className="text-xl font-semibold text-white">Message</p>
                         </div>
@@ -255,43 +263,52 @@ const PageMessage = () => {
                                 Next
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* mobile */}
-                    <div className="md:hidden space-y-4 bg-white p-4 rounded-xl">
-                        {pageItems.map((item) => (
-                            <div key={item.id_message} className="bg-white shadow p-4 rounded-xl">
+                    <div className="md:hidden space-y-4">
+                        {pageItems.map((item, index) => (
+                            <motion.div key={item.id_message}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.65,
+                                    delay: index * 0.07,
+                                    ease: [0.16, 1, 0.3, 1]
+                                }}
+
+                                className="rounded-2xl border border-gray-200  bg-white shadow-sm p-4">
 
                                 <button
                                     onClick={() => handleStatus(item.id_message)}
-                                    className={`px-3 py-1 rounded-md text-sm font-semibold transition  ${item.status === "belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
+                                    className={`px-3 py-1 rounded-md text-sm font-semibold transition  ${item.status === "Belum dibaca" ? "bg-red-100 text-red-400 hover:bg-red-200" : "bg-green-100 text-green-600 hover:bg-gray-200"}`}
                                 >
                                     {item.status === 'Belum dibaca' ? "Belum dibaca" : "Sudah Dibaca"}  </button>
 
                                 <div className="mt-6">
-                                    <div className="flex justify-between items-center mb-2 border-b py-2">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Tanggal</p>
                                         <p className="text-sm font-medium">{new Date(item.created_at).toLocaleDateString("id-ID")}</p>
                                     </div>
 
-                                    <div className="flex justify-between items-center mb-2 border-b py-2">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Nama</p>
                                         <p className="text-sm font-medium">{item.nama}</p>
                                     </div>
 
-                                    <div className="flex justify-between items-center mb-2 border-b py-2">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Email</p>
                                         <p className="text-sm font-medium">{item.email}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2 border-b py-2">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Subjek</p>
                                         <p className="text-sm font-medium">{item.subjek}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2 border-b py-2">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">No Headphone</p>
                                         <p className="text-sm font-medium">{item.no_hp}</p>
                                     </div>
-                                    <div className="flex justify-between items-center mb-2 border-b py-2">
+                                    <div className="grid grid-cols-[90px_1fr] gap-3 items-start py-2 border-b">
                                         <p className="text-sm text-gray-600">Pesan</p>
                                         <p className="text-sm font-medium">{item.pesan}</p>
                                     </div>
@@ -300,21 +317,36 @@ const PageMessage = () => {
                                     </button>
                                 </div>
 
-                            </div>
+                            </motion.div>
                         ))}
-                        <div className="px-6 py-3 flex items-center justify-end gap-3">
+                        <div className="px-1 py-3 flex items-center justify-between gap-3">
+
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                                 disabled={page === 1}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                                Prev</button>
-                            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1
+                                    ? "text-slate-400 bg-slate-100"
+                                    : "text-slate-700 bg-white border border-slate-200"
+                                    }`}
+                            >
+                                Prev
+                            </button>
+
+                            <span className="text-sm text-slate-600">
+                                {page} / {totalPages}
+                            </span>
+
                             <button
                                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                 disabled={page === totalPages}
-                                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages
+                                    ? "text-slate-400 bg-slate-100"
+                                    : "text-slate-700 bg-white border border-slate-200"
+                                    }`}
+                            >
                                 Next
                             </button>
+
                         </div>
                     </div>
                 </main>

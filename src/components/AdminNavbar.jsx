@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaMotorcycle, FaFileShield, FaClipboardList } from 'react-icons/fa6';
 import { MdQuiz } from 'react-icons/md';
-import { BiArrowBack, BiBarChart, BiBox, BiCalculator, BiKey, BiMessageAdd, BiMessageSquare, BiUser } from 'react-icons/bi';
+import { BiArrowBack, BiBarChart, BiBox, BiCalculator, BiChevronsLeft, BiKey, BiMessageAdd, BiMessageSquare, BiUser } from 'react-icons/bi';
 import { SiPrek } from 'react-icons/si';
-import { CgComment, CgCreditCard } from 'react-icons/cg';
+import { CgChevronLeftR, CgComment, CgCreditCard } from 'react-icons/cg';
 import { IoBagCheckOutline } from 'react-icons/io5';
 import { LuCircleHelp, LuLayoutDashboard, LuMessageCircleHeart, LuPanelLeftClose } from 'react-icons/lu';
 import { FiFileText } from 'react-icons/fi';
 import { BarChart } from 'recharts';
 import { CiSettings } from 'react-icons/ci';
-
+import { motion } from 'framer-motion'
 const NAV_ITEMS = [
   {
     title: 'MAIN',
@@ -85,10 +85,13 @@ const AdminNavbar = ({ sidebar, setSidebar, isOpen = false, onClose = () => { } 
 
   return (
     <>
-      <aside className={`${sidebar ? 'w-20 flex justify-center items-center text-center' : 'w-64'} hidden lg:flex lg:flex-col lg:flex-shrink-0 bg-white border-r border-gray-100`}>
+      <aside className={`${sidebar ? 'w-20 flex justify-center items-center  text-center' : 'w-64'} hidden lg:flex lg:flex-col lg:flex-shrink-0 bg-white border-r border-gray-100
+      transition-[width] duration-300 ease-in-out
+      `}>
 
-        <div className='flex items-center '>
-          <div className={sidebar ? 'hidden' : 'block p-4'}>
+        <div className='flex  items-center justify-between'>
+          {/* <div className={sidebar ? 'hidden' : 'block p-4'}> */}
+          <div className={`p-4 overflow-hidden transition-all duration-300 ease-in-out ${sidebar ? 'w-0 opacity-0 px-0' : 'w-auto opacity-100'}`}>
             <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline">
               <div className="w-8 h-8 flex items-center justify-center bg-white text-white rounded-lg shadow-sm flex-shrink-0">
                 <img src={navLogo.logo} alt={navLogo.nama_dealer} className='w-8 h-8' />
@@ -100,14 +103,21 @@ const AdminNavbar = ({ sidebar, setSidebar, isOpen = false, onClose = () => { } 
               </div>
             </Link>
           </div>
-          <button onClick={() => setSidebar(!sidebar)} className=" px-4 py-3 mt-3 text-gray-400">
-            <LuPanelLeftClose size={20} />
+          <button onClick={() => setSidebar(!sidebar)} className=" px-4 py-3 mt-3 text-gray-400 hover:text-gray-700 transition-colors">
+            <motion.div animate={{ rotate: sidebar ? 180 : 0 }}
+              transition={{
+                duration: 0.3,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+            >
+              <BiChevronsLeft className={`${sidebar ? 'text-[32px]' : 'text-[24px] -mt-2'}`} />
+            </motion.div>
           </button>
         </div>
 
         <nav className="flex-1 px-3 py-2 overflow-y-auto">
-          {NAV_ITEMS.map((group) => (
-            <div key={group.title} className="mb-5">
+          {NAV_ITEMS.map((group, index) => (
+            <div key={group.title} className="mb-5 sidebar-menu-Enter " style={{ animationDelay: `${index * 45}ms` }}>
 
               {/* Judul kelompok */}
               <p className={sidebar ? 'hidden' : " block px-3 mb-2 text-[11px] font-semibold tracking-wider text-gray-400"}>

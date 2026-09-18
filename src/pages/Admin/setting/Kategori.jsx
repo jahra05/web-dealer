@@ -403,14 +403,16 @@ export default function Kategori() {
                 <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
             )}
             <div className=" mt-4 p-4 flex flex-col overflow-x-hidden">
-                <button onClick={() => navigate('/admin/dashboard')} className="w-32 ml-4 p-1 text-lg flex items-center "> <BiChevronLeft size={28} />Setting</button>
-                <div className="flex flex-col w-full mt-4 bg-white p-4  rounded-xl">
+                <h3 className="text-xl font-medium hidden min-[1010px]:block">Pengaturan</h3>
+                <button onClick={() => navigate('/admin/dashboard')} className="w-32 ml-4 p-1 text-lg min-[1010px]:hidden flex items-center "> <BiChevronLeft size={28} />Setting</button>
+                <div className="flex flex-col w-full mt-4 md:bg-white p-4  rounded-xl">
                     <Setting isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
                     <div className=" w-full min-w-0 flex flex-col  overflow-x-hidden z-10">
-                        <div className="flex flex-col md:flex-row gap-6 bg-white p-4 rounded-xl">
 
-                            <div className="bg-white p-4 w-full">
-                                <div className="mb-6 border-b pt-4 pb-4 flex justify-between items-center">
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-6 p-2 md:p-4 rounded-xl bg-white">
+
+                            <div className="bg-white p-3 md:p-4 w-full">
+                                <div className="mb-4 md:mb-6 border-b pt-2 pb-4 flex justify-between items-center">
                                     <div>
                                         <p className="text-lg font-medium">Kategori</p>
                                         <p className="text-xs text-gray-600">Kelola Kategori produk</p>
@@ -441,7 +443,7 @@ export default function Kategori() {
                                         </div>
                                     ))}
                                 </div>
-                                <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                                <div className="px-1 md:px-6 py-3 flex flex-wrap items-center justify-end gap-2 md:gap-3">
                                     <button
                                         onClick={() => setPageKategori((p) => Math.max(1, p - 1))}
                                         disabled={pageKategori === 1}
@@ -457,20 +459,19 @@ export default function Kategori() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="border-r border-gray-100"></div>
+                            <div className="border-b md:border-b-0 md:border-r border-gray-100"></div>
 
-                            <div className="bg-white p-4  w-full flex flex-col justify-between">
+                            <div className="bg-white p-3 md:p-4 w-full flex flex-col md:justify-between">
                                 <div>
-                                    <div className="mb-4 border-b py-4">
-                                        <p className="text-lg font-medium">Tipe Motor</p>
-                                        <p className="text-xs text-gray-600">
+                                    <div className="mb-4 border-b py-3 md:py-4">
+                                        <p className="text-lg font-medium text-[#001323]">Tipe Motor</p>
+                                        <p className="text-xs text-gray-500 mt-1">
                                             Kelola tipe berdasarkan kategori
                                         </p>
                                     </div>
 
                                     {!selectKategori ? (
-
-                                        <div className="flex items-center justify-center py-20">
+                                        <div className="flex items-center justify-center min-h-[150px] md:min-h-[220px]">
                                             <p className="text-sm text-gray-500">
                                                 Pilih kategori terlebih dahulu
                                             </p>
@@ -551,7 +552,7 @@ export default function Kategori() {
                                         </>
                                     )}
                                 </div>
-                                <div className="px-6 py-3 flex flex-wrap items-center justify-end gap-3">
+                                <div className="px-1 md:px-6 py-3 flex flex-wrap items-center justify-end gap-2 md:gap-3">
                                     <button
                                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                                         disabled={page === 1}
@@ -568,114 +569,117 @@ export default function Kategori() {
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
+
                 </div>
-
-
             </div>
+
+
             {/* </div > */}
 
-            {isTipeModalOpen && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
-                    onClick={() => setIsTipeModalOpen(false)}
-                >
-
+            {
+                isTipeModalOpen && (
                     <div
-                        className="w-full max-w-md bg-white rounded-2xl p-6"
-                        onClick={(e) => e.stopPropagation()}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+                        onClick={() => setIsTipeModalOpen(false)}
                     >
 
-                        <h2 className="text-lg font-semibold">
-                            {editTipe ? "Edit Tipe" : "Tambah Tipe"}
-                        </h2>
+                        <div
+                            className="w-full max-w-md bg-white rounded-2xl p-6"
+                            onClick={(e) => e.stopPropagation()}
+                        >
 
-                        <p className="text-sm text-gray-500 mt-1">
-                            {editTipe
-                                ? "Ubah data tipe motor"
-                                : "Tambahkan tipe motor baru"
-                            }
-                        </p>
+                            <h2 className="text-lg font-semibold">
+                                {editTipe ? "Edit Tipe" : "Tambah Tipe"}
+                            </h2>
 
-
-                        <div className="mt-5">
-
-                            <label className="text-sm font-medium">
-                                Kategori
-                            </label>
-
-                            <select
-                                value={tipeForm.id_kategori}
-                                onChange={(e) =>
-                                    setTipeForm({
-                                        ...tipeForm,
-                                        id_kategori: e.target.value
-                                    })
+                            <p className="text-sm text-gray-500 mt-1">
+                                {editTipe
+                                    ? "Ubah data tipe motor"
+                                    : "Tambahkan tipe motor baru"
                                 }
-                                className="w-full mt-1 border rounded-xl px-3 py-2"
-                            >
-
-                                {kategori.map((item) => (
-
-                                    <option
-                                        key={item.id_kategori}
-                                        value={item.id_kategori}
-                                    >
-                                        {item.nama_kategori}
-                                    </option>
-
-                                ))}
-
-                            </select>
-
-                        </div>
+                            </p>
 
 
-                        <div className="mt-4">
+                            <div className="mt-5">
 
-                            <label className="text-sm font-medium">
-                                Nama Tipe
-                            </label>
+                                <label className="text-sm font-medium">
+                                    Kategori
+                                </label>
 
-                            <input
-                                type="text"
-                                value={tipeForm.nama_tipe}
-                                onChange={(e) =>
-                                    setTipeForm({
-                                        ...tipeForm,
-                                        nama_tipe: e.target.value
-                                    })
-                                }
-                                placeholder="Contoh: Beat"
-                                className="w-full mt-1 border rounded-xl px-3 py-2"
-                            />
+                                <select
+                                    value={tipeForm.id_kategori}
+                                    onChange={(e) =>
+                                        setTipeForm({
+                                            ...tipeForm,
+                                            id_kategori: e.target.value
+                                        })
+                                    }
+                                    className="w-full mt-1 border rounded-xl px-3 py-2"
+                                >
 
-                        </div>
+                                    {kategori.map((item) => (
+
+                                        <option
+                                            key={item.id_kategori}
+                                            value={item.id_kategori}
+                                        >
+                                            {item.nama_kategori}
+                                        </option>
+
+                                    ))}
+
+                                </select>
+
+                            </div>
 
 
-                        <div className="flex justify-end gap-3 mt-6">
+                            <div className="mt-4">
 
-                            <button
-                                onClick={() => setIsTipeModalOpen(false)}
-                                className="px-4 py-2 rounded-xl border"
-                            >
-                                Batal
-                            </button>
+                                <label className="text-sm font-medium">
+                                    Nama Tipe
+                                </label>
 
-                            <button
-                                onClick={handleSubmitTipe}
-                                className="px-4 py-2 rounded-xl bg-[#002446] text-white"
-                            >
-                                {editTipe ? "Simpan" : "Tambah"}
-                            </button>
+                                <input
+                                    type="text"
+                                    value={tipeForm.nama_tipe}
+                                    onChange={(e) =>
+                                        setTipeForm({
+                                            ...tipeForm,
+                                            nama_tipe: e.target.value
+                                        })
+                                    }
+                                    placeholder="Contoh: Beat"
+                                    className="w-full mt-1 border rounded-xl px-3 py-2"
+                                />
+
+                            </div>
+
+
+                            <div className="flex justify-end gap-3 mt-6">
+
+                                <button
+                                    onClick={() => setIsTipeModalOpen(false)}
+                                    className="px-4 py-2 rounded-xl border"
+                                >
+                                    Batal
+                                </button>
+
+                                <button
+                                    onClick={handleSubmitTipe}
+                                    className="px-4 py-2 rounded-xl bg-[#002446] text-white"
+                                >
+                                    {editTipe ? "Simpan" : "Tambah"}
+                                </button>
+
+                            </div>
 
                         </div>
 
                     </div>
-
-                </div>
-            )}
+                )
+            }
 
             {
                 isKategoriModalOpen && (

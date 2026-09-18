@@ -35,9 +35,10 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center space-x-2 mb-6  ">
               <img className='w-18 h-16 bg-white rounded-full'
@@ -69,9 +70,10 @@ const Footer = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <h3 className="text-lg font-bold mb-6">Menu</h3>
             <ul className="space-y-4 text-sm text-gray-400">
@@ -84,9 +86,10 @@ const Footer = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           >
             <h3 className="text-lg font-bold mb-6">Hubungi Kami</h3>
             <ul className="space-y-4 text-sm text-gray-400 font-bold">
@@ -106,9 +109,10 @@ const Footer = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
           >
             <h3 className="text-lg font-bold mb-6">Jam Operasional</h3>
             <ul className="space-y-4 text-sm text-gray-400 font-bold mb-6">
@@ -129,7 +133,10 @@ const Footer = () => {
             </ul>
           </motion.div>
         </div>
-        <div className="rounded-2xl overflow-hidden border border-gray-800 shadow-lg">
+        <motion.div
+          initial={{ opacity: 0, y: 25, scale: 0.98 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-2xl overflow-hidden border border-gray-800 shadow-lg">
           <iframe
             src={footer.google_maps}
             width="100%"
@@ -140,7 +147,7 @@ const Footer = () => {
             referrerPolicy="no-referrer-when-downgrade"
             title="Lokasi Dealer"
           ></iframe>
-        </div>
+        </motion.div>
         <div className="pt-10 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 gap-4 font-bold uppercase tracking-widest">
           <p>© 2026 Honda Daya Motor Cibeber. All rights reserved.</p>
           <div className="flex space-x-6">

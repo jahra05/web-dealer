@@ -7,6 +7,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { BiChevronDown } from "react-icons/bi"
+import { motion } from 'framer-motion'
 
 const MONTHS = [
     { value: "1", label: "Januari" },
@@ -216,19 +217,34 @@ const Exam = () => {
     );
 
     const renderPagination = () => (
-        <div className="px-6 py-3 flex items-center justify-end gap-3">
+        <div className="px-1 py-3 flex items-center justify-between gap-3">
+
             <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1 ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
-                Prev</button>
-            <span className="text-sm text-slate-600">Halaman {page} / {totalPages}</span>
+                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1
+                    ? "text-slate-400 bg-slate-100"
+                    : "text-slate-700 bg-white border border-slate-200"
+                    }`}
+            >
+                Prev
+            </button>
+
+            <span className="text-sm text-slate-600">
+                {page} / {totalPages}
+            </span>
+
             <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages ? 'text-slate-400 bg-slate-100' : 'text-slate-700 bg-white border border-slate-200'}`}>
+                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages
+                    ? "text-slate-400 bg-slate-100"
+                    : "text-slate-700 bg-white border border-slate-200"
+                    }`}
+            >
                 Next
             </button>
+
         </div>
     );
 
@@ -260,17 +276,24 @@ const Exam = () => {
                 </div> */}
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
-                    <div className="flex lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        className="flex lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
                         <div>
                             <h1 className="text-xl lg:text-2xl font-bold text-gray-900" >{laporanMenu.find((item) => item.key === tab)?.label}</h1>
                             <p className="text-sm text-gray-500 mt-1">Export data dan laporan.</p>
                         </div>
-                    </div>
+                    </motion.div>
 
                     <div className="mt-2 hidden md:block">
                         {/* ── Tab: Produk ── */}
                         {tab === "produk" && (
-                            <div className="mt-0 overflow-hidden rounded-2xl bg-white shadow-sm">
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                className="mt-0 overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex flex-col justify-end sm:flex-row items-start sm:items-center  gap-3 bg-[#004A7C] px-6 py-4">
 
                                     <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
@@ -336,12 +359,16 @@ const Exam = () => {
                                     </table>
                                 </div>
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
                         )}
 
                         {/* ── Tab: Pengajuan Kredit ── */}
                         {tab === "pengajuanKredit" && (
-                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                className="overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex flex-col justify-end sm:flex-row items-start sm:items-center  gap-3 bg-[#004A7C] px-6 py-4">
 
                                     <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
@@ -403,12 +430,16 @@ const Exam = () => {
                                     </table>
                                 </div>
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
                         )}
 
                         {/* ── Tab: Contact ── */}
                         {tab === "contact" && (
-                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                className="overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex items-center justify-between bg-[#004A7C] px-6 py-4">
                                     <p className="text-xl font-semibold text-white">Laporan Contact</p>
                                     <div className="flex items-center gap-2 flex-wrap">
@@ -444,12 +475,16 @@ const Exam = () => {
                                     </table>
                                 </div>
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
                         )}
 
                         {/* ── Tab: Testimoni ── */}
                         {tab === "testimoni" && (
-                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                className="overflow-hidden rounded-2xl bg-white shadow-sm">
                                 <div className="flex items-center justify-between bg-[#004A7C] px-6 py-4">
                                     <p className="text-xl font-semibold text-white">Laporan Testimoni</p>
                                     <div className="flex items-center gap-2 flex-wrap">
@@ -483,7 +518,7 @@ const Exam = () => {
                                     </table>
                                 </div>
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
                         )}
                     </div>
 
@@ -491,9 +526,12 @@ const Exam = () => {
                     <div className="md:hidden space-y-4  rounded-xl">
                         {/* ── Tab: Produk ── */}
                         {tab === "produk" && (
-                            <div className=" rounded-xl bg-white shadow p-4">
-                                <div className="flex  rounded-xl sm:flex-row  sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                                className="space-y-4">
+                                <div className=" flex gap-4 rounded-xl bg-[#004A7C] px-4 py-4">
                                     <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
                                         <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
                                             Laporan <BiChevronDown />
@@ -521,56 +559,88 @@ const Exam = () => {
                                         </button>
                                     </div>
                                 </div>
-                                {pageItems.map((item) => (
-                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                {pageItems.map((item, index) => (
+                                    <motion.div key={item.id_motor}
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                            duration: 0.6,
+                                            delay: index * 0.06,
+                                            ease: [0.16, 1, 0.3, 1]
+                                        }}
+                                        className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+
                                         <div className="mt-6">
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Nama Motor</p>
-                                                <p className="text-sm font-medium">{item.nama_motor}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Nama Motor</p>
+                                                <p className="text-sm font-medium  break-words">{item.nama_motor}</p>
                                             </div>
 
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Kategori</p>
-                                                <p className="text-sm font-medium">{item.nama_kategori}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Kategori</p>
+                                                <p className="text-sm font-medium break-words">{item.nama_kategori}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Tipe</p>
-                                                <p className="text-sm font-medium">{item.nama_tipe}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Tipe</p>
+                                                <p className="text-sm font-medium  break-words">{item.nama_tipe}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Warna</p>
-                                                <p className="text-sm font-medium">{item.nama_warna}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600 ">Warna</p>
+                                                <p className="text-sm font-medium break-words">{item.nama_warna}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Stok</p>
-                                                <p className="text-sm font-medium">{item.stok}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Stok</p>
+                                                <p className="text-sm font-medium  break-words">{item.stok}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Tahun</p>
-                                                <p className="text-sm font-medium">{item.tahun}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Tahun</p>
+                                                <p className="text-sm font-medium  break-words">{item.tahun}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2 w-54 text-right">
-                                                <p className="text-sm text-gray-600 mb-3">Deskripsi</p>
-                                                <p className="text-sm font-medium mb-1">{item.deskripsi}</p>
+
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Deskripsi</p>
+                                                <p className="text-sm font-medium  break-words">{item.deskripsi}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Status</p>
-                                                <p className="text-sm font-medium">{item.status}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Status</p>
+                                                <p className="text-sm font-medium break-words">{item.status}</p>
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </motion.div>
                                 ))}
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
                         )}
 
                         {/* ── Tab: Pengajuan Kredit ── */}
                         {tab === "pengajuanKredit" && (
-                            <div className=" rounded-xl bg-white shadow p-4">
-                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-xl font-semibold text-white">Laporan Pengajuan Kredit</p>
-                                    <div className="flex items-center gap-2">
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                                className="space-y-4">
+                                <div className=" flex gap-4 rounded-xl bg-[#004A7C] px-4 py-4">
+                                    <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
+                                        <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
+                                            Laporan <BiChevronDown />
+                                        </button>
+
+                                        {open && (
+                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white rounded-lg shadow-lg border border-gray-100 p-1">
+                                                {laporanMenu.map((item) => (
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
+                                                        setActiveLaporan(item.key),
+                                                            getLaporan(item.key),
+                                                            setOpen(false)
+                                                    }
+
+                                                    }>{item.label}</button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex  items-center gap-2">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
@@ -578,54 +648,84 @@ const Exam = () => {
                                         </button>
                                     </div>
                                 </div>
-                                {pageItems.map((item) => (
-                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                {pageItems.map((item, index) => (
+                                    <motion.div key={item.id_pengajuan}
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                            duration: 0.6,
+                                            delay: index * 0.06,
+                                            ease: [0.16, 1, 0.3, 1]
+                                        }}
+                                        className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
                                         <div className="mt-6">
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Nama</p>
-                                                <p className="text-sm font-medium">{item.nama}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Nama</p>
+                                                <p className="text-sm font-medium break-words">{item.nama}</p>
                                             </div>
 
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">No Headphone</p>
-                                                <p className="text-sm font-medium">{item.no_hp}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">No Headphone</p>
+                                                <p className="text-sm font-medium break-words">{item.no_hp}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Alamat</p>
-                                                <p className="text-sm font-medium">{item.alamat}</p>
-                                            </div>
-
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">pekerjaan</p>
-                                                <p className="text-sm font-medium">{item.pekerjaan}</p>
-                                            </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Motor</p>
-                                                <p className="text-sm font-medium">{item.nama_motor}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Alamat</p>
+                                                <p className="text-sm font-medium break-words">{item.alamat}</p>
                                             </div>
 
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Tanggal</p>
-                                                <p className="text-sm font-medium"> {new Date(item.tanggal_pengajuan).toLocaleDateString("id-ID")}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">pekerjaan</p>
+                                                <p className="text-sm font-medium break-words">{item.pekerjaan}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Status</p>
-                                                <p className="text-sm font-medium bg-">{item.status}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Motor</p>
+                                                <p className="text-sm font-medium break-words">{item.nama_motor}</p>
+                                            </div>
+
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b">
+                                                <p className="text-sm text-gray-600">Tanggal</p>
+                                                <p className="text-sm font-medium break-words"> {new Date(item.tanggal_pengajuan).toLocaleDateString("id-ID")}</p>
+                                            </div>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-center py-2 border-b ">
+                                                <p className="text-sm text-gray-600">Status</p>
+                                                <p className="text-sm font-medium break-words">{item.status}</p>
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </motion.div>
                                 ))}
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
                         )}
 
                         {/* ── Tab: Contact ── */}
                         {tab === "contact" && (
-                            <div className=" rounded-xl bg-white shadow p-4">
-                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-xl font-semibold text-white">Laporan Contact</p>
-                                    <div className="flex items-center gap-2 ">
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                                className="space-y-4">
+                                <div className=" flex gap-4 rounded-xl bg-[#004A7C] px-4 py-4">
+                                    <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
+                                        <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
+                                            Laporan <BiChevronDown />
+                                        </button>
+
+                                        {open && (
+                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white rounded-lg shadow-lg border border-gray-100 p-1">
+                                                {laporanMenu.map((item) => (
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
+                                                        setActiveLaporan(item.key),
+                                                            getLaporan(item.key),
+                                                            setOpen(false)
+                                                    }
+
+                                                    }>{item.label}</button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex  items-center gap-2">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
@@ -633,44 +733,73 @@ const Exam = () => {
                                         </button>
                                     </div>
                                 </div>
-                                {pageItems.map((item) => (
-                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                {pageItems.map((item, index) => (
+                                    <motion.div key={item.id_message}
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                            duration: 0.6,
+                                            delay: index * 0.06,
+                                            ease: [0.16, 1, 0.3, 1]
+                                        }}>
                                         <div className="mt-6">
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Nama</p>
-                                                <p className="text-sm font-medium">{item.nama}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Nama</p>
+                                                <p className="text-sm font-medium break-words">{item.nama}</p>
                                             </div>
 
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Email</p>
-                                                <p className="text-sm font-medium">{item.email}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Email</p>
+                                                <p className="text-sm font-medium break-words">{item.email}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Subjek</p>
-                                                <p className="text-sm font-medium">{item.subjek}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Subjek</p>
+                                                <p className="text-sm font-medium break-words">{item.subjek}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Pesan</p>
-                                                <p className="text-sm font-medium">{item.pesan}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Pesan</p>
+                                                <p className="text-sm font-medium text-right break-words leading-relaxed">{item.pesan}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">No Headphone</p>
-                                                <p className="text-sm font-medium">{item.no_hp}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">No Headphone</p>
+                                                <p className="text-sm font-medium break-words">{item.no_hp}</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
 
                         )}
 
                         {/* ── Tab: Testimoni ── */}
                         {tab === "testimoni" && (
-                            <div className=" rounded-xl bg-white shadow p-4">
-                                <div className="flex rounded-xl sm:flex-row items-center sm:items-center justify-between gap-3 bg-[#004A7C] px-6 py-4">
-                                    <p className="text-xl font-semibold text-white">Laporan Testimoni</p>
-                                    <div className="flex items-center gap-2 ">
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                                className="space-y-4">
+                                <div className=" flex gap-4 rounded-xl bg-[#004A7C] px-4 py-4">
+                                    <div className="relative inline-flex h-10 items-center gap-2  border-b border-white/20 text-white hover:border-b-white px-3 shadow-sm transition ">
+                                        <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
+                                            Laporan <BiChevronDown />
+                                        </button>
+
+                                        {open && (
+                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white rounded-lg shadow-lg border border-gray-100 p-1">
+                                                {laporanMenu.map((item) => (
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
+                                                        setActiveLaporan(item.key),
+                                                            getLaporan(item.key),
+                                                            setOpen(false)
+                                                    }
+
+                                                    }>{item.label}</button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex  items-center gap-2">
                                         {renderFilterSelects()}
                                         <button onClick={handleExportSAllProduk} className="inline-flex h-10 items-center gap-2 rounded-full border border-white/20 bg-white text-gray-700 px-3 shadow-sm transition ">
                                             <CiFileOn size={18} />
@@ -678,31 +807,38 @@ const Exam = () => {
                                         </button>
                                     </div>
                                 </div>
-                                {pageItems.map((item) => (
-                                    <div className="bg-white shadow p-4 rounded-xl mb-4">
+                                {pageItems.map((item, index) => (
+                                    <motion.div key={item.id_testimoni}
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{
+                                            duration: 0.6,
+                                            delay: index * 0.06,
+                                            ease: [0.16, 1, 0.3, 1]
+                                        }}>
                                         <div className="mt-6">
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Nama</p>
-                                                <p className="text-sm font-medium">{item.nama}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Nama</p>
+                                                <p className="text-sm font-medium break-words">{item.nama}</p>
                                             </div>
 
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Pekerjaan</p>
-                                                <p className="text-sm font-medium">{item.pekerjaan}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Pekerjaan</p>
+                                                <p className="text-sm font-medium break-words">{item.pekerjaan}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-3 w-72">Isi Testimoni</p>
-                                                <p className="text-sm font-medium text-right mb-2">{item.isi_testimoni}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600">Isi Testimoni</p>
+                                                <p className="text-sm font-medium text-right break-words">{item.isi_testimoni}</p>
                                             </div>
-                                            <div className="flex justify-between items-center border-b mb-2">
-                                                <p className="text-sm text-gray-600 mb-2">Rating</p>
-                                                <p className="text-sm font-medium">{item.rating}</p>
+                                            <div className="grid grid-cols-[80px_1fr] gap-4 items-start py-2 border-b">
+                                                <p className="text-sm text-gray-600 ">Rating</p>
+                                                <p className="text-sm font-medium break-words">{item.rating}</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                                 {renderPagination()}
-                            </div>
+                            </motion.div>
                         )}
                     </div>
                 </main>

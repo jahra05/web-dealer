@@ -16,6 +16,7 @@ const ProductDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const [infoContact, setInfoContact] = useState([])
+  const [kategoriSpesifikasi, setKategoriSpesifikasi] = useState([])
 
   // Simulation State
   const [dp, setDp] = useState(2000000);
@@ -23,6 +24,22 @@ const ProductDetail = () => {
   const [monthlyInstallment, setMonthlyInstallment] = useState(0);
   const [spek, setSpek] = useState([])
   const [warna, setWarna] = useState([])
+
+  const getKategoriSpesifikasi = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setKategoriSpesifikasi(data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getWhatapps = async () => {
     try {
@@ -92,6 +109,18 @@ const ProductDetail = () => {
     }
   };
 
+  const groupSpesifikasi = spek.reduce((acc, item) => {
+    if (!acc[item.id_kategori_spesifikasi]) {
+      acc[item.id_kategori_spesifikasi] = {
+        id_kategori_spesifikasi: item.id_kategori_spesifikasi,
+        nama_kategori: item.nama_kategori,
+        items: []
+      }
+    }
+    acc[item.id_kategori_spesifikasi].items.push(item);
+    return acc
+  }, {})
+
   const getWarna = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`)
@@ -108,6 +137,7 @@ const ProductDetail = () => {
     getSpesifikasi()
     getWarna()
     getWhatapps()
+    getKategoriSpesifikasi()
   }, [])
 
   useEffect(() => {
@@ -180,61 +210,59 @@ const ProductDetail = () => {
               </AnimatePresence>
             </div>
 
-            <motion.h4
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="font-black text-gray-900 mb-6 uppercase tracking-wider text-sm">Spesifikasi Utama</motion.h4>
-            {spek.map((item) => (
+
+
+            {/* {spek.map((item) => (
               <div key={item.id_speksifikasi} className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Kapasitas mesin</p>
-                  <p className="text-xs font-bold text-gray-900">{item.kapasitas_mesin}</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Spesifikasi</p>
+                  <p className="text-xs font-bold text-gray-900">{item.nama_spesifikasi}</p>
                 </div>
 
                 <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
                   <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">tenaga</p>
-                  <p className="text-xs font-bold text-gray-900">{item.tenaga}</p>
-                </div>
-
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Torsi</p>
-                  <p className="text-xs font-bold text-gray-900">{item.torsi}</p>
+                  <p className="text-xs font-bold text-gray-900">{item.nilai}</p>
                 </div>
 
 
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Transmisi</p>
-                  <p className="text-xs font-bold text-gray-900">{item.transmisi}</p>
-                </div>
 
 
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">berat</p>
-                  <p className="text-xs font-bold text-gray-900">{item.berat}</p>
-                </div>
-
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Tinggi jok</p>
-                  <p className="text-xs font-bold text-gray-900">{item.tinggi_jok}</p>
-                </div>
 
 
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">kkapasitas tangki</p>
-                  <p className="text-xs font-bold text-gray-900">{item.kapasitas_tengki}</p>
-                </div>
 
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Mesin</p>
-                  <p className="text-xs font-bold text-gray-900">{item.mesin}</p>
-                </div>
+
+
+
+
 
               </div>
-            ))}
+            ))} */}
+            <div>
+              <motion.h4
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="font-black text-gray-900 mb-6 uppercase tracking-wider text-sm">Spesifikasi Utama</motion.h4>
+              <div className='mt-6 space-y-8'>
+
+                {Object.values(groupSpesifikasi).map((kategori) => (
+                  <div key={kategori.id_kategori_spesifikasi} className='flex flex-col pb-2'>
+                    <h3 className='text-sm font-bold uppercase tracking-wide text-[#004A7C]'>{kategori.nama_kategori}</h3>
+                    <div className='mt-3 border-t-2 border-gray-100'>
+                      {kategori.items.map((item) => (
+                        <div key={item.id_speksifikasi} className='flex justify-between gap-6 py-3'>
+                          <span className='text-sm text-gray-500'>{item.nama_spesifikasi}</span>
+                          <span className='text-sm font-medium text-gray-800 text-right'>{item.nilai}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Right Column: Info and Simulation Summary */}
-          <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+          < motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }} className="mt-12 lg:mt-0">
             <div className="mb-10">
               <span className="inline-block px-3 py-1 rounded bg-blue-50 text-[#004A7C] text-[10px] font-black mb-4 uppercase tracking-widest">UNIT TERSEDIA</span>

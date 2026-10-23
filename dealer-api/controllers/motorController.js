@@ -250,78 +250,66 @@ const createMotor = async (req, res) => {
 
 };
 
+
 const updateMotor = async (req, res) => {
-
     const { id } = req.params;
+    const { harga, stok, tahun, deskripsi } = req.body;
 
-    const {
-        nama_motor,
-        id_kategori,
-        id_tipe,
-        harga,
-        stok,
-        tahun,
-        deskripsi,
-    } = req.body;
-    let gambar = req.body.gambar;
+    try {
+        let sql = `
+            UPDATE motor
+            SET
+                harga = ?,
+                stok = ?,
+                tahun = ?,
+                deskripsi = ?
+        `;
 
-    // if (req.file) {
-    //     gambar = `/uploads/${req.file.filename}`;
-    // }
+        const values = [harga, stok, tahun, deskripsi];
 
-    if (req.file) {
-        const result = await uploadToCloudinary(req.file.buffer);
-        gambar = result.secure_url
-    }
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer);
+            const gambar = result.secure_url;
 
-    const sql = `
-    UPDATE motor
-    SET
-        nama_motor = ?,
-        id_kategori = ?,
-        id_tipe = ?,
-        harga = ?,
-        stok = ?,
-        tahun = ?,
-        deskripsi = ?,
-        gambar = ?
-    WHERE id_motor = ?
-    `;
-
-    db.query(sql, [
-        nama_motor,
-        id_kategori,
-        id_tipe,
-        harga,
-        stok,
-        tahun,
-        deskripsi,
-        gambar,
-        id
-    ], (err, result) => {
-
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Gagal mengupdate motor"
-            });
+            sql += `, gambar = ?`;
+            values.push(gambar);
         }
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Motor tidak ditemukan"
-            });
-        }
+        sql += ` WHERE id_motor = ?`;
+        values.push(id);
 
-        res.json({
-            success: true,
-            message: "Motor berhasil diupdate"
+        db.query(sql, values, (err, result) => {
+            if (err) {
+                console.error("ERROR SQL UPDATE MOTOR:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Gagal mengupdate motor",
+                });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Motor tidak ditemukan atau tidak ada perubahan",
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "Motor berhasil diupdate",
+            });
         });
+    } catch (error) {
+        console.error("ERROR UPDATE MOTOR:", error);
 
-    });
-
+        return res.status(500).json({
+            success: false,
+            message: "Gagal mengupdate motor",
+        });
+    }
 };
+
 
 const deleteMotor = (req, res) => {
     console.log("🔥 DELETE MOTOR BARU DIPANGGIL");

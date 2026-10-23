@@ -126,7 +126,7 @@ const Hero = () => {
             </p> */}
             <motion.span variants={heroItemVariants} custom={0.3} className="text-lg text-gray-600 mb-8 max-w-lg"> {hero.deskripsi}</motion.span>
 
-            <motion.div variants={heroItemVariants} custom={0.4} className="flex flex-wrap gap-4 mb-10">
+            {/* <motion.div variants={heroItemVariants} custom={0.4} className="flex flex-wrap gap-4 mb-10">
               <div className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
                 <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">🔥</span>
                 <span className="text-sm font-bold text-gray-700">Tenaga {hero.tenaga}</span>
@@ -139,7 +139,7 @@ const Hero = () => {
                 <span className="w-5 h-5 flex items-center justify-center bg-gray-200 rounded-full text-[10px]">✨</span>
                 <span className="text-sm font-bold text-gray-700">Berat {hero.berat}</span>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             <motion.div variants={heroItemVariants} custom={0.5} className="flex flex-col sm:flex-row gap-4">
               <button
@@ -187,20 +187,20 @@ const Hero = () => {
                 ease: "easeInOut",
               }}
             >
-              <img
+              {/* <img
                 src="src/assets/hondaImg.png"
                 alt={hero.nama_motor}
                 className="w-full h-auto drop-shadow-2xl scale-110"
-              />
+              /> */}
             </motion.div>
-
-            {/* <img
-              src={`${import.meta.env.VITE_API_URL}${item.gambar}`}
+            
+            <img
+              src={`${import.meta.env.VITE_API_URL}${hero.gambar}`}
               src='src/assets/hondaImg.png'
               src={hero.gambar}
               alt={hero.nama_motor}
               className="w-full h-auto drop-shadow-2xl scale-110"
-            /> */}
+            />
 
             {/* Promo Badge */}
             <motion.div

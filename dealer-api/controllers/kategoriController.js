@@ -1,6 +1,7 @@
 const db = require("../config/db")
 
 const getAllKategori = (req, res) => {
+    console.log("GET ALL KATEGORI TERPANGGIL")
     const sql = `
         SELECT 
             id_kategori,
@@ -12,12 +13,14 @@ const getAllKategori = (req, res) => {
 
     db.query(sql, (err, result) => {
         if (err) {
+            console.error("ERROR KATEGOR", err)
             return res.status(500).json({
                 success: false,
-                message: "Gagal mengambil data kategori"
+                message: "Gagal mengambil data kategori",
+                error: err.message
             })
         }
-
+        console.log("HASIL KATEGORI", result)
         res.status(200).json({
             success: true,
             message: "Data Kategori berhsil diambil",

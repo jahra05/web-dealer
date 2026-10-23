@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaMotorcycle, FaFileShield, FaClipboardList } from 'react-icons/fa6';
 import { MdQuiz } from 'react-icons/md';
-import { BiArrowBack, BiBarChart, BiBox, BiCalculator, BiChevronsLeft, BiKey, BiMessageAdd, BiMessageSquare, BiUser } from 'react-icons/bi';
+import { BiArrowBack, BiBarChart, BiBox, BiCalculator, BiChevronsLeft, BiKey, BiMessageAdd, BiMessageSquare, BiReceipt, BiUser } from 'react-icons/bi';
 import { SiPrek } from 'react-icons/si';
 import { CgChevronLeftR, CgComment, CgCreditCard } from 'react-icons/cg';
 import { IoBagCheckOutline } from 'react-icons/io5';
@@ -23,15 +23,13 @@ const NAV_ITEMS = [
     title: 'INVENTORY',
     items: [
       { path: '/admin/kelolaProduk', label: 'Produk Motor', icon: BiKey },
-      { path: '/admin/spesifikasi', label: 'Spesifikasi', icon: FaClipboardList },
+    
     ]
   },
   {
     title: 'TRANSAKSI',
     items: [
       { path: '/admin/pengajuanKredit', label: 'Pengajuan Kredit', icon: FiFileText },
-      // { path: '/admin/simulasiKredit', label: 'Simulasi Kredit', icon: BiCalculator },
-
     ]
   },
   {

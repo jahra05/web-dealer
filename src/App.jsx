@@ -23,6 +23,8 @@ import SettingProfileAdmin from './pages/Admin/setting/SettingProfileAdmin';
 import HeroSetting from './pages/Admin/setting/HeroSetting';
 import Footer from './pages/Admin/setting/Footer';
 import Kategori from './pages/Admin/setting/Kategori';
+import SpecSetting from './pages/Admin/setting/SpecSetting';
+import Detailproduk from './pages/Admin/Detailproduk';
 
 function App() {
   return (
@@ -47,6 +49,7 @@ function App() {
         >
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="kelolaProduk" element={<KelolaProduk />} />
+          <Route path="detailProduk/:id_motor" element={<Detailproduk />} />
           <Route path="spesifikasi" element={<Spesifikasi />} />
           <Route path="pengajuanKredit" element={<PengajuanKredit />} />
           {/* <Route path="simulasiKredit" element={<SimulasiKredit />} /> */}
@@ -60,6 +63,7 @@ function App() {
           <Route path="setting/hero" element={<HeroSetting />} />
           <Route path="setting/footer" element={<Footer />} />
           <Route path="setting/kategori" element={<Kategori />} />
+
         </Route>
       </Routes>
     </Router>

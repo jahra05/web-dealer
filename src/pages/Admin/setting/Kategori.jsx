@@ -17,10 +17,13 @@ export default function Kategori() {
     const [kategoriForm, setKategoriForm] = useState({
         nama_kategori: ""
     })
+    const [kategoriSpesifikasiForm, setKategoriSpesifikasiFrom] = useState({ nama_kategori: "" })
     const [tipeForm, setTipeForm] = useState({ nama_tipe: "", id_kategori: "" })
     const [isKategoriModalOpen, setIskategoriModalOpen] = useState(false)
+    const [isKategoriSpecModalOpen, setIsKategoriSpecModalOpen] = useState(false)
     const [isTipeModalOpen, setIsTipeModalOpen] = useState(false)
     const [editKategori, setEditKategori] = useState(null)
+    const [editKategoriSpec, setEditSpec] = useState(null)
     const [editTipe, setEditTipe] = useState(null)
     const [selectKategori, setSelectKategori] = useState(null)
     const [alert, setAlert] = useState(null)
@@ -28,6 +31,8 @@ export default function Kategori() {
     const rowsPerPage = 5
     const [pageKategori, setPageKategori] = useState(1)
     const rowsPerPageKategori = 5
+
+    const [kategoriSpesifikasi, setKategoriSpesifikasi] = useState([])
 
     const totalPageKategori = Math.max(1, Math.ceil(kategori.length / rowsPerPageKategori))
     const pageKategoriItems = kategori.slice((pageKategori - 1) * rowsPerPageKategori, pageKategori * rowsPerPageKategori)
@@ -43,6 +48,12 @@ export default function Kategori() {
     useEffect(() => {
         setPage(1)
     }, [selectKategori])
+
+    const openAddKategoriSpec = () => {
+        setEditSpec(null)
+        setKategoriSpesifikasiFrom({ nama_kategori: "" })
+        setIsKategoriSpecModalOpen(true)
+    }
 
     const openAddTipe = () => {
         if (!selectKategori) {
@@ -66,6 +77,14 @@ export default function Kategori() {
         setIskategoriModalOpen(true)
     }
 
+    const openEditKategoriSpec = (item) => {
+        setEditSpec(item.id_kategori_spesifikasi);
+        setKategoriSpesifikasiFrom({
+            nama_kategori: item.nama_kategori
+        })
+        setIsKategoriSpecModalOpen(true)
+    }
+
     const openEditTipe = (item) => {
         setEditTipe(item.id_tipe);
 
@@ -74,6 +93,7 @@ export default function Kategori() {
         })
         setIsTipeModalOpen(true)
     }
+
 
 
     const openEditKategori = (item) => {
@@ -86,6 +106,14 @@ export default function Kategori() {
         setIskategoriModalOpen(true)
     }
 
+    const handleKategoriSpecChange = (e) => {
+        const { name, value } = e.target;
+
+        setKategoriSpesifikasiFrom((prev) => ({
+            ...prev, [name]: value
+        }))
+    }
+
     const handleEditKategori = (e) => {
         const { name, value } = e.target;
 
@@ -93,6 +121,8 @@ export default function Kategori() {
             ...prev, [name]: value
         }))
     }
+
+
     const deleteTipe = async (id) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe/${id}`, {
@@ -211,6 +241,51 @@ export default function Kategori() {
             })
         }
     }
+
+    const handleSpecKategori = async (e) => {
+        e.preventDefault();
+
+        try {
+            const isEditSpec = editKategoriSpec !== null
+            const url = isEditSpec ? `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi/${editKategoriSpec}`
+                : `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+            const response = await fetch(url,
+
+                {
+                    method: isEditSpec ? "PUT" : "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify(kategoriSpesifikasiForm),
+                }
+            );
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || "Gagal menyimpan kategori spesifikasi")
+            }
+
+            setAlert({
+                type: "success",
+                message: data.message
+            })
+
+            setIsKategoriSpecModalOpen(false)
+            setKategoriSpesifikasiFrom({ nama_kategor: "" })
+
+            setEditSpec(null)
+            await getKategoriSpesifikasi();
+
+        } catch (error) {
+            console.log(error);
+
+            setAlert({
+                type: "warning",
+                message: error.message
+            });
+        }
+    };
 
 
     const handleSubmitKategori = async (e) => {
@@ -355,6 +430,22 @@ export default function Kategori() {
         }
     };
 
+    const getKategoriSpesifikasi = async () => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                setKategoriSpesifikasi(data.data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const getKategori = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`)
@@ -394,7 +485,8 @@ export default function Kategori() {
 
     useEffect(() => {
         getKategori(),
-            getTipe()
+            getTipe(),
+            getKategoriSpesifikasi()
     }, [])
 
     return (
@@ -412,37 +504,76 @@ export default function Kategori() {
                         <div className="flex flex-col md:flex-row gap-4 md:gap-6 p-2 md:p-4 rounded-xl bg-white">
 
                             <div className="bg-white p-3 md:p-4 w-full">
-                                <div className="mb-4 md:mb-6 border-b pt-2 pb-4 flex justify-between items-center">
-                                    <div>
-                                        <p className="text-lg font-medium">Kategori</p>
-                                        <p className="text-xs text-gray-600">Kelola Kategori produk</p>
+                                <div>
+                                    <div className="mb-4 md:mb-6 border-b pt-2 pb-4 flex justify-between items-center">
+                                        <div>
+                                            <p className="text-lg font-medium">Kategori</p>
+                                            <p className="text-xs text-gray-600">Kelola Kategori produk</p>
+                                        </div>
+                                        <button onClick={openAddKategori} className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:[#00385d]"><PiPlus size={24} /></button>
                                     </div>
-                                    <button onClick={openAddKategori} className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:[#00385d]"><PiPlus size={24} /></button>
+
+                                    <div className="space-y-3">
+                                        {pageKategoriItems.map((item) => (
+                                            <div key={item.id_kategori} onClick={() => setSelectKategori(item)}
+                                                className={`cursor-pointer flex items-center justify-between gap-3 border rounded-xl p-4 transition ${selectKategori?.id_kategori === item.id_kategori ? "border-[#004A7C] bg-blue-50" : "border-gray-100 hover:bg-gray-50"}`}
+                                            >
+                                                <div className="flex gap-4 items-center">
+                                                    <p className="font-medium text-gray-800 text-sm">{item.nama_kategori}</p>
+                                                    <span className={`inline-block mt-1 px-2 py-1 rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+                                                        {item.status}
+                                                    </span>
+                                                </div>
+                                                <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                                    <button onClick={() => deleteKategori(item.id_kategori)} className="px-2 py-1 w-full rounded-tl-lg rounded-bl-lg"><MdDelete /></button>
+                                                    <button onClick={() => openEditKategori(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] ">
+                                                        Edit
+                                                    </button>
+                                                    <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
+                                                        {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="border-t border-gray-200 mt-10">
+                                    <div className="mb-4 md:mb-6 border-b pt-2 pb-4 flex justify-between items-center">
+                                        <div>
+                                            <p className="text-lg font-medium">Kategori Spesfikasi</p>
+                                            <p className="text-xs text-gray-600">Kelola Kategori produk</p>
+                                        </div>
+                                        <button onClick={openAddKategoriSpec} className="p-1 rounded-lg bg-[#004A7C] text-white text-sm hover:[#00385d]"><PiPlus size={24} /></button>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        {kategoriSpesifikasi.map((item) => (
+                                            <div key={item.id_kategoriSpesifikasi}
+                                                className={`cursor-pointer flex items-center justify-between gap-3 border rounded-xl p-4 transition `}
+                                            >
+                                                <div className="flex gap-4 items-center">
+                                                    <p className="font-medium text-gray-800 text-sm">{item.nama_kategori}</p>
+                                                    <span className={`inline-block mt-1 px-2 py-1 rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+                                                        {item.status}
+                                                    </span>
+                                                </div>
+                                                <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
+                                                    <button onClick={() => deleteKategori(item.id_kategori)} className="px-2 py-1 w-full rounded-tl-lg rounded-bl-lg"><MdDelete /></button>
+                                                    <button onClick={() => openEditKategoriSpec(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] ">
+                                                        Edit
+                                                    </button>
+                                                    <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
+                                                        {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
 
-                                <div className="space-y-3">
-                                    {pageKategoriItems.map((item) => (
-                                        <div key={item.id_kategori} onClick={() => setSelectKategori(item)}
-                                            className={`cursor-pointer flex items-center justify-between gap-3 border rounded-xl p-4 transition ${selectKategori?.id_kategori === item.id_kategori ? "border-[#004A7C] bg-blue-50" : "border-gray-100 hover:bg-gray-50"}`}
-                                        >
-                                            <div className="flex gap-4 items-center">
-                                                <p className="font-medium text-gray-800 text-sm">{item.nama_kategori}</p>
-                                                <span className={`inline-block mt-1 px-2 py-1 rounded-md text-[10px] ${item.status === 'Aktif' ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-                                                    {item.status}
-                                                </span>
-                                            </div>
-                                            <div className="flex border border-gray-300 h-8 rounded-lg " onClick={(e) => e.stopPropagation()}>
-                                                <button onClick={() => deleteKategori(item.id_kategori)} className="px-2 py-1 w-full rounded-tl-lg rounded-bl-lg"><MdDelete /></button>
-                                                <button onClick={() => openEditKategori(item)} className="px-2 py-1  bg-[#004A7C] text-white text-xs  hover:bg-[#003e68] ">
-                                                    Edit
-                                                </button>
-                                                <button onClick={() => handleStatusKategori(item.id_kategori, item.status === 'Aktif' ? "Nonaktif" : "Aktif")} className="px-2 py-1 rounded-tr-lg rounded-br-lg   text-xs hover:bg-gray-50" >
-                                                    {item.status === 'Aktif' ? "Nonaktif" : 'Aktif'}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+
+
+
                                 <div className="px-1 md:px-6 py-3 flex flex-wrap items-center justify-end gap-2 md:gap-3">
                                     <button
                                         onClick={() => setPageKategori((p) => Math.max(1, p - 1))}
@@ -577,6 +708,107 @@ export default function Kategori() {
 
 
             {/* </div > */}
+            {isKategoriSpecModalOpen && (
+                <div
+                    className="fixed inset-0 z-[40] flex items-center justify-center bg-black/50 px-4"
+                    onClick={() =>
+                        setIsKategoriSpecModalOpen(false)
+                    }
+                >
+
+                    <div
+                        className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6"
+                        onClick={(e) =>
+                            e.stopPropagation()
+                        }
+                    >
+
+                        {/* HEADER */}
+
+                        <div className="flex items-center justify-between mb-6">
+
+                            <div>
+
+                                <h2 className="text-lg font-semibold">
+                                    {editKategoriSpec !== null
+                                        ? "Edit Kategori spesifikasi"
+                                        : "Tambah Kategori spesifikasi"}
+                                </h2>
+
+                                <p className="text-xs text-gray-500 mt-1">
+                                    {editKategoriSpec !== null
+                                        ? "Ubah nama kategori spesifikasi"
+                                        : "Tambahkan kategori spesifikasi baru"}
+                                </p>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setIsKategoriSpecModalOpen(false)
+                                }
+                                className="w-8 h-8 rounded-full hover:bg-gray-100"
+                            >
+                                ✕
+                            </button>
+
+                        </div>
+
+                        {/* FORM */}
+
+                        <form onSubmit={handleSpecKategori}>
+
+                            <div>
+
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Nama Kategori
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="nama_kategori"
+                                    value={kategoriSpesifikasiForm.nama_kategori}
+                                    onChange={handleKategoriSpecChange}
+                                    placeholder="Contoh: Matic"
+                                    className="w-full px-4 py-3 border border-gray-200 rounded-xl outline-none focus:border-[#004A7C]"
+                                    autoFocus
+                                />
+
+                            </div>
+
+                            {/* BUTTON */}
+
+                            <div className="flex justify-end gap-3 mt-6">
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setIsKategoriSpecModalOpen(false)
+                                    }
+                                    className="px-4 py-2 rounded-lg border border-gray-200 text-sm"
+                                >
+                                    Batal
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    className="px-5 py-2 rounded-lg bg-[#004A7C] text-white text-sm"
+                                >
+                                    {editKategoriSpec !== null
+                                        ? "Simpan Perubahan"
+                                        : "Tambah Kategori"}
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            )}
 
             {
                 isTipeModalOpen && (

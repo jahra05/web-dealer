@@ -12,10 +12,8 @@ const geHero = (req, res) => {
             m.deskripsi,
             m.status,
             k.nama_kategori,
-            t.nama_tipe,
-            s.tenaga,
-            s.mesin,
-            s.berat
+            t.nama_tipe
+        
         FROM hero h
 
         JOIN motor m
@@ -27,8 +25,7 @@ const geHero = (req, res) => {
         JOIN tipe t
             ON m.id_tipe = t.id_tipe
 
-        LEFT JOIN spesifikasi_motor s
-            ON m.id_motor = s.id_motor
+    
 
         WHERE m.status = 'Aktif'
     `;

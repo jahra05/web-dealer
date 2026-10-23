@@ -22,6 +22,8 @@ const laporanStatus = require("./routes/laporanRoutes")
 const user = require('./routes/userRoutes')
 const footer = require('./routes/footerRoutes')
 const hero = require("./routes/heroRoutes")
+const kategoriSpesifikasiRoutes = require("./routes/kategoriSpesifikasiRoutes")
+const fotoMotor = require("./routes/fotoMotorRoutes")
 
 const app = express();
 
@@ -49,6 +51,8 @@ app.use("/api/laporan", laporanStatus)
 app.use("/api/user", user)
 app.use("/api/footer", footer)
 app.use("/api/hero", hero)
+app.use("/api/kategoriSpesifikasi", kategoriSpesifikasiRoutes)
+app.use("/api/fotoMotor", fotoMotor)
 
 app.get("/", (req, res) => {
     res.send("API Dealer Motor")

@@ -4,11 +4,18 @@ const getAllSpesifikasi = (req, res) => {
 
     const sql = `
         SELECT 
-            s.*,
-            m.nama_motor
-            FROM spesifikasi_motor s
-            JOIN motor m
-                ON s.id_motor = m.id_motor
+            s.id_spesifikasi,
+            s.id_motor,
+            m.nama_motor,
+            s.id_kategori_spesifikasi,
+            k.nama_kategori,
+            s.nama_spesifikasi,
+            s.nilai
+        FROM spesifikasi_motor s
+        JOIN motor m
+            ON s.id_motor = m.id_motor
+        JOIN kategori_spesifikasi k
+            ON s.id_kategori_spesifikasi = k.id_kategori_spesifikasi
             ORDER BY s.id_spesifikasi DESC
     `;
     db.query(sql, (err, result) => {
@@ -30,17 +37,28 @@ const getSpesifikasi = (req, res) => {
     const { id } = req.params;
 
     const sql = `
-
-    SELECT * 
-    FROM spesifikasi_motor
-    WHERE id_motor = ?
+        SELECT 
+            s.id_spesifikasi,
+            s.id_motor,
+            m.nama_motor,
+            s.id_kategori_spesifikasi,
+            k.nama_kategori,
+            s.nama_spesifikasi,
+            s.nilai
+        FROM spesifikasi_motor s
+           JOIN motor m
+        ON s.id_motor = m.id_motor
+        JOIN kategori_spesifikasi k
+            ON s.id_kategori_spesifikasi = k.id_kategori_spesifikasi
+        WHERE s.id_motor = ?
+        ORDER BY k.id_kategori_spesifikasi ASC, s.id_spesifikasi ASC
     `;
 
     db.query(sql, [id], (err, result) => {
         if (err) {
             return res.status(500).json({
                 success: false,
-                message: err.message
+                message: "Gagal mengambil spesifikasi motor"
             })
         }
 
@@ -57,43 +75,34 @@ const createAllSpesifikasi = (req, res) => {
 
     const {
         id_motor,
-        kapasitas_mesin,
-        tenaga,
-        torsi,
-        transmisi,
-        berat,
-        tinggi_jok,
-        kapasitas_tengki,
-        mesin
+        id_kategori_spesifikasi,
+        nama_spesifikasi,
+        nilai
     } = req.body;
 
+    if (!id_motor || !id_kategori_spesifikasi || !nama_spesifikasi || !nilai) {
+        return res.status(400).json({
+            success: false,
+            message: "Semua data spesifikasi wajib diisi"
+        })
+    }
     const sql = `
     
         INSERT INTO spesifikasi_motor
         (
             id_motor,
-            kapasitas_mesin,
-            tenaga,
-            torsi,
-            transmisi,
-            berat,
-            tinggi_jok,
-            kapasitas_tengki,
-            mesin
+            id_kategori_spesifikasi,
+            nama_spesifikasi,
+            nilai
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?)
     `;
 
     db.query(sql, [
         id_motor,
-        kapasitas_mesin,
-        tenaga,
-        torsi,
-        transmisi,
-        berat,
-        tinggi_jok,
-        kapasitas_tengki,
-        mesin
+        id_kategori_spesifikasi,
+        nama_spesifikasi,
+        nilai
     ], (err, result) => {
         if (err) {
             console.log(err)
@@ -105,7 +114,8 @@ const createAllSpesifikasi = (req, res) => {
 
         res.status(201).json({
             success: true,
-            message: "spesifikasi berhasil ditambahkan"
+            message: "spesifikasi berhasil ditambahkan",
+            id_spesifikasi: result.insertId
         })
     })
 }
@@ -116,14 +126,9 @@ const updateSpesifikasi = (req, res) => {
 
     const {
         id_motor,
-        kapasitas_mesin,
-        tenaga,
-        torsi,
-        transmisi,
-        berat,
-        tinggi_jok,
-        kapasitas_tengki,
-        mesin
+        id_kategori_spesifikasi,
+        nama_spesifikasi,
+        nilai
     } = req.body
 
     const sql = `
@@ -131,14 +136,9 @@ const updateSpesifikasi = (req, res) => {
         UPDATE spesifikasi_motor 
         SET 
             id_motor=?,
-            kapasitas_mesin=?,
-            tenaga=?,
-            torsi=?,
-            transmisi=?,
-            berat=?,
-            tinggi_jok=?,
-            kapasitas_tengki=?,
-            mesin=?
+            id_kategori_spesifikasi=?,
+            nama_spesifikasi=?,
+            nilai=?
         WHERE id_spesifikasi=?
     `;
 
@@ -146,27 +146,22 @@ const updateSpesifikasi = (req, res) => {
         sql,
         [
             id_motor,
-            kapasitas_mesin,
-            tenaga,
-            torsi,
-            transmisi,
-            berat,
-            tinggi_jok,
-            kapasitas_tengki,
-            mesin,
+            id_kategori_spesifikasi,
+            nama_spesifikasi,
+            nilai,
             id
         ], (err, result) => {
             if (err) {
                 console.log(err)
                 return res.status(500).json({
                     success: false,
-                    message: "fafla mengambil spec"
+                    message: "Gagal mengubah spesifikasi"
                 })
             }
 
             res.json({
                 success: true,
-                message: "berhasi di ubah"
+                message: "Spesifikasi berhasil diubah"
             })
         }
     )

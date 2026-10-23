@@ -14,6 +14,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
+import Table from "../../components/Table"
 
 const PageMessage = () => {
     const [page, setPage] = useState(1)
@@ -32,6 +33,16 @@ const PageMessage = () => {
         pesan: "",
         status: "",
     })
+
+    const colunms = [
+        { key: 'nama', label: 'Nama' },
+        { key: 'emial', label: 'Nama' },
+        { key: 'no_hp', label: 'Nama' },
+        { key: 'subjek', label: 'Nama' },
+        { key: 'pesan', label: 'Nama' },
+        { key: 'tanggal', label: 'Tanggal', render: (item) => new Date(item.created_at).toLocaleDateString("id-ID") },
+        { key: 'status', label: 'Status' },
+    ]
 
     const handleStatus = async (id) => {
         try {
@@ -58,7 +69,6 @@ const PageMessage = () => {
             }
 
         } catch (error) {
-            console.error("❌ ERROR HANDLE STATUS:", error);
 
             setAlert({
                 type: "error",
@@ -138,38 +148,6 @@ const PageMessage = () => {
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
-                {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
-                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
-                    <div className="flex items-center justify-between gap-3 p-4">
-                        <div className="flex items-center gap-4 w-full sm:w-auto">
-                            <button
-                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                                onClick={() => setIsSidebarOpen(prev => !prev)}
-                            >
-                                <RxHamburgerMenu size={24} />
-                            </button>
-
-                            <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm">
-                                <BiSearch size={20} />
-
-                                <input
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    type="search"
-                                    className="h-8 w-full outline-none rounded-full text-sm"
-                                    placeholder="Search"
-                                />
-                            </div>
-
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Notifikasi />
-                            <UserMenuDropdwn />
-                        </div>
-
-                    </div>
-                </div> */}
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <motion.div
@@ -190,64 +168,24 @@ const PageMessage = () => {
                         <div className="px-4 lg:px-6 py-4 bg-[#004A7C] ">
                             <p className="text-xl font-semibold text-white">Message</p>
                         </div>
-                        <div className="overflow-x-auto">
-                            <table className="min-w-[800px] w-full">
-                                <thead className="bg-white">
-                                    <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">NO</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nama</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Email</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">No Headphone</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Subjek</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Message</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tanggal</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Status</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white">
-                                    {pageItems.map((item, index) => (
-                                        <tr key={item.id_message} className="transition hover:bg-slate-50">
-                                            <td className="px-4 py-4 text-sm text-slate-700">{(page - 1) * rowsPerPage + index + 1}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.nama}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.email}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.no_hp}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.subjek}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.pesan}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">
-                                                {new Date(item.created_at).toLocaleDateString("id-ID")}
-                                            </td>
-                                            <td className="px-4 py-4 text-sm">
 
-                                                <span
-                                                    className={`px-3 py-1 rounded-full text-xs font-semibold
-                                                         ${item.status === "Belum Dibaca"
-                                                            ? "bg-red-100 text-red-600"
-                                                            : "bg-green-100 text-green-600"
-                                                        }`}
-                                                >
-                                                    {item.status}
-                                                </span>
-                                            </td>
-                                            <td className="px-4 py-4 text-sm">
-                                                <div className="flex items-center gap-2">
-                                                    {item.status === "Belum Dibaca" && (
-                                                        <button
-                                                            onClick={() => handleStatus(item.id_message)}
-                                                            className="px-3 py-1 rounded bg-blue-500 text-white text-xs"
-                                                        >
-                                                            Dibaca
-                                                        </button>
-                                                    )}
-                                                    <button onClick={() => handleDelete(item.id_message)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <MdDelete />
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className="overflow-x-auto">
+                            <Table columns={colunms} data={pageItems} rowKey="id_message"
+                                renderActions={(item) => (
+                                    <div className="flex items-center gap-2">
+                                        {item.status === "Belum Dibaca" && (
+                                            <button
+                                                onClick={() => handleStatus(item.id_message)}
+                                                className="px-3 py-1 rounded bg-blue-500 text-white text-xs"
+                                            >
+                                                Dibaca
+                                            </button>
+                                        )}
+                                        <button onClick={() => handleDelete(item.id_message)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                            <MdDelete />
+                                        </button>
+                                    </div>
+                                )} />
                         </div>
                         <div className="px-6 py-3 flex items-center justify-end gap-3">
                             <button
@@ -351,6 +289,8 @@ const PageMessage = () => {
                     </div>
                 </main>
             </div>
+            {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+            {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
         </div>
 
     )

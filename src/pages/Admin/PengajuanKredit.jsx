@@ -15,6 +15,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
+import Table from "../../components/Table"
 
 
 const PengajuanKredit = () => {
@@ -27,6 +28,14 @@ const PengajuanKredit = () => {
     const [alert, setAlert] = useState(null)
     const [confirm, setConfirm] = useState(null)
 
+    const columns = [
+        { key: 'nama', label: 'Nama pemohon' },
+        { key: 'no_hp', label: 'No headphone' },
+        { key: 'nama_motor', label: 'nama motor' },
+        { key: 'harga', label: 'Harga', render: (item) => `Rp ${Number(item.harga).toLocaleString('id-ID')}` },
+        { key: 'alamat', label: 'Alamat' },
+        { key: 'pekerjaan', label: 'Pekerjaan' },
+    ]
 
     const handleDelete = async (id) => {
         setConfirm({
@@ -132,31 +141,7 @@ const PengajuanKredit = () => {
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
-                {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
-                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
-                    <div className="flex items-center justify-between gap-3 p-4">
 
-                        <div className="flex items-center gap-4 w-full sm:w-auto">
-
-                            <button
-                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                                onClick={() => setIsSidebarOpen(prev => !prev)}
-                            >
-                                <RxHamburgerMenu size={24} />
-                            </button>
-
-
-
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <Notifikasi />
-                            <UserMenuDropdwn />
-                        </div>
-
-                    </div>
-                </div> */}
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 mb-4">
                         <motion.div
@@ -206,53 +191,28 @@ const PengajuanKredit = () => {
                         </div>
 
                         <div className="overflow-x-auto">
-                            <table className="min-w-[800px] w-full">
-                                <thead className="bg-white">
-                                    <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nama Pemohon</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">No Handphone</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Motor</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Harga</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Alamat</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">pekerjaan</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white">
-                                    {pageItems.map((item) => (
-                                        <tr key={item.id_pengajuan} className="transition hover:bg-slate-50">
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.nama}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.no_hp}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">Rp. {Number(item.harga).toLocaleString('id-ID')}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.alamat}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.pekerjaan}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">
-                                                <select value={item.status}
-                                                    onChange={(e) => updateStatus(
-                                                        item.id_pengajuan,
-                                                        e.target.value
-                                                    )}
-                                                    className="border border-[#002446] rounded-lg px-2 py-1"
-                                                >
-                                                    <option value="Menunggu">Menunggu</option>
-                                                    <option value="Disetujui">Disetujui</option>
-                                                    <option value="Ditolak">Ditolak</option>
-                                                </select>
-                                            </td>
-                                            <td className="px-4 py-4 text-sm">
-                                                <div className="flex items-center gap-2">
-                                                    <button onClick={() => handleDelete(item.id_pengajuan)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <MdDelete />
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
+                            <Table columns={columns} data={pageItems} rowKey="id_pengajuanKredit"
+                                renderActions={(item) => (
+                                    <div>
+                                        <select value={item.status}
+                                            onChange={(e) => updateStatus(
+                                                item.id_pengajuan,
+                                                e.target.value
+                                            )}
+                                            className="border border-[#002446] rounded-lg px-2 py-1"
+                                        >
+                                            <option value="Menunggu">Menunggu</option>
+                                            <option value="Disetujui">Disetujui</option>
+                                            <option value="Ditolak">Ditolak</option>
+                                        </select>
 
-                                </tbody>
-                            </table>
+                                        <button onClick={() => handleDelete(item.id_pengajuan)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                            <MdDelete />
+                                        </button>
+                                    </div>
+                                )} />
                         </div>
+
                         <div className="px-4 lg:px-6 py-3 flex flex-wrap items-center justify-end gap-3">
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
@@ -358,11 +318,12 @@ const PengajuanKredit = () => {
                             >
                                 Next
                             </button>
-
                         </div>
                     </div>
                 </main>
             </div >
+            {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+            {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
         </div >
 
     )

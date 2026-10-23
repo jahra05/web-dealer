@@ -20,22 +20,22 @@ const Spesifikasi = () => {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const [spesifikasi, setSpesifikasi] = useState([]);
+    const [kategoriSpesifikasi, setKategoriSpesifikasi] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenSpec, setIsModalOpenSpec] = useState(false)
+
     const [isEdit, setIsEdit] = useState(false)
-    const [selected, setSelected] = useState(null)
+    const [selectedMotor, setSelectedMotor] = useState(null);
+    const [selectedSpecId, setSelectedSpecId] = useState(null);
     const [motor, setMotor] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+
     const [formData, setFormData] = useState({
         id_motor: "",
-        kapasitas_mesin: "",
-        tenaga: "",
-        torsi: "",
-        transmisi: "",
-        berat: "",
-        tinggi_jok: "",
-        kapasitas_tengki: "",
-        mesin: ""
+        id_kategori_spesifikasi: "",
+        nama_spesifikasi: "",
+        nilai: ""
     });
 
     const [alert, setAlert] = useState(null)
@@ -43,19 +43,20 @@ const Spesifikasi = () => {
 
     const rowsPerPage = 8;
 
+    const handleKelola = (item) => {
+        setSelectedMotor(item)
+        setIsModalOpenSpec(true)
+    }
+
+
     const openModal = () => {
         setIsEdit(false);
-        setSelected(null);
+        setSelectedSpecId(null);
         setFormData({
             id_motor: "",
-            kapasitas_mesin: "",
-            tenaga: "",
-            torsi: "",
-            transmisi: "",
-            berat: "",
-            tinggi_jok: "",
-            kapasitas_tengki: "",
-            mesin: ""
+            id_kategori_spesifikasi: "",
+            nama_spesifikasi: "",
+            nilai: ""
         });
         setIsModalOpen(true);
     };
@@ -63,17 +64,12 @@ const Spesifikasi = () => {
     const handleEdit = (item) => {
         console.log(item, "berhsil di update");
         setIsEdit(true)
-        setSelected(item.id_spesifikasi)
+        setSelectedSpecId(item.id_spesifikasi)
         setFormData({
             id_motor: item.id_motor,
-            kapasitas_mesin: item.kapasitas_mesin,
-            tenaga: item.tenaga,
-            torsi: item.torsi,
-            transmisi: item.transmisi,
-            berat: item.berat,
-            tinggi_jok: item.tinggi_jok,
-            kapasitas_tengki: item.kapasitas_tengki,
-            mesin: item.mesin
+            id_kategori_spesifikasi: item.id_kategori_spesifikasi,
+            nama_spesifikasi: item.nama_spesifikasi,
+            nilai: item.nilai
         });;
         setIsModalOpen(true)
     }
@@ -98,7 +94,7 @@ const Spesifikasi = () => {
         e.preventDefault();
 
         const url = isEdit
-            ? `${import.meta.env.VITE_API_URL}/api/spesifikasi/${selected}`
+            ? `${import.meta.env.VITE_API_URL}/api/spesifikasi/${selectedSpecId}`
             : `${import.meta.env.VITE_API_URL}/api/spesifikasi`;
 
         const method = isEdit ? "PUT" : "POST";
@@ -127,14 +123,10 @@ const Spesifikasi = () => {
 
                 setFormData({
                     id_motor: "",
-                    kapasitas_mesin: "",
-                    tenaga: "",
-                    torsi: "",
-                    transmisi: "",
-                    berat: "",
-                    tinggi_jok: "",
-                    kapasitas_tengki: "",
-                    mesin: ""
+                    id_kategori_spesifikasi: "",
+                    nama_spesifikasi: "",
+                    nilai: ""
+
                 });
 
             } else {
@@ -180,6 +172,22 @@ const Spesifikasi = () => {
         })
     }
 
+    const getKategoriSpesifikasi = async () => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                setKategoriSpesifikasi(data.data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const getMotor = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`);
@@ -211,19 +219,33 @@ const Spesifikasi = () => {
     useEffect(() => {
         getSpesifikasi();
         getMotor()
+        getKategoriSpesifikasi()
 
     }, []);
 
     const filteredData = spesifikasi.filter((item) =>
-        item.nama_motor.toLowerCase().includes(search.toLowerCase())
+        (item.nama_motor || "").toLowerCase().includes(search.toLowerCase())
     );
 
+    const groupedMotor = Object.values(
+        filteredData.reduce((acc, item) => {
+            if (!acc[item.id_motor]) {
+                acc[item.id_motor] = {
+                    id_motor: item.id_motor,
+                    nama_motor: item.nama_motor,
+                    spesifikasi: []
+                }
+            }
+            acc[item.id_motor].spesifikasi.push(item)
+            return acc
+        }, {})
+    )
     const totalPages = Math.max(
         1,
-        Math.ceil(filteredData.length / rowsPerPage)
+        Math.ceil(groupedMotor.length / rowsPerPage)
     );
 
-    const pageItems = filteredData.slice(
+    const pageItems = groupedMotor.slice(
         (page - 1) * rowsPerPage,
         page * rowsPerPage
     );
@@ -269,14 +291,7 @@ const Spesifikasi = () => {
                                     <thead className="bg-white">
                                         <tr>
                                             <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">nama motor</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">kapasitas mesin</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">tenaga</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">torsi</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">transmisi</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">berat</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">tinggi_jok</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">kapasita tangki</th>
-                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">mesin</th>
+                                            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">jumlah spesifikasi</th>
                                             <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Aksi</th>
                                         </tr>
                                     </thead>
@@ -284,16 +299,18 @@ const Spesifikasi = () => {
                                         {pageItems.map((item) => (
                                             <tr key={item.id_spesifikasi} className="transition hover:bg-slate-50">
                                                 <td className="px-4 py-4 text-sm text-slate-700">{item.nama_motor}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.kapasitas_mesin}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.tenaga}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.torsi}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.transmisi}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.berat}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.tinggi_jok}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.kapasitas_tengki}</td>
-                                                <td className="px-4 py-4 text-sm text-slate-700">{item.mesin}</td>
-
+                                                <td className="px-4 py-4 text-sm text-slate-700">{item.spesifikasi.length} spesifikasi</td>
                                                 <td className="px-4 py-4 text-sm">
+                                                    <div className="flex items-center gap-2">
+                                                        <button type="button" onClick={() => openModal(item.id_motor)} className="inline-flex items-center gap-2 rounded-lg bg-[#004A7C] px-3 py-2 text-xs font-medium text-white transition hover:bg-[#00395f]"
+                                                        ><PiPlus size={15} />
+                                                            Tambah</button>
+                                                        <button type="button" onClick={() => handleKelola(item)}
+                                                            className="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 transition hover:bg-slate-50"
+                                                        >kelola Spec</button>
+                                                    </div>
+                                                </td>
+                                                {/* <td className="px-4 py-4 text-sm">
                                                     <div className="flex items-center gap-2">
                                                         <button onClick={() => handleDelete(item.id_spesifikasi)} className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
                                                             <MdDelete />
@@ -302,7 +319,7 @@ const Spesifikasi = () => {
                                                             <FaEdit />
                                                         </button>
                                                     </div>
-                                                </td>
+                                                </td> */}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -327,6 +344,8 @@ const Spesifikasi = () => {
 
                     {/* mobile */}
                     <div className="md:hidden space-y-4">
+
+                        {/* HEADER MOBILE */}
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -334,24 +353,35 @@ const Spesifikasi = () => {
                                 duration: 0.6,
                                 ease: [0.16, 1, 0.3, 1]
                             }}
-                            className="flex justify-between py-4">
+                            className="flex justify-between py-4"
+                        >
                             <div>
-                                <h1 className="text-xl font-bold text-gray-900">Spesifikasi</h1>
-                                <p className="text-sm text-gray-500 mt-1">Kelola data spesifikasi motor.</p>
+                                <h1 className="text-xl font-bold text-gray-900">
+                                    Spesifikasi
+                                </h1>
+
+                                <p className="text-sm text-gray-500 mt-1">
+                                    Kelola data spesifikasi motor.
+                                </p>
                             </div>
+
                             <button
                                 type="button"
                                 onClick={openModal}
-                                className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50">
+                                className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm transition hover:shadow-md hover:border-slate-300 hover:bg-slate-50"
+                            >
                                 <PiPlus size={20} />
                             </button>
                         </motion.div>
+
+
+                        {/* LIST MOTOR */}
                         <div className="space-y-4">
 
                             {pageItems.map((item, index) => (
 
                                 <motion.div
-                                    key={item.id_spesifikasi}
+                                    key={item.id_motor}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{
@@ -362,127 +392,92 @@ const Spesifikasi = () => {
                                     className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
                                 >
 
-                                    {/* MOTOR + MESIN */}
-                                    <div className="flex gap-5">
+                                    {/* MOTOR */}
+                                    <div className="flex items-start justify-between gap-4">
 
-                                        <div className="space-y-2 shrink-0">
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                        <div className="min-w-0">
+
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                                                 Motor
                                             </p>
 
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                                                Mesin
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-2 min-w-0">
-                                            <p className="text-sm font-semibold text-gray-900 truncate">
+                                            <p className="text-base font-semibold text-gray-900 mt-1 truncate">
                                                 {item.nama_motor}
                                             </p>
 
-                                            <p className="text-sm font-medium text-gray-700">
-                                                {item.mesin}
+                                        </div>
+
+                                        <div className="shrink-0 rounded-full bg-slate-100 px-3 py-1">
+                                            <p className="text-xs font-medium text-slate-600">
+                                                {item.spesifikasi.length} Spec
                                             </p>
                                         </div>
 
                                     </div>
 
 
-                                    {/* SPESIFIKASI */}
-                                    <div className="grid grid-cols-3 gap-2 mt-8">
+                                    {/* PREVIEW KATEGORI */}
+                                    {item.spesifikasi.length > 0 && (
+                                        <div className="mt-5 pt-4 border-t border-gray-100">
 
-                                        <div className="text-center">
-                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                                                Tenaga
+                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-3">
+                                                Kategori Spesifikasi
                                             </p>
 
-                                            <p className="text-sm font-medium text-gray-900 mt-2">
-                                                {item.tenaga}
-                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+
+                                                {[
+                                                    ...new Map(
+                                                        item.spesifikasi.map((spec) => [
+                                                            spec.id_kategori_spesifikasi,
+                                                            spec.nama_kategori
+                                                        ])
+                                                    ).values()
+                                                ].slice(0, 4).map((kategori) => (
+
+                                                    <span
+                                                        key={kategori}
+                                                        className="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-xs text-slate-600"
+                                                    >
+                                                        {kategori}
+                                                    </span>
+
+                                                ))}
+
+                                                {new Set(
+                                                    item.spesifikasi.map(
+                                                        (spec) => spec.id_kategori_spesifikasi
+                                                    )
+                                                ).size > 4 && (
+                                                        <span className="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-xs text-slate-500">
+                                                            + lainnya
+                                                        </span>
+                                                    )}
+
+                                            </div>
+
                                         </div>
+                                    )}
 
 
-                                        <div className="text-center">
-                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                                                Bahan Bakar
-                                            </p>
-
-                                            <p className="text-sm font-medium text-gray-900 mt-2">
-                                                {item.torsi}
-                                            </p>
-                                        </div>
-
-
-                                        <div className="text-center">
-                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                                                Transmisi
-                                            </p>
-
-                                            <p className="text-sm font-medium text-gray-900 mt-2">
-                                                {item.transmisi}
-                                            </p>
-                                        </div>
-
-
-                                        <div className="text-center mt-5">
-                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                                                Berat
-                                            </p>
-
-                                            <p className="text-sm font-medium text-gray-900 mt-2">
-                                                {item.berat}
-                                            </p>
-                                        </div>
-
-
-                                        <div className="text-center mt-5">
-                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                                                Tinggi Jok
-                                            </p>
-
-                                            <p className="text-sm font-medium text-gray-900 mt-2">
-                                                {item.tinggi_jok}
-                                            </p>
-                                        </div>
-
-
-                                        <div className="text-center mt-5">
-                                            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                                                Ban
-                                            </p>
-
-                                            <p className="text-sm font-medium text-gray-900 mt-2">
-                                                {item.tinggi_jok}
-                                            </p>
-                                        </div>
-
-                                    </div>
-
-
-                                    {/* BUTTON */}
-                                    <div className="flex gap-3 mt-7">
+                                    {/* ACTION */}
+                                    <div className="flex gap-2 mt-5">
 
                                         <button
-                                            onClick={() => handleDelete(item.id_spesifikasi)}
-                                            className="inline-flex h-10 flex-1 items-center justify-center text-sm bg-[#004A7C] text-white rounded-md transition hover:bg-[#00345F]"
+                                            type="button"
+                                            onClick={() => openModal(item.id_motor)}
+                                            className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-xl bg-[#004A7C] text-sm font-medium text-white transition hover:bg-[#00345F]"
                                         >
-                                            <span className="mr-2">
-                                                Hapus
-                                            </span>
-
-                                            <MdDelete />
+                                            <PiPlus size={16} />
+                                            Tambah
                                         </button>
 
-
                                         <button
-                                            onClick={() => handleEdit(item)}
-                                            className="inline-flex h-10 flex-1 items-center justify-center rounded-md bg-white text-black border border-[#004A7C] transition hover:bg-slate-50"
+                                            type="button"
+                                            onClick={() => handleKelola(item)}
+                                            className="inline-flex h-10 flex-1 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                                         >
-                                            <span className="mr-2">
-                                                Edit
-                                            </span>
-
-                                            <FaEdit />
+                                            Kelola Spec
                                         </button>
 
                                     </div>
@@ -492,15 +487,28 @@ const Spesifikasi = () => {
                             ))}
 
 
+                            {/* EMPTY */}
+                            {pageItems.length === 0 && (
+                                <div className="rounded-2xl border border-gray-200 bg-white px-4 py-10 text-center">
+
+                                    <p className="text-sm text-slate-500">
+                                        Belum ada data spesifikasi.
+                                    </p>
+
+                                </div>
+                            )}
+
+
                             {/* PAGINATION */}
                             <div className="px-1 py-3 flex items-center justify-between gap-3">
 
                                 <button
+                                    type="button"
                                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                                     disabled={page === 1}
                                     className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1
-                                        ? "text-slate-400 bg-slate-100"
-                                        : "text-slate-700 bg-white border border-slate-200"
+                                            ? "text-slate-400 bg-slate-100"
+                                            : "text-slate-700 bg-white border border-slate-200"
                                         }`}
                                 >
                                     Prev
@@ -511,11 +519,12 @@ const Spesifikasi = () => {
                                 </span>
 
                                 <button
+                                    type="button"
                                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                     disabled={page === totalPages}
                                     className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages
-                                        ? "text-slate-400 bg-slate-100"
-                                        : "text-slate-700 bg-white border border-slate-200"
+                                            ? "text-slate-400 bg-slate-100"
+                                            : "text-slate-700 bg-white border border-slate-200"
                                         }`}
                                 >
                                     Next
@@ -527,8 +536,156 @@ const Spesifikasi = () => {
 
                     </div>
 
+                    {isModalOpenSpec && selectedMotor && (
+                        <div
+                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6"
+                            onClick={() => setIsModalOpenSpec(false)}
+                        >
+                            <div
+                                className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl"
+                                onClick={(e) => e.stopPropagation()}
+                            >
 
+                                {/* HEADER */}
+                                <div className="px-6 py-5 border-b border-gray-100">
+                                    <div className="flex items-start justify-between gap-4">
 
+                                        <div>
+                                            <h2 className="text-lg font-bold text-gray-900">
+                                                Kelola Spesifikasi
+                                            </h2>
+
+                                            <p className="mt-1 text-sm text-gray-500">
+                                                {selectedMotor.nama_motor}
+                                            </p>
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsModalOpenSpec(false)}
+                                            className="p-2 rounded-full hover:bg-gray-100 text-gray-400"
+                                        >
+                                            ✕
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                {/* BODY */}
+                                <div className="px-6 py-5">
+
+                                    {selectedMotor.spesifikasi.length === 0 ? (
+                                        <div className="text-center py-10 text-sm text-gray-500">
+                                            Belum ada spesifikasi.
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-6">
+
+                                            {Object.values(
+                                                selectedMotor.spesifikasi.reduce((acc, item) => {
+
+                                                    if (!acc[item.id_kategori_spesifikasi]) {
+                                                        acc[item.id_kategori_spesifikasi] = {
+                                                            nama_kategori: item.nama_kategori,
+                                                            items: []
+                                                        };
+                                                    }
+
+                                                    acc[item.id_kategori_spesifikasi].items.push(item);
+
+                                                    return acc;
+
+                                                }, {})
+                                            ).map((kategori) => (
+
+                                                <div key={kategori.nama_kategori}>
+
+                                                    <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                                                        {kategori.nama_kategori}
+                                                    </h3>
+
+                                                    <div className="rounded-xl border border-gray-100 overflow-hidden">
+
+                                                        {kategori.items.map((item) => (
+
+                                                            <div
+                                                                key={item.id_spesifikasi}
+                                                                className="flex items-center justify-between gap-4 px-4 py-3 border-b last:border-b-0 border-gray-100"
+                                                            >
+
+                                                                <div className="min-w-0">
+                                                                    <p className="text-sm font-medium text-gray-700">
+                                                                        {item.nama_spesifikasi}
+                                                                    </p>
+
+                                                                    <p className="text-sm text-gray-500 mt-0.5">
+                                                                        {item.nilai}
+                                                                    </p>
+                                                                </div>
+
+                                                                <div className="flex items-center gap-2 shrink-0">
+
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleEdit(item)}
+                                                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                                                                    >
+                                                                        <FaEdit />
+                                                                    </button>
+
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => handleDelete(item.id_spesifikasi)}
+                                                                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                                                                    >
+                                                                        <MdDelete />
+                                                                    </button>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        ))}
+
+                                                    </div>
+
+                                                </div>
+
+                                            ))}
+
+                                        </div>
+                                    )}
+
+                                </div>
+
+                                {/* FOOTER */}
+                                <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-between items-center rounded-b-3xl">
+
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setIsModalOpenSpec(false);
+                                            openModal(selectedMotor.id_motor);
+                                        }}
+                                        className="inline-flex items-center gap-2 rounded-full bg-[#004A7C] px-4 py-2.5 text-sm font-medium text-white"
+                                    >
+                                        <PiPlus size={16} />
+                                        Tambah Spesifikasi
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsModalOpenSpec(false)}
+                                        className="rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700"
+                                    >
+                                        Tutup
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    )}
 
                     {
                         isModalOpen && (
@@ -559,43 +716,24 @@ const Spesifikasi = () => {
                                                 </select>
                                             </div>
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Mesin</label>
-                                                <input type="text" name="kapasitas_mesin" value={formData.kapasitas_mesin} onChange={handleChange} placeholder="Kapasitas mesin" title="Kapasitas mesin"
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Kategori Spesifikasi</label>
+                                                <select name="id_kategori_spesifikasi" value={formData.id_kategori_spesifikasi} onChange={handleChange}
+                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100" >
+                                                    {kategoriSpesifikasi.map((item) => (
+                                                        <option key={item.id_kategori_spesifikasi} value={item.id_kategori_spesifikasi}>
+                                                            {item.nama_kategori}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Nama Spesifikasi</label>
+                                                <input type="text" name="nama_spesifikasi" value={formData.nama_spesifikasi} onChange={handleChange} placeholder="Nama spesifikasi" title="Nama spesifikasi"
                                                     className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                             </div>
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Tenaga</label>
-                                                <input type="text" name="tenaga" value={formData.tenaga} onChange={handleChange} placeholder="Tenaga" title="Tenaga"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Torsi</label>
-                                                <input type="text" name="torsi" value={formData.torsi} onChange={handleChange} placeholder="Torsi" title="Torsi"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Transmisi</label>
-                                                <input type="text" name="transmisi" value={formData.transmisi} onChange={handleChange} placeholder="Transmisi" title="Transmisi"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Berat</label>
-                                                <input type="text" name="berat" value={formData.berat} onChange={handleChange} placeholder="Berat" title="Berat"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Tinggi Jok</label>
-                                                <input type="text" name="tinggi_jok" value={formData.tinggi_jok} onChange={handleChange} placeholder="Tinggi Jok" title="Tinggi Jok"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Kapasitas Tangki</label>
-                                                <input type="text" name="kapasitas_tengki" value={formData.kapasitas_tengki} onChange={handleChange} placeholder="Kapasitas Tangki" title="Kapasitas Tangki"
-                                                    className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-1">Mesin</label>
-                                                <input type="text" name="mesin" value={formData.mesin} onChange={handleChange} placeholder="Mesin" title="Mesin"
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Nilai</label>
+                                                <input type="text" name="nilai" value={formData.nilai} onChange={handleChange} placeholder="Nilai" title="Nilai"
                                                     className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm outline-none transition focus:border-[#006A9E] focus:ring-2 focus:ring-blue-100 truncate-placeholder" />
                                             </div>
                                         </div>

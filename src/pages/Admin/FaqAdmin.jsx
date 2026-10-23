@@ -13,6 +13,7 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
+import Table from "../../components/Table"
 
 const FaqAdmin = () => {
     const [page, setPage] = useState(1);
@@ -32,6 +33,11 @@ const FaqAdmin = () => {
     });
 
     const rowsPerPage = 10;
+
+    const columns = [
+        { key: "pertanyaan", label: 'Pertanyaan' },
+        { key: 'jawaban', label: 'Jawaban' }
+    ]
 
     const handleEdit = (item) => {
         setIsEdit(true)
@@ -164,42 +170,6 @@ const FaqAdmin = () => {
     return (
         <div className="min-h-screen w-full flex bg-gray-50 overflow-x-hidden">
             <div className="flex-1 min-w-0 flex flex-col bg-gray-50 overflow-x-hidden">
-                {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
-                {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
-
-                {/* <div className="fixed top-0 right-0 left-0 lg:left-64 z-20 bg-gray-50 border-b border-gray-100">
-                    <div className="flex items-center justify-between gap-3 p-4">
-
-                        <div className="flex items-center gap-4 w-full sm:w-auto">
-
-                            <button
-                                className="lg:hidden flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                                onClick={() => setIsSidebarOpen(prev => !prev)}
-                            >
-                                <RxHamburgerMenu size={24} />
-                            </button>
-
-                            <div className="flex gap-2 bg-white border border-blue-100 w-full sm:w-64 lg:w-80 px-4 py-2 items-center rounded-full shadow-sm">
-                                <BiSearch size={20} />
-
-                                <input
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    type="search"
-                                    className="h-8 w-full outline-none rounded-full text-sm"
-                                    placeholder="Search"
-                                />
-                            </div>
-
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <Notifikasi />
-                            <UserMenuDropdwn />
-                        </div>
-
-                    </div>
-                </div> */}
 
                 <main className="flex-1 px-4 pb-6 overflow-x-hidden mt-24">
                     <motion.div
@@ -223,36 +193,18 @@ const FaqAdmin = () => {
                                 <PiPlus size={20} />
                             </button>
                         </div>
-                        <div className="overflow-x-auto">
-                            <table className="min-w-[500px] w-full">
-                                <thead className="bg-white">
-                                    <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">pertanyaan</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">jawaban</th>
-                                        <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white">
-                                    {pageItems.map((item) => (
-                                        <tr key={item.id_faq} className="transition hover:bg-slate-50">
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.pertanyaan}</td>
-                                            <td className="px-4 py-4 text-sm text-slate-700">{item.jawaban}</td>
-                                            <td className="px-4 py-4 text-sm">
-                                                <div className="flex items-center gap-2">
-                                                    <button onClick={() => handleDelete(item.id_faq)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <MdDelete />
-                                                    </button>
-                                                    <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
-                                                        <FaEdit />
-                                                    </button>
-                                                </div>
+                        <Table columns={columns} data={pageItems} rowKey="id_faq" renderActions={(item) => (
+                            <div className="flex items-center gap-2">
+                                <button onClick={() => handleDelete(item.id_faq)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                    <MdDelete />
+                                </button>
+                                <button onClick={() => handleEdit(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                    <FaEdit />
+                                </button>
+                            </div>
+                        )}>
+                        </Table>
 
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
                         <div className="px-6 py-3 flex items-center justify-end gap-3">
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
@@ -401,7 +353,12 @@ const FaqAdmin = () => {
 
 
             </div >
+            {alert && <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />}
+            {confirm && <ConfirmAlert title={confirm.title} message={confirm.message} onConfirm={confirm.onConfirm} onCancel={confirm.onCancel} />}
+
         </div >
+
+
     )
 }
 

@@ -261,7 +261,7 @@ const Testimoni = () => {
                                 type="button"
                                 onClick={openModal}
                                 className='inline-flex items-center justify-center h-10 w-10 rounded-full bg-white border border-blue-100 text-slate-700 transition hover:shadow-md hover:border-blue-300  focus:ring-2 focus:ring-indigo-200'>
-                                <PiPlus size={20} />
+                                <PiPlus size={18} />
                             </button>
                         </div>
 

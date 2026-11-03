@@ -24,7 +24,7 @@ router.put(
     upload.single("gambar"),
     motorController.updateMotor
 );
-
+router.put("/:id/status", motorController.updateStatus)
 router.delete("/:id", verifyToken, (req, res, next) => {
 
     console.log("🔥 ROUTE DELETE MOTOR TERPANGGIL");

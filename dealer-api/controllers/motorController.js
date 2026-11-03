@@ -145,7 +145,8 @@ const getMotorID = (req, res) => {
         motor.stok,
         motor.tahun,
         motor.deskripsi,
-        motor.gambar
+        motor.gambar,
+        motor.status
     FROM motor
     JOIN kategori ON motor.id_kategori = kategori.id_kategori
     JOIN tipe ON motor.id_tipe = tipe.id_tipe
@@ -187,6 +188,7 @@ const createMotor = async (req, res) => {
         stok,
         tahun,
         deskripsi,
+        status,
     } = req.body;
 
     console.log("===== UPDATE PROFILE =====");
@@ -213,9 +215,10 @@ const createMotor = async (req, res) => {
         stok,
         tahun,
         deskripsi,
+        status,
         gambar
     )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?  )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ? , ? )
     `;
 
     db.query(sql,
@@ -227,6 +230,7 @@ const createMotor = async (req, res) => {
             stok,
             tahun,
             deskripsi,
+            status,
             gambar
         ],
         (err, result) => {
@@ -250,6 +254,43 @@ const createMotor = async (req, res) => {
 
 };
 
+const updateStatus = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body
+
+    console.log("Route status terpanggil");
+    console.log("ID motor:", req.params.id);
+    console.log("Body:", req.body);
+
+    if (!["Aktif", "Nonaktif"].includes(status)) {
+        return res.status(400).json({
+            message: "Status motor tidak valid"
+        })
+    }
+
+    const sql = `UPDATE motor SET status = ? WHERE id_motor = ?`
+    db.query(sql, [status, id], (err, result) => {
+        if (err) {
+            console.error("Gagal mengubah status motor", err)
+
+            return res.status(500).json({
+                message: "Gagal mengubah status motor"
+            });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: "Motor tidak ditemukan"
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "Status motor berhasil diperbarui",
+            status
+        })
+    })
+
+}
 
 const updateMotor = async (req, res) => {
     const { id } = req.params;
@@ -432,5 +473,6 @@ module.exports = {
     getMotorID,
     createMotor,
     updateMotor,
+    updateStatus,
     deleteMotor
 };

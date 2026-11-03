@@ -18,12 +18,39 @@ const ProductDetail = () => {
   const [infoContact, setInfoContact] = useState([])
   const [kategoriSpesifikasi, setKategoriSpesifikasi] = useState([])
 
+  const [fotoPartMotor, setFotoPartMotor] = useState([])
+  const [pilihFoto, setPilihFoto] = useState("")
+
   // Simulation State
   const [dp, setDp] = useState(2000000);
   const [tenor, setTenor] = useState(36);
   const [monthlyInstallment, setMonthlyInstallment] = useState(0);
   const [spek, setSpek] = useState([])
   const [warna, setWarna] = useState([])
+
+
+  
+const getFotoProduk = async () => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/fotoMotor/${id}`
+    );
+
+    const data = await response.json();
+
+    console.log("ID MOTOR:", id);
+    console.log("RESPONSE FOTO:", data);
+
+    if (response.ok && data.success) {
+      setFotoPartMotor(data.data || []);
+    } else {
+      setFotoPartMotor([]);
+    }
+  } catch (error) {
+    console.error("ERROR FOTO:", error);
+  }
+};
+
 
   const getKategoriSpesifikasi = async () => {
     try {
@@ -134,11 +161,15 @@ const ProductDetail = () => {
     }
   }
   useEffect(() => {
+    if (!id) return;
+
+    console.log("ID PRODUK:", id);
+    getFotoProduk()
     getSpesifikasi()
     getWarna()
     getWhatapps()
     getKategoriSpesifikasi()
-  }, [])
+  }, [id])
 
   useEffect(() => {
     if (bike) {
@@ -198,45 +229,63 @@ const ProductDetail = () => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-16">
           {/* Left Column: Image and Specs */}
           <div>
-            <div className="bg-gray-50 rounded-[40px] p-8 md:p-12 mb-8 flex items-center justify-center relative overflow-hidden border border-gray-100 min-h-[300px] md:min-h-[500px]">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#F2F8FC] to-transparent"></div>
+            <div className="bg-gray-50 rounded-[40px] p-8 md:p-12 mb-8 flex flex-col items-center justify-center relative overflow-hidden border border-gray-100 min-h-[300px] md:min-h-[500px]">
               <AnimatePresence mode="wait">
-                <motion.img initial={{ opacity: 0, scale: 0.8, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  src={`${bike.gambar}`}
-                  alt={bike.nama_motor}
-                  className="w-full h-auto drop-shadow-2xl relative z-10 object-contain max-h-[400px]"
-                />
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={pilihFoto || bike.gambar}
+                    initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{
+                      duration: 0.9,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    src={
+                      fotoPartMotor.find(
+                        (foto) => String(foto.id_foto) === String(pilihFoto)
+                      )?.gambar || bike.gambar
+                    }
+                    alt={
+                      fotoPartMotor.find(
+                        (foto) => String(foto.id_foto) === String(pilihFoto)
+                      )?.keterangan || bike.nama_motor
+                    }
+                    className="w-full h-auto drop-shadow-2xl relative z-10 object-contain max-h-[400px]"
+                  />
+                </AnimatePresence>
               </AnimatePresence>
+              {fotoPartMotor.length > 0 && (
+                <div className='relative z-10 mt-5 flex max-w-full gap-3 overflow-x-auto pb-2'>
+                  <button type='button' onClick={() => setPilihFoto("")}
+                    className={`h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 bg-white ${!pilihFoto ? "border-[#00345F]" : "border-gray-200"}`}>
+                    <img
+                      src={bike.gambar}
+                      alt={bike.nama_motor}
+                      className="h-full w-full object-contain"
+                    />
+                  </button>
+
+                  {fotoPartMotor.map((foto) => (
+                    <button
+                      key={foto.id_foto}
+                      type="button"
+                      onClick={() => setPilihFoto(String(foto.id_foto))}
+                      className={`h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 bg-white ${String(pilihFoto) === String(foto.id_foto)
+                        ? "border-[#00345F]"
+                        : "border-gray-200"
+                        }`}
+                    >
+                      <img
+                        src={foto.gambar}
+                        alt={foto.keterangan || "Foto motor"}
+                        className="h-full w-full object-contain"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-
-
-            {/* {spek.map((item) => (
-              <div key={item.id_speksifikasi} className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Spesifikasi</p>
-                  <p className="text-xs font-bold text-gray-900">{item.nama_spesifikasi}</p>
-                </div>
-
-                <div className="bg-white border border-gray-100 h-14 flex flex-col justify-center rounded-2xl text-center shadow-sm hover:shadow-md transition-shadow">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">tenaga</p>
-                  <p className="text-xs font-bold text-gray-900">{item.nilai}</p>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-              </div>
-            ))} */}
             <div>
               <motion.h4
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }}

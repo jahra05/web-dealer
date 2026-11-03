@@ -15,42 +15,45 @@ const NAV_ITEMS = [
   {
     title: 'MAIN',
     items: [
-      { path: '/admin/dashboard', label: 'Dashboard', icon: LuLayoutDashboard },
+      { path: '/admin/dashboard', label: 'Dashboard', icon: LuLayoutDashboard, activeKeywords: ["/admin/dashboard"] },
 
     ]
   },
   {
     title: 'INVENTORY',
     items: [
-      { path: '/admin/kelolaProduk', label: 'Produk Motor', icon: BiKey },
-    
+      { path: '/admin/kelolaProduk', label: 'Produk Motor', icon: BiKey, activeKeywords: ["kelolaproduk", "detailproduk", "spesifikasi"] },
+
     ]
   },
   {
     title: 'TRANSAKSI',
     items: [
-      { path: '/admin/pengajuanKredit', label: 'Pengajuan Kredit', icon: FiFileText },
+      { path: '/admin/pengajuanKredit', label: 'Pengajuan Kredit', icon: FiFileText, activeKeywords: ["pengajuankredit", "detailpengajuan"] },
     ]
   },
   {
     title: 'KOMUNIKASI',
     items: [
-      { path: '/admin/pagemessage', label: 'Pesan Masuk', icon: BiMessageSquare },
-      { path: '/admin/testimoni', label: 'Testimoni', icon: LuMessageCircleHeart },
-      { path: '/admin/faq', label: 'FAQ', icon: LuCircleHelp },
+      { path: '/admin/pagemessage', label: 'Pesan Masuk', icon: BiMessageSquare, activeKeywords: ['pagemessage'] },
+      { path: '/admin/testimoni', label: 'Testimoni', icon: LuMessageCircleHeart, activeKeywords: ['testimoni'] },
+      { path: '/admin/faq', label: 'FAQ', icon: LuCircleHelp, activeKeywords: ['faq'] },
 
     ]
   },
   {
     title: 'ANALITIK',
     items: [
-      { path: '/admin/exam', label: 'Laporan', icon: BiBarChart },
+      {
+        path: '/admin/exam', label: 'Laporan', icon: BiBarChart, icon: BiBarChart,
+        activeKeywords: ['exam']
+      },
     ]
   },
   {
     title: 'SYSTEM',
     items: [
-      { path: '/admin/setting/profile-admin', label: 'Pengaturan', icon: CiSettings },
+      { path: '/admin/setting/profile-admin', label: 'Pengaturan', icon: CiSettings, activeKeywords: ['setting'] },
     ]
   },
 ];
@@ -75,7 +78,15 @@ const AdminNavbar = ({ sidebar, setSidebar, isOpen = false, onClose = () => { } 
     getAllFooter()
   }, [])
 
+  const checkIsActive = (item) => {
+    const currrentPath = location.pathname.toLowerCase()
 
+    if (currrentPath === item.path.toLowerCase()) return true
+    if (item.activeKeywords && item.activeKeywords.length > 0) {
+      return item.activeKeywords.some((key) => currrentPath.includes(key.toLowerCase()))
+    }
+    return false
+  }
   const handleNavigate = (path) => {
     navigate(path);
     onClose();
@@ -125,11 +136,7 @@ const AdminNavbar = ({ sidebar, setSidebar, isOpen = false, onClose = () => { } 
               <ul className="space-y-1">
                 {group.items.map((item) => {
                   const Icon = item.icon;
-
-                  const isActive =
-                    location.pathname === item.path ||
-                    location.pathname.startsWith(`${item.path}/`);
-
+                  const isActive = checkIsActive(item)
                   return (
                     <li key={item.path} className="list-none">
                       <Link
@@ -211,9 +218,9 @@ const AdminNavbar = ({ sidebar, setSidebar, isOpen = false, onClose = () => { } 
                   {group.items.map((item) => {
                     const Icon = item.icon;
 
+
                     const isActive =
-                      location.pathname === item.path ||
-                      location.pathname.startsWith(`${item.path}/`);
+                      location.pathname === item.path || (item.activeKeywords && item.activeKeywords.some((key) => location.pathname.toLowerCase().includes(key.toLowerCase())))
 
                     return (
                       <li key={item.path} className="list-none">

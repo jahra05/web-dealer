@@ -16,6 +16,8 @@ import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
 import Table from "../../components/Table"
+import { useNavigate } from "react-router-dom"
+import { BsEye } from "react-icons/bs"
 
 
 const PengajuanKredit = () => {
@@ -27,6 +29,7 @@ const PengajuanKredit = () => {
     const rowsPerPage = 5
     const [alert, setAlert] = useState(null)
     const [confirm, setConfirm] = useState(null)
+    const navigate = useNavigate()
 
     const columns = [
         { key: 'nama', label: 'Nama pemohon' },
@@ -35,6 +38,7 @@ const PengajuanKredit = () => {
         { key: 'harga', label: 'Harga', render: (item) => `Rp ${Number(item.harga).toLocaleString('id-ID')}` },
         { key: 'alamat', label: 'Alamat' },
         { key: 'pekerjaan', label: 'Pekerjaan' },
+        { key: 'status', label: "Status" }
     ]
 
     const handleDelete = async (id) => {
@@ -172,12 +176,12 @@ const PengajuanKredit = () => {
                                 </select>
                             </div>
 
-                            <div className='flex gap-2 mt-2 sm:mt-0'>
+                            {/* <div className='flex gap-2 mt-2 sm:mt-0'>
                                 <button onClick={handleExportPengajuan} className='inline-flex items-center gap-2 h-10 px-4 rounded-full bg-white border border-blue-100 text-slate-700 shadow-sm transition hover:shadow-md hover:border-blue-300  text-sm'>
                                     <CiFileOn size={18} />
                                     <span className="text-xs">Export</span>
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -193,8 +197,8 @@ const PengajuanKredit = () => {
                         <div className="overflow-x-auto">
                             <Table columns={columns} data={pageItems} rowKey="id_pengajuanKredit"
                                 renderActions={(item) => (
-                                    <div>
-                                        <select value={item.status}
+                                    <div className="flex  items-center gap-4">
+                                        {/* <select value={item.status}
                                             onChange={(e) => updateStatus(
                                                 item.id_pengajuan,
                                                 e.target.value
@@ -204,11 +208,14 @@ const PengajuanKredit = () => {
                                             <option value="Menunggu">Menunggu</option>
                                             <option value="Disetujui">Disetujui</option>
                                             <option value="Ditolak">Ditolak</option>
-                                        </select>
+                                        </select> */}
+                                        {/* <span>{item.status}</span> */}
 
-                                        <button onClick={() => handleDelete(item.id_pengajuan)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
+                                        {/* <button onClick={() => handleDelete(item.id_pengajuan)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:bg-slate-50">
                                             <MdDelete />
-                                        </button>
+                                        </button> */}
+
+                                        <button className="border border-gray-50" onClick={() => navigate(`/admin/detailPengajuan/${item.id_pengajuan}`)}><BsEye size={20} /></button>
                                     </div>
                                 )} />
                         </div>

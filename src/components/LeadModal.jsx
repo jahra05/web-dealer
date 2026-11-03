@@ -12,6 +12,9 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
     alamat: "",
     pekerjaan: "",
     id_motor: bike?.id_motor ?? null,
+    nama_motor: "",
+    harga: "",
+    gambar: null
 
   });
   useEffect(() => {
@@ -19,6 +22,9 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
       setFormData((prev) => ({
         ...prev,
         id_motor: bike.id_motor,
+        nama_motor: bike.nama_motor,
+        harga: bike.harga,
+        gambar: bike.gambar
       }));
     }
   }, [bike]);
@@ -81,7 +87,11 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
           no_hp: "",
           alamat: "",
           pekerjaan: "",
-          id_motor: bike?.id_motor ?? null
+          id_motor: bike?.id_motor ?? null,
+          nama_motor: bike?.nama_motor ?? "",
+          harga: bike?.harga ?? "",
+          gambar: bike?.gambar ?? null
+
         });
 
         setTimeout(() => {
@@ -138,10 +148,17 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
               >
                 <IoIosClose size={24} />
               </button>
+
             </div>
 
             <form onSubmit={handleSubmit} className="p-8 space-y-4">
-
+              <div className='flex  gap-2 '>
+                <img src={formData.gambar} className='w-20 h-20 object-cover border border-gray-50 rounded-md' alt={formData.nama_motor} />
+                <div>
+                  <p className='uppercase font-semibold text-lg'>{formData.nama_motor}</p>
+                  <p className='text-gray/80 text-base'>Rp {Number(formData.harga).toLocaleString("id-ID")}</p>
+                </div>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] font-black text-gray-400 uppercase mb-1">Nama Lengkap</label>

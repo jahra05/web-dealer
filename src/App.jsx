@@ -25,6 +25,7 @@ import Footer from './pages/Admin/setting/Footer';
 import Kategori from './pages/Admin/setting/Kategori';
 import SpecSetting from './pages/Admin/setting/SpecSetting';
 import Detailproduk from './pages/Admin/Detailproduk';
+import DetailPengajuan from './pages/Admin/DetailPengajuna';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="detailProduk/:id_motor" element={<Detailproduk />} />
           <Route path="spesifikasi" element={<Spesifikasi />} />
           <Route path="pengajuanKredit" element={<PengajuanKredit />} />
+          <Route path='detailPengajuan/:id' element={<DetailPengajuan />} />
           {/* <Route path="simulasiKredit" element={<SimulasiKredit />} /> */}
           <Route path="pagemessage" element={<PageMessage />} />
           <Route path="testimoni" element={<Testimoni />} />

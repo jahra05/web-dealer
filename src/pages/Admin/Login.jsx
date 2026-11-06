@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/CustomAlert';
 import { FaShield } from 'react-icons/fa6';
 import { BiArrowBack } from 'react-icons/bi';
+import FormField from '../../components/FormField';
+import ConfirmAlert from '../../components/ConfirmAlert';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -53,20 +55,21 @@ const Login = () => {
                 navigate("/admin/dashboard")
             } else {
                 setAlert({
-                    type: "error",
-                    message: data.message
+                    type: "warning",
+                    message: "Terjadi Kesalahan"
                 })
             }
         } catch (error) {
             console.error(error);
-            setAlert({
-                type: 'error',
-                message: "Tidak dapat terhubung ke server"
-            })
+            // setAlert({
+            //     type: 'error',
+            //     message: "Tidak dapat terhubung ke server"
+            // })
         }
     };
     return (
         <>
+
             <div className="relative z-20 w-full min-h-screen">
                 <div className="min-h-screen flex flex-col px-6 sm:px-10 lg:px-16">
                     <div className="flex items-center justify-between pt-7 lg:pt-9">
@@ -201,6 +204,8 @@ const Login = () => {
                             text-[#6F9BC3]
                             text-sm
                         " />
+
+
 
                                     <input
                                         type="email"
@@ -379,6 +384,9 @@ const Login = () => {
                 </div>
             </div>
 
+            {alert && (
+                <CustomAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
+            )}
             {/* <div>
                 <div>
                     <div className='relative z-20 w-full min-h-screen'>

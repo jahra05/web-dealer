@@ -161,8 +161,8 @@ export default function PageForgatPassword() {
         <>
             <div className="p-4">
                 <div className="flex items-center gap-3 no-underline">
-                    <div className="w-18 h-16 flex items-center justify-center text-white rounded-lg shadow-sm flex-shrink-0">
-                        <img src={infoDealer.logo} alt={infoDealer.nama_Dealer} className="w-18 h-16 bg-white rounded-full" />
+                    <div className="w-18 h-16 flex items-center justify-center text-white flex-shrink-0">
+                        <img src={infoDealer.logo} alt={infoDealer.nama_Dealer} className="w-18 h-16 p-1 bg-white rounded-full" />
                     </div>
                     <div className="leading-tight min-w-0">
                         <h2 className="text-lg font-bold text-gray-900 truncate">{infoDealer.nama_dealer}</h2>

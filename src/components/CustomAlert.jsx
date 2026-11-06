@@ -5,18 +5,18 @@ import warningIcon from '../assets/warning.png'
 export default function CustomAlert({ type, message, onClose }) {
     const alertConfig = {
         success: {
-            title: "Berhasil",
+            // title: "Berhasil",
             icon: checkIcon,
             iconStyle: "shadow-[0_0_35px_rgba(74,222,128,0.35)]"
         },
         error: {
-            title: "Gagal",
+            // title: "Gagal",
             icon: cancelIcon,
             iconStyle: "shadow-[0_0_35px_rgba(239,68,68,0.35)]"
 
         },
         warning: {
-            title: "peringatann",
+            // title: "peringatann",
             icon: warningIcon,
             iconStyle: "shadow-[0_0_35px_rgba(250,204,21,0.35)]"
         }

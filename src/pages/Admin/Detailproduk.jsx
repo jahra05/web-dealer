@@ -768,7 +768,7 @@ export default function Detailproduk() {
                         <div className='mt-20'>
 
 
-                            <div className='grid grid-cols-2 md:grid-cols-1   w-full'>
+                            <div className='grid grid-cols-1 md:grid-cols-1   w-full'>
 
                                 <div className="overflow-hidden bg-white px-2 py-8  rounded-md">
                                     <motion.button initial={{ opacity: 0, x: -2 }}
@@ -781,7 +781,8 @@ export default function Detailproduk() {
                                     </motion.button>
 
                                     {motor?.gambar && (
-                                        <div className="flex items-start justify-around gap-4">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                                             <div className=' flex flex-col gap-4  px-2 '>
                                                 <div className="flex flex-col gap-3">
                                                     <img
@@ -858,18 +859,27 @@ export default function Detailproduk() {
                                                         </button>
                                                     ))}
                                                 </div>
-
-
-
-
                                             </div>
+
                                             <div className='flex items-start justify-between mt-8'>
                                                 <div className='flex  flex-col gap-4'>
+
                                                     <div className='flex flex-col gap-2'>
-                                                        <span className={` w-24 text-center rounded-md px-3 py-1 text-xs font-medium ${motor.status === 'Aktif' ? "bg-green-300 text-gray-700" : "bg-red-100 text-red-600"
-                                                            }`} >{motor.status}</span>
+                                                        <div className=''>
+                                                            <span className={` w-24 text-center rounded-md px-3 py-1 text-xs font-medium ${motor.status === 'Aktif' ? "bg-green-300 text-gray-700" : "bg-red-100 text-red-600"
+                                                                }`} >{motor.status}</span>
+
+                                                            <div className='flex gap-3 mt-8'>
+                                                                <button className='bg-blue-400 text-sm p-2 text-white rounded-full' onClick={() => handleEditMotor(motor)}><BiEdit size={18} /></button>
+                                                                <button className={`rounded-lg px-3 py-2 text-sm font-medium ${motor.status === 'Aktif' ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"}`} onClick={() => handleStatus(id_motor)} >
+                                                                    {motor.status === "Aktif" ? "Nonaktif" : "Aktifkan"}
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                         <p className='font-bold text-3xl md:text-4xl uppercase'>{motor.nama_motor}</p>
                                                     </div>
+
+
 
                                                     <div className='flex gap-4  text-sm text-gray-500 items-center'>
                                                         <div className='text-center border-r border-gray-100 px-2'>
@@ -934,14 +944,7 @@ export default function Detailproduk() {
                                                 </div>
 
                                             </div>
-                                            <div className='flex gap-3 mt-8'>
-                                                <button className='bg-blue-400 text-sm p-2 text-white rounded-full' onClick={() => handleEditMotor(motor)}><BiEdit size={18} /></button>
-                                                {/* <button className='bg-blue-400 text-sm p-2  text-white rounded-full' onClick={() => handleDelet(id_motor)} ><BiTrash size={18} /></button> */}
-                                                <button className={`rounded-lg px-3 py-2 text-sm font-medium ${motor.status === 'Aktif' ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"}`} onClick={() => handleStatus(id_motor)} >
-                                                    {motor.status === "Aktif" ? "Nonaktif" : "Aktifkan"}
-                                                </button>
 
-                                            </div>
 
 
                                         </div>
@@ -1073,7 +1076,7 @@ export default function Detailproduk() {
                 onClose={() => setOpenColor(false)}
                 title="Color"
                 footer={
-                    <div className="flex justify-end gap-3 rounded-b-3xl border-t border-gray-100 bg-gray-50/50 px-4 py-6">
+                    <div className="flex justify-end gap-3  px-4 py-6">
                         <button
                             type="button"
                             onClick={() => setOpenColor(false)}
@@ -1185,7 +1188,7 @@ export default function Detailproduk() {
 
             <Modal isOpen={isOpenEditProduk} onClose={() => setIsOpenEditProduk(false)} title='Edit Detail Produk'
                 footer={
-                    <div className='py-6 px-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl'>
+                    <div className='py-6 px-4 flex justify-end gap-3 '>
                         <button type='button' onClick={() => setIsOpenEditProduk(false)} className='rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50'>Batal</button>
                         <button type='submit' onClick={updateMotor} className=' rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#00182F]'>Simpan</button>
                     </div>
@@ -1229,7 +1232,7 @@ export default function Detailproduk() {
             {/* Modal Add Spec */}
             <Modal isOpen={isSpecOpen} onClick={() => setIsSpecOpen(false)} title="Add spesifikasi"
                 footer={
-                    <div className='py-6 px-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl'>
+                    <div className='py-6 px-4 flex justify-end gap-3'>
                         <button type='button' onClick={() => setIsSpecOpen(false)} className='rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50'>Batal</button>
                         <button type='submit' onClick={addSpecProduk} className=' rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#00182F]'>Simpan</button>
                     </div>
@@ -1261,6 +1264,7 @@ export default function Detailproduk() {
                 title="Edit Foto Bagian Motor"
                 footer={
                     <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
+
                         <button
                             type="button"
                             onClick={updateFotoProduk}
@@ -1309,9 +1313,11 @@ export default function Detailproduk() {
             {/* Modal Add Display foto */}
             <Modal isOpen={isAddOpen} onClose={() => setIsAddOpen(false)} title="Add Display foto"
                 footer={
-                    <div className="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex justify-end gap-3 rounded-b-3xl">
-                        <button type='button' onClick={addFotoProduk}>Tambah foto</button>
-                        <button onClick={() => setIsAddOpen(false)}>batal foto</button>
+                    <div className="px-6 py-4 flex justify-end gap-3">
+                        <button onClick={() => setIsAddOpen(false)} className='rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50'>Batal</button>
+
+                        <button type='button' onClick={addFotoProduk} className='rounded-full bg-[#002446] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#00182F]'>Tambah</button>
+
                     </div>
 
                 }>
@@ -1332,9 +1338,9 @@ export default function Detailproduk() {
             </Modal>
 
             {/* Modal Edit Spec */}
-            <Modal isOpen={isEditSpecOpen} onClose={() => setIsEditSpecOpen(false)} title="Edit Specsifikasi"
+            <Modal isOpen={isEditSpecOpen} onClose={() => setIsEditSpecOpen(false)} title="Edit  Kategori spesifikasi"
                 footer={
-                    <div className="flex justify-end gap-3 rounded-b-2xl border-t bg-gray-50 px-6 py-4">
+                    <div className="flex justify-end gap-3 px-6 py-4">
                         <button type="button" onClick={() => setIsEditSpecOpen(false)} className="rounded-lg border bg-white px-4 py-2 text-sm">
                             Batal
                         </button>
@@ -1345,9 +1351,6 @@ export default function Detailproduk() {
                     </div>
                 }>
                 <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
-                        Kategori spesifikasi
-                    </label>
                     <input
                         type="text"
                         value={
@@ -1358,7 +1361,7 @@ export default function Detailproduk() {
                             )?.nama_kategori || ''
                         }
                         readOnly
-                        className="w-full  border-b px-4 py-2.5 text-sm"
+                        className="w-full  border-b px-4 py-2.5 text-sm  focus:outline-none focus:ring-0 font-medium"
                     />
                 </div>
                 <FormField label='Spesifikasi' name='nama_spesifikasi' value={formSpesifikasi.nama_spesifikasi} onChange={(e) => setFormSpesifikasi({ ...formSpesifikasi, nama_spesifikasi: e })} />

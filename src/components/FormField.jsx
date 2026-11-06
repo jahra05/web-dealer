@@ -114,7 +114,8 @@ function FormField({
                     ))}
                 </select>
             ) : (
-                <input
+                <input className="w-full h-[40px] rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-[#17344F] placeholder:text-slate-400 shadow-[0_2px_10px_rgba(15,41,66,0.05)]
+                transition-all duration-300 focus:outline-none focus:border-[#4D8DC5] focus:ring-4  focus:ring-[#005EB8]/10"
                     {...commonProps}
                     id={name}
                     type={type}

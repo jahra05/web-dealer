@@ -57,27 +57,36 @@ const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hero, setHero] = useState(null)
 
-  useEffect(() => {
-    const getHero = async () => {
-      try {
-        const response = await fetch(getFunctionUrl("hero"), {
-          headers: {
-            ...getSupabaseHeaders(),
-          },
-        });
-        const data = await response.json();
+ useEffect(() => {
+  const getHero = async () => {
+    try {
+      const url = getFunctionUrl("hero");
 
-        if (data.success && data.data.length > 0) {
-          console.log('data hero berhasil', data)
+      console.log("URL HERO:", url);
 
-          setHero(data.data[0])
-        }
-      } catch (error) {
-        console.error("Gagal mengambil hero:", error)
+      const response = await fetch(url, {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
+
+      const result = await response.text();
+
+      console.log("STATUS HERO:", response.status);
+      console.log("RESPONSE HERO:", result);
+
+      const data = JSON.parse(result);
+
+      if (data.success && data.data.length > 0) {
+        setHero(data.data[0]);
       }
+    } catch (error) {
+      console.error("Gagal mengambil hero:", error);
     }
-    getHero()
-  }, [])
+  };
+
+  getHero();
+}, []);
 
   if (!hero) {
     return <p>Loading...</p>;

@@ -15,6 +15,8 @@ import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
 import Table from "../../components/Table"
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
+
 
 const PageMessage = () => {
     const [page, setPage] = useState(1)
@@ -47,9 +49,13 @@ const PageMessage = () => {
     const handleStatus = async (id) => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/contact/${id}/status`,
+                getFunctionUrl(`contact/${id}/status`),
                 {
-                    method: "PUT"
+                    method: "PUT",
+                    headers: {
+                        ...getSupabaseHeaders(),
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
                 }
             );
 
@@ -82,7 +88,13 @@ const PageMessage = () => {
             message: 'Yakin ingin menghapus pesan ini?',
             onConfirm: async () => {
                 try {
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${id}`, { method: 'DELETE' })
+                    const response = await fetch(getFunctionUrl(`contact/${id}`), {
+                        method: 'DELETE',
+                        headers: {
+                            ...getSupabaseHeaders(),
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                        }
+                    })
                     const data = await response.json()
                     if (data.success) {
                         getContact();
@@ -103,11 +115,13 @@ const PageMessage = () => {
 
     const getContact = async () => {
         try {
-            const url = `${import.meta.env.VITE_API_URL}/api/contact`;
+            const url = getFunctionUrl('contact');
 
+            const response = await fetch(url, {
+                headers: getSupabaseHeaders()
+            });
             console.log("🔗 GET CONTACT:", url);
 
-            const response = await fetch(url);
 
             const data = await response.json();
 

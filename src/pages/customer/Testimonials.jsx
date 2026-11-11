@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { IoMdStar } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import SectionReveal from '../../components/SectionReveal';
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 
 const Testimonials = () => {
@@ -10,7 +11,11 @@ const Testimonials = () => {
 
   const getTestimoni = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/testimoni`);
+      const response = await fetch(getFunctionUrl("testimoni"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
 
       const data = await response.json();
       console.log(data.data)

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { MdCancel, MdCheckCircle, MdHourglassEmpty, MdOutlineKeyboardArrowLeft } from "react-icons/md"
 import { useNavigate, useParams } from "react-router-dom"
 import { AnimatePresence, easeOut, motion } from 'framer-motion'
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY } from "../../config/supabase";
 
 export default function DetailPengajuan() {
     const [detailData, setDetailData] = useState([])
@@ -11,12 +12,12 @@ export default function DetailPengajuan() {
 
     const setStatus = async (id, status) => {
         try {
-            const respon = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`,
+            const respon = await fetch(getFunctionUrl(`pengajuan/${id}`),
                 {
                     method: "PUT",
                     headers: {
-
-                        "Content-Type": "application/json"
+                        ...getSupabaseHeaders(),
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
                     },
                     body: JSON.stringify({
                         status
@@ -36,7 +37,9 @@ export default function DetailPengajuan() {
     }
     const getIdPengajuan = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`)
+            const response = await fetch(getFunctionUrl(`pengajuan/${id}`), {
+                headers: getSupabaseHeaders()
+            })
             console.log('ini respon', response)
 
             const data = await response.json()

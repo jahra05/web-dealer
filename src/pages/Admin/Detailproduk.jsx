@@ -12,11 +12,9 @@ import { FaPlus } from "react-icons/fa";
 import { CgChevronUp } from 'react-icons/cg';
 import ConfirmAlert from '../../components/ConfirmAlert';
 import CustomAlert from '../../components/CustomAlert';
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY } from "../../config/supabase";
 
 export default function Detailproduk() {
-    const { id_motor } = useParams();
-
-
     const [editFoto, setEditFoto] = useState(null)
     const [editProduk, setEditProduk] = useState(null)
     const [previewGambar, setPreviewGambar] = useState(null)
@@ -38,6 +36,7 @@ export default function Detailproduk() {
     const [isOpenColor, setOpenColor] = useState(false)
     const [alert, setAlert] = useState(null)
     const [confrim, setConfirm] = useState(null)
+    const { id } = useParams();
 
 
     const [filterFoto, setFilterFoto] = useState("")
@@ -110,10 +109,11 @@ export default function Detailproduk() {
             message: "Yakin ingin menghapus produk ini ? ",
             onConfirm: async () => {
                 try {
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/${id}`,
+                    const response = await fetch(getFunctionUrl(`motor/${id}`),
                         {
                             method: 'DELETE',
                             headers: {
+                                ...getSupabaseHeaders(),
                                 Authorization: `Bearer ${token}`
                             }
                         }
@@ -147,12 +147,12 @@ export default function Detailproduk() {
         const statusBaru = motor.status === "Aktif" ? "Nonaktif" : "Aktif";
         console.log("status produk", statusBaru)
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/${id}/status`,
+            const response = await fetch(getFunctionUrl(`motor/${id}/status`),
                 {
                     method: 'PUT',
                     headers: {
-                        "Content-Type": "application/json",
-
+                        ...getKategoriSpesifikasi(),
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
                         status: statusBaru
@@ -183,11 +183,11 @@ export default function Detailproduk() {
         dataForm.append("gambar", formData.gambar);
 
         try {
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/motor`,
+            const response = await fetch(getFunctionUrl('motor'),
                 {
                     method: "POST",
                     headers: {
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
                         Authorization: `Bearer ${token}`
                     },
                     body: dataForm
@@ -238,10 +238,11 @@ export default function Detailproduk() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/motor/${formProduk.id_motor}`,
+                getFunctionUrl(`motor/${formProduk.id_motor}`),
                 {
                     method: "PUT",
                     headers: {
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
                         Authorization: `Bearer ${token}`,
                     },
                     body: dataForm,
@@ -300,13 +301,14 @@ export default function Detailproduk() {
 
     const createWarna = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`, {
+            const response = await fetch(getFunctionUrl('warna'), {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    id_motor: id_motor,
+                    id_motor: id,
                     nama_warna: formColor.nama_warna,
                     kode_warna: formColor.kode_warna,
                 }),
@@ -340,14 +342,15 @@ export default function Detailproduk() {
     const updateWarna = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/warna/${formColor.id_warna}`,
+                getFunctionUrl(`warna/${formColor.id_warna}`),
                 {
                     method: "PUT",
                     headers: {
-                        "Content-Type": "application/json",
+                        ...getSupabaseHeaders(),
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
-                        id_motor: id_motor,
+                        id_motor: id,
                         nama_warna: formColor.nama_warna,
                         kode_warna: formColor.kode_warna,
                     }),
@@ -375,8 +378,12 @@ export default function Detailproduk() {
     const deleteWarna = async (id) => {
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`, {
-                method: 'DELETE'
+            const response = await fetch(getFunctionUrl(`warna/${id}`), {
+                method: 'DELETE',
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${token}`,
+                },
             })
             const data = await response.json()
 
@@ -405,11 +412,13 @@ export default function Detailproduk() {
 
     const getWarna = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`)
+            const response = await fetch(getFunctionUrl('warna'), {
+                headers: getSupabaseHeaders(),
+            });
             const data = await response.json()
             console.log(data.data)
             if (data.success) {
-                const warnaMotorIni = data.data.filter((warna) => String(warna.id_motor) === String(id_motor))
+                const warnaMotorIni = data.data.filter((warna) => String(warna.id_motor) === String(id))
                 setColorMotor(warnaMotorIni)
             }
         } catch (error) {
@@ -467,13 +476,14 @@ export default function Detailproduk() {
             }
             const formData = new FormData()
 
-            formData.append("id_motor", id_motor);
+            formData.append("id_motor", id);
             formData.append("gambar", formPartMotor.gambar);
             formData.append("keterangan", formPartMotor.keterangan);
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/fotoMotor`, {
+            const response = await fetch(getFunctionUrl("foto_motor"), {
                 method: "POST",
                 headers: {
+                    apikey: SUPABASE_PUBLISHABLE_KEY,
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 },
                 body: formData
@@ -501,9 +511,10 @@ export default function Detailproduk() {
 
     const DeleteFoto = async (id_foto) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/fotoMotor/${id_foto}`, {
+            const response = await fetch(getFunctionUrl(`foto_motor/${id_foto}`), {
                 method: "DELETE",
                 headers: {
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             })
@@ -536,10 +547,11 @@ export default function Detailproduk() {
             console.log("GAMBAR BARU:", gambar);
 
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/fotoMotor/${editFoto}`,
+                getFunctionUrl(`foto_motor/${editFoto}`),
                 {
                     method: "PUT",
                     headers: {
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     },
                     body: formData
@@ -596,14 +608,14 @@ export default function Detailproduk() {
 
     const updateSpesifikasi = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/spesifikasi/${formSpesifikasi.id_spesifikasi}`, {
+            const response = await fetch(getFunctionUrl(`spesifikasi/${formSpesifikasi.id_spesifikasi}`), {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': "application/json",
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify({
-                    id_motor: id_motor,
+                    id_motor: id,
                     id_kategori_spesifikasi: formSpesifikasi.id_kategori_spesifikasi,
                     nama_spesifikasi: formSpesifikasi.nama_spesifikasi,
                     nilai: formSpesifikasi.nilai
@@ -631,15 +643,21 @@ export default function Detailproduk() {
     }
 
     const addSpecProduk = async () => {
+        console.log("DATA YANG DIKIRIM:", {
+            id_motor,
+            id_kategori_spesifikasi: formSpesifikasi.id_kategori_spesifikasi,
+            nama_spesifikasi: formSpesifikasi.nama_spesifikasi,
+            nilai: formSpesifikasi.nilai
+        });
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/spesifikasi`, {
+            const response = await fetch(getFunctionUrl('spesifikasi'), {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify({
-                    id_motor: id_motor,
+                    id_motor: id,
                     id_kategori_spesifikasi: formSpesifikasi.id_kategori_spesifikasi,
                     nama_spesifikasi: formSpesifikasi.nama_spesifikasi,
                     nilai: formSpesifikasi.nilai
@@ -666,15 +684,13 @@ export default function Detailproduk() {
 
 
 
-
-
-
-
     // Get Data
 
     const getKategoriSpesifikasi = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`);
+            const response = await fetch(getFunctionUrl("kategori-spesifikasi"), {
+                headers: getSupabaseHeaders(),
+            });
             const data = await response.json()
             console.log('daftar spesifikasi', data)
             if (data.success) {
@@ -687,7 +703,9 @@ export default function Detailproduk() {
 
     const getSpesifikasi = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/spesifikasi`);
+            const response = await fetch(getFunctionUrl("spesifikasi"), {
+                headers: getSupabaseHeaders(),
+            });
             const data = await response.json()
             console.log(data)
             if (data.success) {
@@ -698,7 +716,7 @@ export default function Detailproduk() {
         }
     }
 
-    const filterSpesifikasi = spesifikasi.filter((item) => String(item.id_motor) === String(id_motor));
+    const filterSpesifikasi = spesifikasi.filter((item) => String(item.id_motor) === String(id));
 
     const groupSpesifikasi = Object.values(filterSpesifikasi.reduce((acc, item) => {
         if (!acc[item.id_kategori_spesifikasi]) {
@@ -715,11 +733,13 @@ export default function Detailproduk() {
     const getMotor = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/motor/${id_motor}`
+                getFunctionUrl(`motor/${id}`),
+                {
+                    headers: getSupabaseHeaders(),
+                }
             );
 
             const data = await response.json();
-            console.log("get motor", data)
 
             if (data.success) {
                 setMotor(data.data);
@@ -734,8 +754,9 @@ export default function Detailproduk() {
             console.log("ID MOTOR:", id_motor);
 
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/fotoMotor/${id_motor}`
-            );
+                getFunctionUrl(`foto_motor/${id}`), {
+                headers: getSupabaseHeaders(),
+            });
 
             console.log("STATUS:", response.status);
 
@@ -757,7 +778,7 @@ export default function Detailproduk() {
         getSpesifikasi()
         getKategoriSpesifikasi()
         getWarna()
-    }, [id_motor])
+    }, [id])
     console.log("Data spesifikasi:", spesifikasi);
     console.log("Group spesifikasi:", groupSpesifikasi);
     return (
@@ -871,7 +892,7 @@ export default function Detailproduk() {
 
                                                             <div className='flex gap-3 mt-8'>
                                                                 <button className='bg-blue-400 text-sm p-2 text-white rounded-full' onClick={() => handleEditMotor(motor)}><BiEdit size={18} /></button>
-                                                                <button className={`rounded-lg px-3 py-2 text-sm font-medium ${motor.status === 'Aktif' ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"}`} onClick={() => handleStatus(id_motor)} >
+                                                                <button className={`rounded-lg px-3 py-2 text-sm font-medium ${motor.status === 'Aktif' ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"}`} onClick={() => handleStatus(id)} >
                                                                     {motor.status === "Aktif" ? "Nonaktif" : "Aktifkan"}
                                                                 </button>
                                                             </div>
@@ -1155,7 +1176,7 @@ export default function Detailproduk() {
                                     <div className="flex gap-2">
                                         <button
                                             type="button"
-                                            onClick={() => handleEditWarna(item)}
+                                            onClick={() => handleEditColor(item)}
                                             className="rounded-full bg-slate-100 p-2"
                                             aria-label={`Edit ${item.nama_warna}`}
                                         >

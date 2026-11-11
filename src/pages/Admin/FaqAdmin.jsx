@@ -14,6 +14,7 @@ import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
 import Table from "../../components/Table"
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 const FaqAdmin = () => {
     const [page, setPage] = useState(1);
@@ -134,7 +135,7 @@ const FaqAdmin = () => {
 
     const getFaq = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/faq`);
+            const response = await fetch(getFunctionUrl('faq'));
             const data = await response.json();
 
             if (data.success) {

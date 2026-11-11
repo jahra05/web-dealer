@@ -10,6 +10,7 @@ import UserMenuDropdwn from '../../components/UserMenuDropdown';
 import NotificationModal from '../../components/NotificationModal';
 import Notifikasi from '../../components/Notifikasi';
 import CountUp from '../../components/CountUp';
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 export default function AdminDashboard() {
     const [dashboard, setDashboard] = useState({

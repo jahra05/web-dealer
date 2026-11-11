@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaFilter } from 'react-icons/fa6';
 import { FiRotateCcw } from 'react-icons/fi';
 import SectionReveal from '../../components/SectionReveal';
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
+
 
 const ProductShowcase = () => {
   const [selectedCategory, setSelectedCategory] = useState('Semua');
@@ -16,7 +18,11 @@ const ProductShowcase = () => {
 
   const getTipe = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe`);
+      const response = await fetch(getFunctionUrl("tipe"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -29,7 +35,11 @@ const ProductShowcase = () => {
 
   const getKategori = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`);
+      const response = await fetch(getFunctionUrl("kategori"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -42,8 +52,12 @@ const ProductShowcase = () => {
 
   const getMotor = async () => {
     try {
-      const respose = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/aktif`);
-      const data = await respose.json();
+      const response = await fetch(getFunctionUrl("motor/aktif"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
+      const data = await response.json();
 
       console.log(data);
       if (data.success) {

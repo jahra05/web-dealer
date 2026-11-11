@@ -19,6 +19,8 @@ import { motion } from 'framer-motion'
 import Table from "../../components/Table"
 import Modal from "../../components/Modal"
 import FormField from "../../components/FormField"
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../config/supabase";
+
 
 const KelolaProduk = () => {
     const [page, setPage] = useState(1)
@@ -245,7 +247,7 @@ const KelolaProduk = () => {
 
     const getWarna = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna`)
+            const response = await fetch(getFunctionUrl('warna'))
             const data = await response.json()
             console.log(data.data)
             if (data.success) {
@@ -258,8 +260,9 @@ const KelolaProduk = () => {
 
     const getTipe = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe`, {
+            const response = await fetch((getFunctionUrl('tipe')), {
                 headers: {
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${token}`
                 }
             });
@@ -281,8 +284,9 @@ const KelolaProduk = () => {
 
     const getKategori = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`, {
+            const response = await fetch((getFunctionUrl('kategori')), {
                 headers: {
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${token}`
                 }
             })
@@ -310,10 +314,11 @@ const KelolaProduk = () => {
 
     const getMotor = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`, {
+            const response = await fetch(getFunctionUrl('motor'), {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
 
@@ -328,6 +333,7 @@ const KelolaProduk = () => {
             console.error(error)
         }
     }
+
     useEffect(() => {
         getMotor()
         getKategori()
@@ -390,6 +396,7 @@ const KelolaProduk = () => {
     }, [search, selectKategori])
 
     const handleSubmit = async () => {
+
         const dataForm = new FormData();
 
 
@@ -400,14 +407,35 @@ const KelolaProduk = () => {
         dataForm.append("stok", formData.stok);
         dataForm.append("tahun", formData.tahun);
         dataForm.append("deskripsi", formData.deskripsi);
-        dataForm.append("gambar", formData.gambar);
+
+        if (formData.gambar) {
+            dataForm.append("gambar", formData.gambar);
+        }
 
         try {
+
+            console.log("DATA FORM MOTOR:", {
+                nama_motor: formData.nama_motor,
+                id_kategori: formData.id_kategori,
+                id_tipe: formData.id_tipe,
+                harga: formData.harga,
+                stok: formData.stok,
+                tahun: formData.tahun,
+                deskripsi: formData.deskripsi,
+                gambar: formData.gambar
+            });
+
+            console.log("ISI FORMDATA:");
+
+            for (const [key, value] of dataForm.entries()) {
+                console.log(key, value);
+            }
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/motor`,
+                getFunctionUrl('motor'),
                 {
                     method: "POST",
                     headers: {
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
                         Authorization: `Bearer ${token}`
                     },
                     body: dataForm
@@ -620,7 +648,7 @@ const KelolaProduk = () => {
                             <Table onRowClick={(item) => navigate(`/admin/detailProduk/${item.id_motor}`)} columns={columns} data={pageItems} rowKey="id_motor"
                                 renderActions={(item) => (
                                     <div className="p-2 text-sm flex gap-2">
-                                      
+
                                         {/* <button
                                         type="button"
                                         onClick={() => {

@@ -14,6 +14,8 @@ import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
 import Table from "../../components/Table"
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
+
 
 const Testimoni = () => {
     const [page, setPage] = useState(1);
@@ -203,7 +205,7 @@ const Testimoni = () => {
 
     const getTestimoni = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/testimoni`);
+            const response = await fetch(getFunctionUrl('testimoni'));
             const data = await response.json();
 
             console.log(data.data)

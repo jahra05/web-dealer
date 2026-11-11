@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LeadModal from '../../components/LeadModal';
 import CustomAlert from '../../components/CustomAlert'
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 const Navbar = () => {
   const [selected, setSelected] = useState(null);
@@ -17,8 +18,11 @@ const Navbar = () => {
 
   const getDataStore = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
-
+      const response = await fetch(getFunctionUrl("footer"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
       const data = await response.json();
       console.log('data footer', data)
 
@@ -69,10 +73,13 @@ const Navbar = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+      const response = await fetch(getFunctionUrl("contact"), {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          ...getSupabaseHeaders(),
+        },
         body: JSON.stringify(formData)
+
       });
 
       const data = await response.json();

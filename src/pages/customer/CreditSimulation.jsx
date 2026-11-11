@@ -4,6 +4,7 @@ import { FaCalculator, FaCheckCircle } from 'react-icons/fa';
 import { FaBasketShopping } from 'react-icons/fa6';
 import LeadModal from '../../components/LeadModal';
 import SectionReveal from '../../components/SectionReveal';
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 const BUNGA_BY_TENOR = {
   11: 2.5,
@@ -26,7 +27,12 @@ const CreditSimulation = ({ initialBikeId = "beat" }) => {
   // Ambil semua data motor dari database
   const getAllMotor = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor/aktif`);
+      const response = await fetch(getFunctionUrl("motor/aktif"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
+
       const data = await response.json();
 
       if (data.success && data.data.length > 0) {

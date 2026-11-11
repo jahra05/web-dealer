@@ -6,6 +6,7 @@ import { FaShield } from 'react-icons/fa6';
 import { BiArrowBack } from 'react-icons/bi';
 import FormField from '../../components/FormField';
 import ConfirmAlert from '../../components/ConfirmAlert';
+import { getFunctionUrl, getSupabaseHeaders } from '../../config/supabase';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -35,11 +36,9 @@ const Login = () => {
 
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+            const response = await fetch(getFunctionUrl("auth/login"), {
                 method: 'POST',
-                headers: {
-                    "Content-Type": 'application/json',
-                },
+                headers: getSupabaseHeaders(),
                 body: JSON.stringify({
                     email,
                     password,

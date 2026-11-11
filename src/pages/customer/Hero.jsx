@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { animate, motion, scale } from 'framer-motion';
 import LeadModal from '../../components/LeadModal';
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 const heroTextVariants = {
   hidden: {
     opacity: 0,
@@ -59,7 +60,11 @@ const Hero = () => {
   useEffect(() => {
     const getHero = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/hero`);
+        const response = await fetch(getFunctionUrl("hero"), {
+          headers: {
+            ...getSupabaseHeaders(),
+          },
+        });
         const data = await response.json();
 
         if (data.success && data.data.length > 0) {
@@ -193,7 +198,7 @@ const Hero = () => {
                 className="w-full h-auto drop-shadow-2xl scale-110"
               /> */}
             </motion.div>
-            
+
             <img
               src={`${import.meta.env.VITE_API_URL}${hero.gambar}`}
               src='src/assets/hondaImg.png'

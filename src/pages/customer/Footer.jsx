@@ -4,6 +4,7 @@ import { href, Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaMapMarkerAlt, FaRegClock, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { IoIosMail } from 'react-icons/io';
 import { MdPhone } from 'react-icons/md';
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 const Footer = () => {
   const [footer, setFooter] = useState([])
@@ -16,8 +17,12 @@ const Footer = () => {
 
   const getFooter = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
 
+      const response = await fetch(getFunctionUrl("footer"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
       const data = await response.json();
       console.log('data footer', data)
 

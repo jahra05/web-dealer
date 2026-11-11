@@ -50,7 +50,7 @@ function App() {
         >
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="kelolaProduk" element={<KelolaProduk />} />
-          <Route path="detailProduk/:id_motor" element={<Detailproduk />} />
+          <Route path="detailProduk/:id" element={<Detailproduk />} />
           <Route path="spesifikasi" element={<Spesifikasi />} />
           <Route path="pengajuanKredit" element={<PengajuanKredit />} />
           <Route path='detailPengajuan/:id' element={<DetailPengajuan />} />

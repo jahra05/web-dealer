@@ -7,6 +7,7 @@ import { FaArrowCircleLeft, FaCheckCircle } from 'react-icons/fa';
 import { IoSend } from 'react-icons/io5';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { tr } from 'framer-motion/client';
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -29,35 +30,38 @@ const ProductDetail = () => {
   const [warna, setWarna] = useState([])
 
 
-  
-const getFotoProduk = async () => {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/fotoMotor/${id}`
-    );
 
-    const data = await response.json();
+  const getFotoProduk = async () => {
+    try {
+      const response = await fetch(getFunctionUrl(`foto_motor/${id}`), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
 
-    console.log("ID MOTOR:", id);
-    console.log("RESPONSE FOTO:", data);
+      const data = await response.json();
 
-    if (response.ok && data.success) {
-      setFotoPartMotor(data.data || []);
-    } else {
-      setFotoPartMotor([]);
+      console.log("ID MOTOR:", id);
+      console.log("RESPONSE FOTO:", data);
+
+      if (response.ok && data.success) {
+        setFotoPartMotor(data.data || []);
+      } else {
+        setFotoPartMotor([]);
+      }
+    } catch (error) {
+      console.error("ERROR FOTO:", error);
     }
-  } catch (error) {
-    console.error("ERROR FOTO:", error);
-  }
-};
+  };
 
 
   const getKategoriSpesifikasi = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
-      );
-
+      const response = await fetch(getFunctionUrl("kategori-spesifikasi"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -70,7 +74,12 @@ const getFotoProduk = async () => {
 
   const getWhatapps = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+
+      const response = await fetch(getFunctionUrl("footer"), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
 
       const data = await response.json();
 
@@ -88,10 +97,11 @@ const getFotoProduk = async () => {
 
       try {
 
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/motor/${id}`
-        );
-
+        const response = await fetch(getFunctionUrl(`motor/${id}`), {
+          headers: {
+            ...getSupabaseHeaders(),
+          },
+        });
         const data = await response.json();
 
         console.log(data);
@@ -119,11 +129,11 @@ const getFotoProduk = async () => {
   const getSpesifikasi = async () => {
 
     try {
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/spesifikasi/${id}`
-      );
-
+      const response = await fetch(getFunctionUrl(`spesifikasi/${id}`), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
       const data = await response.json();
       console.log(data);
 
@@ -150,7 +160,12 @@ const getFotoProduk = async () => {
 
   const getWarna = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/warna/${id}`)
+      const response = await fetch(getFunctionUrl('warna'), {
+        headers: {
+          ...getSupabaseHeaders(),
+        },
+      });
+
       const data = await response.json()
 
       if (data.success) {

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { FiFileText, FiMessageSquare } from "react-icons/fi"
 import { IoNotifications, IoNotificationsOutline } from "react-icons/io5"
 import { MdInventory2 } from "react-icons/md"
+import { getFunctionUrl, getSupabaseHeaders} from '../config/supabase'
+
 
 export default function Notifikasi() {
     const [stokMenipis, setStokMenipis] = useState([])
@@ -29,10 +31,11 @@ export default function Notifikasi() {
 
     const handleClickMessage = async (item) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${item.id_message}/status`, {
+            const response = await fetch(getFunctionUrl(`contact/${item.id_message}/status`), {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             })
             const data = await response.json();
@@ -49,9 +52,15 @@ export default function Notifikasi() {
         try {
 
             const [stokRes, pengajuanRes, pesanRes] = await Promise.all([
-                fetch(`${import.meta.env.VITE_API_URL}/api/motor/stok-menipis`),
-                fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan`),
-                fetch(`${import.meta.env.VITE_API_URL}/api/contact`)
+                fetch(getFunctionUrl('motor/stok-menipis'), {
+                    headers: getSupabaseHeaders()
+                }),
+                fetch(getFunctionUrl('pengajuan'), {
+                    headers: getSupabaseHeaders()
+                }),
+                fetch(getFunctionUrl('contact'), {
+                    headers: getSupabaseHeaders()
+                })
             ]);
 
             const stokData = await stokRes.json();

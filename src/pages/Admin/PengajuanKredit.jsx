@@ -18,6 +18,7 @@ import { motion } from 'framer-motion'
 import Table from "../../components/Table"
 import { useNavigate } from "react-router-dom"
 import { BsEye } from "react-icons/bs"
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 
 const PengajuanKredit = () => {
@@ -93,7 +94,7 @@ const PengajuanKredit = () => {
     }
     const getPengajuan = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan`);
+            const response = await fetch(getFunctionUrl('pengajuan'));
             const data = await response.json();
 
             console.log(data);

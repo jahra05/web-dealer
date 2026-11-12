@@ -1,20 +1,23 @@
-import { button, tr } from "framer-motion/client";
 import { useState, useEffect, useRef } from "react";
-import { BiUser } from "react-icons/bi";
-import { CiSettings } from "react-icons/ci";
 import { LuLogOut } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
+import { getFunctionUrl, getSupabaseHeaders } from "../config/supabase";
 
 export default function UserMenuDropdwn() {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
-    const [user, setUser] = useState([])
+    const [user, setUser] = useState({})
     // Tutup dropdown saat klik di luar
 
     const getUser = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user`);
+            const response = await fetch(getFunctionUrl('user'), {
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            });
 
             const data = await response.json();
             setUser(data.data[0])
@@ -26,6 +29,7 @@ export default function UserMenuDropdwn() {
     useEffect(() => {
         getUser()
     }, [])
+
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -39,7 +43,7 @@ export default function UserMenuDropdwn() {
     }, [isOpen]);
 
     const menuSelect = [
-        { label: 'Logout', icon: LuLogOut, onclick: () => { localStorage.clear(); navigate("/admin/login") } },
+        { label: 'Logout', icon: LuLogOut, onclick: () => { localStorage.removeItem("token"); navigate("/admin/login") } },
     ]
 
     return (

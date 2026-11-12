@@ -5,6 +5,8 @@ import ConfirmAlert from "../../../components/ConfirmAlert";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { BiChevronLeft } from "react-icons/bi";
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../../config/supabase"
+
 
 export default function HeroSetting() {
     const [hero, setHero] = useState([]);
@@ -19,9 +21,10 @@ export default function HeroSetting() {
 
     const deleteHero = async (id) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/hero/${id}`, {
+            const response = await fetch(getFunctionUrl(`hero/${id}`), {
                 method: 'DELETE',
                 headers: {
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${token}`
                 }
             })
@@ -53,7 +56,11 @@ export default function HeroSetting() {
     const getHero = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/hero`
+                getFunctionUrl('hero'), {
+                headers: {
+                    ...getSupabaseHeaders()
+                }
+            }
             );
 
             const data = await response.json();
@@ -71,7 +78,11 @@ export default function HeroSetting() {
     const getMotor = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/motor`
+                getFunctionUrl('motot'), {
+                headers: {
+                    ...getSupabaseHeaders()
+                }
+            }
             );
 
             const data = await response.json();
@@ -102,11 +113,11 @@ export default function HeroSetting() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/hero`,
+                getFunctionUrl('hero'),
                 {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
                         Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({

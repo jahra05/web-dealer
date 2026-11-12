@@ -11,6 +11,9 @@ import { FiFileText } from 'react-icons/fi';
 import { BarChart } from 'recharts';
 import { CiSettings } from 'react-icons/ci';
 import { motion } from 'framer-motion'
+import { getFunctionUrl, getSupabaseHeaders } from "../config/supabase";
+
+
 const NAV_ITEMS = [
   {
     title: 'MAIN',
@@ -67,7 +70,7 @@ const AdminNavbar = ({ sidebar, setSidebar, isOpen = false, onClose = () => { } 
 
   const getAllFooter = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+      const response = await fetch(getFunctionUrl('footer'));
       const data = await response.json();
       setNavLogo(data.data[0])
     } catch (error) {

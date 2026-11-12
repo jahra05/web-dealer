@@ -209,7 +209,6 @@ const Hero = () => {
             </motion.div>
 
             <img
-              src={`${import.meta.env.VITE_API_URL}${hero.gambar}`}
               src='src/assets/hondaImg.png'
               src={hero.gambar}
               alt={hero.nama_motor}

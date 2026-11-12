@@ -27,7 +27,13 @@ export default function AdminDashboard() {
 
     const getDashboard = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/dashboard`);
+            const response = await fetch(getFunctionUrl("dashboard"), {
+                method: "GET",
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
             const data = await response.json();
 
             if (data.success) {

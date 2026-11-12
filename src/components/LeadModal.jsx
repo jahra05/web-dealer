@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import CustomAlert from './CustomAlert'
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoIosClose } from 'react-icons/io';
+import { getFunctionUrl, getSupabaseHeaders } from "../config/supabase";
+
 
 const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
   console.log("bike dari props =", bike);
@@ -65,11 +67,12 @@ const LeadModal = ({ isOpen, onClose, bike, tenor, }) => {
       console.log("bike =", bike);
       console.log("formData =", formData);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/pengajuan`,
+        getFunctionUrl('pengajuan'),
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            ...getSupabaseHeaders(),
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(formData)
         }

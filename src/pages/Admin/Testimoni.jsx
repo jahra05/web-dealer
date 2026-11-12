@@ -14,7 +14,7 @@ import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
 import Table from "../../components/Table"
-import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY } from "../../config/supabase";
 
 
 const Testimoni = () => {
@@ -110,55 +110,49 @@ const Testimoni = () => {
         }));
     };
 
+
     const handleCreateTestimoni = async (e) => {
         e.preventDefault();
 
-        console.log("🔥🔥 BUTTON SUBMIT TERKLIK");
-
         const url = isEdit
-            ? `${import.meta.env.VITE_API_URL}/api/testimoni/${selected}`
-            : `${import.meta.env.VITE_API_URL}/api/testimoni`;
+            ? getFunctionUrl(`testimoni/${selected}`)
+            : getFunctionUrl("testimoni");
 
         const method = isEdit ? "PUT" : "POST";
 
-        console.log("🔥 URL:", url);
-        console.log("🔥 METHOD:", method);
-        console.log("🔥 FORM:", formData);
+        const dataForm = new FormData();
 
-        const data = new FormData();
-
-        data.append("nama", formData.nama);
-        data.append("pekerjaan", formData.pekerjaan);
-        data.append("isi_testimoni", formData.isi_testimoni);
-        data.append("rating", formData.rating);
+        dataForm.append("nama", formData.nama);
+        dataForm.append("pekerjaan", formData.pekerjaan);
+        dataForm.append("isi_testimoni", formData.isi_testimoni);
+        dataForm.append("rating", formData.rating);
 
         if (formData.foto) {
-            console.log("🔥 FOTO ADA:", formData.foto);
-            data.append("foto", formData.foto);
-        } else {
-            console.log("❌ FOTO TIDAK ADA");
+            dataForm.append("foto", formData.foto);
         }
 
-        console.log("🔥 SEBELUM FETCH");
-
         try {
-
             const response = await fetch(url, {
                 method,
-                body: data
+                headers: {
+                    apikey: SUPABASE_PUBLISHABLE_KEY,
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: dataForm,
             });
-
-            console.log("🔥 RESPONSE FETCH:", response);
 
             const result = await response.json();
 
-            console.log("🔥 RESPONSE DATA:", result);
+            console.log("STATUS:", response.status);
+            console.log("RESPONSE:", result);
 
             if (result.success) {
-                setAlert({ type: 'success', message: result.message || 'Testimoni berhasil ditambahkan' })
+                setAlert({
+                    type: "success",
+                    message: result.message || "Testimoni berhasil disimpan",
+                });
 
-                getTestimoni();
-
+                await getTestimoni();
                 setIsModalOpen(false);
 
                 setFormData({
@@ -166,16 +160,26 @@ const Testimoni = () => {
                     pekerjaan: "",
                     isi_testimoni: "",
                     rating: "",
-                    foto: null
+                    foto: null,
                 });
             } else {
-                setAlert({ type: 'error', message: result.message })
+                setAlert({
+                    type: "error",
+                    message: result.message || "Gagal menyimpan testimoni",
+                });
             }
-
         } catch (error) {
-            console.error("🔥 FETCH ERROR:", error);
+            console.error("FETCH ERROR:", error);
+
+            setAlert({
+                type: "error",
+                message: "Terjadi kesalahan saat menyimpan testimoni",
+            });
         }
     };
+
+
+
     const handleDelete = async (id) => {
 
         setConfirm({
@@ -183,7 +187,13 @@ const Testimoni = () => {
             message: 'Yakin ingin menghapus testimoni?',
             onConfirm: async () => {
                 try {
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/testimoni/${id}`, { method: 'DELETE' })
+                    const response = await fetch(getFunctionUrl(`testimoni/${id}`),
+                        {
+                            method: 'DELETE',
+                            headers: {
+                                ...getSupabaseHeaders(),
+                            }
+                        })
                     const data = await response.json()
                     if (data.success) {
                         getTestimoni()

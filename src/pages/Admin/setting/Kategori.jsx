@@ -7,6 +7,7 @@ import CustomAlert from "../../../components/CustomAlert";
 import { PiPlus } from "react-icons/pi";
 import { BiChevronLeft } from "react-icons/bi"
 import { MdDelete } from "react-icons/md";
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../../config/supabase"
 
 export default function Kategori() {
     const navigate = useNavigate()
@@ -57,7 +58,10 @@ export default function Kategori() {
 
     const openAddTipe = () => {
         if (!selectKategori) {
-            alert("pilih ktegori trlebih dahulu")
+            setAlert({
+                type: "warning",
+                message: "Pilih kategori terlebih dahulu"
+            })
             return;
         }
         setEditTipe(null)
@@ -125,9 +129,10 @@ export default function Kategori() {
 
     const deleteTipe = async (id) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe/${id}`, {
+            const response = await fetch(getFunctionUrl(`tipe/${id}`), {
                 method: 'DELETE',
                 headers: {
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${token}`
                 }
             })
@@ -157,9 +162,10 @@ export default function Kategori() {
 
     const deleteKategori = async (id_kategori) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori/${id_kategori}`, {
+            const response = await fetch(getFunctionUrl(`kategori/${id_kategori}`), {
                 method: "DELETE",
                 headers: {
+                    ...getSupabaseHeaders(),
                     Authorization: `Bearer ${token}`
                 }
             })
@@ -200,15 +206,14 @@ export default function Kategori() {
             const isEdit = editTipe !== null;
 
             const url = isEdit
-                ? `${import.meta.env.VITE_API_URL}/api/tipe/${editTipe}`
-                : `${import.meta.env.VITE_API_URL}/api/tipe`;
+                ? getFunctionUrl(`tipe/${editTipe}`)
+                : getFunctionUrl('tipe');
 
             const response = await fetch(url, {
                 method: isEdit ? "PUT" : "POST",
                 headers: {
-                    "Content-Type": "application/json",
-
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(tipeForm)
             });
@@ -219,14 +224,15 @@ export default function Kategori() {
                 throw new Error(data.message || 'gagal menyimpan tipe');
             }
             setAlert({
-                type: 'error',
+                type: 'success',
                 message: data.message
             })
 
             setIsTipeModalOpen(false)
 
             setTipeForm({
-                nama_kategori: ""
+                nama_kategori: "",
+                id_kategori: ""
             })
 
             setEditTipe(null)
@@ -247,15 +253,15 @@ export default function Kategori() {
 
         try {
             const isEditSpec = editKategoriSpec !== null
-            const url = isEditSpec ? `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi/${editKategoriSpec}`
-                : `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+            const url = isEditSpec ? getFunctionUrl(`kategori-spesifikasi/${editKategoriSpec}`)
+                : getFunctionUrl('kategori-spesifikasi')
             const response = await fetch(url,
 
                 {
                     method: isEditSpec ? "PUT" : "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                        ...getSupabaseHeaders(),
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                     body: JSON.stringify(kategoriSpesifikasiForm),
                 }
@@ -272,7 +278,7 @@ export default function Kategori() {
             })
 
             setIsKategoriSpecModalOpen(false)
-            setKategoriSpesifikasiFrom({ nama_kategor: "" })
+            setKategoriSpesifikasiFrom({ nama_kategori: "" })
 
             setEditSpec(null)
             await getKategoriSpesifikasi();
@@ -302,26 +308,19 @@ export default function Kategori() {
             const isEdit = editKategori !== null;
 
             const url = isEdit
-                ? `${import.meta.env.VITE_API_URL}/api/kategori/${editKategori}`
-                : `${import.meta.env.VITE_API_URL}/api/kategori`;
+                ? getFunctionUrl(`kategori/${editKategori}`)
+                : getFunctionUrl('kategori');
 
             const response = await fetch(url, {
                 method: isEdit ? "PUT" : "POST",
                 headers: {
-                    "Content-Type": "application/json",
-
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(kategoriForm)
             });
 
             const data = await response.json();
-            if (data.success) {
-                setAlert({
-                    type: 'success',
-                    message: "Status Tipe Berhasil diubah"
-                })
-            }
 
             if (!response.ok) {
                 throw new Error(data.message || 'gagal menyimpan kategori');
@@ -353,12 +352,12 @@ export default function Kategori() {
 
     const handleStatusKategori = async (id, status) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori/${id}/status`,
+            const response = await fetch(getFunctionUrl(`kategori/${id}/status`),
                 {
                     method: 'PUT',
                     headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                        ...getSupabaseHeaders(),
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                     body: JSON.stringify({ status })
                 }
@@ -382,7 +381,7 @@ export default function Kategori() {
         } catch (error) {
             setAlert({
                 type: "error",
-                message: error || "Gagal mengubah Status Kategori"
+                message: error.message || "Gagal mengubah Status Kategori"
             })
         }
 
@@ -391,12 +390,12 @@ export default function Kategori() {
     const handleStatusTipe = async (id, status) => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/tipe/${id}/status`,
+                getFunctionUrl(`tipe/${id}/status`),
                 {
                     method: "PUT",
                     headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                        ...getSupabaseHeaders(),
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                     body: JSON.stringify({ status })
                 }
@@ -433,7 +432,12 @@ export default function Kategori() {
     const getKategoriSpesifikasi = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+                getFunctionUrl('kategori-spesifikasi'), {
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            }
             );
 
             const data = await response.json();
@@ -448,11 +452,16 @@ export default function Kategori() {
 
     const getKategori = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategori`)
+            const response = await fetch(getFunctionUrl('kategori'), {
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            })
 
             const data = await response.json();
 
-            console.log("data kategori".data)
+            console.log("DATA KATEGORI:", data)
 
             if (data.success) {
                 setKategori(data.data)
@@ -461,13 +470,18 @@ export default function Kategori() {
         } catch (error) {
             setAlert({
                 type: "error",
-                message: error
+                message: error.message
             })
         }
     }
     const getTipe = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/tipe`)
+            const response = await fetch(getFunctionUrl('tipe'), {
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            })
             const data = await response.json();
             console.log("DATA STATUS TIPE:", data);
 
@@ -484,10 +498,10 @@ export default function Kategori() {
     }
 
     useEffect(() => {
-        getKategori(),
-            getTipe(),
-            getKategoriSpesifikasi()
-    }, [])
+        getKategori();
+        getTipe();
+        getKategoriSpesifikasi();
+    }, []);
 
     return (
         <>

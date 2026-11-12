@@ -65,14 +65,14 @@ const FaqAdmin = () => {
         e.preventDefault();
 
         try {
-            const url = isEdit ? `${import.meta.env.VITE_API_URL}/api/faq/${selected}` : `${import.meta.env.VITE_API_URL}0/api/faq`
+            const url = isEdit ? getFunctionUrl(`faq/${selected}`) : getFunctionUrl('faq')
             const method = isEdit ? "PUT" : "POST"
 
             const response = await fetch(url,
                 {
                     method,
                     headers: {
-                        "Content-Type": "application/json",
+                        ...getSupabaseHeaders(),
                     },
                     body: JSON.stringify(formData)
                 }
@@ -113,7 +113,12 @@ const FaqAdmin = () => {
             message: 'Yakin ingin menghapus item ini?',
             onConfirm: async () => {
                 try {
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/faq/${id}`, { method: 'DELETE' })
+                    const response = await fetch(getFunctionUrl(`faq/${id}`), {
+                        method: "DELETE",
+                        headers: {
+                            ...getSupabaseHeaders(),
+                        }
+                    })
                     const data = await response.json()
                     if (data.success) {
                         getFaq()

@@ -1,4 +1,7 @@
-const API = `${import.meta.env.VITE_API_URL}/api/pengajuan`;
+
+import { getFunctionUrl, } from "../../config/supabase";
+
+const API = getFunctionUrl('pengajuan');
 
 export const getPengajuan = async () => {
     const response = await fetch(API);

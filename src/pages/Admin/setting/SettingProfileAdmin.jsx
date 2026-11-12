@@ -7,6 +7,7 @@ import AdminNavbar from "../../../components/AdminNavbar"
 import { CgChevronDoubleLeft } from "react-icons/cg"
 import { useNavigate } from "react-router-dom"
 import { CiSettings } from "react-icons/ci"
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../../config/supabase";
 
 export default function SettingProfileAdmin() {
     const [user, setUser] = useState([])
@@ -24,7 +25,12 @@ export default function SettingProfileAdmin() {
     const getAllUser = async () => {
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user`);
+            const response = await fetch(getFunctionUrl('user'), {
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            });
 
             const data = await response.json();
             console.log(data)
@@ -50,9 +56,13 @@ export default function SettingProfileAdmin() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/foto`,
+                getFunctionUrl(`user/${user.id_user}/foto`),
                 {
                     method: "PUT",
+                    headers: {
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
+                        ...getSupabaseHeaders()
+                    },
                     body: formData,
                 }
             );
@@ -84,10 +94,11 @@ export default function SettingProfileAdmin() {
     const update = async () => {
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id_user}`, {
+            const response = await fetch(getFunctionUrl(`user/${user.id_user}`), {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify(user),
             });
@@ -105,11 +116,12 @@ export default function SettingProfileAdmin() {
         try {
             console.log("Password baru:", passwordBaru);
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/${user.id_user}/password`, {
+            const response = await fetch(getFunctionUrl(`${user.id_user}/password`), {
 
                 method: 'PUT',
                 headers: {
-                    "Content-Type": 'application/json'
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify(password)
             })

@@ -17,7 +17,11 @@ const Login = () => {
 
     const getInfoDealer = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+            const response = await fetch(getFunctionUrl('footer'), {
+                headers: {
+                    ...getSupabaseHeaders()
+                }
+            });
 
             const data = await response.json();
             console.log('data footer', data)

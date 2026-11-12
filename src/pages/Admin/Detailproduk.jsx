@@ -644,7 +644,7 @@ export default function Detailproduk() {
 
     const addSpecProduk = async () => {
         console.log("DATA YANG DIKIRIM:", {
-            id_motor,
+            id,
             id_kategori_spesifikasi: formSpesifikasi.id_kategori_spesifikasi,
             nama_spesifikasi: formSpesifikasi.nama_spesifikasi,
             nilai: formSpesifikasi.nilai
@@ -751,7 +751,7 @@ export default function Detailproduk() {
     const getFotoProduk = async () => {
 
         try {
-            console.log("ID MOTOR:", id_motor);
+            console.log("ID MOTOR:", id);
 
             const response = await fetch(
                 getFunctionUrl(`foto_motor/${id}`), {

@@ -3,7 +3,7 @@ import CustomAlert from "../../components/CustomAlert"
 import AdminNavbar from "../../components/AdminNavbar";
 import { Link, useNavigate } from "react-router-dom";
 import { FaMotorcycle } from "react-icons/fa6";
-import { m } from "framer-motion";
+import { getFunctionUrl, getSupabaseHeaders } from "../../config/supabase";
 
 export default function PageForgatPassword() {
     const [email, setEmail] = useState("")
@@ -21,7 +21,11 @@ export default function PageForgatPassword() {
 
     const getInfoDealer = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+            const response = await fetch(getFunctionUrl('footer'), {
+                headers: {
+                    ...getSupabaseHeaders()
+                }
+            });
 
             const data = await response.json();
             console.log('data footer', data)
@@ -49,10 +53,10 @@ export default function PageForgatPassword() {
         try {
             setLoading(true);
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/sendOtp`, {
+            const response = await fetch(getFunctionUrl('auth/sendOtp'), {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getFunctionUrl()
                 },
                 body: JSON.stringify({
                     email
@@ -104,10 +108,10 @@ export default function PageForgatPassword() {
         try {
             setLoading(true)
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/forgot-password`, {
+            const response = await fetch(getFunctionUrl('auth/forgot-password'), {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getSupabaseHeaders()
                 },
                 body: JSON.stringify({
                     otp, email, passwordBaru, konfirmasiPassword

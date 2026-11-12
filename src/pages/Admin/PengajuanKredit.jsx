@@ -48,7 +48,14 @@ const PengajuanKredit = () => {
             message: 'Yakin ingin menghapus pengajuan ini?',
             onConfirm: async () => {
                 try {
-                    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`, { method: 'DELETE' })
+                    const response = await fetch(getFunctionUrl(`pengajuan/${id}`), {
+                        method: 'DELETE',
+                        headers: {
+                            ...getSupabaseHeaders(),
+                            Authorization: `Bearer ${token}`,
+                        }
+                    })
+
                     const data = await response.json()
                     if (data.success) {
                         getPengajuan()
@@ -69,11 +76,12 @@ const PengajuanKredit = () => {
     const updateStatus = async (id, status) => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/pengajuan/${id}`,
+                getFunctionUrl(`pengajuan/${id}`),
                 {
                     method: "PUT",
                     headers: {
-                        "Content-Type": "application/json"
+                        ...getKategoriSpesifikasi(),
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
                         status
@@ -95,6 +103,7 @@ const PengajuanKredit = () => {
     const getPengajuan = async () => {
         try {
             const response = await fetch(getFunctionUrl('pengajuan'));
+            
             const data = await response.json();
 
             console.log(data);

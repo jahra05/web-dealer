@@ -3,6 +3,7 @@ import Setting from "./Setting";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiChevronLeft } from "react-icons/bi";
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../../config/supabase"
 
 export default function SpecSetting() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -12,7 +13,11 @@ export default function SpecSetting() {
     const getKategoriSpesifikasi = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+                getFunctionUrl('kategori-spesifikasi'), {
+                headers: {
+                    ...getSupabaseHeaders()
+                }
+            }
             );
 
             const data = await response.json();
@@ -29,10 +34,11 @@ export default function SpecSetting() {
 
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi/${kategoriSpesifikasi.id_kategoriSpesifikasi}`, {
+            const response = await fetch(getFunctionUrl(`kategoriSpesifikasi/${kategoriSpesifikasi.id_kategoriSpesifikasi}`), {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                    apikey: SUPABASE_PUBLISHABLE_KEY,
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(footer),
             });

@@ -13,6 +13,7 @@ import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import { RxHamburgerMenu } from "react-icons/rx"
 import Notifikasi from "../../components/Notifikasi"
 import { motion } from 'framer-motion'
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY } from "../../config/supabase";
 
 
 
@@ -94,8 +95,8 @@ const Spesifikasi = () => {
         e.preventDefault();
 
         const url = isEdit
-            ? `${import.meta.env.VITE_API_URL}/api/spesifikasi/${selectedSpecId}`
-            : `${import.meta.env.VITE_API_URL}/api/spesifikasi`;
+            ? getFunctionUrl(`spesifikasi/${selectedSpecId}`)
+            : getFunctionUrl('spesifikasi');
 
         const method = isEdit ? "PUT" : "POST";
 
@@ -106,7 +107,8 @@ const Spesifikasi = () => {
                 {
                     method,
                     headers: {
-                        "Content-Type": "application/json",
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
+                        Authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify(formData),
                 }
@@ -149,8 +151,14 @@ const Spesifikasi = () => {
             onConfirm: async () => {
                 try {
                     const response = await fetch(
-                        `${import.meta.env.VITE_API_URL}/api/spesifikasi/${id}`,
-                        { method: 'DELETE' }
+                        getFunctionUrl(`spesifikasi/${id}`),
+                        {
+                            method: 'DELETE',
+                            headers: {
+                                ...getKategoriSpesifikasi(),
+                                Authorization: `Bearer ${token}`,
+                            }
+                        }
                     )
 
                     const data = await response.json()
@@ -175,7 +183,12 @@ const Spesifikasi = () => {
     const getKategoriSpesifikasi = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/kategoriSpesifikasi`
+                getFunctionUrl('kategori-spesifikasi'), {
+                headers: {
+                    ...getKategoriSpesifikasi(),
+                    Authorization: `Bearer ${token}`,
+                }
+            }
             );
 
             const data = await response.json();
@@ -190,7 +203,14 @@ const Spesifikasi = () => {
 
     const getMotor = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/motor`);
+            const response = await fetch(getFunctionUrl('motor'), {
+                headers: {
+                    ...getKategoriSpesifikasi(),
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+
+
             const data = await response.json();
             console.log(data);
 
@@ -204,7 +224,12 @@ const Spesifikasi = () => {
 
     const getSpesifikasi = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/spesifikasi`);
+            const response = await fetch(getFunctionUrl('spesifikasi'), {
+                headers: {
+                    ...getKategoriSpesifikasi(),
+                    Authorization: `Bearer ${token}`,
+                }
+            });
             const data = await response.json();
 
             console.log(data)
@@ -507,8 +532,8 @@ const Spesifikasi = () => {
                                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                                     disabled={page === 1}
                                     className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === 1
-                                            ? "text-slate-400 bg-slate-100"
-                                            : "text-slate-700 bg-white border border-slate-200"
+                                        ? "text-slate-400 bg-slate-100"
+                                        : "text-slate-700 bg-white border border-slate-200"
                                         }`}
                                 >
                                     Prev
@@ -523,8 +548,8 @@ const Spesifikasi = () => {
                                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                     disabled={page === totalPages}
                                     className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${page === totalPages
-                                            ? "text-slate-400 bg-slate-100"
-                                            : "text-slate-700 bg-white border border-slate-200"
+                                        ? "text-slate-400 bg-slate-100"
+                                        : "text-slate-700 bg-white border border-slate-200"
                                         }`}
                                 >
                                     Next

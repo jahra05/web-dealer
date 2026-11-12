@@ -4,6 +4,7 @@ import Setting from "./Setting"
 import { RxHamburgerMenu } from "react-icons/rx"
 import CustomAlert from "../../../components/CustomAlert"
 import { useNavigate } from "react-router-dom"
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../../config/supabase";
 
 export default function SettingProfileDealer() {
 
@@ -16,7 +17,11 @@ export default function SettingProfileDealer() {
     const getFooter = async () => {
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`)
+            const response = await fetch(getFunctionUrl('footer'), {
+                headers: {
+                    ...getSupabaseHeaders(),
+                }
+            })
 
             const data = await response.json();
             console.log(data)
@@ -31,10 +36,10 @@ export default function SettingProfileDealer() {
 
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer/${footer.id_footer}`, {
+            const response = await fetch(getFunctionUrl(`footer/${footer.id_footer}`), {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getSupabaseHeaders(),
                 },
                 body: JSON.stringify(footer),
             });
@@ -56,9 +61,12 @@ export default function SettingProfileDealer() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/footer/${footer.id_footer}/logo`,
+                getFunctionUrl(`footer/${footer.id_footer}/logo`),
                 {
                     method: "PUT",
+                    headers: {
+                        ...getSupabaseHeaders(),
+                    },
                     body: formData,
                 }
             );

@@ -8,6 +8,8 @@ import SettingProfileAdmin from "./SettingProfileAdmin";
 import SettingProfileDealer from "./SettingProfileDealer";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { pre, title } from "framer-motion/client";
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../../config/supabase";
+
 
 export default function Setting({ isOpen, onClose }) {
     const navigate = useNavigate()
@@ -16,7 +18,11 @@ export default function Setting({ isOpen, onClose }) {
 
     const getAllInfo = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`);
+            const response = await fetch(getFunctionUrl('footer'), {
+                headers: {
+                    ...getSupabaseHeaders()
+                }
+            });
             const data = await response.json();
             setSettingInfo(data.data[0])
         } catch (error) {

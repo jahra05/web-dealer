@@ -3,6 +3,8 @@ import Setting from "./Setting";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiChevronLeft } from "react-icons/bi";
+import { getFunctionUrl, getSupabaseHeaders, SUPABASE_PUBLISHABLE_KEY, } from "../../../config/supabase"
+
 
 export default function Footer() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -12,7 +14,11 @@ export default function Footer() {
 
     const getFooter = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer`)
+            const response = await fetch(getFunctionUrl('footer'), {
+                headers: {
+                    ...getSupabaseHeaders()
+                }
+            })
             const data = await response.json()
 
             setFooter(data.data[0])
@@ -25,10 +31,11 @@ export default function Footer() {
 
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/footer/${footer.id_footer}`, {
+            const response = await fetch(getFunctionUrl(`footer/${footer.id_footer}`), {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(footer),
             });

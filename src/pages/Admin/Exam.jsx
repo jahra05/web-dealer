@@ -8,6 +8,7 @@ import UserMenuDropdwn from "../../components/UserMenuDropdown"
 import Notifikasi from "../../components/Notifikasi"
 import { BiChevronDown } from "react-icons/bi"
 import { motion } from 'framer-motion'
+import { getFunctionUrl, getSupabaseHeaders, } from "../../config/supabase";
 
 const MONTHS = [
     { value: "1", label: "Januari" },
@@ -39,6 +40,7 @@ const Exam = () => {
     const [activeLaporan, setActiveLaporan] = useState('produk')
     const [open, setOpen] = useState(false)
 
+
     const laporanMenu = [
         { key: 'produk', label: "Laporan Produk" },
         { key: 'pengajuanKredit', label: "Pengajuan Kredit" },
@@ -47,42 +49,65 @@ const Exam = () => {
     ]
 
     // Panggil API laporan dengan parameter filter
+
     const getLaporan = useCallback(async (tabName, filterOverride) => {
         const p = filterOverride?.periode ?? periode;
         const b = filterOverride?.bulan ?? bulan;
         const t = filterOverride?.tahun ?? tahun;
 
-        setTab(tabName);
-        let url = `${import.meta.env.VITE_API_URL}/api/laporan/${tabName}`;
+        let url = getFunctionUrl(`laporan/${tabName}`);
+
+        const params = new URLSearchParams();
 
         if (p === "bulanan") {
-            url += `?periode=bulanan&bulan=${b}&tahun=${t}`;
+            params.append("periode", "bulanan");
+            params.append("bulan", b);
+            params.append("tahun", t);
         } else if (p === "tahunan") {
-            url += `?periode=tahunan&tahun=${t}`;
+            params.append("periode", "tahunan");
+            params.append("tahun", t);
+        }
+
+        if (params.toString()) {
+            url += `?${params.toString()}`;
         }
 
         try {
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    ...getSupabaseHeaders(),
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
             const data = await response.json();
-            if (data.success) {
-                setLaporan(data.data);
-                return data.data;
+
+            if (!response.ok || !data.success) {
+                console.error("GAGAL LAPORAN:", data.message);
+                return [];
             }
+
+            return data.data;
+
         } catch (error) {
-            console.log(error);
+            console.error("ERROR LAPORAN:", error);
+            return [];
         }
     }, [periode, bulan, tahun]);
 
-    // Fetch data saat komponen mount
-    useEffect(() => {
-        getLaporan(tab);
-    }, []);
+
 
     // Auto reload saat periode, bulan, atau tahun berubah
     useEffect(() => {
-        getLaporan(tab);
+        const fetchLaporan = async () => {
+            const data = await getLaporan(tab);
+            setLaporan(data);
+        };
+
+        fetchLaporan();
         setPage(1);
-    }, [periode, bulan, tahun, tab]);
+    }, [getLaporan, tab]);
 
     const totalPages = Math.max(1, Math.ceil(laporan.length / rowsPerPage));
     const pageItems = laporan.slice((page - 1) * rowsPerPage, page * rowsPerPage);
@@ -173,6 +198,11 @@ const Exam = () => {
         });
     };
 
+    const handleChangeLaporan = (item) => {
+        setTab(item.key);
+        setActiveLaporan(item.key);
+        setOpen(false);
+    };
     // ── Render helpers ──
 
     const renderFilterSelects = () => (
@@ -304,13 +334,8 @@ const Exam = () => {
                                         {open && (
                                             <div className="absolute top-full left-0 mt-4 w-56 bg-white rounded-lg shadow-lg border border-gray-100 p-1">
                                                 {laporanMenu.map((item) => (
-                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
-                                                        setActiveLaporan(item.key),
-                                                            getLaporan(item.key),
-                                                            setOpen(false)
-                                                    }
-
-                                                    }>{item.label}</button>
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key}
+                                                        onClick={() => handleChangeLaporan(item)}>{item.label}</button>
                                                 ))}
                                             </div>
                                         )}
@@ -375,17 +400,11 @@ const Exam = () => {
                                         <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2" >
                                             Laporan <BiChevronDown />
                                         </button>
-
                                         {open && (
-                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white  rounded-lg shadow-lg border border-gray-100 p-1">
+                                            <div className="absolute top-full left-0 mt-4 w-56 bg-white rounded-lg shadow-lg border border-gray-100 p-1">
                                                 {laporanMenu.map((item) => (
-                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key} onClick={() => {
-                                                        setActiveLaporan(item.key),
-                                                            getLaporan(item.key),
-                                                            setOpen(false)
-                                                    }
-
-                                                    }>{item.label}</button>
+                                                    <button className={`w-full text-left text-md border-b border-gray-100 p-1 hover:text-[#00203b] ${activeLaporan === item.key ? 'text-[#00203b] font-medium' : 'text-gray-600'}`} key={item.key}
+                                                        onClick={() => handleChangeLaporan(item)}>{item.label}</button>
                                                 ))}
                                             </div>
                                         )}
